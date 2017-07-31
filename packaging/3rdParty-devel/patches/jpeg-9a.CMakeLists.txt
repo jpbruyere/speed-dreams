@@ -1,0 +1,109 @@
+#
+#==============================================================================
+#
+#    file                 : CMakeLists.txt
+#    created              : Aug 8 2015
+#    copyright            : (C) 2015 Joe Thompson
+#    email                : beaglejoe@users.sourceforge.net
+#    version              : $Id:$
+#
+#==============================================================================
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#==============================================================================
+#
+cmake_minimum_required(VERSION 2.8)
+
+project(jpeg C)
+
+set(VERSION "9a")
+
+
+include_directories(include)
+
+set(jpeg_SOURCES jaricom.c
+                 jcapimin.c
+                 jcapistd.c
+                 jcarith.c
+                 jccoefct.c
+                 jccolor.c
+                 jcdctmgr.c
+                 jchuff.c
+                 jcinit.c
+                 jcmainct.c
+                 jcmarker.c
+                 jcmaster.c
+                 jcomapi.c
+                 jcparam.c
+                 jcprepct.c
+                 jcsample.c
+                 jctrans.c
+                 jdapimin.c
+                 jdapistd.c
+                 jdarith.c
+                 jdatadst.c
+                 jdatasrc.c
+                 jdcoefct.c
+                 jdcolor.c
+                 jddctmgr.c
+                 jdhuff.c
+                 jdinput.c
+                 jdmainct.c
+                 jdmarker.c
+                 jdmaster.c
+                 jdmerge.c
+                 jdpostct.c
+                 jdsample.c
+                 jdtrans.c
+                 jerror.c
+                 jfdctflt.c
+                 jfdctfst.c
+                 jfdctint.c
+                 jidctflt.c
+                 jidctfst.c
+                 jidctint.c
+                 jmemmgr.c
+                 jmemnobs.c
+                 jquant1.c
+                 jquant2.c
+                 jaricom
+                 jutils.c
+                    )
+
+set(jpeg_HEADERS jconfig.h
+                 jdct.h
+                 jerror.h
+                 jinclude.h
+                 jmemsys.h
+                 jmorecfg.h
+                 jpegint.h
+                 jpeglib.h
+                 jversion.h
+                )
+
+
+add_library(jpeg STATIC ${jpeg_SOURCES} ${jpeg_HEADERS})
+
+
+install(FILES jconfig.h
+              jerror.h 
+              jmorecfg.h
+              jpeglib.h
+              DESTINATION include)
+
+install(TARGETS jpeg
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib)

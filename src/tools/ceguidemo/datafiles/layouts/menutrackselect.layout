@@ -1,0 +1,186 @@
+<GUILayout>
+    <Window Name="MenuTrackSelect" Type="CEGUIDemo/StaticImage">
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property Name="Image" Value="set:SplashTrackSelect image:everything" />
+        <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+        <Property Name="FrameEnabled" Value="False" />
+        <Property Name="BackgroundEnabled" Value="False" />
+        <Window Name="MenuTrackSelect/ImgLogo" Type="CEGUIDemo/StaticImage">
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0.3,0},{0.25,0}}" />
+            <Property Name="Image" Value="set:Logo image:everything" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="Tooltip" Value="What a nice logo !" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuTrackSelect/TxtTitle" Type="CEGUIDemo/PageTitle">
+            <Property Name="UnifiedAreaRect" Value="{{0.22,0},{0.1,0},{0.92,0},{0.2,0}}" />
+            <Property Name="Font" Value="MenuTitle" />
+            <Property Name="Text" Value="Select a track" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="Tooltip" Value="Yeah, this is the title of the menu !" />
+            <Property Name="FrameEnabled" Value="False" />
+            <AutoWindow NameSuffix="__auto_hscrollbar__">
+                <Property Name="Tooltip" Value="Yeah, this is the title of the menu !" />
+                <AutoWindow NameSuffix="__auto_incbtn__">
+                    <Property Name="Tooltip" Value="Yeah, this is the title of the menu !" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_decbtn__">
+                    <Property Name="Tooltip" Value="Yeah, this is the title of the menu !" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_thumb__">
+                    <Property Name="Tooltip" Value="Yeah, this is the title of the menu !" />
+                </AutoWindow>
+            </AutoWindow>
+            <AutoWindow NameSuffix="__auto_vscrollbar__">
+                <Property Name="Tooltip" Value="Yeah, this is the title of the menu !" />
+                <AutoWindow NameSuffix="__auto_incbtn__">
+                    <Property Name="Tooltip" Value="Yeah, this is the title of the menu !" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_decbtn__">
+                    <Property Name="Tooltip" Value="Yeah, this is the title of the menu !" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_thumb__">
+                    <Property Name="Tooltip" Value="Yeah, this is the title of the menu !" />
+                </AutoWindow>
+            </AutoWindow>
+        </Window>
+        <Window Name="MenuTrackSelect/TxtFrameRate" Type="CEGUIDemo/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0.95,0},{0.01,0},{0.99,0},{0.04,0}}" />
+            <Property Name="Font" Value="TextSmall" />
+            <Property Name="Text" Value="99.9" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="TextColours" Value="tl:FFFFFFFF tr:FFC0C0C0 bl:FF808080 br:FF606060" />
+            <Property Name="Tooltip" Value="Frame rate (F/s)" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="HorzFormatting" Value="RightAligned" />
+            <Property Name="VertFormatting" Value="TopAligned" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuTrackSelect/BtnCredits" Type="CEGUIDemo/Button">
+            <Property Name="UnifiedAreaRect" Value="{{0.3,0},{0,0},{0.43,0},{0.05,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="Text" Value="Credits" />
+            <Property Name="Tooltip" Value="Thanks to all contributors !" />
+        </Window>
+        <Window Name="MenuTrackSelect/BtnProfiles" Type="CEGUIDemo/Button">
+            <Property Name="UnifiedAreaRect" Value="{{0.45,0},{0,-1},{0.58,0},{0.05,-1}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="Text" Value="Profiles" />
+            <Property Name="Tooltip" Value="Configure player input controls / profiles" />
+        </Window>
+        <Window Name="MenuTrackSelect/BtnOptions" Type="CEGUIDemo/Button">
+            <Property Name="UnifiedAreaRect" Value="{{0.6,0},{0,0},{0.73,0},{0.05,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="Text" Value="Options" />
+            <Property Name="Tooltip" Value="Settings for display, graphics, simulation ..." />
+        </Window>
+        <Window Name="MenuTrackSelect/BtnExit" Type="CEGUIDemo/Button">
+            <Property Name="UnifiedAreaRect" Value="{{0.75,0},{0,0},{0.88,0},{0.05,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="Text" Value="Exit" />
+            <Property Name="Tooltip" Value="Exit from the game" />
+        </Window>
+        <Window Name="MenuTrackSelect/BtnBack" Type="CEGUIDemo/Button">
+            <Property Name="UnifiedAreaRect" Value="{{0.1,0},{0.9,0},{0.25,0},{0.95,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="Text" Value="Back" />
+            <Property Name="Tooltip" Value="Back to main benu" />
+        </Window>
+        <Window Name="MenuTrackSelect/BtnNext" Type="CEGUIDemo/Button">
+            <Property Name="UnifiedAreaRect" Value="{{0.75,0},{0.9,0},{0.9,0},{0.95,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="Text" Value="Next" />
+            <Property Name="Tooltip" Value="Select you car for the race" />
+        </Window>
+        <Window Name="MenuTrackSelect/CbxCategory" Type="CEGUIDemo/Combobox">
+            <Property Name="UnifiedAreaRect" Value="{{0.54,0},{0.28,0},{0.95,0},{0.48,0}}" />
+            <Property Name="Font" Value="MenuNormal" />
+            <Property Name="ReadOnly" Value="True" />
+            <Property Name="Tooltip" Value="Choose the category of the track" />
+			<Property Name="EditTextFormatting" Value="HorzCentred" />
+        </Window>
+        <Window Name="MenuTrackSelect/CbxTrack" Type="CEGUIDemo/Combobox">
+            <Property Name="UnifiedAreaRect" Value="{{0.54,0},{0.35,0},{0.95,0},{0.55,0}}" />
+            <Property Name="Font" Value="MenuNormal" />
+            <Property Name="ReadOnly" Value="True" />
+            <Property Name="Tooltip" Value="Choose the track" />
+			<Property Name="EditTextFormatting" Value="HorzCentred" />
+        </Window>
+        <Window Name="MenuTrackSelect/LblLength" Type="CEGUIDemo/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0.54,0},{0.585,0},{0.70,0},{0.65,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="Text" Value="Length:" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuTrackSelect/LblWidth" Type="CEGUIDemo/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0.54,0},{0.635,0},{0.70,0},{0.70,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="Text" Value="Width:" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuTrackSelect/LblNbPits" Type="CEGUIDemo/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0.54,0},{0.685,0},{0.70,0},{0.75,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="Text" Value="Pit slots:" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuTrackSelect/LblAuthors" Type="CEGUIDemo/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0.54,0},{0.735,0},{0.70,0},{0.80,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="Text" Value="Authors:" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuTrackSelect/TxtDesc" Type="CEGUIDemo/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0.54,0},{0.445,0},{0.95,0},{0.59,0}}" />
+            <Property Name="Font" Value="MenuNormal" />
+            <Property Name="HorzFormatting" Value="WordWrapLeftAligned" />
+            <Property Name="VertFormatting" Value="ToptAligned" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuTrackSelect/TxtLength" Type="CEGUIDemo/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0.70,0},{0.59,0},{0.94,0},{0.64,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuTrackSelect/TxtWidth" Type="CEGUIDemo/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0.70,0},{0.64,0},{0.94,0},{0.69,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuTrackSelect/TxtNbPits" Type="CEGUIDemo/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0.70,0},{0.69,0},{0.94,0},{0.74,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuTrackSelect/TxtAuthors" Type="CEGUIDemo/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0.70,0},{0.74,0},{0.94,0},{0.90,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="HorzFormatting" Value="WordWrapLeftAligned" />
+            <Property Name="VertFormatting" Value="ToptAligned" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuTrackSelect/ImgOutline" Type="CEGUIDemo/StaticImage">
+            <Property Name="UnifiedAreaRect" Value="{{0.1,0},{0.4,0},{0.5,0},{0.8,0}}" />
+            <Property Name="Tooltip" Value="Outline of the track" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+    </Window>
+</GUILayout>

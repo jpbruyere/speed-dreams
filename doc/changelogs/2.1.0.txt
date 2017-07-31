@@ -1,0 +1,49 @@
+Speed Dreams 2.1.0 Release notes
+================================
+
+I - Main changes since 2.0.0 (r4687)
+-----------------------------------------------------------------
+
+ Physics
+ *Simuv4 : a better Simuv2.1, to make it obvious this our latest and greatest simulation engine
+   * single wheel braking and air braking for robots
+   * added a feature system to introduce new features and still keeping old robot setups working
+   * fix wheels oscillating and cars sliding at low speed
+   * more realistic, fuel-cut type rev-limiter
+   * more realistic gear change model as a feature, by default it is off because it does not work well with grid shifting
+   * a qualitative tire temperature and tire wear model as a feature, by default it is off, 
+   * 2 new wing type models: profile wing, and thin wing
+   * experimental support for 3rd or heave spring and damper
+
+ Cars
+ * new physics for MPA1 carset, based on good ol' Champcar racing
+ * improved LS1 Cavallo physics
+ vn remove untracked improved Supercars physics: reworked Lynx, Cavallo and Murasama; some more improvements on the others
+ * improved GP36 physics
+ * animated drivers on MPA1 carset
+
+ Tracks
+ * improvements to Goldstone-Sand, Mile raceway
+
+ Robots
+ * Tuning for USR/Simplex Supercars and LS1
+
+ Input control
+ * Ability to reconfigure controls during race (ESC menu)
+ * Unified Human/Network-Human control scheme
+
+ Sounds
+ * Menu music
+
+ Graphics
+ * Anisotrpopic filtering mode
+ * 24 hour mode, day/night cycle in any race duration (ie mini-24hr LeMans)
+ * Realistic Sun/Moon movement and graphics
+ * Improved rear-view mirror graphics/perfomance
+ * 'Span Splits' mode for mutli-monitor setups, allow bezel compensation 
+   and distortion correction
+ * Improved HUD displays
+
+ Race engine
+ * Cmake 'OPTION_REPEATABLE_RANDOM' for constant randomness
+

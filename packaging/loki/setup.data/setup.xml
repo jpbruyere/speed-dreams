@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<install product="speed-dreams" desc="Speed Dreams - an Open Motorsport Simulator" version="1.4.0" binarypath="/usr/bin"
+         promptbinaries="yes" express="no">
+
+	<readme>
+		README
+	</readme>
+
+	<eula>
+		LICENSE
+	</eula>
+
+	<component name="Default" version="1.4.0" default="yes">
+		<option arch="x86" install="true" required="true">
+			Speed Dreams Base System
+			<help>Speed Dreams core package : the application, cars, tracks and AI opponents.</help>
+			<binary arch="x86" libc="any" symlink="speed-dreams" icon="icon.xpm" play="yes">
+				speed-dreams
+			</binary>
+			<files>
+				speed-dreams_base.tar.gz
+				icon.xpm
+			</files>
+			<script>
+				sh setup.data/scripts/core_finalize.sh
+			</script>
+		</option>
+
+		<option install="true" arch="x86">
+			Mod tools
+			<help>Tools for building cars and tracks : trackgen, accc, nfsperf and nfs2ac.</help>
+			<binary arch="x86" libc="any" symlink="sd-accc">
+				sd-accc
+			</binary>
+			<binary arch="x86" libc="any" symlink="sd-trackgen">
+				sd-trackgen
+			</binary>
+			<binary arch="x86" libc="any" symlink="sd-nfs2ac">
+				sd-nfs2ac
+			</binary>
+			<binary arch="x86" libc="any" symlink="sd-nfsperf">
+				sd-nfsperf
+			</binary>
+			<binary arch="x86" libc="any" symlink="sd-texmapper">
+				sd-texmapper
+			</binary>
+			<files>
+				speed-dreams_tools.tar.gz
+			</files>
+			<script>
+				sh setup.data/scripts/tools_finalize.sh
+			</script>
+		</option>
+
+	</component>
+</install>
+

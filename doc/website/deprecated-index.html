@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+	
+	<title>Speed Dreams : An Open Motorsport Sim</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<meta http-equiv="content-language" content="en" />
+	<meta name="language" content="en" />
+	<meta name="robots" content="INDEX,follow" />
+	<meta name="Keywords" content="speed-dreams, torcs, racing game, race, game, cars, racing cars, motorport, simulation, 3d, open source, design, laps, tracks, development" />
+	<meta name="Description" content="Speed Dreams is a fork of The famous Open Racing Car Simulator TORCS" />
+	<meta name="revisit-after" content="28 Days" />
+	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+	<link rel="stylesheet" href="src/speed-dreams.css" type="text/css" media="screen" /></head>
+
+<body>
+<div id="header-image"><img src="pic/speed-dreams-header.jpg" alt="Speed Dreams : An Open Motorsport Simulator" /></div>
+<ul id="navigation">
+	<li><a href="#1">» Welcome</a></li>
+	<li><a href="#2">» Contribute</a></li>
+	<li><a href="#3">» Release process</a></li>
+	<li><a href="#4">» Dowloads</a></li>
+	<li><a href="#5">» Links &amp; Lists</a></li>
+</ul>
+
+<div id="content">
+
+	<a name="1"><h1>Welcome to Speed Dreams, an Open Motorsport Sim !</h1></a>
+	<p>Speed Dreams
+is a fork of the famous open racing car simulator TORCS, aiming to implement
+exciting new features, cars, tracks and AI opponents to make a more
+enjoyable game for the player, as well as constantly improving visual and physics realism.</p>
+	<p>In other words, Speed Dreams is the place:</p>
+	<ul>
+		<li>where developers can try their ideas and have every chance to get them released to the end-users 
+			(<strong>democracy</strong> is the main principle ruling the dev team),</li>
+		<li>where end-users can enjoy the completion of these ideas and give their opinion about it, and/or make new suggestions.</li>
+	</ul>
+	<p>So,
+if you find your or some people's Torcs patch proposals don't integrate
+the official release as quickly as you would have loved, you have
+reached the right place !</p>
+		
+	<a name="2"><h1>How to contribute</h1></a>
+	<p>You can contribute to Speed Dreams as an "end-user" and / or as a "developer":</p>
+	<ul>
+		<li>as an end-user (check <a href="http://sourceforge.net/project/showfiles.php?group_id=239111">the Download page on SF.net</a> for how to get source / binary releases and <a href="http://sourceforge.net/apps/trac/speed-dreams">our Wiki (under construction)</a> to get more information on the project):
+			<ul>
+				<li>help the dev team to test pre-releases</li>
+				<li>suggest improvements, express your support or disgust about changes</li>
+				<li>ask questions about compilation / build from source problems</li>
+				<li>...</li>
+			</ul>
+			all through our users mailing list: <a href="mailto:speed-dreams-users@lists.sourceforge.net">speed-dreams-users@lists.sourceforge.net</a>
+			or our <a href="http://sourceforge.net/apps/trac/speed-dreams">bug / feature tracker</a></li>
+			or our <a href="http://chat.jabberfr.org/muckl_int/index.php?room=speed-dreams-users">users chat room on JabberFr</a></li>
+		<li>as a developer (see <a href="http://sourceforge.net/svn/?group_id=239111">the Code menu in SF.net</a> for how to get the source tree from the Subversion repository):
+			<ul>
+				<li>as guest contributor, you may propose your adds / improvements as <strong>patches</strong> (patch files built via diff -Naur or equivalent) against the latest source tree, 
+					and send them to us as attached files through our devel mailing list <a href="mailto:speed-dreams-devel@lists.sourceforge.net">speed-dreams-devel@lists.sourceforge.net</a>
+					or our <a href="http://sourceforge.net/apps/trac/speed-dreams">bug / feature tracker</a>;
+					feel also free to join the dev. team daily discussions and monthly meetings in <a href="http://chat.jabberfr.org/muckl_int/index.php?room=speed-dreams-dev">our developers char room on JabberFr</a>;
+you don't have write access yet to the SVN repository, but it's up to
+you to prove us your skills and innovation ability as a programmer, a
+software architect, an artist, ... as well as your self-discipline in
+testing ;-) ... and that way, you may enter step by step in the dev.
+team ...</li>
+				<li>as
+a registered developer, you now have write access to the SVN
+repository and can simply commit your adds / improvements ;
+that way, they can be easily tested and reviewed by anyone
+updating his working copy of the source tree; but be responsible, never forget
+that <strong>democracy</strong> is the main rule in the dev. team, 
+so, before committing and even begining to work on, explain first
+the details of your project, ask everyone's opinion ...
+enjoy each other skills and thoughts to improve your work !
+And you're likely to endorse some particular development mission
+or become the recognized expert of the team on some subject ...</li>
+			</ul>
+	</li></ul>
+	<p> <br />Your contribution to Speed Dreams may take place in many domains :</p>
+	<ul>
+		<li>The
+core code itself, and its numerous subjects : user interface, physics
+engine, 3D graphics engine, race managment, input device related code,
+file formats, ... to enhance, optimize, make more up-to-date, fix bugs,
+port to another platform ...</li>
+		<li>the robot(s) code (AI racing)</li>
+		<li>the cars design or tuning</li>
+		<li>the tracks design</li>
+		<li>the documentation</li>
+		<li>... feel free to suggest ...</li>
+	</ul>
+
+	<a name="3"><h1>Speed Dreams release process</h1></a>
+	<p>Speed Dreams
+won't follow Torcs release stream : we plan to adopt a pace&nbsp;of 1 or 2 releases a year,
+and to simply integrate&nbsp;all interesting changes / fixes that Torcs would have released
+meanwhile.</p>
+	<p>As already said, the content of each release will be <strong>democratically</strong>
+decided inside the dev team. Stability and bug freeness is not our
+first purpose, but it's just the second one: modifications that are not
+really completed, well tested or that may degrade the simulation
+realism, some other essential feature or performance, or the end-user
+gaming experience, ... won't be released (unless they are of great interest
+and can be completely switched off through some menu button or keyboard shortcut).</p>
+For the moment, the supported platforms are Linux (x86, x86_64) and 32 bit
+Windows XP and Vista ; the Mac OS X port is 95% finished, but volunteers are welcome for any other ...
+<br/><br/>
+	<a name="4"><h1>Downloads</h1></a>
+<p>The current official release the <a href="http://sourceforge.net/project/showfiles.php?group_id=239111">1.4.0</a> ; it features :</p>
+	  <ul>
+	    <li>visually <span style="font-weight: bold;">reworked menus</span> by Brian Gavin, Eckhard Jaeger, Andrew Sumner and Jean-Philippe Meuret,</li>
+	    <li>3 amazing fine tuned and balanced new car sets by Andrew Sumner and Haruna Say :&nbsp;<span style="font-weight: bold;">Super Cars</span>, <span style="font-weight: bold;">36 GP</span> and <span style="font-weight: bold;">LS-GT1</span>,</li>
+	    <li>an <span style="font-weight: bold;">updated TRB1 car set</span> (well balanced, more realistic behaviour),</li>
+	    <li>3 exciting <span style="font-weight: bold;">new tracks</span> and many visually improved ones,</li>
+	    <li>smashing <span style="font-weight: bold;">liveries</span> for all these cars,&nbsp;by Eckhard M. Jaeger and Haruna Say,</li>
+	    <li>2 new TRB <span style="font-weight: bold;">first-class robot</span> for the Supercars, 36 GP and TRB1 car sets :<p>
+		USR by Andrew Sumner and Simplix by Wolf-Dieter Beelitz (at last real AI opponents !),</li>
+	    <li>animated driver by Andrew Sumner on 36GP cars,&nbsp;3D wheels for all cars by Eric Espie,</li>
+	    <li>2 new leader-board modes by Gabor Kmetyko,&nbsp;smoke on spinning tires by Andrew Sumner,</li>
+	    <li>brand new <span style="font-weight: bold;">gauges</span> by Eckhard M. Jaeger, and many many other small visual improvements,</li>
+	    <li>experimental <span style="font-weight: bold;">Simu V3 physics engine</span> by Christos Dimitrakakis,</li>
+	    <li>many menu improvements (support for grid shifting, optimized track select load time, <p>
+		category filter when selecting driver, more infos in results and standings boards),</li>
+	    <li>and more ...</li>
+	  </ul>
+	  <br />And with the <a href="http://speed-dreams.svn.sourceforge.net/viewvc/speed-dreams/trunk">following release</a> (1.5 or 2.0, CMake built, by the end of 2010), you will :<br />
+	  <ul>
+	    <li>enjoy <span style="font-weight: bold;">network racing</span> : race against your friends over the internet,</li>
+	    <li>feel the cars in your hands with <span style="font-weight: bold;">force feedback</span>,</li>
+	    <li>race at <span style="font-weight: bold;">night</span> under the stars, or in full midday sunlights, as you'll be able to choose <span style="font-weight: bold;">the hour of the day</span>,</li>
+	    <li>enjoy your favorite tracks under heavy <span style="font-weight: bold;">clouds</span> or even true falling <span style="font-weight: bold;">rain</span></li>
+	    <li>run a real racer life-time <span style="font-weight: bold;">career</span>,</li>
+	    <li>... and more (work in progress plan) !</li>
+	  </ul>
+	
+	<a name="5"><h1>Links &amp; Lists</h1></a>
+	  <ul>
+	    <li><a href="http://sourceforge.net/project/showfiles.php?group_id=239111">Speed Dreams Download page on SF.net</a></li>
+	    <li><a href="http://twitter.com/speed_dreams">Speed Dreams @ Twitter</a></li>
+	    <li><a href="http://sourceforge.net/apps/trac/speed-dreams">Speed Dreams Wiki (under construction)</a></li>
+	    <li><a href="mailto:speed-dreams-users@lists.sourceforge.net">Speed Dreams users mailing list</a> and its <a href="http://sourceforge.net/mailarchive/forum.php?forum_name=speed-dreams-users">archives</a></li>
+	    <li><a href="http://chat.jabberfr.org/muckl_int/index.php?room=speed-dreams-users">Speed Dreams users chat room on JabberFr</a> and its <a href="http://chat.jabberfr.org/logs/speed-dreams-users@chat.jabberfr.org/">archives</a></li>
+	    <li><a href="mailto:speed-dreams-devel@lists.sourceforge.net">Speed Dreams developers mailing list</a> and its <a href="http://sourceforge.net/mailarchive/forum.php?forum_name=speed-dreams-devel">archives</a></li>
+	    <li><a href="http://chat.jabberfr.org/muckl_int/index.php?room=speed-dreams-dev">Speed Dreams developers chat room on JabberFr</a> and its <a href="http://chat.jabberfr.org/logs/speed-dreams-dev@chat.jabberfr.org">archives</a></li>
+	    <li><a href="http://sourceforge.net/svn/?group_id=239111">Speed Dreams SVN repository HOW-TO</a> and 
+		<a href="http://speed-dreams.svn.sourceforge.net">on-line browser</a></li>
+	    <li>Build and install Speed Dreams (<a href="http://speed-dreams.svn.sourceforge.net/viewvc/speed-dreams/trunk/INSTALL?view=markup">next release branch</a> or <a href="http://speed-dreams.svn.sourceforge.net/viewvc/speed-dreams/branches/1.4.x/INSTALL?view=markup">1.4 maintenance branch</a>)</li>
+	<br>
+	    <li><a href="http://www.torcs.org">Torcs : The Open Racing Car Simulator</a>&nbsp;and 
+		  <a href="http://sourceforge.net/projects/torcs">its project page at SF.net</a></li>
+	  </ul>
+</div>
+
+<div id="sourceforge">
+	<a href="http://sourceforge.net/projects/speed-dreams"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=239111&amp;type=14" width="150" height="40" alt="Get Speed Dreams at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a>
+</div>
+</body></html>

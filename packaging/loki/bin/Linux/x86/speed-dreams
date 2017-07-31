@@ -1,0 +1,106 @@
+#! /bin/bash
+# @configure_input@
+
+##############################################################################
+#
+#    file                 : speed-dreams.in
+#    created              : Sat Sep 11 20:20:04 CEST 1999
+#    copyright            : (C) 1999 by Eric Espie
+#    email                : torcs@free.fr
+#    version              : $Id: speed-dreams.in,v 1.5.2.1 2008/06/01 20:19:38 berniw Exp $
+#
+##############################################################################
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+##############################################################################
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+
+BINDIR=${exec_prefix}
+LIBDIR=${exec_prefix}/lib
+DATADIR=${prefix}/share
+VARDIR=${prefix}/var
+
+LOCAL_CONF=$HOME/.speed-dreams
+
+if [ -d $DATADIR ]
+then
+    cd $DATADIR
+    if [ "$1" != "-k" ] || [ ! -d $LOCAL_CONF ]
+    then
+	if [ ! -d $LOCAL_CONF ]
+	then
+	    rm -rf $LOCAL_CONF
+	    mkdir -p $LOCAL_CONF
+	    echo "Created $LOCAL_CONF"
+	fi
+	if [ -f $LIBDIR/setup_linux.sh ]
+	then
+	    echo "Copying/linking/updating game data"
+	    /bin/bash $LIBDIR/setup_linux.sh $LOCAL_CONF
+	    if [ $? -ne 0 ]
+	    then
+		exit 1
+	    fi
+	else
+	    echo "$LIBDIR/setup_linux.sh file does not exist, check your installation"
+	    exit 1
+	fi
+    fi
+    if [ "$1" = "-k" ]
+    then
+	echo "Kept game data untouched"
+	shift
+    fi
+    export LD_LIBRARY_PATH=$LIBDIR/lib:$LD_LIBRARY_PATH
+    case $1 in
+	# List the library used
+	-l) shift
+	    ldd $LIBDIR/speed-dreams-bin
+	    ;;
+
+	# Run under GDB
+	-d) shift
+	    gdb $LIBDIR/speed-dreams-bin <<EOF
+r -l $LOCAL_CONF -L $LIBDIR -D $DATADIR $*
+bt
+EOF
+	    ;;
+
+	# Run under valgrind
+	-v) shift
+	    valgrind --leak-check=full $LIBDIR/speed-dreams-bin -l $LOCAL_CONF -L $LIBDIR -D $DATADIR $*
+	    ;;
+
+	-e) shift
+	    echo "cd $DATADIR"
+	    echo "export LD_LIBRARY_PATH=$LIBDIR/lib:$LD_LIBRARY_PATH"
+	    echo "gdb  $LIBDIR/speed-dreams-bin"
+	    echo "r -l $LOCAL_CONF -L $LIBDIR -D $DATADIR $*"
+	    ;;
+
+	-h)
+	    echo "usage: speed-dreams [-k] [-l|-d|-e]"
+	    echo "   -k  keep untouched $LOCAL_CONF, even just after a make install"
+	    echo "   -l  list the dynamically linked libraries"
+	    echo "   -d  run under gdb and print stack trace on exit"
+	    echo "   -v  run under valgrind and print leak info on exit"
+	    echo "   -e  display the commands to issue when you want to run under gdb"
+	    ;;
+
+	# Normal run
+	*) $LIBDIR/speed-dreams-bin -l $LOCAL_CONF -L $LIBDIR -D $DATADIR $*
+	    ;;
+
+    esac
+    exit 0
+fi
+
+echo "Speed Dreams location not found"
+	
+	

@@ -1,0 +1,23 @@
+==10737== Callgrind, a call-graph generating cache profiler.
+==10737== Copyright (C) 2002-2008, and GNU GPL'd, by Josef Weidendorfer et al.
+==10737== Using LibVEX rev 1884, a library for dynamic binary translation.
+==10737== Copyright (C) 2004-2008, and GNU GPL'd, by OpenWorks LLP.
+==10737== Using valgrind-3.4.1, a dynamic binary instrumentation framework.
+==10737== Copyright (C) 2000-2008, and GNU GPL'd, by Julian Seward et al.
+==10737== For more details, rerun with: -v
+==10737== 
+==10737== My PID = 10737, parent PID = 8232.  Prog and args are:
+==10737==    ./speed-dreams
+==10737== 
+==10737== For interactive control, run 'callgrind_control -h'.
+==10737== 
+==10737== Events    : Ir
+==10737== Collected : 86591360498
+==10737== 
+==10737== I   refs:      86,591,360,498
+
+Around 6 fph (frames per hour)
+
+real    32m55.167s
+user    30m41.750s
+sys     0m29.779s

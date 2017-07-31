@@ -1,0 +1,86 @@
+Signal lights around the track
+==============================
+It is possible to use tracklights in tracks.
+Currently, five types of lights are supported (all starting lights):
+* red start lights
+* green start lights A
+* green start lights B
+* yellow start lights
+
+All these lights can have an index. I will explain the meaning of these for
+every type of light. But first I will give a general example and explain every
+option in it:
+
+Example
+=======
+This example comes from the dirt-3 track.
+
+<section name="Track Lights">
+  <section name="1">
+    <attstr name="role" val="st_red" />
+    <attnum name="index" val="10" />
+    <section name="topleft">
+      <attnum name="x" val="525.27" />
+      <attnum name="y" val="182.68" />
+      <attnum name="z" val="20" />
+    </section>
+    <section name="bottomright">
+      <attnum name="x" val="525.27" />
+      <attnum name="y" val="181.68" />
+      <attnum name="z" val="19" />
+    </section>
+    <attstr name="texture on" val="data/textures/light-on.rgb" />
+    <attstr name="texture off" val="data/textures/light-off.rgb" />
+    <attnum name="red" val="1.0" />
+    <attnum name="green" val="0.3" />
+    <attnum name="blue" val="0.3" />
+  </section>
+</section>
+
+section "Track Lights": main section
+section "1": first lights (lights must be numbered from 1 to the number of
+             lights)
+attstr "role": the role of the light (see below)
+attnum "index": the index of the light (see below)
+section "topleft": coordinates of the top-left corner of the light. See remark
+                   about coordinates elsewise in this documentation.
+section "bottomright": coordinates of the bottom-right corner of the light. See remark
+                       about coordinates elsewise in this documentation.
+attstr "texture on": texture of the light turned on
+attstr "texture off": texture of the light turned off
+attnum "red", "gree", "blue": color of the filter to put before the texture.
+
+Coordinate remark
+=================
+The coordinates can be aquaried from a 3d-editing program. I know an example
+where (525,21,-185) was the coordinate in the 3d-program, but (525,185,21) was
+the coordinate that was good for the track xml-file. This can be seen by
+looking to the axel where the gravity works on: this is the z-axel inside the
+game.
+
+Remarks on the different types of lights
+========================================
+
+red start lights
+----------------
+role: st_red
+index: index * 0.1s is the time the light is turned on before the start
+
+green start lights A
+--------------------
+role: st_green
+index: ignored
+remark: does not go on at the start of a race
+
+green start lights B
+--------------------
+role: st_green_st
+index: ignored
+remark: stays on for 30s after the start of the race
+
+yellow start lights
+-------------------
+role: st_yellow
+index: phase (even or odd)
+remark: flashes, not used at the moment
+

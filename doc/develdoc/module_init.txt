@@ -1,0 +1,67 @@
+In this file, I will explain how modules are initialized.
+In particular, I will explain how robots can be initialized.
+
+Most modules can only have one instance. For example, for a track
+it is not neccesairy to open two tracks at once. For robots, this
+is different. It is good to load more instances of one robot, and
+the module init system is build for that. There are three ways a
+robot can be initialized. I will explain all of those three.
+
+It always is a good idea to look to an existing robot to see how
+things work.
+
+Legacy method (up to 10 robots)
+===============================
+The old method can create up to 10 instances of a robot. Suppose we
+have a robot with module name "foo". Then we make a C-function as
+follows:
+
+extern "C" int foo( tModInfo* modinfo );
+
+tModInfo is a pointer to an array of length 10 with elements of type
+tModInfo. In this function, you need to initialize all the members
+of that struct. The function must return 0 on success. After this, 
+the module is initialized.
+
+Finitely many robots
+====================
+This method removes the 10 robot limit. Therefor three functions must
+exists:
+
+A: extern "C" int moduleWelcome( const tModWelcomeIn* welcomeIn,
+                                 tModWelcomeOut* welcomeOut );
+B: extern "C" int moduleInitialize( tModInfo *modinfo );
+C: extern "C" int moduleTerminate();
+
+When the module is created, function A is called. welcomeIn will
+contain all the information that is available at this stage.
+With that information, the function must fill all the members
+of welcomeOut. welcomeOut has a member for the amount of robots.
+We call this number n in the remaining of this section. So after
+this, the number of robots is fixed.
+
+After function A is called, function B is called. Function B works
+exactly the same as in the Legacy method, besides that modinfo now
+is a pointer to an array of n elements.
+
+Function C is called when the module is unloaded.
+
+All the functions must return 0 on success.
+
+Countably many robots
+=====================
+The case of countable many robots works incombination of one of two
+methods above. In the legacy method, modinfo is given in the only
+that is called during initialization. In the finitely many robots
+case, function B will give the modinfo.
+
+In this method, the array modinfo points to is exactly one element
+bigger than you expect it after the description of the methods above.
+The extra element must also be filled. When returning, this element
+must contain information for all the robots that don't have a preset
+index. The index will be the index given in this element or higher:
+every new robot gets a higher index.
+
+There exists a function in robottools to find out which car a robot
+with a specific index is driving.
+

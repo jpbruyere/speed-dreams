@@ -1,0 +1,128 @@
+#
+#==============================================================================
+#
+#    file                 : CMakeLists.txt
+#    created              : Aug 8 2015
+#    copyright            : (C) 2015 Joe Thompson
+#    email                : beaglejoe@users.sourceforge.net
+#    version              : $Id:$
+#
+#==============================================================================
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#==============================================================================
+#
+cmake_minimum_required(VERSION 2.8)
+
+project(SDL C)
+
+set(VERSION "1.2.15")
+
+if(WIN32)
+   if("$ENV{DXSDK_DIR}" STREQUAL "")
+      message(WARNING " \$DXSDK_DIR environment variable NOT set")
+   else()
+      link_directories($ENV{DXSDK_DIR}/lib/x86)
+      include_directories($ENV{DXSDK_DIR}/Include)
+   endif()
+endif(WIN32)
+
+include_directories(include)
+
+
+file(GLOB SDL_SOURCES src/*.c)
+file(GLOB SDL_AUDIO_SOURCES src/audio/*.c)
+file(GLOB SDL_AUDIO_DISK_SOURCES src/audio/disk/*.c)
+file(GLOB SDL_AUDIO_DUMMY_SOURCES src/audio/dummy/*.c)
+file(GLOB SDL_CDROM_SOURCES src/cdrom/*.c)
+file(GLOB SDL_CPUINFO_SOURCES src/cpuinfo/*.c)
+file(GLOB SDL_EVENTS_SOURCES src/events/*.c)
+file(GLOB SDL_FILE_SOURCES src/file/*.c)
+file(GLOB SDL_HERMES_SOURCES src/hermes/*.c)
+file(GLOB SDL_JOYSTICK_SOURCES src/joystick/*.c)
+file(GLOB SDL_LOADSO_SOURCES src/loadso/*.c)
+file(GLOB SDL_MAIN_SOURCES src/main/*.c)
+file(GLOB SDL_STDLIB_SOURCES src/stdlib/*.c)
+file(GLOB SDL_THREAD_SOURCES src/thread/*.c)
+file(GLOB SDL_THREAD_GENERIC_SOURCES src/thread/generic/*.c)
+file(GLOB SDL_TIMER_SOURCES src/timer/*.c)
+file(GLOB SDL_VIDEO_SOURCES src/video/*.c)
+file(GLOB SDL_VIDEO_DUMMY_SOURCES src/video/dummy/*.c)
+file(GLOB SDL_VIDEO_WINCOMMON_SOURCES src/video/wincommon/*.c)
+
+if(WIN32)
+   file(GLOB SDL_TIMER_WIN32_SOURCES src/timer/win32/*.c)
+   file(GLOB SDL_LOADSO_WIN32_SOURCES src/loadso/win32/*.c)
+   file(GLOB SDL_JOYSTICK_WIN32_SOURCES src/joystick/win32/*.c)
+   file(GLOB SDL_CDROM_WIN32_SOURCES src/cdrom/win32/*.c)
+   file(GLOB SDL_AUDIO_WINDIB_SOURCES src/audio/windib/*.c)
+   file(GLOB SDL_AUDIO_WINDX5_SOURCES src/audio/windx5/*.c)
+   file(GLOB SDL_VIDEO_WINDIB_SOURCES src/video/windib/*.c)
+   file(GLOB SDL_VIDEO_WINDX5_SOURCES src/video/windx5/*.c)
+   file(GLOB SDL_THREAD_WIN32_SOURCES src/thread/win32/*.c)
+endif(WIN32)
+
+file(GLOB SDL_HEADERS src/*.h)
+
+add_library(SDL SHARED ${SDL_SOURCES} 
+                        ${SDL_AUDIO_SOURCES} 
+                        ${SDL_AUDIO_DISK_SOURCES} 
+                        ${SDL_AUDIO_DUMMY_SOURCES} 
+                        ${SDL_AUDIO_WINDIB_SOURCES} 
+                        ${SDL_AUDIO_WINDX5_SOURCES}
+                        ${SDL_CDROM_SOURCES} 
+                        ${SDL_CDROM_WIN32_SOURCES} 
+                        ${SDL_CPUINFO_SOURCES} 
+                        ${SDL_EVENTS_SOURCES} 
+                        ${SDL_FILE_SOURCES} 
+#                        ${SDL_HERMES_SOURCES} 
+                        ${SDL_JOYSTICK_SOURCES} 
+                        ${SDL_JOYSTICK_WIN32_SOURCES} 
+#                        ${SDL_LOADSO_SOURCES} 
+                        ${SDL_LOADSO_WIN32_SOURCES}  
+#                        ${SDL_MAIN_SOURCES} 
+                        ${SDL_STDLIB_SOURCES} 
+                        ${SDL_THREAD_SOURCES} 
+#                        ${SDL_THREAD_GENERIC_SOURCES}
+                        ${SDL_THREAD_WIN32_SOURCES}
+                        ${SDL_TIMER_SOURCES} 
+                        ${SDL_TIMER_WIN32_SOURCES} 
+                        ${SDL_VIDEO_SOURCES} 
+                        ${SDL_VIDEO_DUMMY_SOURCES}
+                        ${SDL_VIDEO_WINCOMMON_SOURCES} 
+                        ${SDL_VIDEO_WINDIB_SOURCES} 
+                        ${SDL_VIDEO_WINDX5_SOURCES} 
+                        ${SDL_HEADERS})
+
+if(WIN32)
+   target_link_libraries(SDL winmm dxguid)
+endif(WIN32)
+
+set(SDLmain_SOURCES src/main/win32/SDL_win32_main.c
+                    src/main/win32/version.rc)
+
+add_library(SDLmain STATIC ${SDLmain_SOURCES})
+
+
+
+file(GLOB INCLUDE_FILES include/*.h)
+
+install(FILES ${INCLUDE_FILES} DESTINATION include/SDL)
+
+install(TARGETS SDLmain SDL
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib) 
+

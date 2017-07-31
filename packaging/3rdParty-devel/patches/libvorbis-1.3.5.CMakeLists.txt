@@ -1,0 +1,154 @@
+#
+#==============================================================================
+#
+#    file                 : CMakeLists.txt
+#    created              : Aug 11 2015
+#    copyright            : (C) 2015 Joe Thompson
+#    email                : beaglejoe@users.sourceforge.net
+#    version              : $Id:$
+#
+#==============================================================================
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#==============================================================================
+#
+cmake_minimum_required(VERSION 2.8)
+
+project(libvorbis C CXX)
+
+set(VERSION "1.3.5")
+
+
+include_directories(include)
+include_directories(${CMAKE_INSTALL_PREFIX}/include)
+link_directories(${CMAKE_INSTALL_PREFIX}/lib)
+
+set(libvorbis_SOURCES lib/analysis.c
+                      lib/bitrate.c
+                      lib/block.c
+                      lib/codebook.c
+                      lib/envelope.c
+                      lib/floor0.c
+                      lib/floor1.c
+                      lib/info.c
+                      lib/lookup.c
+                      lib/lpc.c
+                      lib/lsp.c
+                      lib/mapping0.c
+                      lib/mdct.c
+                      lib/psy.c
+                      lib/registry.c
+                      lib/res0.c
+                      lib/sharedbook.c
+                      lib/smallft.c
+                      lib/synthesis.c
+                      lib/vorbisenc.c
+                      lib/window.c
+                    )
+if(WIN32)
+   set(libvorbis_SOURCES ${libvorbis_SOURCES} win32/vorbis.def)
+endif(WIN32)
+
+set(libvorbis_HEADERS lib/backends.h
+                      lib/bitrate.h
+                      lib/codebook.h
+                      include/vorbis/codec.h
+                      lib/codec_internal.h
+                      lib/envelope.h
+                      lib/modes/floor_all.h
+                      lib/books/floor/floor_books.h
+                      lib/highlevel.h
+                      lib/lookup.h
+                      lib/lookup_data.h
+                      lib/lpc.h
+                      lib/lsp.h
+                      lib/masking.h
+                      lib/mdct.h
+                      lib/misc.h
+                      lib/os.h
+                      lib/psy.h
+                      lib/modes/psych_11.h
+                      lib/modes/psych_16.h
+                      lib/modes/psych_44.h
+                      lib/modes/psych_8.h
+                      lib/registry.h
+                      lib/books/coupled/res_books_stereo.h
+                      lib/books/uncoupled/res_books_uncoupled.h
+                      lib/modes/residue_16.h
+                      lib/modes/residue_44.h
+                      lib/modes/residue_44u.h
+                      lib/modes/residue_8.h
+                      lib/scales.h
+                      lib/modes/setup_11.h
+                      lib/modes/setup_16.h
+                      lib/modes/setup_22.h
+                      lib/modes/setup_32.h
+                      lib/modes/setup_44.h
+                      lib/modes/setup_44u.h
+                      lib/modes/setup_8.h
+                      lib/modes/setup_X.h
+                      lib/smallft.h
+                      include/vorbis/vorbisenc.h
+                      include/vorbis/vorbisfile.h
+                      lib/window.h
+                )
+
+
+add_library(libvorbis SHARED ${libvorbis_SOURCES} ${libvorbis_HEADERS})
+target_link_libraries(libvorbis libogg)
+
+##############################################################################
+## vorbisfile
+set(libvorbisfile_SOURCES lib/vorbisfile.c
+                    )
+if(WIN32)
+   set(libvorbisfile_SOURCES ${libvorbisfile_SOURCES} win32/vorbisfile.def)
+endif(WIN32)
+
+set(libvorbisfile_HEADERS include/vorbis/vorbisfile.h
+                )
+
+
+add_library(libvorbisfile SHARED ${libvorbisfile_SOURCES} ${libvorbisfile_HEADERS})
+target_link_libraries(libvorbisfile libogg libvorbis)
+
+##############################################################################
+## vorbisdec
+set(vorbisdec_SOURCES examples/decoder_example.c)
+
+add_executable(vorbisdec ${vorbisdec_SOURCES})
+target_link_libraries(vorbisdec libogg libvorbis)
+
+##############################################################################
+## vorbisenc
+set(vorbisenc_SOURCES examples/encoder_example.c)
+
+add_executable(vorbisenc ${vorbisenc_SOURCES})
+target_link_libraries(vorbisenc libogg libvorbis)
+
+##############################################################################
+## installation
+install(FILES include/vorbis/codec.h
+              include/vorbis/vorbisenc.h
+              include/vorbis/vorbisfile.h
+              include/vorbis/Makefile.am
+              include/vorbis/Makefile.in
+              DESTINATION include/vorbis)
+
+## NOT installing vorbisenc OR vorbisdec
+install(TARGETS libvorbis libvorbisfile
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib)

@@ -1,0 +1,3 @@
+<Imageset AutoScaled="true" Imagefile="sd-logo.png" Name="Logo" NativeHorzRes="512" NativeVertRes="256">
+    <Image Height="256" Name="everything" Width="512" XPos="0" YPos="0" />
+</Imageset>

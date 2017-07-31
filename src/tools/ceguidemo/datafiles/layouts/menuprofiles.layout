@@ -1,0 +1,103 @@
+<GUILayout>
+    <Window Name="MenuProfiles" Type="CEGUIDemo/StaticImage">
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property Name="Image" Value="set:SplashProfiles image:everything" />
+        <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+        <Property Name="FrameEnabled" Value="False" />
+        <Property Name="BackgroundEnabled" Value="False" />
+        <Window Name="MenuProfiles/ImgLogo" Type="CEGUIDemo/StaticImage">
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0.3,0},{0.25,0}}" />
+            <Property Name="Image" Value="set:Logo image:everything" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="Tooltip" Value="What a nice logo !" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuProfiles/TxtTitle" Type="CEGUIDemo/PageTitle">
+            <Property Name="UnifiedAreaRect" Value="{{0.22,0},{0.1,0},{0.92,0},{0.2,0}}" />
+            <Property Name="Font" Value="MenuTitle" />
+            <Property Name="Text" Value="Profiles" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="Tooltip" Value="Yeah, this is the title of the menu !" />
+            <Property Name="FrameEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuProfiles/TxtFrameRate" Type="CEGUIDemo/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0.95,0},{0.01,0},{0.99,0},{0.04,0}}" />
+            <Property Name="Font" Value="TextSmall" />
+            <Property Name="Text" Value="99.9" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="TextColours" Value="tl:FFFFFFFF tr:FFC0C0C0 bl:FF808080 br:FF606060" />
+            <Property Name="Tooltip" Value="Frame rate (F/s)" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="HorzFormatting" Value="RightAligned" />
+            <Property Name="VertFormatting" Value="TopAligned" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuProfiles/BtnAccept" Type="CEGUIDemo/Button">
+            <Property Name="UnifiedAreaRect" Value="{{0.23,0},{0.9,0},{0.38,0},{0.95,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="Text" Value="Accept" />
+            <Property Name="Tooltip" Value="Accept changes and go back to main menu" />
+        </Window>
+        <Window Name="MenuProfiles/BtnCancel" Type="CEGUIDemo/Button">
+            <Property Name="UnifiedAreaRect" Value="{{0.63,0},{0.9,0},{0.78,0},{0.95,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="Text" Value="Cancel" />
+            <Property Name="Tooltip" Value="Revert changes and go back to main menu" />
+        </Window>
+        <Window Name="MenuProfiles/LblName" Type="CEGUIDemo/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0.10,0},{0.24,0},{0.25,0},{0.31,0}}" />
+            <Property Name="Font" Value="MenuNormal" />
+            <Property Name="Text" Value="Name" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuProfiles/LblSkill" Type="CEGUIDemo/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0.10,0},{0.34,0},{0.25,0},{0.41,0}}" />
+            <Property Name="Font" Value="MenuNormal" />
+            <Property Name="Text" Value="Skill level" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="MenuProfiles/EdxName" Type="CEGUIDemo/Editbox">
+            <Property Name="UnifiedAreaRect" Value="{{0.25,0},{0.25,0},{0.50,0},{0.30,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="Text" Value="" />
+            <Property Name="BlinkCaret" Value="True" />
+            <Property Name="MaxTextLength" Value="20" />
+            <Property Name="TextFormatting" Value="LeftAligned" />
+            <Property Name="Tooltip" Value="Enter / edit the profile name" />
+        </Window>
+        <Window Name="MenuProfiles/CbxSkill" Type="CEGUIDemo/Combobox">
+            <Property Name="UnifiedAreaRect" Value="{{0.25,0},{0.35,0},{0.50,0},{0.55,0}}" />
+            <Property Name="Font" Value="MenuMedium" />
+            <Property Name="Tooltip" Value="Select the skill level" />
+            <Property Name="EditTextFormatting" Value="LeftAligned" />
+            <Property Name="ReadOnly" Value="True" />
+        </Window>
+        <Window Name="MenuProfiles/LbxProfiles" Type="CEGUIDemo/ItemListbox">
+            <Property Name="UnifiedAreaRect" Value="{{0.60,0},{0.25,0},{0.90,0},{0.60,0}}" />
+            <Property Name="MultiSelect" Value="True" />
+            <Property Name="Tooltip" Value="Profile list" />
+        </Window>
+        <Window Name="MenuProfiles/BtnAdd" Type="CEGUIDemo/ImageButton">
+            <Property Name="UnifiedAreaRect" Value="{{0.60,0},{0.65,0},{0.68,0},{0.75,0}}" />
+            <Property Name="Tooltip" Value="Add a new profile" />
+            <Property Name="NormalImage" Value="set:CEGUIDemo image:IconAddNormal" />
+            <Property Name="HoverImage" Value="set:CEGUIDemo image:IconAddHighlight" />
+            <Property Name="PushedImage" Value="set:CEGUIDemo image:IconAddPushed" />
+            <Property Name="DisabledImage" Value="set:CEGUIDemo image:IconAddDisabled" />
+        </Window>
+        <Window Name="MenuProfiles/BtnRemove" Type="CEGUIDemo/ImageButton">
+            <Property Name="UnifiedAreaRect" Value="{{0.70,0},{0.65,0},{0.78,0},{0.75,0}}" />
+            <Property Name="Tooltip" Value="Remove selected profile" />
+            <Property Name="NormalImage" Value="set:CEGUIDemo image:IconRemoveNormal" />
+            <Property Name="HoverImage" Value="set:CEGUIDemo image:IconRemoveHighlight" />
+            <Property Name="PushedImage" Value="set:CEGUIDemo image:IconRemovePushed" />
+            <Property Name="DisabledImage" Value="set:CEGUIDemo image:IconRemoveDisabled" />
+            <Property Name="Disabled" Value="True" />
+        </Window>
+    </Window>
+</GUILayout>

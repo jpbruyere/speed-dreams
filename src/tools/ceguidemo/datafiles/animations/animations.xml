@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Animations>
+
+	<AnimationDefinition name="MenuFadeIn" duration="0.7" replayMode="once">
+		<Affector property="Alpha" interpolator="float">
+			<KeyFrame position="0" value="0" />
+			<KeyFrame position="0.7" value="1" progression="quadratic decelerating" />
+		</Affector>
+		<Subscription event="Activated" action="Start" />
+	</AnimationDefinition>
+
+	<AnimationDefinition name="MenuFadeOut" duration="0.7" replayMode="once">
+		<Affector property="Alpha" interpolator="float">
+			<KeyFrame position="0" value="1" />
+			<KeyFrame position="0.7" value="0" progression="quadratic accelerating" />
+		</Affector>
+		<Subscription event="Deactivated" action="Start" />
+	</AnimationDefinition>
+
+</Animations>
+

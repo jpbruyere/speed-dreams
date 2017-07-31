@@ -1,0 +1,3 @@
+<Imageset AutoScaled="true" Imagefile="splash-credits.jpg" Name="SplashCredits" NativeHorzRes="800" NativeVertRes="600">
+    <Image Height="800" Name="everything" Width="1280" XPos="0" YPos="0" />
+</Imageset>

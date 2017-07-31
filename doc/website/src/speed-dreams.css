@@ -1,0 +1,22 @@
+body,html { background:#333; margin:0; padding:0;
+		font:14px/20px normal normal "Lucida Sans","Lucida Sans Unicode","Lucida Grande",Lucida,sans-serif; color:#ddd; 
+		scrollbar-base-color:#9C1008; scrollbar-track-color:#9C1008; scrollbar-face-color:#9C1008; scrollbar-highlight-color:#E8BB56;
+		scrollbar-3d-light-color:#1B3763; scrollbar-darkshadow-color:#9C1008; scrollbar-shadow-color:#6F0B07; scrollbar-arrow-color:#E8BB56; }
+img { border:none; }
+form { padding:0; margin:0; }
+a { color:#fff; }
+
+#navigation { margin:0; padding:0; background-color:#666; padding:4px 0; border-top:#ccc 1px solid; border-bottom:#000 2px solid; }
+#navigation li { display:inline; margin: 0 0 0 48px; }
+#navigation a { text-decoration:none; }
+
+#content { width:960px; margin:0 0 0 48px; }
+#content h1 { padding:24px 0 8px 0; margin:0; color:#fc0; 
+	font:20px/24px normal normal Verdana,"Bitstream Vera Sans","DejaVu Sans","Liberation Sans",Geneva,sans-serif; font-weight:bold; }
+#content p { padding:0; margin:0 0 8px 0; }
+#content ul { line-height:20px; margin:0; padding:0 0 0 16px; }
+#content ul li { text-align:left; font-weight:normal; margin:0 0 4px 0; padding:0;}
+
+#sourceforge { background:#ff8000 url(../pic/sf-bg.jpg) repeat-x; height:50px; text-align:center; width:auto; margin: 50px 0 0 0; overflow:hidden; }
+#header-image { background:#666 url(../pic/speed-dreams-header.jpg) repeat-x; height:160px; }
+

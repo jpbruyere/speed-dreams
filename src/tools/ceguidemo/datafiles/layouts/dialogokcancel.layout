@@ -1,0 +1,43 @@
+<GUILayout>
+    <Window Name="DialogOKCancel" Type="CEGUIDemo/StaticImage">
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property Name="Alpha" Value="0.4" />
+        <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+        <Property Name="FrameEnabled" Value="False" />
+        <Window Name="DialogOKCancel/ImgBackground" Type="CEGUIDemo/StaticImage">
+            <Property Name="UnifiedAreaRect" Value="{{0.2,0},{0.2,0},{0.8,0},{0.8,0}}" />
+            <Property Name="Image" Value="set:SplashOKCancel image:everything" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="InheritsAlpha" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+            <Window Name="DialogOKCancel/ImgBackground/ImgLogo" Type="CEGUIDemo/StaticImage">
+                <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0.3,0},{0.25,0}}" />
+                <Property Name="Image" Value="set:Logo image:everything" />
+                <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+                <Property Name="Tooltip" Value="What a nice logo !" />
+                <Property Name="FrameEnabled" Value="False" />
+                <Property Name="BackgroundEnabled" Value="False" />
+            </Window>
+            <Window Name="DialogOKCancel/ImgBackground/BtnCancel" Type="CEGUIDemo/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0.1,0},{0.83,0},{0.3,0},{0.9,0}}" />
+                <Property Name="Font" Value="MenuMedium" />
+                <Property Name="Text" Value="Cancel" />
+                <Property Name="Tooltip" Value="No, cancel" />
+            </Window>
+            <Window Name="DialogOKCancel/ImgBackground/BtnAccept" Type="CEGUIDemo/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0.7,0},{0.83,0},{0.9,0},{0.9,0}}" />
+                <Property Name="Font" Value="MenuMedium" />
+                <Property Name="Text" Value="OK" />
+                <Property Name="Tooltip" Value="Yes, do it !" />
+            </Window>
+            <Window Name="DialogOKCancel/ImgBackground/TxtMessage" Type="CEGUIDemo/MultiLineEditbox">
+                <Property Name="UnifiedAreaRect" Value="{{0.1,0},{0.35,0},{0.9,0},{0.75,0}}" />
+                <Property Name="Font" Value="MenuBig" />
+                <Property Name="Text">Here takes place the message you'd like to have the user carefully read and understand before deciding ;-)
+</Property>
+                <Property Name="ReadOnly" Value="True" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

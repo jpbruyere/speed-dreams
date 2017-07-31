@@ -1,0 +1,20 @@
+diff --git a/src/main/CMakeLists.txt b/src/main/CMakeLists.txt
+index 576c304..725f164 100644
+--- a/src/main/CMakeLists.txt
++++ b/src/main/CMakeLists.txt
+@@ -30,6 +30,15 @@ ENDIF(MSVC)
+ 
+ SD_ADD_EXECUTABLE(${_TARGET_NAME} ${_SOURCES})
+ 
++# Force RPATH to use relative paths on Linux
++IF(UNIX)
++    IF(CMAKE_SIZEOF_VOID_P EQUAL 8)
++        SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath,$ORIGIN/../lib64/games/speed-dreams-2/lib")
++    ELSE()
++        SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath,$ORIGIN/../lib/games/speed-dreams-2/lib")
++    ENDIF()
++ENDIF()
++
+ ADD_SDLIB_LIBRARY(${_TARGET_NAME} portability tgf tgfclient tgfdata)
+ 
+ # Needed when using the "MinGW Makefiles" CMake generator (but not with the "MSYS Makefiles" one !)

@@ -1,0 +1,122 @@
+#
+#==============================================================================
+#
+#    file                 : CMakeLists.txt
+#    created              : Aug 12 2015
+#    copyright            : (C) 2015 Joe Thompson
+#    email                : beaglejoe@users.sourceforge.net
+#    version              : $Id:$
+#
+#==============================================================================
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#==============================================================================
+#
+cmake_minimum_required(VERSION 2.8)
+
+project(freetype C)
+
+set(VERSION "2.5.3")
+
+# Compiler definitions for building the library
+add_definitions(-DFT2_BUILD_LIBRARY)
+
+include_directories(include)
+
+
+set(freetype_SOURCES
+        src/autofit/autofit.c
+        src/base/ftadvanc.c
+        src/base/ftbbox.c
+        src/base/ftbitmap.c
+        src/base/ftcalc.c
+        src/base/ftcid.c
+        src/base/ftdbgmem.c
+        src/base/ftdebug.c
+        src/base/ftfstype.c
+        src/base/ftgasp.c
+        src/base/ftgloadr.c
+        src/base/ftglyph.c
+        src/base/ftgxval.c
+        src/base/ftinit.c
+        src/base/ftlcdfil.c
+        src/base/ftmm.c
+        src/base/ftobjs.c
+        src/base/ftotval.c
+        src/base/ftoutln.c
+        src/base/ftpatent.c
+        src/base/ftpfr.c
+        src/base/ftrfork.c
+        src/base/ftsnames.c
+        src/base/ftstream.c
+        src/base/ftstroke.c
+        src/base/ftsynth.c
+        src/base/ftsystem.c
+        src/base/fttrigon.c
+        src/base/fttype1.c
+        src/base/ftutil.c
+        src/base/ftwinfnt.c
+        src/base/ftxf86.c
+        src/bdf/bdf.c
+        src/bzip2/ftbzip2.c
+        src/cache/ftcache.c
+        src/cff/cff.c
+        src/cid/type1cid.c
+        src/gzip/ftgzip.c
+        src/lzw/ftlzw.c
+        src/pcf/pcf.c
+        src/pfr/pfr.c
+        src/psaux/psaux.c
+        src/pshinter/pshinter.c
+        src/psnames/psmodule.c
+        src/raster/raster.c
+        src/sfnt/sfnt.c
+        src/smooth/smooth.c
+        src/truetype/truetype.c
+        src/type1/type1.c
+        src/type42/type42.c
+        src/winfonts/winfnt.c
+)
+
+set(freetype_HEADERS
+      include/config/ftconfig.h
+      include/config/ftheader.h
+      include/config/ftmodule.h
+      include/config/ftoption.h
+      include/config/ftstdlib.h
+
+)
+include_directories("src/truetype")
+include_directories("src/sfnt")
+include_directories("src/autofit")
+include_directories("src/smooth")
+include_directories("src/raster")
+include_directories("src/psaux")
+include_directories("src/psnames")
+
+add_library(freetype STATIC ${freetype_SOURCES} ${freetype_HEADERS} include/ft2build.h)
+
+# Installations
+# Note the trailing slash in the argument to the `DIRECTORY' directive
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+  DESTINATION include/freetype2
+  PATTERN "internal" EXCLUDE
+)
+
+install(TARGETS freetype
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+)

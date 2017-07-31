@@ -1,0 +1,4 @@
+<?xml version="1.0" ?>
+<Imageset Name="SplashTrackSelect" AutoScaled="true" Imagefile="splash-trackselect.jpg" NativeHorzRes="800" NativeVertRes="600">
+    <Image Name="everything" Height="800" Width="1280" XPos="0" YPos="0" />
+</Imageset>

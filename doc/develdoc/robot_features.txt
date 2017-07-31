@@ -1,0 +1,27 @@
+In this documentation is a list of features a robot can implement. If a
+feature is implemented in a robot, you can add that to the robot xml-file in
+the robot's car section (so every car driven by the robot can have a seperate
+feature list). You can use the <attstr name="feature" val="" /> for that.
+It acceps a ;-seperated list. That list must contain the name of the
+feature such as it is between brackets in the section header in this
+documentation.
+
+Penalties (penalties)
+=====================
+To implement this feature, a robot must know how to deal with a Stop and Go
+penalty and a Drive through penalty. A robot can find a list of penalties to
+deal with in car->_penaltyList, where car is an element of tCarElt*.
+
+Timed Sessions (timed_session)
+==============================
+To implement this feature, a robot must know how to deal with timed sessions.
+If this feature is enabled without code change, then the robot will run out of
+fuel because the strategy isn't updated.
+
+A timed session can be a given amount of time combined with a given number of
+laps. Let s be a tSituation* element. Then s->_extraLaps contains the number
+of laps after the time has finished. s->_totTime contains the time which must
+end first because the session is finished. If the session isn't timed, then
+s->_totTime is lower then zero (-60.0f in practice). The time left can be
+calculated from s->_totTime and s->currentTime.
+

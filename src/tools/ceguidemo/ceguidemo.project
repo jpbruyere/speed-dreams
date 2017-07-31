@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project CEGUIDefaultResolution="800x600" CEGUIVersion="0.7" baseDirectory="." fontsPath="datafiles/fonts" imagesetsPath="datafiles/imagesets" layoutsPath="datafiles/layouts" looknfeelsPath="datafiles/looknfeels" schemesPath="datafiles/schemes" version="CEED Project 1" xmlSchemasPath="datafiles/xml_schemas">
+    <Items>
+        <Item name="ImageSets" type="folder">
+            <Item path="datafiles/imagesets/ceguidemolook.imageset" type="file" />
+            <Item path="datafiles/imagesets/sd-logo.imageset" type="file" />
+            <Item path="datafiles/imagesets/splash-carselect.imageset" type="file" />
+            <Item path="datafiles/imagesets/splash-credits.imageset" type="file" />
+            <Item path="datafiles/imagesets/splash-main.imageset" type="file" />
+            <Item path="datafiles/imagesets/splash-options.imageset" type="file" />
+            <Item path="datafiles/imagesets/splash-trackselect.imageset" type="file" />
+        </Item>
+        <Item name="Layouts" type="folder">
+            <Item path="datafiles/layouts/dialogokcancel.layout" type="file" />
+            <Item path="datafiles/layouts/menucarselect.layout" type="file" />
+            <Item path="datafiles/layouts/menucredits.layout" type="file" />
+            <Item path="datafiles/layouts/menumain.layout" type="file" />
+            <Item path="datafiles/layouts/menuoptions.layout" type="file" />
+            <Item path="datafiles/layouts/menuprofiles.layout" type="file" />
+            <Item path="datafiles/layouts/menutrackselect.layout" type="file" />
+            <Item path="datafiles/layouts/menuloading.layout" type="file" />
+        </Item>
+        <Item name="Schemes" type="folder">
+            <Item path="datafiles/schemes/ceguidemo.scheme" type="file" />
+        </Item>
+    </Items>
+</Project>

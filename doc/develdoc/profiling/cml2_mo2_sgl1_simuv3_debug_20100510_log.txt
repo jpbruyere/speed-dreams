@@ -1,0 +1,23 @@
+==11042== Callgrind, a call-graph generating cache profiler.
+==11042== Copyright (C) 2002-2008, and GNU GPL'd, by Josef Weidendorfer et al.
+==11042== Using LibVEX rev 1884, a library for dynamic binary translation.
+==11042== Copyright (C) 2004-2008, and GNU GPL'd, by OpenWorks LLP.
+==11042== Using valgrind-3.4.1, a dynamic binary instrumentation framework.
+==11042== Copyright (C) 2000-2008, and GNU GPL'd, by Julian Seward et al.
+==11042== For more details, rerun with: -v
+==11042== 
+==11042== My PID = 11042, parent PID = 8232.  Prog and args are:
+==11042==    ./speed-dreams
+==11042== 
+==11042== For interactive control, run 'callgrind_control -h'.
+==11042== 
+==11042== Events    : Ir
+==11042== Collected : 281382619054
+==11042== 
+==11042== I   refs:      281,382,619,054
+
+FPS: 2 fph?
+
+real    159m13.370s
+user    104m25.678s
+sys     2m10.908s

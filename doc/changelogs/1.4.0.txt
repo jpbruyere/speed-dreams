@@ -1,0 +1,312 @@
+Speed Dreams changes since the fork (from r1-3-1 branch, on September, the 14'th, 2008)
+
+Tracks:
+- integrated Brondehach track by Andrew Summer (Xavier)
+- integrated Corkscrew track by Gabor Kmetyko (Xavier),
+  optimized some textures and backgrounds, added shadow map
+  and replaced real trademarks by fictive ones (Andrew, Xavier, Eckhard)
+- integrated Long Day by Gabor Kmetyko (Xavier)
+- updated textures for Wheel-2 and g-track-1 by Eckhard M. Jager (Xavier)
+- updated textures for Dirt-1 by Eckhard M. Jager (Xavier, Andrew)
+- integrated Migrants track by Wolf-Dieter Beelitz (Wolf-Dieter, Jean-Philippe)
+- XML file format : added new parameters "max pits" and "start buildings" defining
+  where pit buildings starts and ends (separated from the pit lane start and end) (Wolf-Dieter)
+- improved Dirt-1 background and convert to PNG (Eckhard)
+- improved Spring shadow map and minor details (Eckhard)
+- optimized G-track-1 background and move brandings to Speed Dreams (Eckhard)
+- updated pit doors (Sebastian)
+- removed remaining real brand names, logos ... etc ... from textures (Xavier, Haruna, Eckhard)
+- removed Torcs references from textures (Xavier, Haruna, Eckhard)
+- moved Torcs-NG references to "Speed Dreams" (Xavier, Haruna, Eckhard)
+
+Cars:
+- improvments on road tracks (shiny cars through increased specular colour)
+   and backfire and brakelight textures (Andrew)
+- integrated SuperChamp race mode and full car set by Andrew Sumner (Xavier)
+- added 3D wheels to SuperChamp car set (Andrew)
+  and fixed 3D wheel model being too much curved, making rear wheels have a black centre (Andrew).
+- updated TRB1 cars textures by Haruna Say (Xavier)
+- updated speedometer and tachometer textures by Haruna Say and Eckhard M. Jager (Xavier, Eckhard)
+  changed speed digital indicator color to red (more visible) (Jean-Philippe)
+- added 1936 Grand Prix carset(Andrew)
+- updated SuperCars cars textures by Eckhard M. Jager - Work in progress (Jean-Philippe)
+- removed cars not belonging to SuperCars, 36 Grand-Prix and TRB1 car sets
+  (actually moved to the dead branch "legacy")
+- added a default 3D wheel model to data/data/textures and data/data/objects,
+  (as well as a default tex-wheel.rgb/png for auto-generated wheel model),
+  and removed 3D wheel model from all cars (but 36GP) as they are all the same one (but for 36GP),
+  now shipped and searched in data/data/textures and data/data/objects ;
+  also removed now useless tex-wheel.rgb from all cars (Jean-Philippe)
+- set fictious brand and model names for all cars, based on ideas from the whole team,
+  to avoid legal issues ; the real brand name replacements follows (Andrew, Jean-Philippe) :
+  * Alfa Romeo 		=> Milano		
+  * Aston Martin 	=> Archer
+  * Auto Union 		=> Motor Union
+  * Audi 		=> Vieringe
+  * Bugatti 		=> Ettore
+  * Any GM brand 	=> Deckard, except for Corvettes, which will be Vultures.
+  * GM/Corvette		=> Vulture
+  * Dodge 		=> Taipan
+  * ERA 		=> Century
+  * Esperante		=> Sprite
+  * Ferrari 		=> Cavallo
+  * Ford 		=> FMC (F stands for ... um ... something)
+  * Honda/Acura 	=> Murasama
+  * Jaguar 		=> Lynx
+  * Lambo 		=> Toro
+  * Lotus 		=> Spirit
+  * McLaren 		=> Conner
+  * Maserati 		=> Tridenti
+  * Mercedes 		=> Silber
+  * Mitsubishi 		=> Minato
+  * Nissan 		=> Kanagawa
+  * Peugeot 		=> Lion
+  * Porsche 		=> Boxer
+  * Subaru		=> Kenji 
+  * Toyota 		=> Aichi 
+  * TVR			=> RCM (Russian Car Manufacturer)
+  * Lister 		=> ?  (a Storm model for LS1 is simply called the "Fury")
+  * Mosler 		=> ?
+  * Saleen 		=> ?
+  * Venturi 		=> ?
+  * Fiat		=> ?
+  * ?			=> Sector
+  * ?			=> Zaxxon.
+- fixed out of bound setup parameters for SuperCars
+- changed TRB1 tyre textures to the new slick ones by Haruna Say (Haruna)
+- removed remaining real brand/model names and logos from textures
+  (sc-nsx, 36 GP, ...) (Haruna, Eckhard, Xavier)
+- removed Torcs references from textures (Haruna, Eckhard, Xavier)
+- move Torcs-NG references to "Speed Dreams" (Haruna, Eckhard, Xavier)
+
+Robots:
+- fixes for Autoclutch, ABS and ASR in human driver (Andrew)
+- integrated K1999 (Windows) (Jean-Philippe)
+- integrated and tuned USR robot for 1936 Grand Prix, TRB1 and SuperCars carsets (Andrew)
+- integrated and tuned Simplix robot for 1936 Grand Prix, TRB1 and SuperCars car sets
+  (Wolf-Dieter)
+- removed old robots from trunk :
+  * only kept simplix_GP36, simplix_trb1, simplix_sc, and usr_GP36, usr_trb1, usr_sc
+    as first class AI opponents to human drivers for 36GP, SC and TRB1 car sets
+  * and also bt and K1999, as educational bases for robot develpment
+    (these 2 ones are normally not built ; to build them under Windows,
+     use "prebuild.bat unmaintained" and speed-dreams-unmaintained.sln ;
+     under Linux/Mac, you must change src/drivers/Makefile)
+  * actually, the old robots where not removed, but moved to the dead branch named "legacy".
+- enabled Simplix and USR robots to be members of mixed teams,
+  through new team management interface in RobotTools (Wolf-Dieter)
+
+Menus:
+- splash screen / icons in NG variants by Eckhard M. Jager (Eckhard, Xavier, Jean-Philippe) 
+- integrated Simu V3 and resurected Simulation menu by Cristos Dimitrakakis (Jean-Philippe)
+- applied GearChangeMode patch, that adds support for grid shifting (Jean-Philippe)
+- more resolutions available under Windows in Options/Display menu (Jean-Philippe)
+- updated race results and standings menus in order to display the driver "type"
+  and used car for each driver (Jean-Philippe)
+  (driver "type" extracted from driver module name cut on the last "_" if any, 
+  for "ubiquitous" robots, or on the last char if it is an isolated digit, 
+  for other robots with duplicate code)
+- improved the "driver select" menu and displayed info about car and driver type (Jean-Philippe)
+  * added "car category" and "driver type" filters for the "not selected" driver scroll-list
+  * hidden useless (?) "Set Focus" button
+  * replaced highlighted driver name by its driver type (name already displayed)
+  (the "driver type" is actually the robot/AI code, like Simplix, USR, Berniw, Hymie)
+- simplified race loading screen messages, and added a "Loading cars"
+  for the user to be aware of what's happening during the sometimes 10s-long delay
+  just before "Ready" ; displayed the real name of the cars, not their XML files's one (Jean-Philippe)
+- optimized "track select" menu load time, by loading track / category XML file
+  only when needed, that is when the user changes the filtering combo-boxes,
+  and no more all the files at the beginning, which was now quite long (Jean-Philippe).
+- added a "Credits" multi-page menu to list all contributors, contributions
+  and 3rd party libs / code / software we use.
+- new modes for the race screen leader board (Gabor)
+  * vertically scrolling : list of competitors, text in associated color,
+  * horizontally scrolling : just as on TV (WIP).
+- resurected the "Configure player" button in the Raceman menu, to avoid returning
+  to the Main menu for that (Jean-Philippe).
+- show a special track preview image + track outline when changing the selected track
+  in the "Track select" menu (Brian, Jean-Philippe) ; created nice preview images for that (Andrew).
+- now, menu background images no longer need to be 2^n x 2^p ; artists can submit them in the desired size, without any artificial compression that may loose details (Jean-Philippe, Brian)
+- whole menu refresh, though XML descriptors infrastructure (backround images, menu controls and colors, limited re-layout, ...) (Eckhard, Brian)
+
+Program:
+- applied animated driver patch by Andrew Sumner (Xavier, andrew)
+- applied 3D-Wheel patch by Eric Espie (Xavier)
+- GCC 4.3 compatibility (Xavier, Mart and Jean-Philippe)
+- fixed "deprecated conversion from string constant to char*" everywhere with GCC (Mart)
+- Moved to MSVC 2005 (Pro, Express+Win32 SDK) and fixed many warnings
+  (Andrew, Brian, Jean-Philippe)
+- renamed config.h to config-win32.h into repository to avoid committing it
+  under Linux, where it is generated ; under Windows, config-win32.h
+  is renamed to config.h by prebuild.bat (Jean-Philippe)
+- simuv2 update from far better (than 1.3.1) Torcs trunk, plus addition of 
+  enhancements from simuv3 (Andrew).
+- models and textures no longer load for races in "results only" mode (Andrew)
+- applied single processor affinity patch (only for Windows Vista / 7
+  otherwise rendering is jerky with multi-core CPUs) (Andrew, Xavier, Jean-Philippe)
+- spinning the drive wheels will now generate smoke (Andrew)
+- F2 camera views - order changed, and "driver" view modified to look in the 
+  direction the car's turning - work in progress (Andrew)
+- renamed setup_win32.....bat files to prebuild...bat and postbuild...bat
+  (simpler names for easier selection in the explorer ; 
+   2 useless files removed, now only 4) (Jean-Philippe)
+- applied NoMaxModuleInterfaces patch, that breaks the 10-limit of the maximum number
+  of interfaces a Speed Dreams run-time loadable module can have, 
+  thus enabling robot modules for an unlimited number of cars (Jean-Philippe)
+- enhanced module management and module interface (in a backward compatible way) :
+  a module can export 3 fixed named functions, "moduleWelcome" being called by Speed Dreams
+  just after loading the DLL for exchanging information (in and out), "moduleInitialize"
+  being called to initialize the tModInfo list (as usual, but now with unlimited size),
+  "moduleTerminate" being called just before the DLL unload.
+  in other words, new module interface fixed-name scheme : moduleWelcome (pre-initialization
+  Speed Dreams <=>  module data exchange), moduleInitialize (replaces <module name>())
+  and moduleTerminate (replaces <module name>Shut()) ; usefull for building ubiquitous
+  robots that can be multiplicated by simple DLL copy+rename (with different data)
+  (Jean-Philippe).
+- fixed slightly weak / unclear brake light rendering on some cars (Wolf-Dieter ?)
+- applied "FPS average" computation and console output patch by Mart Kelder (Jean-Philippe)
+- applied "Max gears" unification patch by Mart Kelder (Jean-Philippe)
+- unified font and default vertical position of the speed and gear digital indicators
+  displayed on the speedometer and tachometer (Jean-Philippe)
+- moved user settings files to <My documents>/speed-dreams.settings under Windows,
+  to enable multiple users to have different settings on the same computer ;
+  implemented in a XP / Vista / 7 and any-locale compatible way (Jean-Philippe)
+- now, all cars have a default 3D wheel model (wheel*.ac*, wheel3d.png)
+  shipped (and searched at run-time) in data/data/textures and in data/data/objects (Jean-Philippe)
+- added Linux -DSPEED_DREAMS compile option for Torcs backward compatibility,
+  useful for robot code as an example (under Windows, this needs to be set inside each needed .vcproj)
+- enabled mouse buttons as normal controls ; replaced mouse right click in race mode by the "o" keyboard shortcup to hide the mouse cursor (usefull for screenshots) (Jean-Philippe).
+- fixed dead zone not taken into account for analog joysticks (Jean-Philippe).
+
+Other:
+- migrated from CVS to SVN for the fork from Torcs (Xavier, Jean-Philippe)
+- torcs => speed-dreams where strictly necessary, noticeably for starting scripts
+  under Linux, to enable smooth cohabitation with Torcs in the same installation
+  directory and user home directory (Xavier, Jean-Philippe)
+- added -v option to Linux speed-dreams script, to run under "valgrind --leak-check=full"
+- updated and improved Windows installer (simpler configuration, new images and logos, ...) (Xavier, Jean-Philippe)
+- setup Trac bug / feature tracker and simple development Wiki on SF.net (Jean-Philippe)
+- upload screenshots on SF.net (Jean-Philippe)
+- advertising about the release everywhere (Sebastian, Xavier, Eckhard, Kilo, Brian, Jean-Philippe)
+
+
+                               *****************************
+
+Remaining TODO list for 1.4.0:
+------------------------------
+
+Tracks:
+
+Cars:
+- check light definitions for SuperCars, and other car sets ? (Wolf-Dieter ?)
+- improve 36GP car gauges textures
+- check if adding cars in data/cars/models without adding the associated category file
+  in data/cars/categories really makes the game crash when entering the Player configuration menu
+
+Robots:
+- fix Simplix crashing in race mode when track has no / not enough pit places (Wolf-Dieter)
+- move Simplix wheel textures to 3D wheels scheme (tex-wheel.rgb =  * wheel3d.png),
+  as the current tex-wheel.rgb has been ignored since cars moved to 3D wheels
+- fix undefined pit doors textures when pitsharing activated with robots from more than 1 team
+  or multiple robots of the same team.
+
+Menus:
+
+Program:
+- apply Christos fixes on Simu V3 for collision detection (already done ?)
+- tests and bug fixes.
+
+Sourceforge.net:
+- setup bug tracker at least for the beta/rc release
+- upload nice screen shots
+
+
+                               *****************************
+
+Also included : Torcs changes since 1.3.1
+-----------------------------------------
+- TO BE COMPLETED
+
+Also included : Torcs changes since 1.3.0
+-----------------------------------------
+- Applied patch for screen resolution change program crash when the path
+  contained spaces (Brian Gavin, Bernhard).
+- Added new car, car2-trb1 (Bernhard).
+- Added new car, car3-trb1 (Bernhard).
+- Added new car, car5-trb1 (Bernhard).
+- Added new car, car4-trb1 (Bernhard).
+- Suspension improvement, car does not lift up anymore magically on bumpy
+  surfaces (e.g. in the grass) (Christos, Bernhard).
+- Antirollbars are now functional (Bernhard).
+- Rolling resistance is now correctly working (this fixes as well the
+  "forever stuck in the sand" and the "wheel spinning like mad and
+  car stuck" problems (Bernhard).
+- Fixed XML parsing problem with entities (#1651190, reported by Carsten
+  Milkau) (Bernhard) 
+- Code adjustments for VC 2005 (Eric).
+- Added car6-trb1 created by Wolf-Dieter Beelitz and reworked by Bernhard
+  (Wolf-Dieter Beelitz, Bernhard).
+- Car engine sound is now searched in the cars directory first (Eric).
+- Added new car, car7-trb1 (Bernhard).
+- Adjusted car1-7 performance settings (Bernhard).
+- Improvments for track Ruudskogen by Andrew (Andrew, Bernhard).
+- Improvments for track Street-1 by Andrew (Andrew, Bernhard).
+- Added new track Forza created by Andrew (Andrew, Bernhard).
+- Improvments for track wheel-2 by Andrew (Andrew, Bernhard).
+- Totally reworked track e-track-6 by Andrew (Andrew, Bernhard).
+- Improvments for track dirt-3 by Andrew (Andrew, Bernhard).
+- Improvments for track alpine-1 by Andrew (Andrew, Bernhard).
+- Fuel consumption adjustments on car1-7 (Wolf-Dieter, Andrew, Daniel,
+  Bernhard).
+- Additional cameras on spring track by Wolf-Dieter (Wolf-Dieter, Bernhard).
+- Reparametrized 360-modena, renamed to car1-trb3 (Bernhard).
+- Removed unmaintained car models (Bernhard).
+- Reparameterized several models (Bernhard).
+- Adopted robots to the new car set (Bernhard).
+- Applied fix for broken race result list from Jean-Philippe Meuret
+  (Jean-Philippe Meuret, Bernhard).
+- Applied human driver patch from Andrew and Christos, added minor corrections
+  (Andrew, Christos, Bernhard).
+- Fixed some gcc 4.2 warnings, not yet all to keep the interface stable
+  (Bernhard).
+- Adjusted various setups for the suspension code changes (Bernhard).
+- Regenerated configure, adopted in files to autoconf changes (Bernhard).
+- Updated vc++ 6.0 project files and bat scripts (Bernhard).
+- Added new track alpine-2 created by Daniel Schellhammer and Andrew (Daniel,
+  Andrew, Bernhard).
+- Reorganized bat scripts according suggestion of Jean-Philippe (Bernhard).
+- Added texture for inferno 9 (Andrew), tita 9 (Miguel Martinez), inferno 3
+  and 8 (Wolf-Dieter), berniw 7, inferno 7, bt 7, damned 7, olethros 7
+  (Bernhard), (Andrew, Miguel, Wolf-Dieter, Bernhard).
+- Created and added lots of textures for trb1 opponents (Bernhard).
+- Updated bat files to deploy textures (Bernhard).
+- Reintroduced Olethros on Windows, adjusted project dependencies and made
+  code compile (Bernhard).
+- Adjusted race modes, take existing cars and tracks (Bernhard).
+- Adjusted preset driver "Player" (Bernhard).
+- Set steer speed to 360 Deg/s on the trb1 cars (Bernhard).
+- Fit background images without distortion, background image aspect ratio is
+  16:10 (Bernhard).
+- Created new background images (Bernhard).
+- Splash screen scaling without distortion, added smoothing (Bernhard).
+- Added splash screen created by Eckhard M. Jager (Eckhard, Bernhard).
+- Do not call anymore GfuiIdle for ordinary menus/screens to save power and
+  avoid annoying high frequency noise from graphics hardware (Bernhard).
+- Redone camera placement of alpine-1 (Bernhard).
+- Fixed trackgen not accepting -H option under posix builds (Bernhard).
+- Fixed trackgen not building the elevation 3 map (Bernhard).
+- Equalized author name formatting for tracks (Bernhard).
+- Replaced forza track selection image with a track map (Bernhard).
+- Added new background image and color settings to track alpine-1, created
+  by Eckhard M. Jager (Eckhard, Bernhard).
+- Fixed wrong texture size constant in openglconfg.cpp (Bernhard).
+- Fixed broken car light rendering, more adjustments will be required
+  (Bernhard).
+- Added new light definitions for trb cars, created by Wolf-Dieter
+  (Wolf-Dieter, Bernhard).
+- Updated installer for Windows (Bernhard).
+- Fixed empty -L option in configure.in, suggested by Jean-Philippe Meuret
+  (Jean-Philippe Meuret, Bernhard).
+- Reduced number of packages (make packages) (Bernhard).
+- Added brondehach track in gprix categorie
+- Added GCC 4.3 support
