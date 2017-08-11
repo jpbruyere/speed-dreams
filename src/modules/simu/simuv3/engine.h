@@ -21,17 +21,17 @@
 #define _ENGINE_H_
 
 typedef struct {
-    tdble rads;
-    tdble Tq;
-    //tdble b;
+    float rads;
+    float Tq;
+    //float b;
 } tEngineCurveElem;
 
 typedef struct {
-    tdble		maxTq;
-	tdble       maxPw;
-	tdble       rpmMaxPw;
-	tdble       TqAtMaxPw;
-	tdble       rpmMaxTq;
+    float		maxTq;
+	float       maxPw;
+	float       rpmMaxPw;
+	float       TqAtMaxPw;
+	float       rpmMaxTq;
     int			nbPts;
     tEngineCurveElem	*data;
 } tEngineCurve;
@@ -39,19 +39,19 @@ typedef struct {
 typedef struct
 {
     tEngineCurve	curve;
-    tdble		revsLimiter;
-    tdble		revsMax;
-    tdble		tickover;
-    tdble		I;
-    tdble		rads;   /* revs in rad/s ... */
-    tdble		Tq;	/* output torque */
-	tdble       Tq_response; /* response Tq due to mismatch */
-	tdble       I_joint; /* jointI */
-    tdble		fuelcons;
-    tdble		brakeCoeff;
-	tdble       pressure;
-	tdble       exhaust_pressure;
-	tdble       exhaust_refract;
+    float		revsLimiter;
+    float		revsMax;
+    float		tickover;
+    float		I;
+    float		rads;   /* revs in rad/s ... */
+    float		Tq;	/* output torque */
+	float       Tq_response; /* response Tq due to mismatch */
+	float       I_joint; /* jointI */
+    float		fuelcons;
+    float		brakeCoeff;
+	float       pressure;
+	float       exhaust_pressure;
+	float       exhaust_refract;
 	int         lastInterval; /* interval of torque characteristic used at last call to CalculateTorque2 */
 } tEngine;
 

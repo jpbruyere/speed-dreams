@@ -169,17 +169,17 @@ void KDriver::drive(tSituation * s) {
   if (IsStuck()) {
     Unstuck();
   } else {
-    car_->_steerCmd = (tdble) GetSteer(s);
+    car_->_steerCmd = (float) GetSteer(s);
     car_->_gearCmd = GetGear();
     CalcSpeed();
-    car_->_brakeCmd = (tdble) (FilterABS(
+    car_->_brakeCmd = (float) (FilterABS(
                         FilterBrakeSpeed(
                           FilterBColl(
                             FilterBPit(
                               GetBrake())))));
 
     if (car_->_brakeCmd == 0.0) {
-      car_->_accelCmd = (tdble) (FilterAccel(
+      car_->_accelCmd = (float) (FilterAccel(
                           FilterTCL(
                             FilterTrk(
                               FilterOverlap(
@@ -187,7 +187,7 @@ void KDriver::drive(tSituation * s) {
     } else {
       car_->_accelCmd = 0.0;
     }
-    car_->_clutchCmd = (tdble) (GetClutch());
+    car_->_clutchCmd = (float) (GetClutch());
   }  // if IsStuck
 
 #if 0
@@ -849,7 +849,7 @@ double KDriver::FilterBColl(const double brake) {
  */
 int KDriver::pitCommand(tSituation * s) {
   car_->_pitRepair = strategy_->PitRepair();
-  car_->_pitFuel = (tdble) (strategy_->PitRefuel());
+  car_->_pitFuel = (float) (strategy_->PitRefuel());
   // This should be the only place where the pit stop is set to false!
   pit_->set_pitstop(false);
   return ROB_PIT_IM;        // return immediately.
@@ -1258,7 +1258,7 @@ double KDriver::FilterBPit(double brake) {
   double mu = car_->_trkPos.seg->surface->kFriction * TIREMU * PIT_MU;
 
   if (pit_->pit_planned() && !pit_->in_pitlane()) {
-    tdble dl, dw;
+    float dl, dw;
     RtDistToPit(car_, track_, &dl, &dw);
     if (dl < PIT_BRAKE_AHEAD) {
 //      if (BrakeDist(0.0, mu) > dl)
@@ -1626,8 +1626,8 @@ vec2f KDriver::TargetPoint() {
     return s;
   }
 
-  s.x = (tdble) ((seg->vertex[TR_SL].x + seg->vertex[TR_SR].x) / 2.0);
-  s.y = (tdble) ((seg->vertex[TR_SL].y + seg->vertex[TR_SR].y) / 2.0);
+  s.x = (float) ((seg->vertex[TR_SL].x + seg->vertex[TR_SR].x) / 2.0);
+  s.y = (float) ((seg->vertex[TR_SL].y + seg->vertex[TR_SR].y) / 2.0);
 
   if (seg->type == TR_STR) {
     vec2f n((seg->vertex[TR_EL].x - seg->vertex[TR_ER].x) / seg->length,
@@ -1900,7 +1900,7 @@ double KDriver::InitSkill(tSituation * s) {
 
 
 void KDriver::Unstuck() {
-  car_->_steerCmd = (tdble) (- my_cardata_->getCarAngle() / car_->_steerLock);
+  car_->_steerCmd = (float) (- my_cardata_->getCarAngle() / car_->_steerLock);
   car_->_gearCmd = -1;     // Reverse gear.
   car_->_accelCmd = 1.0;   // 100% accelerator pedal.
   car_->_brakeCmd = 0.0;   // No brakes.

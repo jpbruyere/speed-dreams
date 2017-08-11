@@ -79,32 +79,32 @@ void TrackModule::unload()
 
 
 // Implementation of ITrack ****************************************
-//tdble TrackModule::globalHeight(tTrackSeg* seg, tdble x, tdble y)
+//float TrackModule::globalHeight(tTrackSeg* seg, float x, float y)
 //{
 //	return TrackHeightG(seg, x, y);
 //}
 //
-//tdble TrackModule::localHeight(tTrkLocPos* pos)
+//float TrackModule::localHeight(tTrkLocPos* pos)
 //{
 //	return TrackHeightL(pos);
 //}
 //
-//void TrackModule::global2Local(tTrackSeg* seg, tdble x, tdble y, tTrkLocPos* pos, int sides)
+//void TrackModule::global2Local(tTrackSeg* seg, float x, float y, tTrkLocPos* pos, int sides)
 //{
 //	TrackGlobal2Local(seg, x, y, pos, sides);
 //}
 //
-//void TrackModule::local2Global(tTrkLocPos* pos, tdble* x, tdble* y)
+//void TrackModule::local2Global(tTrkLocPos* pos, float* x, float* y)
 //{
 //	TrackLocal2Global(pos, x, y);
 //}
 //
-//void TrackModule::sideNormal(tTrackSeg* seg, tdble x, tdble y, int side, t3Dd* norm)
+//void TrackModule::sideNormal(tTrackSeg* seg, float x, float y, int side, glm::vec3* norm)
 //{
 //	TrackSideNormal(seg, x, y, side, norm);
 //}
 //
-//void TrackModule::surfaceNormal(tTrkLocPos* pos, t3Dd* norm)
+//void TrackModule::surfaceNormal(tTrkLocPos* pos, glm::vec3* norm)
 //{
 //	TrackSurfaceNormal(pos, norm);
 //}

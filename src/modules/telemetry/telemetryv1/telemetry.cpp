@@ -32,8 +32,8 @@ typedef struct Channel
 {
     struct Channel	*next;
     const char		*name;	/* channel name */
-    tdble		*val;	/* monitored value */
-    tdble		scale;
+    float		*val;	/* monitored value */
+    float		scale;
 } tChannel;
 
 typedef struct Tlm
@@ -41,8 +41,8 @@ typedef struct Tlm
     FILE	*file;	/* associated file */
     char	*cmdfile;
     int		state;
-    tdble	ymin;
-    tdble	ymax;
+    float	ymin;
+    float	ymax;
     tChannel	*chanList;
 } tTlm;
     
@@ -63,7 +63,7 @@ static tTlm	TlmData;
  *	none
  */
 void
-TlmInit(tdble ymin, tdble ymax)
+TlmInit(float ymin, float ymax)
 {
     TlmData.file	= (FILE*)NULL;
     TlmData.state	= 0;
@@ -86,7 +86,7 @@ TlmInit(tdble ymin, tdble ymax)
  *	channel ID or -1 if error
  */
 void
-TlmNewChannel(const char *name, tdble *var, tdble min, tdble max)
+TlmNewChannel(const char *name, float *var, float min, float max)
 {
     tChannel	*curChan;
 

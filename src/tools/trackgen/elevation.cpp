@@ -43,18 +43,18 @@
 
 static unsigned char	*ElvImage;
 static int	ElvOk = 0;
-static tdble 	Margin;
+static float 	Margin;
 
-static tdble	kX, kY, dX, dY;
-static tdble	kZ, dZ;
+static float	kX, kY, dX, dY;
+static float	kZ, dZ;
 static int	width, height;
 
 #define MAX_CLR	255.0
 
 void LoadElevation(tTrack *track, void *TrackHandle, char *imgFile)
 {
-	tdble zmin, zmax;
-	tdble xmin, xmax, ymin, ymax;
+	float zmin, zmax;
+	float xmin, xmax, ymin, ymax;
 
 	ElvImage = GfTexReadImageFromPNG(imgFile, 2.2, &width, &height, 0, 0, false);
 	if (!ElvImage) {
@@ -70,9 +70,9 @@ void LoadElevation(tTrack *track, void *TrackHandle, char *imgFile)
 	ymin = track->min.y - Margin;
 	ymax = track->max.y + Margin;
 
-	kX = (tdble)(width - 1) / (xmax - xmin);
+	kX = (float)(width - 1) / (xmax - xmin);
 	dX = -xmin * kX;
-	kY = (tdble)(height - 1) / (ymax - ymin);
+	kY = (float)(height - 1) / (ymax - ymin);
 	dY = -ymin * kY;
 	ElvOk = 1;
 
@@ -84,7 +84,7 @@ void LoadElevation(tTrack *track, void *TrackHandle, char *imgFile)
 }
 
 
-tdble GetElevation(tdble x, tdble y, tdble z)
+float GetElevation(float x, float y, float z)
 {
 	int iX, iY;
 	int clr;
@@ -94,7 +94,7 @@ tdble GetElevation(tdble x, tdble y, tdble z)
 		iY = (int)(y * kY + dY);
 		/* RGBA */
 		clr = ElvImage[4 * (iY * width + iX)];
-		return (tdble)clr * kZ + dZ;
+		return (float)clr * kZ + dZ;
 	}
 
 	return z;

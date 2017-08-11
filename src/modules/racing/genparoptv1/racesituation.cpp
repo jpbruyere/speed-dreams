@@ -691,8 +691,8 @@ tRmInfo* ReSituationUpdater::copySituation(tRmInfo*& pTarget, const tRmInfo* pSo
 		pTgtCar->_fuelTotal = pSrcCar->_fuelTotal;
 		pTgtCar->_fuelInstant = pSrcCar->_fuelInstant;
 		pTgtCar->_enginerpm = pSrcCar->_enginerpm;
-		memcpy(&pTgtCar->priv.skid[0], &pSrcCar->priv.skid[0], 4*sizeof(tdble));
-		memcpy(&pTgtCar->priv.reaction[0], &pSrcCar->priv.reaction[0], 4*sizeof(tdble));
+		memcpy(&pTgtCar->priv.skid[0], &pSrcCar->priv.skid[0], 4*sizeof(float));
+		memcpy(&pTgtCar->priv.reaction[0], &pSrcCar->priv.reaction[0], 4*sizeof(float));
 		pTgtCar->_collision = pSrcCar->_collision;
 		pTgtCar->_smoke = pSrcCar->_smoke;
 		pTgtCar->_normal = pSrcCar->_normal;

@@ -224,14 +224,14 @@ void GfMemoryManagerLoadFromFile(tMemoryManager* MM)
 	{
 
 		// Write header data
-		tdble version =
-			GfParmGetNum(Handle, "CONFIGURATION", "version", NULL, (tdble) MM_VERSION);
+		float version =
+			GfParmGetNum(Handle, "CONFIGURATION", "version", NULL, (float) MM_VERSION);
 		int maxBlockSize = (int)
-			GfParmGetNum(Handle, "CONFIGURATION", "max block size", NULL, (tdble) MAXBLOCKSIZE);
+			GfParmGetNum(Handle, "CONFIGURATION", "max block size", NULL, (float) MAXBLOCKSIZE);
 		MM->AddedSpace = (int)
-			GfParmGetNum(Handle, "CONFIGURATION", "additional space", NULL, (tdble) MM->AddedSpace);
+			GfParmGetNum(Handle, "CONFIGURATION", "additional space", NULL, (float) MM->AddedSpace);
 		int sizeOfMemoryManager = (int)
-			GfParmGetNum(Handle, "CONFIGURATION", "size", NULL, (tdble) MM->Size);
+			GfParmGetNum(Handle, "CONFIGURATION", "size", NULL, (float) MM->Size);
 
 		if (maxBlockSize > MAXBLOCKSIZE)
 			maxBlockSize = MAXBLOCKSIZE;
@@ -245,7 +245,7 @@ void GfMemoryManagerLoadFromFile(tMemoryManager* MM)
 			snprintf(buf,sizeof(buf),"BLOCK/%d",I);
 
 			Stack->Size = (int)
-				GfParmGetNum(Handle, buf, "block size", NULL, (tdble) Stack->Size);
+				GfParmGetNum(Handle, buf, "block size", NULL, (float) Stack->Size);
 			MM->Capacity[I+1] = (int) 
 				(GfParmGetNum(Handle, buf, "capacity", NULL, 0));
 		}
@@ -283,8 +283,8 @@ void GfMemoryManagerSaveToFile(void)
 	// Write header data
 	GfParmSetNum(Handle, "CONFIGURATION", "version", NULL, MM_VERSION);
 	GfParmSetNum(Handle, "CONFIGURATION", "max block size", NULL, MAXBLOCKSIZE);
-	GfParmSetNum(Handle, "CONFIGURATION", "additional space", NULL, (tdble) GfMM->AddedSpace);
-	GfParmSetNum(Handle, "CONFIGURATION", "size", NULL, (tdble) GfMM->Size);
+	GfParmSetNum(Handle, "CONFIGURATION", "additional space", NULL, (float) GfMM->AddedSpace);
+	GfParmSetNum(Handle, "CONFIGURATION", "size", NULL, (float) GfMM->Size);
 
 	fprintf(stderr,"Capacity changes:\n");
 
@@ -299,9 +299,9 @@ void GfMemoryManagerSaveToFile(void)
 		unsigned int Capacity = (int) MAX(GfMM->HistMax[I+1],GfMM->Capacity[I+1]);
 
 		// Write data
-		GfParmSetNum(Handle, buf, "block size", NULL, (tdble) Stack->Size, 0, MAXBLOCKSIZE);
-		GfParmSetNum(Handle, buf, "capacity", NULL, (tdble) Capacity, 0, 1024*64);
-		GfParmSetNum(Handle, buf, "planned", NULL, (tdble) GfMM->Capacity[I+1], 0, 1024*64);
+		GfParmSetNum(Handle, buf, "block size", NULL, (float) Stack->Size, 0, MAXBLOCKSIZE);
+		GfParmSetNum(Handle, buf, "capacity", NULL, (float) Capacity, 0, 1024*64);
+		GfParmSetNum(Handle, buf, "planned", NULL, (float) GfMM->Capacity[I+1], 0, 1024*64);
 
 		if (Capacity != GfMM->Capacity[I+1])
 			fprintf(stderr,"block size %d capacity +%d\n",Stack->Size,Capacity - GfMM->Capacity[I+1]);

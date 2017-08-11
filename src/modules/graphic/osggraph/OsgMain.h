@@ -47,7 +47,7 @@ extern void shutdownView(void);
 extern Camera * getCamera(void);
 
 extern int grMaxTextureUnits;
-extern tdble grMaxDammage;
+extern float grMaxDammage;
 
 // Number of active screens.
 extern int m_NbActiveScreens;
@@ -62,7 +62,7 @@ extern int m_NbActiveScreens;
 
 #define SD_NB_MAX_SCREEN 6
 
-extern tdble grLodFactorValue;
+extern float grLodFactorValue;
 
 class SDFrameInfo
 {

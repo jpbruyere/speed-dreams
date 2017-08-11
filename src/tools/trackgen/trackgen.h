@@ -2,7 +2,7 @@
 
     file                 : trackgen.h
     created              : Sun Dec 24 16:00:03 CET 2000
-    copyright            : (C) 2000 by Eric Espié
+    copyright            : (C) 2000 by Eric EspiÃ©
     email                : Eric.Espie@torcs.org
     version              : $Id$
 

@@ -267,14 +267,14 @@ void NetServer::GenerateDriversForXML()
             if (GfParmExistsSection(params, path2) == 0) {
                 // driver not found, so add them at the end
                 GfLogInfo("Adding driver %s to XML\n", pSData->m_vecNetworkPlayers[i].name);
-                GfParmSetNum(params, path2, RM_ATTR_IDX, (char*)NULL,(tdble) pSData->m_vecNetworkPlayers[i].idx);
+                GfParmSetNum(params, path2, RM_ATTR_IDX, (char*)NULL,(float) pSData->m_vecNetworkPlayers[i].idx);
                 GfParmSetStr(params, path2, RM_ATTR_MODULE, pSData->m_vecNetworkPlayers[i].module);
 
                 // should also write skin information
                 break;
             }
 
-            if ((tdble)pSData->m_vecNetworkPlayers[i].idx == GfParmGetNum(params, path2, RM_ATTR_IDX, NULL,1.0) &&
+            if ((float)pSData->m_vecNetworkPlayers[i].idx == GfParmGetNum(params, path2, RM_ATTR_IDX, NULL,1.0) &&
                     strcmp(pSData->m_vecNetworkPlayers[i].module, GfParmGetStr(params, path2, RM_ATTR_MODULE,NULL)) == 0) {
                 GfLogInfo("Found driver %s in XML\n", pSData->m_vecNetworkPlayers[i].name);
                 found = true;

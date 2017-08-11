@@ -9,7 +9,7 @@
 // File         : unitpit.h
 // Created      : 2007.02.20
 // Last changed : 2014.11.29
-// Copyright    : © 2007-2014 Wolf-Dieter Beelitz
+// Copyright    : Â© 2007-2014 Wolf-Dieter Beelitz
 // eMail        : wdbee@users.sourceforge.net
 // Version      : 4.05.000
 //--------------------------------------------------------------------------*
@@ -31,17 +31,17 @@
 //
 // Das Programm wurde unter Windows XP entwickelt und getestet.
 // Fehler sind nicht bekannt, dennoch gilt:
-// Wer die Dateien verwendet erkennt an, dass für Fehler, Schäden,
-// Folgefehler oder Folgeschäden keine Haftung übernommen wird.
+// Wer die Dateien verwendet erkennt an, dass fÃ¼r Fehler, SchÃ¤den,
+// Folgefehler oder FolgeschÃ¤den keine Haftung Ã¼bernommen wird.
 //--------------------------------------------------------------------------*
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2 of the License, or
 // (at your option) any later version.
 //
-// Im übrigen gilt für die Nutzung und/oder Weitergabe die
+// Im Ã¼brigen gilt fÃ¼r die Nutzung und/oder Weitergabe die
 // GNU GPL (General Public License)
-// Version 2 oder nach eigener Wahl eine spätere Version.
+// Version 2 oder nach eigener Wahl eine spÃ¤tere Version.
 //--------------------------------------------------------------------------*
 #ifndef _PIT_H_
 #define _PIT_H_

@@ -583,7 +583,7 @@ void GfShutdown(void)
 }
 
 
-void gfMeanReset(tdble v, tMeanVal *pvt)
+void gfMeanReset(float v, tMeanVal *pvt)
 {
 	int i;
 
@@ -593,10 +593,10 @@ void gfMeanReset(tdble v, tMeanVal *pvt)
 }
 
 
-tdble gfMean(tdble v, tMeanVal *pvt, int n, int w)
+float gfMean(float v, tMeanVal *pvt, int n, int w)
 {
 	int i;
-	tdble sum;
+	float sum;
 
 	if (n > pvt->curNum) {
 		if (pvt->curNum < GF_MEAN_MAX_VAL) {
@@ -614,8 +614,8 @@ tdble gfMean(tdble v, tMeanVal *pvt, int n, int w)
 	}
 
 	pvt->val[n] = v;
-	sum += (tdble)w * v;
-	sum /= (tdble)(n + w);
+	sum += (float)w * v;
+	sum /= (float)(n + w);
 
 	return sum;
 }

@@ -24,7 +24,7 @@ static const char *AxleSect[2] = {SECT_FRNTAXLE, SECT_REARAXLE};
 void SimAxleConfig(tCar *car, int index)
 {
 	void	*hdle = car->params;
-	tdble	rollCenter;
+	float	rollCenter;
 	
 	tAxle *axle = &(car->axle[index]);
 	
@@ -41,8 +41,8 @@ void SimAxleConfig(tCar *car, int index)
 		axle->arbSusp.spring.K = -axle->arbSusp.spring.K;
 	}
 	
-	car->wheel[index*2].feedBack.I += (tdble) (axle->I / 2.0);
-	car->wheel[index*2+1].feedBack.I += (tdble) (axle->I / 2.0);
+	car->wheel[index*2].feedBack.I += (float) (axle->I / 2.0);
+	car->wheel[index*2+1].feedBack.I += (float) (axle->I / 2.0);
 }
 
 
@@ -51,18 +51,18 @@ void SimAxleConfig(tCar *car, int index)
 void SimAxleUpdate(tCar *car, int index)
 {
 	tAxle *axle = &(car->axle[index]);
-	tdble str, stl, sgn;
+	float str, stl, sgn;
 	
 	str = car->wheel[index*2].susp.x;
 	stl = car->wheel[index*2+1].susp.x;
 	
-	sgn = (tdble) (SIGN(stl - str));
+	sgn = (float) (SIGN(stl - str));
 	axle->arbSusp.x = fabs(stl - str);		
 	tSpring *spring = &(axle->arbSusp.spring);
 
 	// To save CPU power we compute the force here directly. Just the spring
 	// is considered.
-	tdble f;
+	float f;
 	f = spring->K * axle->arbSusp.x;
 	
 	// right

@@ -118,7 +118,7 @@ int ReConfigure()
 {
 	// Set track 1 as starting track
 	void *params = ReInfo->params;
-	GfParmSetNum(params, RE_SECT_CURRENT, RE_ATTR_CUR_TRACK, NULL, (tdble)1);
+	GfParmSetNum(params, RE_SECT_CURRENT, RE_ATTR_CUR_TRACK, NULL, (float)1);
 
 	ReUI().onRaceConfiguring();
 
@@ -356,7 +356,7 @@ RePreRace(void)
 		if (curRaceIdx < GfParmGetEltNb(params, RM_SECT_RACES)) {
 			curRaceIdx++;
 			GfLogTrace( "Race %s is not the last one, but the #%d\n",  raceName, curRaceIdx);
-			GfParmSetNum(results, RE_SECT_CURRENT, RE_ATTR_CUR_RACE, NULL, (tdble)curRaceIdx);
+			GfParmSetNum(results, RE_SECT_CURRENT, RE_ATTR_CUR_RACE, NULL, (float)curRaceIdx);
 	
 			return RM_SYNC | RM_NEXT_RACE;
 		}
@@ -420,7 +420,7 @@ RePreRace(void)
 		ReInfo->s->_totTime = -60.0f;
 		
 	// Get session distance (defaults to "All sessions" one, or else 0).
-	tdble dist = GfParmGetNum(params, raceName, RM_ATTR_DISTANCE, NULL, -1);
+	float dist = GfParmGetNum(params, raceName, RM_ATTR_DISTANCE, NULL, -1);
 	if (dist < 0)
 		dist = GfParmGetNum(params, RM_VAL_ANYRACE, RM_ATTR_DISTANCE, NULL, 0);
 	
@@ -813,7 +813,7 @@ ReRaceEnd(void)
 		else
 			curDrvIdx = 1; // Was the last one : end of session !
 
-		GfParmSetNum(results, RE_SECT_CURRENT, RE_ATTR_CUR_DRIVER, NULL, (tdble)curDrvIdx);
+		GfParmSetNum(results, RE_SECT_CURRENT, RE_ATTR_CUR_DRIVER, NULL, (float)curDrvIdx);
 	}
 */
 	if (bEndOfSession)
@@ -844,7 +844,7 @@ RePostRace(void)
 		// Next session.
 		curRaceIdx++;
 		GfLogInfo("Next session will be #%d\n", curRaceIdx);
-		GfParmSetNum(results, RE_SECT_CURRENT, RE_ATTR_CUR_RACE, NULL, (tdble)curRaceIdx);
+		GfParmSetNum(results, RE_SECT_CURRENT, RE_ATTR_CUR_RACE, NULL, (float)curRaceIdx);
 		
 		// Update standings in the results file.
 		//ReUpdateStandings();
@@ -897,8 +897,8 @@ ReRaceEventShutdown(void)
 		}
 	}
 
-//	GfParmSetNum(results, RE_SECT_CURRENT, RE_ATTR_CUR_TRACK, NULL, (tdble)curTrkIdx);
-	GfParmSetNum(params, RE_SECT_CURRENT, RE_ATTR_CUR_TRACK, NULL, (tdble)curTrkIdx);
+//	GfParmSetNum(results, RE_SECT_CURRENT, RE_ATTR_CUR_TRACK, NULL, (float)curTrkIdx);
+	GfParmSetNum(params, RE_SECT_CURRENT, RE_ATTR_CUR_TRACK, NULL, (float)curTrkIdx);
 
 	// Determine new race state automaton mode.
 	int mode = (curTrkIdx != 1) ? RM_NEXT_RACE : RM_NEXT_STEP;

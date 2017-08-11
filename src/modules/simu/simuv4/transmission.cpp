@@ -25,15 +25,15 @@ SimTransmissionConfig(tCar *car)
 {
     void		*hdle = car->params;
     tCarElt		*carElt = car->carElt;
-    //tdble		clutchI; // Never used
+    //float		clutchI; // Never used
     tTransmission	*trans = &(car->transmission);
     tClutch		*clutch = &(trans->clutch);
     tDifferential	*differential;
     const char		*transType;
     int			i, j;
-    tdble		gRatio = 0; // Avoid compiler warning: usage of possibly uninitialized variable
-	tdble		gEff = 0;
-    //tdble       fEff; // Never used
+    float		gRatio = 0; // Avoid compiler warning: usage of possibly uninitialized variable
+	float		gEff = 0;
+    //float       fEff; // Never used
     char		path[256];
     tCarSetupItem	*setupGear;
 
@@ -161,8 +161,8 @@ SimTransmissionReConfig(tCar *car)
     tCarElt *carElt = car->carElt;
     tTransmission *trans = &(car->transmission);
     int  i;
-    tdble fRatio = 0.0;
-    tdble gRatio = 0.0;
+    float fRatio = 0.0;
+    float gRatio = 0.0;
     tCarSetupItem *setupGear;
     
     if (trans->type == TRANS_RWD) {
@@ -313,7 +313,7 @@ SimTransmissionUpdate(tCar *car)
     tClutch		*clutch = &(trans->clutch);
     tGearbox		*gearbox = &(trans->gearbox);
     tDifferential	*differential, *differential0, *differential1;
-    tdble		transfer = MIN(clutch->transferValue * 3.0f, 1.0f);
+    float		transfer = MIN(clutch->transferValue * 3.0f, 1.0f);
 
     switch(trans->type) {
     case TRANS_RWD:

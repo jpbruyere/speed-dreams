@@ -26,14 +26,14 @@
 #include <robottools.h>
 
 void
-TrackLocal2Global(tTrkLocPos *p, tdble *X, tdble *Y)
+TrackLocal2Global(tTrkLocPos *p, float *X, float *Y)
 {
     RtTrackLocal2Global(p, X, Y, TR_TORIGHT);
 }
 
 
 void
-TrackGlobal2Local(tTrackSeg *segment, tdble X, tdble Y, tTrkLocPos *p, int type)
+TrackGlobal2Local(tTrackSeg *segment, float X, float Y, tTrkLocPos *p, int type)
 {
     RtTrackGlobal2Local(segment, X, Y, p, type);
 }
@@ -51,35 +51,35 @@ TrackGlobal2Local(tTrackSeg *segment, tdble X, tdble Y, tTrkLocPos *p, int type)
  *	
  */
 
-tdble
+float
 TrackHeightL(tTrkLocPos *p)
 {
     return RtTrackHeightL(p);
 }
 
-tdble
-TrackHeightG(tTrackSeg *seg, tdble x, tdble y)
+float
+TrackHeightG(tTrackSeg *seg, float x, float y)
 {
     return RtTrackHeightG(seg, x,  y);
 }
 
 void
-TrackSideNormal(tTrackSeg *seg, tdble x, tdble y, int side, t3Dd *norm)
+TrackSideNormal(tTrackSeg *seg, float x, float y, int side, glm::vec3 *norm)
 {
     RtTrackSideNormalG(seg, x, y, side, norm);
 }
 
 void
-TrackSurfaceNormal(tTrkLocPos *p, t3Dd *norm)
+TrackSurfaceNormal(tTrkLocPos *p, glm::vec3 *norm)
 {
     RtTrackSurfaceNormalL(p, norm);
 }
 
-tdble
-TrackSpline(tdble p0, tdble p1, tdble t0, tdble t1, tdble t)
+float
+TrackSpline(float p0, float p1, float t0, float t1, float t)
 {
-    tdble t2, t3;
-    tdble h0, h1, h2, h3;
+    float t2, t3;
+    float h0, h1, h2, h3;
     
     t2 = t * t;
     t3 = t * t2;

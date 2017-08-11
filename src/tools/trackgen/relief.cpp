@@ -53,7 +53,7 @@ GF_TAILQ_HEAD(RingListHead, tLine);
 tRingListHead	InteriorList;
 tRingListHead	ExteriorList;
 
-static tdble	GridStep;
+static float	GridStep;
 
 static ssgEntity	*Root = NULL;
 

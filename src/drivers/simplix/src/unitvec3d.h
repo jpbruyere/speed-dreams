@@ -8,7 +8,7 @@
 // File         : unitvec2d.h
 // Created      : 2007.11.25
 // Last changed : 2014.11.29
-// Copyright    : © 2007-2014 Wolf-Dieter Beelitz
+// Copyright    : Â© 2007-2014 Wolf-Dieter Beelitz
 // eMail        : wdbee@users.sourceforge.net
 // Version      : 4.05.000
 //--------------------------------------------------------------------------*
@@ -19,12 +19,12 @@
 //--------------------------------------------------------------------------*
 // Das Programm wurde unter Windows XP entwickelt und getestet.
 // Fehler sind nicht bekannt, dennoch gilt:
-// Wer die Dateien verwendet erkennt an, dass für Fehler, Schäden,
-// Folgefehler oder Folgeschäden keine Haftung übernommen wird.
+// Wer die Dateien verwendet erkennt an, dass fÃ¼r Fehler, SchÃ¤den,
+// Folgefehler oder FolgeschÃ¤den keine Haftung Ã¼bernommen wird.
 //
-// Im übrigen gilt für die Nutzung und/oder Weitergabe die
+// Im Ã¼brigen gilt fÃ¼r die Nutzung und/oder Weitergabe die
 // GNU GPL (General Public License)
-// Version 2 oder nach eigener Wahl eine spätere Version.
+// Version 2 oder nach eigener Wahl eine spÃ¤tere Version.
 //--------------------------------------------------------------------------*
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -50,7 +50,7 @@ class TVec3d : public v3t<double>
 	TVec3d() {};
 	TVec3d(const v3t<double>& V) : v3t<double>(V) {};
 	TVec3d(double X, double Y, double Z) : v3t<double>(X, Y, Z) {};
-	TVec3d(const t3Dd& V) : v3t<double>(V.x, V.y, V.z) {};
+	TVec3d(const glm::vec3& V) : v3t<double>(V.x, V.y, V.z) {};
 
 	TVec3d& operator= (const v3t<double>& V)
 	{

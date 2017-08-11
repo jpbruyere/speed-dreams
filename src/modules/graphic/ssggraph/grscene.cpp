@@ -375,8 +375,8 @@ void grCustomizePits(void)
             // More details here : http://www.berniw.org/torcs/robot/ch6/pitlogo.html
 
             // Determine the position of the pit wall, and its normal vector.
-            tdble x, y;
-            t3Dd normalvector;
+            float x, y;
+            glm::vec3 normalvector;
             RtTrackLocal2Global(&(pits->driversPits[i].pos), &x, &y,
                                 pits->driversPits[i].pos.type);
             RtTrackSideNormalG(pits->driversPits[i].pos.seg, x, y,
@@ -389,11 +389,11 @@ void grCustomizePits(void)
             }
 
             // Determine the position of the first, bottom vertex of the triangle strip
-            tdble x2 = x - pits->width / 2.0 * normalvector.x
+            float x2 = x - pits->width / 2.0 * normalvector.x
                     + pits->len / 2.0 * normalvector.y;
-            tdble y2 = y - pits->width / 2.0 * normalvector.y
+            float y2 = y - pits->width / 2.0 * normalvector.y
                     - pits->len / 2.0 * normalvector.x;
-            tdble z2 = RtTrackHeightG(pits->driversPits[i].pos.seg, x2, y2);
+            float z2 = RtTrackHeightG(pits->driversPits[i].pos.seg, x2, y2);
 
             // First, bottom vertex of the triangle strip
             {
@@ -475,8 +475,8 @@ void grCustomizePits(void)
             tTrackOwnPit *act_pit = &(pits->driversPits[i]);
 
             // Get this pit's center coords
-            tdble x0, y0;
-            t3Dd normalvector;
+            float x0, y0;
+            glm::vec3 normalvector;
             RtTrackLocal2Global(&(act_pit->pos), &x0, &y0, act_pit->pos.type);
             RtTrackSideNormalG(act_pit->pos.seg, x0, y0, pits->side, &normalvector);
             // This offset needed so the pit walls start at the correct place
@@ -536,29 +536,29 @@ void grCustomizePits(void)
             // Logo part bounds:  (x2, y2) - (x3, y3)
             // Small wall bounds: (x3, y3) - (x4, y4)
 
-            tdble x1 = x0 - pits->width / 2.0 * normalvector.x
+            float x1 = x0 - pits->width / 2.0 * normalvector.x
                     + pits->len / 2.0 * normalvector.y;
-            tdble y1 = y0 - pits->width / 2.0 * normalvector.y
+            float y1 = y0 - pits->width / 2.0 * normalvector.y
                     - pits->len / 2.0 * normalvector.x;
-            tdble z1 = RtTrackHeightG(act_pit->pos.seg, x1, y1);
+            float z1 = RtTrackHeightG(act_pit->pos.seg, x1, y1);
 
-            tdble x2 = x0 - pits->width / 2.0 * normalvector.x
+            float x2 = x0 - pits->width / 2.0 * normalvector.x
                     + pits->len / 4.0 * normalvector.y;
-            tdble y2 = y0 - pits->width / 2.0 * normalvector.y
+            float y2 = y0 - pits->width / 2.0 * normalvector.y
                     - pits->len / 4.0 * normalvector.x;
-            tdble z2 = RtTrackHeightG(act_pit->pos.seg, x2, y2);
+            float z2 = RtTrackHeightG(act_pit->pos.seg, x2, y2);
 
-            tdble x3 = x0 - pits->width / 2.0 * normalvector.x
+            float x3 = x0 - pits->width / 2.0 * normalvector.x
                     - pits->len / 4.0 * normalvector.y;
-            tdble y3 = y0 - pits->width / 2.0 * normalvector.y
+            float y3 = y0 - pits->width / 2.0 * normalvector.y
                     + pits->len / 4.0 * normalvector.x;
-            tdble z3 = RtTrackHeightG(act_pit->pos.seg, x3, y3);
+            float z3 = RtTrackHeightG(act_pit->pos.seg, x3, y3);
 
-            tdble x4 = x0 - pits->width / 2.0 * normalvector.x
+            float x4 = x0 - pits->width / 2.0 * normalvector.x
                     - pits->len / 2.0 * normalvector.y;
-            tdble y4 = y0 - pits->width / 2.0 * normalvector.y
+            float y4 = y0 - pits->width / 2.0 * normalvector.y
                     + pits->len / 2.0 * normalvector.x;
-            tdble z4 = RtTrackHeightG(act_pit->pos.seg, x4, y4);
+            float z4 = RtTrackHeightG(act_pit->pos.seg, x4, y4);
 
             ssgVertexArray *pit_vtx1 = new ssgVertexArray(4);
             ssgTexCoordArray *pit_tex1 = new ssgTexCoordArray(4);
@@ -761,7 +761,7 @@ void grCustomizePits(void)
 }  // grCustomizePits
 
 // Load New Pit Indicator in Scene
-void grLoadPitsIndicator(tdble x, tdble y, tdble z, char *buf, int Pitind)
+void grLoadPitsIndicator(float x, float y, float z, char *buf, int Pitind)
 {
     char buf2[256];
     ssgEntity		*desc;

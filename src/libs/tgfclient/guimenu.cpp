@@ -974,8 +974,8 @@ GfuiMenuLoad(const char* pszMenuPath)
 	return GfParmReadFile(buf, GFPARM_RMODE_STD);
 }
 
-tdble
-GfuiMenuGetNumProperty(void* hparm, const char* pszName, tdble nDefVal, const char* pszUnit)
+float
+GfuiMenuGetNumProperty(void* hparm, const char* pszName, float nDefVal, const char* pszUnit)
 {
 	return GfParmGetNum(hparm, GFMNU_SECT_PROPERTIES, pszName, pszUnit, nDefVal);
 }

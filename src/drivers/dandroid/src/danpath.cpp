@@ -205,7 +205,7 @@ double DanLine::calcYaw(DanPoint danpoint)
 double DanLine::calcTrackYaw(DanPoint danpoint, double& trackyaw)
 {
   tTrkLocPos locpos;
-  RtTrackGlobal2Local(myseg, (tdble) danpoint.pos.x, (tdble) danpoint.pos.y, &locpos, TR_LPOS_MAIN);
+  RtTrackGlobal2Local(myseg, (float) danpoint.pos.x, (float) danpoint.pos.y, &locpos, TR_LPOS_MAIN);
   myseg = locpos.seg;
   trackyaw = RtTrackSideTgAngleL(&locpos);
   return true;
@@ -215,7 +215,7 @@ double DanLine::calcTrackYaw(DanPoint danpoint, double& trackyaw)
 bool DanLine::fromStart(Vec2d pos, double& fromstart)
 {
   tTrkLocPos locpos;
-  RtTrackGlobal2Local(myseg, (tdble) pos.x, (tdble) pos.y, &locpos, TR_LPOS_MAIN);
+  RtTrackGlobal2Local(myseg, (float) pos.x, (float) pos.y, &locpos, TR_LPOS_MAIN);
   myseg = locpos.seg;
   fromstart = RtGetDistFromStart2(&locpos);
   return true;
@@ -225,7 +225,7 @@ bool DanLine::fromStart(Vec2d pos, double& fromstart)
 bool DanLine::toMiddle(Vec2d pos, double& tomiddle)
 {
   tTrkLocPos locpos;
-  RtTrackGlobal2Local(myseg, (tdble) pos.x, (tdble) pos.y, &locpos, TR_LPOS_MAIN);
+  RtTrackGlobal2Local(myseg, (float) pos.x, (float) pos.y, &locpos, TR_LPOS_MAIN);
   myseg = locpos.seg;
   tomiddle = locpos.toMiddle;
   return true;

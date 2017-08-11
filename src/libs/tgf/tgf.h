@@ -47,12 +47,7 @@
 
 #include <string>
 #include <vector>
-
-/** Floating point type used everywhere.
-    @ingroup definitions
-*/
-typedef float tdble;
-/* typedef double tdble; */
+#include <glm/glm.hpp>
 
 /** Maximum between two values */
 #ifndef MAX
@@ -78,7 +73,7 @@ const double PI_2 = PI/2; /**< PI/2 =  90 deg */
 const double PI_3 = PI/3; /**< PI/3 =  60 deg */
 const double PI_4 = PI/4; /**< PI/4 =  45 deg */
 const double PI_6 = PI/6; /**< PI/6 =  30 deg */
-const tdble G = 9.80665f; /**< m/s/s */
+const float G = 9.80665f; /**< m/s/s */
 
 /* conversion */
 #define RADS2RPM(x) ((x)*9.549296585)		/**< Radian/s to RPM conversion */
@@ -100,8 +95,8 @@ do {						\
 /** Angle normalization between 0 and 2 * PI */
 #define FLOAT_NORM0_2PI(x) 				\
 do {						\
-	while ((x) > (tdble)(2*PI)) { (x) -= (tdble) (2*PI); }	\
-	while ((x) < 0) { (x) += (tdble)(2*PI); } 	\
+    while ((x) > (float)(2*PI)) { (x) -= (float) (2*PI); }	\
+    while ((x) < 0) { (x) += (float)(2*PI); } 	\
 } while (0)
 
 /** Angle normalization between -PI and PI */
@@ -114,8 +109,8 @@ do {						\
 /** Angle normalization between -PI and PI */
 #define FLOAT_NORM_PI_PI(x) 				\
 do {						\
-	while ((x) > PI) { (x) -= (tdble) (2*PI); }	\
-	while ((x) < -PI) { (x) += (tdble) (2*PI); } 	\
+    while ((x) > PI) { (x) -= (float) (2*PI); }	\
+    while ((x) < -PI) { (x) += (float) (2*PI); } 	\
 } while (0)
 
 
@@ -125,39 +120,18 @@ do {						\
 #endif
 
 
-typedef struct {
-    float	x;
-    float	y;
-    float	z;
-} t3Df;
-
-/** 3D point.
-    @ingroup definitions
-*/
-typedef struct {
-    tdble	x;		/**< x coordinate */
-    tdble	y;		/**< y coordinate */
-    tdble	z;		/**< z coordinate */
-} t3Dd;
-
-typedef struct {
-    int		x;
-    int		y;
-    int		z;
-} t3Di;
-
 /** 6 DOF position.
     @ingroup definitions
 */
 typedef struct Posd
 {
-    tdble	x;		/**< x coordinate */
-    tdble	y;		/**< y coordinate */
-    tdble	z;		/**< z coordinate */
-    tdble	xy;		/**< combined 2D xy coordinate */
-    tdble	ax;		/**< angle along x axis */
-    tdble	ay;		/**< angle along y axis */
-    tdble	az;		/**< angle along z axis */
+    float	x;		/**< x coordinate */
+    float	y;		/**< y coordinate */
+    float	z;		/**< z coordinate */
+    float	xy;		/**< combined 2D xy coordinate */
+    float	ax;		/**< angle along x axis */
+    float	ay;		/**< angle along y axis */
+    float	az;		/**< angle along z axis */
 } tPosd;
 
 /** Dynamic point structure.
@@ -173,8 +147,8 @@ typedef struct DynPt
 /** Forces and moments */
 typedef struct Forces
 {
-    t3Dd F; /**< Forces */
-    t3Dd M; /**< Moments */
+    glm::vec3 F; /**< Forces */
+    glm::vec3 M; /**< Moments */
 } tForces;
 
 /******************************
@@ -438,25 +412,25 @@ TGF_API int GfParmSetStr(void *handle, const char *path, const char *key, const 
 TGF_API int GfParmSetCurStr(void *handle, const char *path, const char *key, const char *val);
 
 /* get num parameter value */
-TGF_API tdble GfParmGetNum(void *handle, const char *path, const char *key, const char *unit, tdble deflt);
+TGF_API float GfParmGetNum(void *handle, const char *path, const char *key, const char *unit, float deflt);
 /* get min of num parameter value */
-TGF_API tdble GfParmGetNumMin(void *handle, const char *path, const char *key, const char *unit, tdble deflt);
+TGF_API float GfParmGetNumMin(void *handle, const char *path, const char *key, const char *unit, float deflt);
 /* get max of num parameter value */
-TGF_API tdble GfParmGetNumMax(void *handle, const char *path, const char *key, const char *unit, tdble deflt);
+TGF_API float GfParmGetNumMax(void *handle, const char *path, const char *key, const char *unit, float deflt);
 /* get num parameter value with limits */
-TGF_API int GfParmGetNumWithLimits (void *handle, char const *path, const char *key, const char *unit, tdble* value, tdble* min, tdble* max);
+TGF_API int GfParmGetNumWithLimits (void *handle, char const *path, const char *key, const char *unit, float* value, float* min, float* max);
 /* get num parameter value */
-TGF_API tdble GfParmGetCurNum(void *handle, const char *path, const char *key, const char *unit, tdble deflt);
+TGF_API float GfParmGetCurNum(void *handle, const char *path, const char *key, const char *unit, float deflt);
 /* get min of num parameter value */
-TGF_API tdble GfParmGetCurNumMin(void *handle, const char *path, const char *key, const char *unit, tdble deflt);
+TGF_API float GfParmGetCurNumMin(void *handle, const char *path, const char *key, const char *unit, float deflt);
 /* get max of num parameter value */
-TGF_API tdble GfParmGetCurNumMax(void *handle, const char *path, const char *key, const char *unit, tdble deflt);
+TGF_API float GfParmGetCurNumMax(void *handle, const char *path, const char *key, const char *unit, float deflt);
 /* set num parameter value */
-TGF_API int GfParmSetNum(void *handle, const char *path, const char *key, const char *unit, tdble val);
+TGF_API int GfParmSetNum(void *handle, const char *path, const char *key, const char *unit, float val);
 /* set num parameter value with min an max */
-TGF_API int GfParmSetNum(void *handle, const char *path, const char *key, const char *unit, tdble val, tdble min, tdble max);
+TGF_API int GfParmSetNum(void *handle, const char *path, const char *key, const char *unit, float val, float min, float max);
 /* set num parameter value */
-TGF_API int GfParmSetCurNum(void *handle, const char *path, const char *key, const char *unit, tdble val);
+TGF_API int GfParmSetCurNum(void *handle, const char *path, const char *key, const char *unit, float val);
 
 /* is formula */
 TGF_API int GfParmIsFormula(void *handle, char const *path, char const *key);
@@ -473,9 +447,9 @@ TGF_API void GfParmClean(void *handle);
 TGF_API void GfParmReleaseHandle(void *handle);
 
 /* Convert a value in "units" into SI */
-TGF_API tdble GfParmUnit2SI(const char *unit, tdble val);
+TGF_API float GfParmUnit2SI(const char *unit, float val);
 /* convert a value in SI to "units" */
-TGF_API tdble GfParmSI2Unit(const char *unit, tdble val);
+TGF_API float GfParmSI2Unit(const char *unit, float val);
 
 /* compare and merge different handles */
 TGF_API int GfParmCheckHandle(void *ref, void *tgt);
@@ -485,7 +459,7 @@ TGF_API int GfParmCheckHandle(void *ref, void *tgt);
 #define GFPARM_MMODE_RELDST	8 /**< release tgt after the merge */
 TGF_API void *GfParmMergeHandles(void *ref, void *tgt, int mode);
 TGF_API void *GfParmMergeFiles(void *ref,  const char *fileName);
-TGF_API int GfParmGetNumBoundaries(void *handle, char *path, char *key, tdble *min, tdble *max);
+TGF_API int GfParmGetNumBoundaries(void *handle, char *path, char *key, float *min, float *max);
 
 TGF_API void GfParmRemove(void *handle, const char *path, const char *key);
 TGF_API int GfParmRemoveSection (void *handle, const char *path);
@@ -500,9 +474,9 @@ TGF_API int GfParmListClean(void *handle, const char *path);
 TGF_API  std::vector<std::string> GfParmListGetParamsNamesList(void *handle, const char *path);
 
 
-TGF_API void GfParmSetVariable(void *handle, char const *path, char const *key, tdble val);
+TGF_API void GfParmSetVariable(void *handle, char const *path, char const *key, float val);
 TGF_API void GfParmRemoveVariable(void *handle, char const *path, char const *key);
-TGF_API tdble GfParmGetVariable(void *handle, char const *path, char const *key);
+TGF_API float GfParmGetVariable(void *handle, char const *path, char const *key);
 
 /* get string parameter value */
 TGF_API const char *GfParmGetStrf(void *handle, const char *deflt, char const *path, ...);
@@ -516,13 +490,13 @@ TGF_API int GfParmSetStrf(void *handle, const char *val, char const *path, ...);
 TGF_API int GfParmSetCurStrf(void *handle, const char *val, char const *path, ...);
 
 /* get num parameter value */
-TGF_API tdble GfParmGetNumf(void *handle, const char *unit, tdble deflt, char const* path, ...);
+TGF_API float GfParmGetNumf(void *handle, const char *unit, float deflt, char const* path, ...);
 /* get num parameter value */
-TGF_API tdble GfParmGetCurNumf(void *handle, const char *unit, tdble deflt, char const* path, ...);
+TGF_API float GfParmGetCurNumf(void *handle, const char *unit, float deflt, char const* path, ...);
 /* set num parameter value */
-TGF_API int GfParmSetNumf(void *handle, const char *unit, tdble val, char const* path, ...);
+TGF_API int GfParmSetNumf(void *handle, const char *unit, float val, char const* path, ...);
 /* set num parameter value */
-TGF_API int GfParmSetCurNumf(void *handle, const char *unit, tdble val, char const* path, ...);
+TGF_API int GfParmSetCurNumf(void *handle, const char *unit, float val, char const* path, ...);
 
 /* is formula */
 TGF_API int GfParmIsFormulaf(void *handle, char const *path, ...);
@@ -713,11 +687,11 @@ TGF_API int GfNearestPow2(int x);
 typedef struct 
 {
 	int		curNum;
-	tdble	val[GF_MEAN_MAX_VAL+1];
+    float	val[GF_MEAN_MAX_VAL+1];
 } tMeanVal;
 
-TGF_API tdble gfMean(tdble v, tMeanVal *pvt, int n, int w);
-TGF_API void gfMeanReset(tdble v, tMeanVal *pvt);
+TGF_API float gfMean(float v, tMeanVal *pvt, int n, int w);
+TGF_API void gfMeanReset(float v, tMeanVal *pvt);
 
 
 /********************
@@ -992,8 +966,8 @@ TGF_API void *GfHashGetNext(void *hash);
 
 TGF_API void* GfFormParseFormulaString(const char *string);
 TGF_API void* GfFormParseFormulaStringNew(const char *string);
-TGF_API tdble GfFormCalcFunc(void *cmd, void *parmHandle, char*path);
-TGF_API char GfFormCalcFuncNew(void *cmd, void *parmHandle, char const* path, char *boolean, int *integer, tdble *number, char ** string);
+TGF_API float GfFormCalcFunc(void *cmd, void *parmHandle, char*path);
+TGF_API char GfFormCalcFuncNew(void *cmd, void *parmHandle, char const* path, char *boolean, int *integer, float *number, char ** string);
 TGF_API void GfFormFreeCommand(void *cmd);
 TGF_API void GfFormFreeCommandNew(void *cmd);
 

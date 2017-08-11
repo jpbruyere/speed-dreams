@@ -45,8 +45,8 @@ SDView::SDView(osg::Camera * c, int x, int y, int width, int height,
     hasChangedMirrorFlag = false;
     mirrorFlag = true;
 
-    tdble fovFactor = 1;
-    tdble fixedFar = 80000.0;
+    float fovFactor = 1;
+    float fixedFar = 80000.0;
     mirror = new SDCarCamMirror(
                 this,
                 -1,
@@ -81,12 +81,12 @@ void SDView::switchMirror(void)
     mirrorFlag = 1 - mirrorFlag;
     hasChangedMirrorFlag = true;
     sprintf(path, "%s/%d", GR_SCT_DISPMODE, id);
-    GfParmSetNum(grHandle, path, GR_ATT_MIRROR, NULL, (tdble)mirrorFlag);
+    GfParmSetNum(grHandle, path, GR_ATT_MIRROR, NULL, (float)mirrorFlag);
 
     if (curCar->_driverType == RM_DRV_HUMAN)
     {
         sprintf(path2, "%s/%s", GR_SCT_DISPMODE, curCar->_name);
-        GfParmSetNum(grHandle, path2, GR_ATT_MIRROR, NULL, (tdble)mirrorFlag);
+        GfParmSetNum(grHandle, path2, GR_ATT_MIRROR, NULL, (float)mirrorFlag);
     }
 
     GfParmWriteFile(NULL, grHandle, "Graph");
@@ -239,16 +239,16 @@ void SDView::loadParams(tSituation *s)
     // Load "current camera" settings (attached to the "current car").
     camList	= (int)GfParmGetNum(grHandle, path, GR_ATT_CAM_HEAD, NULL, 9);
     camNum	= (int)GfParmGetNum(grHandle, path, GR_ATT_CAM, NULL, 0);
-    mirrorFlag = (int)GfParmGetNum(grHandle, path, GR_ATT_MIRROR, NULL, (tdble)mirrorFlag);
+    mirrorFlag = (int)GfParmGetNum(grHandle, path, GR_ATT_MIRROR, NULL, (float)mirrorFlag);
 
     // Only apply driver preferences when not spanning split screens
     pszSpanSplit = GfParmGetStr(grHandle, GR_SCT_GRAPHIC, GR_ATT_SPANSPLIT, GR_VAL_NO);
     if (strcmp(pszSpanSplit, GR_VAL_YES))
     {
         sprintf(path2, "%s/%s", GR_SCT_DISPMODE, curCar->_name);
-        camList	= (int)GfParmGetNum(grHandle, path2, GR_ATT_CAM_HEAD, NULL, (tdble)camNum);
-        camNum	= (int)GfParmGetNum(grHandle, path2, GR_ATT_CAM, NULL, (tdble)camList);
-        mirrorFlag	= (int)GfParmGetNum(grHandle, path2, GR_ATT_MIRROR, NULL, (tdble)mirrorFlag);
+        camList	= (int)GfParmGetNum(grHandle, path2, GR_ATT_CAM_HEAD, NULL, (float)camNum);
+        camNum	= (int)GfParmGetNum(grHandle, path2, GR_ATT_CAM, NULL, (float)camList);
+        mirrorFlag	= (int)GfParmGetNum(grHandle, path2, GR_ATT_MIRROR, NULL, (float)mirrorFlag);
     }
 
     // Retrieve the "current camera".
@@ -256,8 +256,8 @@ void SDView::loadParams(tSituation *s)
 
     // Back to the default camera if not found (and save it as the new current one).
     cameras->getIntSelectedListAndCamera(&camList,&camNum);
-    GfParmSetNum(grHandle, path, GR_ATT_CAM, NULL, (tdble)camNum);
-    GfParmSetNum(grHandle, path, GR_ATT_CAM_HEAD, NULL, (tdble)camList);
+    GfParmSetNum(grHandle, path, GR_ATT_CAM, NULL, (float)camNum);
+    GfParmSetNum(grHandle, path, GR_ATT_CAM_HEAD, NULL, (float)camList);
 
     sprintf(buf, "%s-%d-%d", GR_ATT_FOVY, camList, camNum);
     cameras->getSelectedCamera()->loadDefaults(buf);
@@ -271,15 +271,15 @@ void SDView::saveCamera()
 
     sprintf(path, "%s/%d", GR_SCT_DISPMODE, id);
     GfParmSetStr(grHandle, path, GR_ATT_CUR_DRV, curCar->_name);
-    GfParmSetNum(grHandle, path, GR_ATT_CAM, (char*)NULL, (tdble)camNum);
-    GfParmSetNum(grHandle, path, GR_ATT_CAM_HEAD, (char*)NULL, (tdble)camList);
+    GfParmSetNum(grHandle, path, GR_ATT_CAM, (char*)NULL, (float)camNum);
+    GfParmSetNum(grHandle, path, GR_ATT_CAM_HEAD, (char*)NULL, (float)camList);
 
     /* save also as user's preference if human */
     if (curCar->_driverType == RM_DRV_HUMAN)
     {
         sprintf(path2, "%s/%s", GR_SCT_DISPMODE, curCar->_name);
-        GfParmSetNum(grHandle, path2, GR_ATT_CAM, (char*)NULL, (tdble)camNum);
-        GfParmSetNum(grHandle, path2, GR_ATT_CAM_HEAD, (char*)NULL, (tdble)camList);
+        GfParmSetNum(grHandle, path2, GR_ATT_CAM, (char*)NULL, (float)camNum);
+        GfParmSetNum(grHandle, path2, GR_ATT_CAM_HEAD, (char*)NULL, (float)camList);
     }
 
     sprintf(buf, "%s-%d-%d", GR_ATT_FOVY, camList, camNum);

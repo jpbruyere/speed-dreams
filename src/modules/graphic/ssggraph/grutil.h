@@ -60,8 +60,8 @@ extern ssgState* grSsgLoadTexState(const char *img, int errIfNotFound = TRUE);
 extern ssgState* grSsgLoadTexStateEx(const char *img, const char *filepath,
 									 int wrap, int mipmap, int errIfNotFound = TRUE);
 extern void grShutdownState(void);
-extern void grWriteTime(float *color, int font, int x, int y, int width, tdble sec, int sgn);
-extern void grWriteTimeBuf(char *buf, tdble sec, int sgn);
+extern void grWriteTime(float *color, int font, int x, int y, int width, float sec, int sgn);
+extern void grWriteTimeBuf(char *buf, float sec, int sgn);
 extern float grGetHOT(float x, float y);
 
 inline float urandom() { return(((float)rand() / (1.0 + (float)RAND_MAX)));}

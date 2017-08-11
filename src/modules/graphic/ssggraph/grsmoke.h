@@ -52,9 +52,9 @@ public:
     double step1_max_life;
     double step2_max_life;
     double cur_life;
-    tdble vvx, vvy,vvz;
+    float vvx, vvy,vvz;
     sgVec3 cur_col;
-    tdble vexp;
+    float vexp;
     int smokeType;
     int smokeTypeStep;
     double dt;

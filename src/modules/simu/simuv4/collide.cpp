@@ -25,11 +25,11 @@
 void SimCarCollideZ(tCar *car)
 {
 	int i;
-	t3Dd normal;
-	tdble dotProd;
+	glm::vec3 normal;
+	float dotProd;
 	tWheel *wheel;
 	const float CRASH_THRESHOLD = -5.0f;
-	tdble dz = 0.0f;
+	float dz = 0.0f;
 
 	if (car->carElt->_state & RM_CAR_STATE_NO_SIMU) {
 		return;
@@ -64,7 +64,7 @@ void SimCarCollideZ(tCar *car)
 	car->DynGCg.pos.z += dz; //elevate car when it is slightly sinken into ground
 }
 
-const tdble BorderFriction = 0.0f;
+const float BorderFriction = 0.0f;
 
 // Collision of car/track borders.
 // Be aware that it does not work for convex edges (e.g. e-track-2, end of the straight, left),
@@ -76,10 +76,10 @@ void SimCarCollideXYScene(tCar *car)
 	tTrkLocPos trkpos;
 	int i;
 	tDynPt *corner;
-	tdble initDotProd;
-	tdble dotProd, cx, cy, dotprod2;
+	float initDotProd;
+	float dotProd, cx, cy, dotprod2;
 	tTrackBarrier *curBarrier;
-	tdble dmg;
+	float dmg;
 
 	if (car->carElt->_state & RM_CAR_STATE_NO_SIMU) {
 		return;
@@ -90,7 +90,7 @@ void SimCarCollideXYScene(tCar *car)
 		seg = car->trkPos.seg;
 		RtTrackGlobal2Local(seg, corner->pos.ax, corner->pos.ay, &trkpos, TR_LPOS_TRACK);
 		seg = trkpos.seg;
-		tdble toSide;
+		float toSide;
 
 		if (trkpos.toRight < 0.0) {
 			// collision with right border.
@@ -104,8 +104,8 @@ void SimCarCollideXYScene(tCar *car)
 			continue;
 		}
 
-		const tdble& nx = curBarrier->normal.x;
-		const tdble& ny = curBarrier->normal.y;
+		const float& nx = curBarrier->normal.x;
+		const float& ny = curBarrier->normal.y;
 
 		car->DynGCg.pos.x -= nx * toSide;
 		car->DynGCg.pos.y -= ny * toSide;
@@ -121,10 +121,10 @@ void SimCarCollideXYScene(tCar *car)
 		initDotProd = nx * corner->vel.x + ny * corner->vel.y;
 
 		// Compute dmgDotProd (base value for later damage) with a heuristic.
-		tdble absvel = (tdble) (MAX(1.0, sqrt(car->DynGCg.vel.x*car->DynGCg.vel.x + car->DynGCg.vel.y*car->DynGCg.vel.y)));
-		tdble GCgnormvel = car->DynGCg.vel.x*nx + car->DynGCg.vel.y*ny;
-		tdble cosa = GCgnormvel/absvel;
-		tdble dmgDotProd = GCgnormvel*cosa;
+		float absvel = (float) (MAX(1.0, sqrt(car->DynGCg.vel.x*car->DynGCg.vel.x + car->DynGCg.vel.y*car->DynGCg.vel.y)));
+		float GCgnormvel = car->DynGCg.vel.x*nx + car->DynGCg.vel.y*ny;
+		float cosa = GCgnormvel/absvel;
+		float dmgDotProd = GCgnormvel*cosa;
 
 		dotProd = initDotProd * curBarrier->surface->kFriction;
 		car->DynGCg.vel.x -= nx * dotProd;
@@ -132,17 +132,17 @@ void SimCarCollideXYScene(tCar *car)
 		dotprod2 = (nx * cx + ny * cy);
 
 		// Angular velocity change caused by friction of colliding car part with wall.
-		static tdble VELSCALE = 10.0f;
-		static tdble VELMAX = 6.0f;
+		static float VELSCALE = 10.0f;
+		static float VELMAX = 6.0f;
 		car->DynGCg.vel.az -= dotprod2 * dotProd / VELSCALE;
 		if (fabs(car->DynGCg.vel.az) > VELMAX) {
-			car->DynGCg.vel.az = (tdble) (SIGN(car->DynGCg.vel.az) * VELMAX);
+			car->DynGCg.vel.az = (float) (SIGN(car->DynGCg.vel.az) * VELMAX);
 		}
 
 		// Dammage.
 		dotProd = initDotProd;
 		if (dotProd < 0.0f && (car->carElt->_state & RM_CAR_STATE_FINISH) == 0) {
-			dmg = (tdble) (curBarrier->surface->kDammage * fabs(0.5*dmgDotProd*dmgDotProd) * simDammageFactor[car->carElt->_skillLevel]);
+			dmg = (float) (curBarrier->surface->kDammage * fabs(0.5*dmgDotProd*dmgDotProd) * simDammageFactor[car->carElt->_skillLevel]);
 			car->dammage += (int)dmg;
 		} else {
 			dmg = 0.0f;
@@ -288,7 +288,7 @@ static void SimCarCollideResponse(void * /*dummy*/, DtObjectRef obj1, DtObjectRe
 		}
 
 		// Damage.
-		tdble damFactor, atmp;
+		float damFactor, atmp;
 		atmp = atan2(r[i][1], r[i][0]);
 		if (fabs(atmp) < (PI / 3.0)) {
 			// Front collision gives more damage.
@@ -323,7 +323,7 @@ static void SimCarCollideResponse(void * /*dummy*/, DtObjectRef obj1, DtObjectRe
 
 		static float VELMAX = 3.0f;
 		if (fabs(car[i]->VelColl.az) > VELMAX) {
-			car[i]->VelColl.az = (tdble)(SIGN(car[i]->VelColl.az) * VELMAX);
+			car[i]->VelColl.az = (float)(SIGN(car[i]->VelColl.az) * VELMAX);
 		}
 
 		sgCopyVec2((float*)&(car[i]->VelColl.x), v2a);
@@ -413,7 +413,7 @@ static void SimCarWallCollideResponse(void *clientdata, DtObjectRef obj1, DtObje
 	const float ROT_K = 0.5f;
 
 	// Damage.
-	tdble damFactor, atmp;
+	float damFactor, atmp;
 	atmp = atan2(r[1], r[0]);
 	if (fabs(atmp) < (PI / 3.0)) {
 		// Front collision gives more damage.
@@ -567,10 +567,10 @@ void buildWalls(tTrackSeg *start, int side) {
 		if (s != NULL && s->style == TR_WALL && s->side[side] != NULL) {
 
 			float h = s->height;
-			t3Dd svl = s->vertex[TR_SL];
-			t3Dd svr = s->vertex[TR_SR];
-			t3Dd evl = s->vertex[TR_EL];
-			t3Dd evr = s->vertex[TR_ER];
+			glm::vec3 svl = s->vertex[TR_SL];
+			glm::vec3 svr = s->vertex[TR_SR];
+			glm::vec3 evl = s->vertex[TR_EL];
+			glm::vec3 evr = s->vertex[TR_ER];
 			static float weps = 0.01f;
 
 			// Close the start with a ploygon?

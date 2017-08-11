@@ -42,12 +42,12 @@ extern double access_times;
 
 tCar *SimCarTable = 0;
 
-tdble SimDeltaTime;
+float SimDeltaTime;
 
 int SimTelemetry = -1;
 
-t3Dd vectStart[16];
-t3Dd vectEnd[16];
+glm::vec3 vectStart[16];
+glm::vec3 vectEnd[16];
 
 static tTrack* PTrack = 0;
 
@@ -211,8 +211,8 @@ RemoveCar(tCar *car, tSituation *s)
     tCarElt 	*carElt;
     tTrkLocPos	trkPos;
     int		trkFlag;
-    tdble	travelTime;
-    tdble	dang;
+    float	travelTime;
+    float	dang;
 
 #define PULL_Z_OFFSET 3.0
 #define PULL_SPD      0.5

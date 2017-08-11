@@ -50,9 +50,9 @@ SimSteerReConfig(tCar *car)
 void
 SimSteerUpdate(tCar *car)
 {
-	tdble steer, steer2;
-	tdble stdelta;
-	tdble tanSteer;
+	float steer, steer2;
+	float stdelta;
+	float tanSteer;
 
 	/* input control */
 	steer = car->ctrl->steer;

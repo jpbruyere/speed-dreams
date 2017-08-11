@@ -25,7 +25,7 @@ void
 SimAeroConfig(tCar *car)
 {
     void *hdle = car->params;
-    tdble Cx, FrntArea;
+    float Cx, FrntArea;
     
     Cx       = GfParmGetNum(hdle, SECT_AERODYNAMICS, PRM_CX, (char*)NULL, 0.4f);
     FrntArea = GfParmGetNum(hdle, SECT_AERODYNAMICS, PRM_FRNTAREA, (char*)NULL, 2.5f);
@@ -39,12 +39,12 @@ SimAeroConfig(tCar *car)
 void 
 SimAeroUpdate(tCar *car, tSituation *s)
 {
-    tdble	hm;
+    float	hm;
     int		i;	    
     tCar	*otherCar;
-    tdble	x, y;
-    tdble	yaw, otherYaw, airSpeed, tmpas, spdang, tmpsdpang, dyaw;
-    tdble	dragK = 1.0;
+    float	x, y;
+    float	yaw, otherYaw, airSpeed, tmpas, spdang, tmpsdpang, dyaw;
+    float	dragK = 1.0;
 
     x = car->DynGCg.pos.x;
     y = car->DynGCg.pos.y;
@@ -67,14 +67,14 @@ SimAeroUpdate(tCar *car, tSituation *s)
 				(fabs(dyaw) < 0.1396)) {
 				if (fabs(tmpsdpang) > 2.9671) {	    /* 10 degrees */
 					/* behind another car */
-					tmpas = (tdble) (1.0 - exp(- 2.0 * DIST(x, y, otherCar->DynGCg.pos.x, otherCar->DynGCg.pos.y) /
+					tmpas = (float) (1.0 - exp(- 2.0 * DIST(x, y, otherCar->DynGCg.pos.x, otherCar->DynGCg.pos.y) /
 									  (otherCar->aero.Cd * otherCar->DynGC.vel.x)));
 					if (tmpas < dragK) {
 						dragK = tmpas;
 					}
 				} else if (fabs(tmpsdpang) < 0.1396) {	    /* 8 degrees */
 					/* before another car [not sure how much the drag should be reduced in this case. In no case it should be lowered more than 50% I think. - Christos] */
-					tmpas = (tdble) (1.0 - 0.5f * exp(- 8.0 * DIST(x, y, otherCar->DynGCg.pos.x, otherCar->DynGCg.pos.y) / (car->aero.Cd * car->DynGC.vel.x)));
+					tmpas = (float) (1.0 - 0.5f * exp(- 8.0 * DIST(x, y, otherCar->DynGCg.pos.x, otherCar->DynGCg.pos.y) / (car->aero.Cd * car->DynGC.vel.x)));
 					if (tmpas < dragK) {
 						dragK = tmpas;
 					}
@@ -83,15 +83,15 @@ SimAeroUpdate(tCar *car, tSituation *s)
 		}
     }
     car->airSpeed2 = airSpeed * airSpeed;
-    tdble v2 = car->airSpeed2;
+    float v2 = car->airSpeed2;
 
 	// simulate ground effect drop off caused by non-frontal airflow (diffusor stops working etc.)
 
 	// Never used : remove ?
-	//tdble speed = sqrt(car->DynGC.vel.x*car->DynGC.vel.x + car->DynGC.vel.y*car->DynGC.vel.y);
-	//tdble cosa = 1.0f;
+	//float speed = sqrt(car->DynGC.vel.x*car->DynGC.vel.x + car->DynGC.vel.y*car->DynGC.vel.y);
+	//float cosa = 1.0f;
 	
-    car->aero.drag = (tdble) (-SIGN(car->DynGC.vel.x) * car->aero.SCx2 * v2 * (1.0f + (tdble)car->dammage / 10000.0f) * dragK * dragK);
+    car->aero.drag = (float) (-SIGN(car->DynGC.vel.x) * car->aero.SCx2 * v2 * (1.0f + (float)car->dammage / 10000.0f) * dragK * dragK);
 
     hm = 1.5f * (car->wheel[0].rideHeight + car->wheel[1].rideHeight + car->wheel[2].rideHeight + car->wheel[3].rideHeight);
     hm = hm*hm;
@@ -108,7 +108,7 @@ SimWingConfig(tCar *car, int index)
 {
     void   *hdle = car->params;
     tWing  *wing = &(car->wing[index]);
-    tdble area;
+    float area;
 
     area              = GfParmGetNum(hdle, WingSect[index], PRM_WINGAREA, (char*)NULL, 0);
 	wing->angle       = GfParmGetNum(hdle, WingSect[index], PRM_WINGANGLE, (char*)NULL, 0);
@@ -128,17 +128,17 @@ void
 SimWingUpdate(tCar *car, int index, tSituation* s)
 {
     tWing  *wing = &(car->wing[index]);
-    tdble vt2 = car->airSpeed2;
+    float vt2 = car->airSpeed2;
 	// compute angle of attack
-	tdble aoa = atan2(car->DynGC.vel.z, car->DynGC.vel.x) + car->DynGCg.pos.ay;
+	float aoa = atan2(car->DynGC.vel.z, car->DynGC.vel.x) + car->DynGCg.pos.ay;
 
     aoa += wing->angle;
     // the sinus of the angle of attack
-    tdble sinaoa = sin(aoa);
+    float sinaoa = sin(aoa);
 
     if (car->DynGC.vel.x > 0.0f) {
         //make drag always negative and have a minimal angle of attack
-        wing->forces.x = (tdble) (wing->Kx * vt2 * (1.0f + (tdble)car->dammage / 10000.0) * MAX(fabs(sinaoa), 0.02));
+        wing->forces.x = (float) (wing->Kx * vt2 * (1.0f + (float)car->dammage / 10000.0) * MAX(fabs(sinaoa), 0.02));
         wing->forces.z = wing->Kz * vt2 * sinaoa;
     } else {
         wing->forces.x = wing->forces.z = 0.0f;

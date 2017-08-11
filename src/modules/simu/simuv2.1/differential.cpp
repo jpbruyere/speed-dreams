@@ -62,13 +62,13 @@ SimDifferentialConfig(void *hdle, const char *section, tDifferential *differenti
 static void
 updateSpool(tCar *car, tDifferential *differential, int first)
 {
-    tdble   DrTq;
-    tdble   ndot;
-    tdble   spinVel;
-    tdble   BrTq;
-    tdble   engineReaction;
-    tdble   I;
-    tdble   inTq, brkTq;
+    float   DrTq;
+    float   ndot;
+    float   spinVel;
+    float   BrTq;
+    float   engineReaction;
+    float   I;
+    float   inTq, brkTq;
     
     DrTq = differential->in.Tq * differential->efficiency;
 
@@ -79,7 +79,7 @@ updateSpool(tCar *car, tDifferential *differential, int first)
     ndot = SimDeltaTime * (DrTq - inTq) / I;
     spinVel = differential->inAxis[0]->spinVel + ndot;
     
-    BrTq = (tdble) (- SIGN(spinVel) * brkTq);
+    BrTq = (float) (- SIGN(spinVel) * brkTq);
     ndot = SimDeltaTime * BrTq / I;
     
     if (((ndot * spinVel) < 0.0) && (fabs(ndot) > fabs(spinVel))) {
@@ -104,15 +104,15 @@ updateSpool(tCar *car, tDifferential *differential, int first)
 void 
 SimDifferentialUpdate(tCar *car, tDifferential *differential, int first)
 {
-    tdble   DrTq, DrTq0, DrTq1;
-    tdble   ndot0, ndot1;
-    tdble   spinVel0, spinVel1;
-    tdble   inTq0, inTq1;
-    tdble   spdRatio/*, spdRatioMax*/;
-    tdble   /*deltaSpd,*/ deltaTq;
-    tdble   BrTq;
-    tdble   engineReaction;
-    tdble   meanv;
+    float   DrTq, DrTq0, DrTq1;
+    float   ndot0, ndot1;
+    float   spinVel0, spinVel1;
+    float   inTq0, inTq1;
+    float   spdRatio/*, spdRatioMax*/;
+    float   /*deltaSpd,*/ deltaTq;
+    float   BrTq;
+    float   engineReaction;
+    float   meanv;
 
     if (differential->type == DIFF_SPOOL) {
         updateSpool(car, differential, first);
@@ -215,7 +215,7 @@ SimDifferentialUpdate(tCar *car, tDifferential *differential, int first)
                 DrTq0 = DrTq * differential->dTqMin;
                 DrTq1 = DrTq * (1 - differential->dTqMin);
             } else {
-                deltaTq = (tdble) (differential->dTqMin + (1.0 - exp(-fabs(differential->viscosity * spinVel0 - spinVel1))) /
+                deltaTq = (float) (differential->dTqMin + (1.0 - exp(-fabs(differential->viscosity * spinVel0 - spinVel1))) /
                     differential->viscomax * differential->dTqMax);
                 DrTq0 = DrTq * deltaTq;
                 DrTq1 = DrTq * (1 - deltaTq);
@@ -227,8 +227,8 @@ SimDifferentialUpdate(tCar *car, tDifferential *differential, int first)
             break;
         }
     } else {
-        DrTq0 = (tdble) (DrTq / 2.0);
-        DrTq1 = (tdble) (DrTq / 2.0);
+        DrTq0 = (float) (DrTq / 2.0);
+        DrTq1 = (float) (DrTq / 2.0);
     }
 
 
@@ -237,7 +237,7 @@ SimDifferentialUpdate(tCar *car, tDifferential *differential, int first)
     ndot1 = SimDeltaTime * (DrTq1 - inTq1) / differential->outAxis[1]->I;
     spinVel1 += ndot1;
 
-    BrTq = (tdble) (- SIGN(spinVel0) * differential->inAxis[0]->brkTq);
+    BrTq = (float) (- SIGN(spinVel0) * differential->inAxis[0]->brkTq);
     ndot0 = SimDeltaTime * BrTq / differential->outAxis[0]->I;
     if (((ndot0 * spinVel0) < 0.0) && (fabs(ndot0) > fabs(spinVel0))) {
         ndot0 = -spinVel0;
@@ -245,7 +245,7 @@ SimDifferentialUpdate(tCar *car, tDifferential *differential, int first)
     if ((spinVel0 == 0.0) && (ndot0 < 0.0)) ndot0 = 0;
     spinVel0 += ndot0;
     
-    BrTq = (tdble) (- SIGN(spinVel1) * differential->inAxis[1]->brkTq);
+    BrTq = (float) (- SIGN(spinVel1) * differential->inAxis[1]->brkTq);
     ndot1 = SimDeltaTime * BrTq / differential->outAxis[1]->I;
     if (((ndot1 * spinVel1) < 0.0) && (fabs(ndot1) > fabs(spinVel1))) {
         ndot1 = -spinVel1;
@@ -254,7 +254,7 @@ SimDifferentialUpdate(tCar *car, tDifferential *differential, int first)
     spinVel1 += ndot1;
 
     if (first) {
-        meanv = (tdble) ((spinVel0 + spinVel1) / 2.0);
+        meanv = (float) ((spinVel0 + spinVel1) / 2.0);
         engineReaction = SimEngineUpdateRpm(car, meanv);
         if (meanv != 0.0) {
             engineReaction = engineReaction/meanv;

@@ -22,7 +22,7 @@
 void 
 SimBrakeConfig(void *hdle, const char *section, tBrake *brake)
 {
-    tdble diam, area, mu;
+    float diam, area, mu;
     
     diam     = GfParmGetNum(hdle, section, PRM_BRKDIAM, (char*)NULL, 0.2f);
     area     = GfParmGetNum(hdle, section, PRM_BRKAREA, (char*)NULL, 0.002f);
@@ -59,7 +59,7 @@ void
 SimBrakeSystemUpdate(tCar *car)
 {
     tBrakeSyst	*brkSyst = &(car->brkSyst);
-    tdble	ctrl = car->ctrl->brakeCmd;
+    float	ctrl = car->ctrl->brakeCmd;
 
     ctrl *= brkSyst->coeff;
     car->wheel[FRNT_RGT].brake.pressure = car->wheel[FRNT_LFT].brake.pressure = ctrl * brkSyst->rep;

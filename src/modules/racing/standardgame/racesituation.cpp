@@ -815,8 +815,8 @@ tRmInfo* ReSituationUpdater::copySituation(tRmInfo*& pTarget, const tRmInfo* pSo
 		pTgtCar->_fuelTotal = pSrcCar->_fuelTotal;
 		pTgtCar->_fuelInstant = pSrcCar->_fuelInstant;
 		pTgtCar->_enginerpm = pSrcCar->_enginerpm;
-		memcpy(&pTgtCar->priv.skid[0], &pSrcCar->priv.skid[0], 4*sizeof(tdble));
-		memcpy(&pTgtCar->priv.reaction[0], &pSrcCar->priv.reaction[0], 4*sizeof(tdble));
+		memcpy(&pTgtCar->priv.skid[0], &pSrcCar->priv.skid[0], 4*sizeof(float));
+		memcpy(&pTgtCar->priv.reaction[0], &pSrcCar->priv.reaction[0], 4*sizeof(float));
 		pTgtCar->_collision = pSrcCar->_collision;
 		pTgtCar->_smoke = pSrcCar->_smoke;
 		pTgtCar->_normal = pSrcCar->_normal;
@@ -1040,8 +1040,8 @@ void ReSituationUpdater::ghostcarSituation(tRmInfo*& pTarget)
 			pTgtCar->_pitch = pSrcCar->_pitch + (pitch - pSrcCar->_pitch) * timeFrac;
 
 			sgMakeCoordMat4(pTgtCar->pub.posMat, pTgtCar->_pos_X, pTgtCar->_pos_Y, pTgtCar->_pos_Z,
-					(tdble) RAD2DEG(pTgtCar->_yaw), (tdble) RAD2DEG(pTgtCar->_roll),
-					(tdble) RAD2DEG(pTgtCar->_pitch));
+					(float) RAD2DEG(pTgtCar->_yaw), (float) RAD2DEG(pTgtCar->_roll),
+					(float) RAD2DEG(pTgtCar->_pitch));
 		}
 	}
 #endif

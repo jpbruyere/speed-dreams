@@ -253,12 +253,12 @@ initStartingGrid(void)
   int i;
   tTrackSeg *curseg;
   int rows;
-  tdble a, b;
-  //tdble wi2; // Never used.
-  tdble d1, d2,d3;
-  tdble startpos, tr, ts;
-  tdble speedInit;
-  tdble heightInit;
+  float a, b;
+  //float wi2; // Never used.
+  float d1, d2,d3;
+  float startpos, tr, ts;
+  float speedInit;
+  float heightInit;
   tCarElt *car;
   const char *pole;
   void *trHdle = ReInfo->track->params;
@@ -291,7 +291,7 @@ initStartingGrid(void)
   //wi2 = ReInfo->track->width * 0.5f; // Never used.
 
   rows = (int)GfParmGetNum(params, path, RM_ATTR_ROWS, (char*)NULL, 2);
-  rows = (int)GfParmGetNum(trHdle, RM_SECT_STARTINGGRID, RM_ATTR_ROWS, (char*)NULL, (tdble)rows);
+  rows = (int)GfParmGetNum(trHdle, RM_SECT_STARTINGGRID, RM_ATTR_ROWS, (char*)NULL, (float)rows);
   d1 = GfParmGetNum(params, path, RM_ATTR_TOSTART, (char*)NULL, 10);
   d1 = GfParmGetNum(trHdle, RM_SECT_STARTINGGRID, RM_ATTR_TOSTART, (char*)NULL, d1);
   d2 = GfParmGetNum(params, path, RM_ATTR_COLDIST, (char*)NULL, 10);

@@ -22,12 +22,12 @@
 void 
 SimBrakeConfig(void *hdle, const char *section, tBrake *brake)
 {
-    tdble diam, area, mu;
+    float diam, area, mu;
     
     diam     = GfParmGetNum(hdle, section, PRM_BRKDIAM, (char*)NULL, 0.2f);
     area     = GfParmGetNum(hdle, section, PRM_BRKAREA, (char*)NULL, 0.002f);
     mu       = GfParmGetNum(hdle, section, PRM_MU, (char*)NULL, 0.30f);
-    brake->coeff = (tdble) (diam * 0.5 * area * mu);
+    brake->coeff = (float) (diam * 0.5 * area * mu);
 
     brake->I = GfParmGetNum(hdle, section, PRM_INERTIA, (char*)NULL, 0.13f);
     brake->radius = diam/2.0f;
@@ -38,9 +38,9 @@ SimBrakeUpdate(tCar *car, tWheel *wheel, tBrake *brake)
 {
     brake->Tq = brake->coeff * brake->pressure;
 
-    brake->temp -= (tdble) (fabs(car->DynGC.vel.x) * 0.0001 + 0.0002);
+    brake->temp -= (float) (fabs(car->DynGC.vel.x) * 0.0001 + 0.0002);
     if (brake->temp < 0 ) brake->temp = 0;
-    brake->temp += (tdble) (brake->pressure * brake->radius * fabs(wheel->spinVel) * 0.00000000005);
+    brake->temp += (float) (brake->pressure * brake->radius * fabs(wheel->spinVel) * 0.00000000005);
     if (brake->temp > 1.0) brake->temp = 1.0;
 }
 
@@ -59,7 +59,7 @@ void
 SimBrakeSystemUpdate(tCar *car)
 {
     tBrakeSyst	*brkSyst = &(car->brkSyst);
-    tdble	ctrl = car->ctrl->brakeCmd;
+    float	ctrl = car->ctrl->brakeCmd;
 
     ctrl *= brkSyst->coeff;
     car->wheel[FRNT_RGT].brake.pressure = car->wheel[FRNT_LFT].brake.pressure = ctrl * brkSyst->rep;

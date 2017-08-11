@@ -3,24 +3,24 @@
 //--------------------------------------------------------------------------*
 // A robot for Speed Dreams-Version 2.X simuV4
 //--------------------------------------------------------------------------*
-// Hilfsfunktionen für 2D- und 3D-Vektoren
+// Hilfsfunktionen fÃ¼r 2D- und 3D-Vektoren
 // (C++-Portierung der Unit UnitLinAlg.pas)
 //
 // File         : unitlinalg.h
 // Created      : 2007.11.20
 // Last changed : 2014.11.29
-// Copyright    : © 2007-2014 Wolf-Dieter Beelitz
+// Copyright    : Â© 2007-2014 Wolf-Dieter Beelitz
 // eMail        : wdbee@users.sourceforge.net
 // Version      : 4.05.000
 //--------------------------------------------------------------------------*
 // Das Programm wurde unter Windows XP entwickelt und getestet.
 // Fehler sind nicht bekannt, dennoch gilt:
-// Wer die Dateien verwendet erkennt an, dass für Fehler, Schäden,
-// Folgefehler oder Folgeschäden keine Haftung übernommen wird.
+// Wer die Dateien verwendet erkennt an, dass fÃ¼r Fehler, SchÃ¤den,
+// Folgefehler oder FolgeschÃ¤den keine Haftung Ã¼bernommen wird.
 //
-// Im übrigen gilt für die Nutzung und/oder Weitergabe die
+// Im Ã¼brigen gilt fÃ¼r die Nutzung und/oder Weitergabe die
 // GNU GPL (General Public License)
-// Version 2 oder nach eigener Wahl eine spätere Version.
+// Version 2 oder nach eigener Wahl eine spÃ¤tere Version.
 //--------------------------------------------------------------------------*
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@
 #include "unitvec3d.h"   // TVec3d
 
 //==========================================================================*
-// Typdefinition für die Darstellung der Koordinaten
+// Typdefinition fÃ¼r die Darstellung der Koordinaten
 //--------------------------------------------------------------------------*
 typedef double TFloat;                             // 64 Bit
 typedef double Double;                             // 64 Bit
@@ -68,10 +68,10 @@ typedef struct
 TV2D;
 typedef TV2D* PV2D;
 
-typedef t3Dd T3Dd;
-typedef t3Dd* P3Dd;
-typedef t3Dd TV3D;
-typedef t3Dd* PV3D;
+typedef glm::vec3 T3Dd;
+typedef glm::vec3* P3Dd;
+typedef glm::vec3 TV3D;
+typedef glm::vec3* PV3D;
 //==========================================================================*
 
 

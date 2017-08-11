@@ -509,7 +509,7 @@ void TDriver::InitTrack( tTrack* pTrack, void* pCarHandle, void** ppCarParmHandl
   LogSHADOW.debug("Load track settings ....\n");
 
   // get the private parameters now.
-  m_ScaleMuRain = (double)(GfParmGetNum(hCarParm, SECT_PRIV, PRV_RAIN_MU, NULL, (tdble) m_ScaleMuRain));
+  m_ScaleMuRain = (double)(GfParmGetNum(hCarParm, SECT_PRIV, PRV_RAIN_MU, NULL, (float) m_ScaleMuRain));
   LogSHADOW.info("#Scale Mu Rain: %g\n", m_ScaleMuRain);
 
   m_cm.AERO = (int)GfParmGetNum(hCarParm, SECT_PRIV, PRV_AERO_MOD, 0, 0);
@@ -1077,7 +1077,7 @@ double TDriver::SteerAngle1( tCarElt* car, PtInfo& pi, PtInfo& aheadPi )
   double	y = car->pub.DynGCg.pos.y + midPt * sin(car->_yaw);
 
   tTrkLocPos	trkPos;
-  RtTrackGlobal2Local(car->_trkPos.seg, (tdble)x, (tdble)y, &trkPos, 0);
+  RtTrackGlobal2Local(car->_trkPos.seg, (float)x, (float)y, &trkPos, 0);
   double	toMiddle = trkPos.toMiddle;
 
   // get curret pos on track.
@@ -1131,7 +1131,7 @@ double TDriver::SteerAngle2( tCarElt* car, PtInfo& pi, PtInfo& aheadPi )
   // oldY = y;                                    // Removed 5th April 2015 - Not Used
 
   tTrkLocPos	trkPos;
-  RtTrackGlobal2Local(car->_trkPos.seg, (tdble) x, (tdble) y, &trkPos, 0);
+  RtTrackGlobal2Local(car->_trkPos.seg, (float) x, (float) y, &trkPos, 0);
   double	toMiddle = trkPos.toMiddle;
 
 
@@ -1777,9 +1777,9 @@ void TDriver::Drive( tSituation* s )
       double	rpm = car->_enginerpm;
       double	clutch = (850 - rpm) / 400;
       if( car->_speed_x < 0.05 )
-        clutch = getClutch((tdble) clutch);
+        clutch = getClutch((float) clutch);
 
-      car->ctrl.clutchCmd = (tdble) MX(0, MN(clutch, 0.9));
+      car->ctrl.clutchCmd = (float) MX(0, MN(clutch, 0.9));
     }
 
   if( fabs(pi.offs) > 5 )
@@ -1838,10 +1838,10 @@ void TDriver::Drive( tSituation* s )
   acc = filterAccel(acc);
 
   // set up the values to return
-  car->ctrl.steer = (tdble) steer;
+  car->ctrl.steer = (float) steer;
   car->ctrl.gear = gear;
-  car->ctrl.accelCmd = (tdble) acc;
-  car->ctrl.brakeCmd = (tdble) brk;
+  car->ctrl.accelCmd = (float) acc;
+  car->ctrl.brakeCmd = (float) brk;
   m_LastBrake = brk;
   m_LastAccel = acc;
   m_LastAbsDriftAngle = m_AbsDriftAngle;
@@ -2230,7 +2230,7 @@ int TDriver::CalcGear( tCarElt* car, double& acc )
     /*BT gear changing */
     float gr_up = car->_gearRatio[car->_gear + car->_gearOffset];
     float omega = (car->_enginerpmRedLine * m_Shift) /gr_up;
-    float wr = (tdble) wheelRadius;
+    float wr = (float) wheelRadius;
 
     if (omega * wr * m_Shift < car->_speed_x)
       {
@@ -2322,21 +2322,21 @@ float TDriver::getClutch(float flutch)
       if (car->_gear < 2)
         m_Clutch = startAutomatic(m_Clutch);
 
-      m_Clutch = (tdble)(MIN(m_ClutchMax, m_Clutch));
+      m_Clutch = (float)(MIN(m_ClutchMax, m_Clutch));
       if(m_Clutch == m_ClutchMax)
         {
           if((car->_gear + car->_gearOffset)* car->_speed_x
              / (wheelRadius * car->_enginerpm) > m_ClutchRange)
             {
-              m_Clutch = (tdble)(m_ClutchMax - 0.01);
+              m_Clutch = (float)(m_ClutchMax - 0.01);
             }
           else
-            m_Clutch -= (tdble)(m_ClutchDelta / 10);
+            m_Clutch -= (float)(m_ClutchDelta / 10);
         }
       else
         {
-          m_Clutch -= (tdble) m_ClutchDelta;
-          m_Clutch = (tdble)(MAX(0.0, m_Clutch));
+          m_Clutch -= (float) m_ClutchDelta;
+          m_Clutch = (float)(MAX(0.0, m_Clutch));
         }
     }
 
@@ -2350,9 +2350,9 @@ float TDriver::startAutomatic(float clutch)
   if ((car->_gearCmd == 1) && (TDriver::CurrSimTime < 20))
     {
       if (car->_enginerpm < 0.94)
-        m_Clutch += (tdble)(m_ClutchDelta);
+        m_Clutch += (float)(m_ClutchDelta);
       else if (car->_enginerpm > 1.1 * 0.94)
-        m_Clutch -= (tdble)(m_ClutchDelta * m_ClutchRelease);
+        m_Clutch -= (float)(m_ClutchDelta * m_ClutchRelease);
     }
 
   return m_Clutch;
@@ -2476,14 +2476,14 @@ double TDriver::ApplyAbs( tCarElt* car, double brake )
   return brake;
 }
 
-tdble F(tWing* wing)
+float F(tWing* wing)
 {
   return 1 - exp( pow(-(wing->a / wing->b),wing->c));
 }
 
-tdble CliftFromAoA(tWing* wing)
+float CliftFromAoA(tWing* wing)
 {
-  tdble angle = (tdble) (wing->angle * 180/PI);
+  float angle = (float) (wing->angle * 180/PI);
   wing->Kz_org = 4.0f * wing->Kx;
 
   double s = 0;
@@ -2493,13 +2493,13 @@ tdble CliftFromAoA(tWing* wing)
       wing->a = wing->f * (angle + wing->AoAOffset);
       s = sin(wing->a/180.0*PI);
 
-      return (tdble)(s * s * (wing->CliftMax + wing->d) - wing->d);
+      return (float)(s * s * (wing->CliftMax + wing->d) - wing->d);
     }
   else
     {
       wing->a = (angle - wing->AoAatMax - 90.0f);
 
-      return (tdble)(wing->CliftMax - F(wing) * (wing->CliftMax - wing->CliftAsymp));
+      return (float)(wing->CliftMax - F(wing) * (wing->CliftMax - wing->CliftAsymp));
     }
 }
 
@@ -2691,7 +2691,7 @@ void TDriver::initCa()
           /* [deg] Angle of Attack at coefficient of lift = 0 (-30 < AoAatZero < 0) */
           wing->AoAatZero = GfParmGetNum(car->_carHandle, WingSect[index], PRM_AOAATZERO, (char*) "deg", 0);
           //fprintf(stderr,"AoAatZero: %g\n",wing->AoAatZero);
-          wing->AoAatZRad = (tdble) (wing->AoAatZero/180*PI);
+          wing->AoAatZRad = (float) (wing->AoAatZero/180*PI);
 
           /* [deg] Offset for Angle of Attack */
           wing->AoAOffset = GfParmGetNum(car->_carHandle, WingSect[index], PRM_AOAOFFSET, (char*) "deg", 0);
@@ -2718,7 +2718,7 @@ void TDriver::initCa()
           //fprintf(stderr,"c: %g\n",wing->c);
 
           /* Scale factor for angle */
-          wing->f = (tdble) (90.0 / (wing->AoAatMax + wing->AoAOffset));
+          wing->f = (float) (90.0 / (wing->AoAatMax + wing->AoAOffset));
           //fprintf(stderr,"f: %g\n",wing->f);
           phi = wing->f * (wing->AoAOffset);
           //fprintf(stderr,"phi: %g deg\n",phi);
@@ -2729,7 +2729,7 @@ void TDriver::initCa()
           sinphi2 = sinphi * sinphi;
 
           /* Scale at AoA = 0 */
-          wing->d = (tdble) (1.8f * (sinphi2 * wing->CliftMax - wing->CliftZero));
+          wing->d = (float) (1.8f * (sinphi2 * wing->CliftMax - wing->CliftZero));
 
           if (index == 0)
             {

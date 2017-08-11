@@ -45,7 +45,7 @@
 
 int grMaxTextureUnits = 0;
 
-tdble grMaxDammage = 10000.0;
+float grMaxDammage = 10000.0;
 int grNbCars = 0;
 
 void *grHandle = 0;
@@ -56,7 +56,7 @@ int grWinx, grWiny, grWinw, grWinh;
 tgrCarInfo *grCarInfo;
 ssgContext grContext;
 cGrScreen *grScreens[GR_NB_MAX_SCREEN];
-tdble grLodFactorValue = 1.0;
+float grLodFactorValue = 1.0;
 
 // Frame/FPS info.
 static cGrFrameInfo frameInfo;
@@ -640,7 +640,7 @@ initCars(tSituation *s)
 
     grInitCommonState();
     grInitCarlight(s->_ncars);
-    grMaxDammage = (tdble)s->_maxDammage;
+    grMaxDammage = (float)s->_maxDammage;
     grNbCars = s->_ncars;
 
     grCustomizePits();

@@ -52,31 +52,31 @@ typedef struct
     tEngine		engine;
 
     /* static */
-    t3Dd	dimension;	/* car's mesures */
-    tdble	mass;		/* mass with pilot (without fuel) */
-    tdble	Minv;		/* 1 / mass with pilot (without fuel) */
-    tdble	tank;		/* fuel tank capa */
-    t3Dd	statGC;		/* static pos of GC */
-    t3Dd	Iinv;		/* inverse of inertial moment along the car's 3 axis */
+    glm::vec3	dimension;	/* car's mesures */
+    float	mass;		/* mass with pilot (without fuel) */
+    float	Minv;		/* 1 / mass with pilot (without fuel) */
+    float	tank;		/* fuel tank capa */
+    glm::vec3	statGC;		/* static pos of GC */
+    glm::vec3	Iinv;		/* inverse of inertial moment along the car's 3 axis */
 
     /* dynamic */
-    tdble	fuel;		/* current fuel load */
+    float	fuel;		/* current fuel load */
     tDynPt	DynGC;		/* GC local data except position */
     tDynPt	DynGCg;		/* GC global data */
     tPosd	VelColl;	/* resulting velocity after collision */
     tDynPt	preDynGC;	/* previous one */
     tTrkLocPos	trkPos;		/* current track position */
-    tdble	airSpeed2;	/* current air speed (squared) for aerodynamic forces */
+    float	airSpeed2;	/* current air speed (squared) for aerodynamic forces */
 
     /* internals */
-    tdble	Cosz;
-    tdble	Sinz;
+    float	Cosz;
+    float	Sinz;
     tDynPt	corner[4];	/* x,y,z for static relative pos, ax,ay,az for dyn. world coord */
     int		collision;
-    t3Dd	normal;
-    t3Dd	collpos;
-    tdble	wheelbase;
-    tdble	wheeltrack;
+    glm::vec3	normal;
+    glm::vec3	collpos;
+    float	wheelbase;
+    float	wheeltrack;
     sgMat4	posMat;
     DtShapeRef	shape;		/* for collision */
     int		blocked;		// Flag to show if the car has had already a collision in the same timestep.

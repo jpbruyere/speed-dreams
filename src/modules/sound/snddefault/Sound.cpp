@@ -162,7 +162,7 @@ void SoundSource::update()
 		float rolloff = 0.5f;
 		float atten = ref / ( ref + rolloff * (p_rel - ref));
 		//f = SPEED_OF_SOUND/(SPEED_OF_SOUND+u_rel);
-		f = (tdble)((SPEED_OF_SOUND - u_rel_src)/(SPEED_OF_SOUND - u_rel_lis));
+		f = (float)((SPEED_OF_SOUND - u_rel_src)/(SPEED_OF_SOUND - u_rel_lis));
 		a = atten;
 		float atten_filter = MIN (atten, 1.0f);
 		lp = exp(atten_filter - 1.0f);

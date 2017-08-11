@@ -307,7 +307,7 @@ void GfCar::load(void* hparmCar)
 	_fMaxTorqueSpeed = 0;
 	_fMaxPower = 0;
 	_fMaxPowerSpeed = 0;
-	const tdble fMaxSpeed = GfParmGetNum(hparmCar, SECT_ENGINE, PRM_REVSLIM, 0, 0);
+	const float fMaxSpeed = GfParmGetNum(hparmCar, SECT_ENGINE, PRM_REVSLIM, 0, 0);
 
 	ossSpecPath.str("");
 	ossSpecPath << SECT_ENGINE << '/' << ARR_DATAPTS;
@@ -316,16 +316,16 @@ void GfCar::load(void* hparmCar)
 	{
 		ossSpecPath.str("");
 		ossSpecPath << SECT_ENGINE << '/' << ARR_DATAPTS << '/' << nPtInd;
-		const tdble fSpeed = GfParmGetNum(hparmCar, ossSpecPath.str().c_str(), PRM_RPM, 0, 0);
+		const float fSpeed = GfParmGetNum(hparmCar, ossSpecPath.str().c_str(), PRM_RPM, 0, 0);
 		if (fSpeed > fMaxSpeed)
 			break;
-		const tdble fTorque = GfParmGetNum(hparmCar, ossSpecPath.str().c_str(), PRM_TQ, 0, 0);
+		const float fTorque = GfParmGetNum(hparmCar, ossSpecPath.str().c_str(), PRM_TQ, 0, 0);
 		if (fTorque > _fMaxTorque)
 		{
 			_fMaxTorque = fTorque;
 			_fMaxTorqueSpeed = fSpeed;
 		}
-		const tdble fPower = (tdble)(fTorque * fSpeed); 
+		const float fPower = (float)(fTorque * fSpeed); 
 		if (fPower > _fMaxPower)
 		{
 			_fMaxPower = fPower;
@@ -371,71 +371,71 @@ void GfCar::load(void* hparmCar)
 	_nCylinders = (unsigned)GfParmGetNum(hparmCar, SECT_ENGINE, PRM_CYLINDERS, 0, 0);
 	
 	// "Mechanical = Low speed" grip (~mu*g, but with front/rear mass repartition).
-	const tdble fMuFront =
+	const float fMuFront =
 		(GfParmGetNum(hparmCar, SECT_FRNTRGTWHEEL, PRM_MU, 0, 1.0)
 		 + GfParmGetNum(hparmCar, SECT_FRNTLFTWHEEL, PRM_MU, 0, 1.0)) / 2.0f;
-	const tdble fMuRear =
+	const float fMuRear =
 		(GfParmGetNum(hparmCar, SECT_REARRGTWHEEL, PRM_MU, 0, 1.0)
 		 + GfParmGetNum(hparmCar, SECT_REARLFTWHEEL, PRM_MU, 0, 1.0)) / 2.0f;
 	_fLowSpeedGrip =
 		1.1f * (_fFrontRearMassRatio * fMuFront + (1.0f - _fFrontRearMassRatio) * fMuRear) * G;
 
 	// "Aerodynamic = High speed" grip (same + with aero down-force).
-	const tdble fRefCarSpeed2 = 40000 / 12.96f; //200 km/h square in m/s
-	const tdble fFrontWingArea =
+	const float fRefCarSpeed2 = 40000 / 12.96f; //200 km/h square in m/s
+	const float fFrontWingArea =
 		GfParmGetNum(hparmCar, SECT_FRNTWING, PRM_WINGAREA, 0, 0.0);
-	const tdble fRearWingArea =
+	const float fRearWingArea =
 		GfParmGetNum(hparmCar, SECT_REARWING, PRM_WINGAREA, 0, 0.0);
-	const tdble fFrontWingAngle =
+	const float fFrontWingAngle =
 		GfParmGetNum(hparmCar, SECT_FRNTWING, PRM_WINGANGLE, 0, 0.0);
-	const tdble fRearWingAngle =
+	const float fRearWingAngle =
 		GfParmGetNum(hparmCar, SECT_REARWING, PRM_WINGANGLE, 0, 0.0);
-	const tdble fFrontClift =
+	const float fFrontClift =
 		GfParmGetNum(hparmCar, SECT_AERODYNAMICS, PRM_FCL, 0, 0.0);
-	const tdble fRearClift =
+	const float fRearClift =
 		GfParmGetNum(hparmCar, SECT_AERODYNAMICS, PRM_RCL, 0, 0.0);
-	const tdble fFrontWingXpos =
+	const float fFrontWingXpos =
 		GfParmGetNum(hparmCar, SECT_FRNTWING, PRM_XPOS, 0, 0);
-	const tdble fRearWingXpos =
+	const float fRearWingXpos =
 		GfParmGetNum(hparmCar, SECT_REARWING, PRM_XPOS, 0, 0);
-	const tdble fFrontAxleXpos = 
+	const float fFrontAxleXpos = 
 		GfParmGetNum(hparmCar, SECT_FRNTAXLE, PRM_XPOS, 0, 0.0f);
-	const tdble fRearAxleXpos = 
+	const float fRearAxleXpos = 
 		GfParmGetNum(hparmCar, SECT_REARAXLE, PRM_XPOS, 0, 0.0f);
 	// Never used : remove ?
-	//const tdble fGCXpos = _fFrontRearMassRatio * fFrontAxleXpos + (1.0f - _fFrontRearMassRatio) * fRearAxleXpos;
-	const tdble fTotalFrontClift = 2 * fFrontClift + 4.92f * fFrontWingArea * sin(fFrontWingAngle);
-	const tdble fTotalRearClift = 2 * fRearClift + 4.92f * fRearWingArea * sin(fRearWingAngle);
-	const tdble fFrontAeroLoad = fRefCarSpeed2 *
+	//const float fGCXpos = _fFrontRearMassRatio * fFrontAxleXpos + (1.0f - _fFrontRearMassRatio) * fRearAxleXpos;
+	const float fTotalFrontClift = 2 * fFrontClift + 4.92f * fFrontWingArea * sin(fFrontWingAngle);
+	const float fTotalRearClift = 2 * fRearClift + 4.92f * fRearWingArea * sin(fRearWingAngle);
+	const float fFrontAeroLoad = fRefCarSpeed2 *
 		(fTotalFrontClift * (fFrontWingXpos - fRearAxleXpos) + fTotalRearClift * (fRearWingXpos - fRearAxleXpos))
 		/(fFrontAxleXpos - fRearAxleXpos);
-	const tdble fRearAeroLoad = fRefCarSpeed2 *
+	const float fRearAeroLoad = fRefCarSpeed2 *
 		(fTotalFrontClift * (fFrontAxleXpos - fFrontWingXpos) + fTotalRearClift * (fFrontAxleXpos - fRearWingXpos))
 		/(fFrontAxleXpos - fRearAxleXpos);
  	_fHighSpeedGrip =
- 		(tdble)(1.1 * ((_fFrontRearMassRatio * _fMass * G + fFrontAeroLoad) * fMuFront
+ 		(float)(1.1 * ((_fFrontRearMassRatio * _fMass * G + fFrontAeroLoad) * fMuFront
 				  + ((1.0 - _fFrontRearMassRatio) * _fMass * G + fRearAeroLoad) * fMuRear) / _fMass);
 
 	// Cornering: axle distance divided by the inertia around the Z axis.
-	const tdble fMassRepCoef = GfParmGetNum(hparmCar, SECT_CAR, PRM_CENTR, 0, 1.0f);
-	const tdble fCarLength = GfParmGetNum(hparmCar, SECT_CAR, PRM_LEN, 0, 4.7f);
-	const tdble fCarWidth = GfParmGetNum(hparmCar, SECT_CAR, PRM_WIDTH, 0, 1.9f);
+	const float fMassRepCoef = GfParmGetNum(hparmCar, SECT_CAR, PRM_CENTR, 0, 1.0f);
+	const float fCarLength = GfParmGetNum(hparmCar, SECT_CAR, PRM_LEN, 0, 4.7f);
+	const float fCarWidth = GfParmGetNum(hparmCar, SECT_CAR, PRM_WIDTH, 0, 1.9f);
 	_fInvertedZAxisInertia = // Stolen from Simu V2.1, car.cpp, SimCarConfig()
 		(fFrontAxleXpos - fRearAxleXpos) * 12.0f / (_fMass * fMassRepCoef * fMassRepCoef)
 		/ (fCarWidth * fCarWidth + fCarLength * fCarLength);
 	
 	// Theoretical top speed on a flat road, assuming the gears are tuned accordingly.
-	const tdble fFrontArea =
+	const float fFrontArea =
 		GfParmGetNum(hparmCar, SECT_AERODYNAMICS, PRM_FRNTAREA, 0, 2.0f);
-	const tdble fCx =
+	const float fCx =
 		GfParmGetNum(hparmCar, SECT_AERODYNAMICS, PRM_CX, 0, 0.35f);
-	const tdble muRollRes = 0.015f; // Average track.
+	const float muRollRes = 0.015f; // Average track.
 	ossSpecPath.str("");
 	ossSpecPath << SECT_GEARBOX << '/' << ARR_GEARS << '/' << pszGearName[_nGears];
-	const tdble fTopGearEff =
+	const float fTopGearEff =
 		GfParmGetNum(hparmCar, ossSpecPath.str().c_str(), PRM_EFFICIENCY, 0, 1.0f);
 	// calculate differential efficiency
-	tdble fDiffEff = 0.95f;
+	float fDiffEff = 0.95f;
 	const char *fTransType = GfParmGetStr(hparmCar, SECT_DRIVETRAIN, PRM_TYPE, VAL_TRANS_RWD);
 	if (strcmp(VAL_TRANS_RWD, fTransType) == 0) {
 		fDiffEff = GfParmGetNum(hparmCar, SECT_REARDIFFERENTIAL, PRM_EFFICIENCY, 0, 1.0f);
@@ -446,17 +446,17 @@ void GfCar::load(void* hparmCar)
 			+ GfParmGetNum(hparmCar, SECT_FRNTDIFFERENTIAL, PRM_EFFICIENCY, 0, 1.0f) ) * 0.5f
 			* GfParmGetNum(hparmCar, SECT_CENTRALDIFFERENTIAL, PRM_EFFICIENCY, 0, 1.0f);
 	}
-	const tdble eff = fTopGearEff * fDiffEff; // gear * differential efficiencies
-	const tdble Cd =
+	const float eff = fTopGearEff * fDiffEff; // gear * differential efficiencies
+	const float Cd =
 		0.645f * fCx * fFrontArea
 		+ 1.23f * (fFrontWingArea * sin(fFrontWingAngle) + fRearWingArea * sin(fRearWingAngle));
 	const double pp =
-		muRollRes * _fMass * G / (Cd + muRollRes * (tdble)(fTotalFrontClift + fTotalRearClift));
+		muRollRes * _fMass * G / (Cd + muRollRes * (float)(fTotalFrontClift + fTotalRearClift));
 	const double q =
-		eff * _fMaxPower / (Cd + muRollRes * (tdble)(fTotalFrontClift + fTotalRearClift));
+		eff * _fMaxPower / (Cd + muRollRes * (float)(fTotalFrontClift + fTotalRearClift));
 	_fTopSpeed =
- 		(tdble)pow(q/2+sqrt(q*q/4+pp*pp*pp/27), 1.0/3)
- 		- (tdble)pow(-q/2+sqrt(q*q/4+pp*pp*pp/27), 1.0/3);
+ 		(float)pow(q/2+sqrt(q*q/4+pp*pp*pp/27), 1.0/3)
+ 		- (float)pow(-q/2+sqrt(q*q/4+pp*pp*pp/27), 1.0/3);
 }
 
 const std::string& GfCar::getId() const
@@ -504,7 +504,7 @@ unsigned GfCar::getCylinders() const
 	return _nCylinders;
 }
 
-tdble GfCar::getEngineCapacity() const
+float GfCar::getEngineCapacity() const
 {
 	return _fEngineCapacity;
 }
@@ -519,52 +519,52 @@ GfCar::EEnginePosition GfCar::getEnginePosition() const
 	return _eEnginePosition;
 }
 
-tdble GfCar::getMaxPower() const
+float GfCar::getMaxPower() const
 {
 	return _fMaxPower;
 }
 
-tdble GfCar::getMaxPowerSpeed() const
+float GfCar::getMaxPowerSpeed() const
 {
 	return _fMaxPowerSpeed;
 }
 
-tdble GfCar::getMaxTorque() const
+float GfCar::getMaxTorque() const
 {
 	return _fMaxTorque;
 }
 
-tdble GfCar::getMaxTorqueSpeed() const
+float GfCar::getMaxTorqueSpeed() const
 {
 	return _fMaxTorqueSpeed;
 }
 
-tdble GfCar::getMass() const
+float GfCar::getMass() const
 {
 	return _fMass;
 }
 
-tdble GfCar::getFrontRearMassRatio() const
+float GfCar::getFrontRearMassRatio() const
 {
 	return _fFrontRearMassRatio;
 }
 
-tdble GfCar::getTopSpeed() const
+float GfCar::getTopSpeed() const
 {
 	return _fTopSpeed;
 }
 
-tdble GfCar::getLowSpeedGrip() const
+float GfCar::getLowSpeedGrip() const
 {
 	return _fLowSpeedGrip;
 }
 
-tdble GfCar::getHighSpeedGrip() const
+float GfCar::getHighSpeedGrip() const
 {
 	return _fHighSpeedGrip;
 }
 
-tdble GfCar::getInvertedZAxisInertia() const
+float GfCar::getInvertedZAxisInertia() const
 {
 	return _fInvertedZAxisInertia;
 }

@@ -143,7 +143,7 @@ static void ReCareerNewResultXml( const char* filename, double date )
 	ReInfo->results = GfParmReadFile( buf, GFPARM_RMODE_STD | GFPARM_RMODE_CREAT );
 	results = ReInfo->results;
 
-	GfParmSetNum( results, RE_SECT_HEADER, RE_ATTR_DATE, NULL, (tdble)date );
+	GfParmSetNum( results, RE_SECT_HEADER, RE_ATTR_DATE, NULL, (float)date );
 	GfParmSetNum( results, RE_SECT_CURRENT, RE_ATTR_CUR_SEASON, NULL, 0 );
 	GfParmWriteFile( NULL, results, NULL );
 	ReInfo->mainResults = ReInfo->results;
@@ -167,8 +167,8 @@ static void ReCareerNewResult( const char* filename, const char *suffix, const c
 	GfParmSetNum(results, RE_SECT_CURRENT, RE_ATTR_CUR_RACE, NULL, 1);
 	GfParmSetNum(results, RE_SECT_CURRENT, RE_ATTR_CUR_DRIVER, NULL, 1);
 
-	GfParmSetNum(results, RE_SECT_DRIVERS, RM_ATTR_MINNUM, NULL, (tdble)nbDrivers );
-	GfParmSetNum(results, RE_SECT_DRIVERS, RM_ATTR_MAXNUM, NULL, (tdble)nbDrivers );
+	GfParmSetNum(results, RE_SECT_DRIVERS, RM_ATTR_MINNUM, NULL, (float)nbDrivers );
+	GfParmSetNum(results, RE_SECT_DRIVERS, RM_ATTR_MAXNUM, NULL, (float)nbDrivers );
 
 	GfParmWriteFile( NULL, results, NULL );
 	GfParmReleaseHandle( results );
@@ -249,7 +249,7 @@ static void ReCareerNewAddDrivers( void *curParam, void *curResult, char *humans
 		sprintf( buf, "%s/%d", RM_SECT_DRIVERS, xx + 1 );
 		path2 = strdup( buf );
 		GfParmSetStr(curParam, path2, RM_ATTR_MODULE, "simplix");
-		GfParmSetNum(curParam, path2, RM_ATTR_IDX, NULL, (tdble)xx);
+		GfParmSetNum(curParam, path2, RM_ATTR_IDX, NULL, (float)xx);
 		GfParmSetNum(curParam, path2, RM_ATTR_EXTENDED, NULL, 1);
 		free( path2 );
 		sprintf( buf, "%s/%s/%d/%d", RM_SECT_DRIVERINFO, "simplix", 1, xx );
@@ -261,7 +261,7 @@ static void ReCareerNewAddDrivers( void *curParam, void *curResult, char *humans
 			GfParmListSeekFirst(ReInfo->params, RM_SECT_FIRSTNAME);
 		if( GfParmListSeekNext(ReInfo->params, RM_SECT_LASTNAME) != 0 )
 			GfParmListSeekFirst(ReInfo->params, RM_SECT_LASTNAME);
-		GfParmSetNum(curParam, path2, RM_ATTR_SKILLLEVEL, NULL, (tdble) ReCareerNewSkill( GfParmGetEltNb( ReInfo->params, RM_SECT_CLASSES ), classNb ) );
+		GfParmSetNum(curParam, path2, RM_ATTR_SKILLLEVEL, NULL, (float) ReCareerNewSkill( GfParmGetEltNb( ReInfo->params, RM_SECT_CLASSES ), classNb ) );
 	
 		/* Add a driver to the result section */
 		snprintf( buf, 1024, "%s/%s/%d/%d/%s", RE_SECT_CLASSPOINTS, "simplix", 1, xx, GfParmGetStr( curParam, RM_SECT_SUBFILES, RM_ATTR_SUFFIX, "" ) );
@@ -377,7 +377,7 @@ static void* ReCareerNewGroup( const char *filename, void *param, const char *gr
 	ReCareerNewResult( filename, suffix, groupAlpha, subparam, drivers );
 
 	/* Set name and description */
-	GfParmSetVariable( subparam, RM_SECT_HEADER, "number", (tdble)groupNumber );
+	GfParmSetVariable( subparam, RM_SECT_HEADER, "number", (float)groupNumber );
 	strncpy( buf,  GfParmGetStr( subparam, RM_SECT_HEADER, RM_ATTR_NAME,  "" ), 1024 );
 	GfParmSetStr( subparam, RM_SECT_HEADER, RM_ATTR_NAME, buf );
 	strncpy( buf,  GfParmGetStr( subparam, RM_SECT_HEADER, RM_ATTR_DESCR,  "" ), 1024 );
@@ -386,10 +386,10 @@ static void* ReCareerNewGroup( const char *filename, void *param, const char *gr
 
 	/* Set that it is not the last subfile */
 	GfParmSetStr( subparam, RM_SECT_SUBFILES, RM_ATTR_LASTSUBFILE, RM_VAL_NO );
-	GfParmSetNum( subparam, RM_SECT_TRACKS, RM_ATTR_TOTALNUM, NULL, (tdble)totalTracks );
+	GfParmSetNum( subparam, RM_SECT_TRACKS, RM_ATTR_TOTALNUM, NULL, (float)totalTracks );
 	snprintf( buf, 1024, "%s/%s/%s", RM_SECT_CLASSES, GfParmListGetCurEltName( ReInfo->params, RM_SECT_CLASSES ), RM_SECT_TRACKS );
-	GfParmSetNum( subparam, RM_SECT_TRACKS, RM_ATTR_MINNUM, NULL, (float)((int)GfParmGetNum( ReInfo->params, buf, RM_ATTR_MINNUM, NULL, (tdble)1 )) );
-	GfParmSetNum( subparam, RM_SECT_TRACKS, RM_ATTR_MAXNUM, NULL, (float)((int)GfParmGetNum( ReInfo->params, buf, RM_ATTR_MAXNUM, NULL, (tdble)totalTracks )) );
+	GfParmSetNum( subparam, RM_SECT_TRACKS, RM_ATTR_MINNUM, NULL, (float)((int)GfParmGetNum( ReInfo->params, buf, RM_ATTR_MINNUM, NULL, (float)1 )) );
+	GfParmSetNum( subparam, RM_SECT_TRACKS, RM_ATTR_MAXNUM, NULL, (float)((int)GfParmGetNum( ReInfo->params, buf, RM_ATTR_MAXNUM, NULL, (float)totalTracks )) );
 
 	return subparam;
 }
@@ -633,7 +633,7 @@ void ReCareerNextAddDrivers( tDriverInfo ***drivers, int *listLength, tCareerInf
 				for( yy = 0; yy < info->nbClasses; ++yy ) {
 					if( strcmp( info->classes[ yy ].suffix, GfParmListGetCurEltName( curResults, buf ) ) == 0 ) {
 						newDrivers[ xx ]->classPointList[ yy ] = GfParmGetCurNum( curResults, buf, RE_ATTR_POINTS, NULL,
-													   (tdble)newDrivers[ xx ]->classPointList[ yy ] );
+													   (float)newDrivers[ xx ]->classPointList[ yy ] );
 						for( zz = 0; zz < xx - *listLength; ++zz )
 						{
 							if( newDrivers[ xx ]->classPointList[ yy ] < newDrivers[ zz ]->classPointList[ yy ] )
@@ -663,9 +663,9 @@ void ReCareerNextAddDrivers( tDriverInfo ***drivers, int *listLength, tCareerInf
 	/* Now use the information we have to take the end-of-season points into account */
 	for( xx = *listLength; xx < *listLength + newNb; ++xx )
 	{
-		GfParmSetVariable( curParam, RM_SECT_ENDOFSEASON, "ownClassPos", curClass >= 0 ? (tdble)classPosition[ xx - *listLength ][ curClass ] : (tdble)newNb );
+		GfParmSetVariable( curParam, RM_SECT_ENDOFSEASON, "ownClassPos", curClass >= 0 ? (float)classPosition[ xx - *listLength ][ curClass ] : (float)newNb );
 		GfParmSetVariable( curParam, RM_SECT_ENDOFSEASON, "ownClassPoints",
-		                   curClass >= 0 ? (tdble)newDrivers[ xx ]->classPointList[ curClass ] : 0.0f );
+		                   curClass >= 0 ? (float)newDrivers[ xx ]->classPointList[ curClass ] : 0.0f );
 
 		if( GfParmListSeekFirst( curParam, RM_SECT_ENDOFSEASON_CLASSPOINTS ) == 0 )
 		{
@@ -677,12 +677,12 @@ void ReCareerNextAddDrivers( tDriverInfo ***drivers, int *listLength, tCareerInf
 					{
 						snprintf( buf, 1024, "%s/%s", RM_SECT_ENDOFSEASON_CLASSPOINTS,
 						                              GfParmListGetCurEltName( curParam, RM_SECT_ENDOFSEASON_CLASSPOINTS ) );
-						GfParmSetVariable( curParam, buf, "curClassPos", (tdble)classPosition[ xx - *listLength ][ yy ] );
-						GfParmSetVariable( curParam, buf, "curClassPoints", (tdble)newDrivers[ xx ]->classPointList[ yy ] );
+						GfParmSetVariable( curParam, buf, "curClassPos", (float)classPosition[ xx - *listLength ][ yy ] );
+						GfParmSetVariable( curParam, buf, "curClassPoints", (float)newDrivers[ xx ]->classPointList[ yy ] );
 
 						newDrivers[ xx ]->classPointList[ yy ] = GfParmGetCurNum( curParam, RM_SECT_ENDOFSEASON_CLASSPOINTS,
 						                                                          RM_ATTR_POINTS, (char*)NULL,
-						                                                          (tdble)newDrivers[ xx ]->classPointList[yy]);
+						                                                          (float)newDrivers[ xx ]->classPointList[yy]);
 
 						GfParmRemoveVariable( curParam, buf, "curClassPos" );
 						GfParmRemoveVariable( curParam, buf, "curClassPoints" );
@@ -897,7 +897,7 @@ static void ReCareerNextTracks( void *subparam )
 		GfParmListSeekNext( subparam, RM_SECT_ALLOWEDTRACKS );
 	}
 
-	GfParmSetNum( subparam, RM_SECT_TRACKS, RM_ATTR_NUMBER, NULL, (tdble)number );
+	GfParmSetNum( subparam, RM_SECT_TRACKS, RM_ATTR_NUMBER, NULL, (float)number );
 
 	for( xx = 0; xx < number; ++xx ) {
 		do {
@@ -974,8 +974,8 @@ static void ReCareerNextWrite( tCareerInfo *info )
 				/* Fill Drivers Section */
 				snprintf( buf, 1024, "%s/%d", RM_SECT_DRIVERS, yy );
 				GfParmSetStr( curParam, buf, RM_ATTR_MODULE, curGroupPtr->teams[ zz ].drivers[ uu ]->module );
-				GfParmSetNum( curParam, buf, RM_ATTR_IDX, NULL, (tdble)curGroupPtr->teams[ zz ].drivers[ uu ]->idx );
-				GfParmSetNum( curParam, buf, RM_ATTR_EXTENDED, NULL, (tdble)curGroupPtr->teams[ zz ].drivers[ uu ]->extended );
+				GfParmSetNum( curParam, buf, RM_ATTR_IDX, NULL, (float)curGroupPtr->teams[ zz ].drivers[ uu ]->idx );
+				GfParmSetNum( curParam, buf, RM_ATTR_EXTENDED, NULL, (float)curGroupPtr->teams[ zz ].drivers[ uu ]->extended );
 
 				//const tDriverInfo* pDriver = curGroupPtr->teams[ zz ].drivers[ uu ];
 				//GfLogDebug("  * %s #%d (%s)%s\n", pDriver->module, pDriver->idx, pDriver->name,
@@ -989,7 +989,7 @@ static void ReCareerNextWrite( tCareerInfo *info )
 				GfParmSetStr( curParam, buf, RM_ATTR_CARNAME, curGroupPtr->teams[ zz ].car_dname );
 				//GfLogDebug( "GfParmSetStr( %p, %s, %s, %s )\n", curParam, buf, RM_ATTR_CARNAME, curGroupPtr->teams[ zz ].car_dname );
 				GfParmSetStr( curParam, buf, RM_ATTR_TEAMNAME, curGroupPtr->teams[ zz ].name );
-				GfParmSetNum( curParam, buf, RM_ATTR_SKILLLEVEL, NULL, (tdble)curGroupPtr->teams[ zz ].drivers[ uu ]->skill );
+				GfParmSetNum( curParam, buf, RM_ATTR_SKILLLEVEL, NULL, (float)curGroupPtr->teams[ zz ].drivers[ uu ]->skill );
 				++yy;
 			}
 		}
@@ -1005,7 +1005,7 @@ static void ReCareerNextWrite( tCareerInfo *info )
 		if( GfParmListSeekFirst( curResult, RE_SECT_TEAMINFO ) == 0 && uu < curGroupPtr->nbTeams ) {
 			do {
 				GfParmSetCurNum( curResult, RE_SECT_TEAMINFO, RE_ATTR_POINTS, NULL,
-				                 GfParmGetCurNum( curResult, RE_SECT_TEAMINFO, RE_ATTR_POINTS, NULL, (tdble)curGroupPtr->teams[ uu ].sortPoints ) );
+				                 GfParmGetCurNum( curResult, RE_SECT_TEAMINFO, RE_ATTR_POINTS, NULL, (float)curGroupPtr->teams[ uu ].sortPoints ) );
 				++uu;
 			} while( GfParmListSeekNext( curResult, RE_SECT_TEAMINFO ) == 0 && uu < curGroupPtr->nbTeams );
 		}

@@ -347,10 +347,10 @@ osg::ref_ptr<osg::Node> SDCar::loadCar(tCarElt *car, bool tracktype, bool subcat
         osg::ref_ptr<osg::Node> steerEntityLo = loader.Load3dFile(strPath, true, bSkinName);
         osg::ref_ptr<osg::MatrixTransform> steer_transform = new osg::MatrixTransform;
 
-        tdble xpos = GfParmGetNum(handle, path, PRM_XPOS, NULL, 0.0);
-        tdble ypos = GfParmGetNum(handle, path, PRM_YPOS, NULL, 0.0);
-        tdble zpos = GfParmGetNum(handle, path, PRM_ZPOS, NULL, 0.0);
-        tdble angl = GfParmGetNum(handle, path, PRM_SW_ANGLE, NULL, 0.0);
+        float xpos = GfParmGetNum(handle, path, PRM_XPOS, NULL, 0.0);
+        float ypos = GfParmGetNum(handle, path, PRM_YPOS, NULL, 0.0);
+        float zpos = GfParmGetNum(handle, path, PRM_ZPOS, NULL, 0.0);
+        float angl = GfParmGetNum(handle, path, PRM_SW_ANGLE, NULL, 0.0);
         osg::Matrix pos = osg::Matrix::translate(xpos, ypos, zpos);
         osg::Matrix rot = osg::Matrix::rotate(angl, osg::Y_AXIS);
 
@@ -379,10 +379,10 @@ osg::ref_ptr<osg::Node> SDCar::loadCar(tCarElt *car, bool tracktype, bool subcat
         osg::ref_ptr<osg::Node> steerEntityHi = loader.Load3dFile(strPath, true, bSkinName);
         osg::ref_ptr<osg::MatrixTransform> steer_transform = new osg::MatrixTransform;
 
-        tdble xpos = GfParmGetNum(handle, path, PRM_XPOS, NULL, 0.0);
-        tdble ypos = GfParmGetNum(handle, path, PRM_YPOS, NULL, 0.0);
-        tdble zpos = GfParmGetNum(handle, path, PRM_ZPOS, NULL, 0.0);
-        tdble angl = GfParmGetNum(handle, path, PRM_SW_ANGLE, NULL, 0.0);
+        float xpos = GfParmGetNum(handle, path, PRM_XPOS, NULL, 0.0);
+        float ypos = GfParmGetNum(handle, path, PRM_YPOS, NULL, 0.0);
+        float zpos = GfParmGetNum(handle, path, PRM_ZPOS, NULL, 0.0);
+        float angl = GfParmGetNum(handle, path, PRM_SW_ANGLE, NULL, 0.0);
         osg::Matrix pos = osg::Matrix::translate(xpos, ypos, zpos);
         osg::Matrix rot = osg::Matrix::rotate(angl, osg::Y_AXIS);
 
@@ -414,9 +414,9 @@ osg::ref_ptr<osg::Node> SDCar::loadCar(tCarElt *car, bool tracktype, bool subcat
             snprintf(buf, nMaxTexPathSize, "%s/%s/%d", SECT_GROBJECTS, LST_DRIVER, i);
             param = GfParmGetStr(handle, buf, PRM_DRIVERMODEL, "");
 
-            tdble xpos = GfParmGetNum(handle, buf, PRM_XPOS, NULL, 0.0);
-            tdble ypos = GfParmGetNum(handle, buf, PRM_YPOS, NULL, 0.0);
-            tdble zpos = GfParmGetNum(handle, buf, PRM_ZPOS, NULL, 0.0);
+            float xpos = GfParmGetNum(handle, buf, PRM_XPOS, NULL, 0.0);
+            float ypos = GfParmGetNum(handle, buf, PRM_YPOS, NULL, 0.0);
+            float zpos = GfParmGetNum(handle, buf, PRM_ZPOS, NULL, 0.0);
             osg::Matrix pos = osg::Matrix::translate(xpos, ypos, zpos);
 
 			position->setMatrix(pos);

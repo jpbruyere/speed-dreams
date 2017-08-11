@@ -66,11 +66,11 @@ void KStrategy::SetFuelAtRaceStart(const tTrack * const t,
                                     const tSituation * const s,
                                     const int index) {
   // Load and set parameters.
-  const tdble fuel_cons_factor =
+  const float fuel_cons_factor =
     GfParmGetNum(*carParmHandle, SECT_ENGINE, PRM_FUELCONS, NULL, 1.0f);
   const double fuel =
     GfParmGetNum(*carParmHandle, KILO_SECT_PRIV, KILO_ATT_FUELPERLAP,
-         NULL, (tdble) (t->length * MAX_FUEL_PER_METER * fuel_cons_factor));
+         NULL, (float) (t->length * MAX_FUEL_PER_METER * fuel_cons_factor));
   expected_fuel_per_lap_ = fuel;
   // Pittime is pittime without refuel.
   pittime_ = GfParmGetNum(*carParmHandle, KILO_SECT_PRIV,
@@ -98,15 +98,15 @@ void KStrategy::SetFuelAtRaceStart(const tTrack * const t,
                                             PRM_FUEL, NULL, 0.0);
   if (s->_raceType == RM_TYPE_RACE) {
     if (initial_fuel) {
-      GfParmSetNum(*carParmHandle, SECT_CAR, PRM_FUEL, NULL, (tdble) initial_fuel);
+      GfParmSetNum(*carParmHandle, SECT_CAR, PRM_FUEL, NULL, (float) initial_fuel);
     } else {
       // Add fuel dependent on index to avoid fuel stop in the same lap.
       GfParmSetNum(*carParmHandle, SECT_CAR, PRM_FUEL, NULL,
-                    (tdble) (last_fuel_ + index * expected_fuel_per_lap_));
+                    (float) (last_fuel_ + index * expected_fuel_per_lap_));
     }
   } else {
     // Use fuel for whole 'race', ie qualy or practice N laps.
-      GfParmSetNum(*carParmHandle, SECT_CAR, PRM_FUEL, NULL, (tdble) fuelForRace);
+      GfParmSetNum(*carParmHandle, SECT_CAR, PRM_FUEL, NULL, (float) fuelForRace);
   }
 }   // SetFuelAtRaceStart
 

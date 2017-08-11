@@ -52,7 +52,7 @@ rmUpdtFuel(void * /* dummy */)
     char	buf[32];
     
     val = GfuiEditboxGetString(menuHandle, fuelId);
-    rmCar->pitcmd.fuel = (tdble)strtod(val, (char **)NULL);
+    rmCar->pitcmd.fuel = (float)strtod(val, (char **)NULL);
     sprintf(buf, "%.1f", rmCar->pitcmd.fuel);
     GfuiEditboxSetString(menuHandle, fuelId, buf);
 }

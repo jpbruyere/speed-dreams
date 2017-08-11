@@ -279,7 +279,7 @@ void OpenalSoundInterface::update(CarSoundData** car_sound_data, int n_cars, sgV
 #endif
 		// For the moment, simulate LP filter by tweaking the volume (can't wait EXT_EFX !)
 		//engine->setLPFilter(sound_data->engine.lp);
-		engine->setVolume((tdble)(sound_data->engine.a * exp(1.3*sound_data->engine.lp-1.3)));
+		engine->setVolume((float)(sound_data->engine.a * exp(1.3*sound_data->engine.lp-1.3)));
 
 		engine->update();
 		if (i < nsrc) {

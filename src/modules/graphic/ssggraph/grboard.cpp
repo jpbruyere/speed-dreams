@@ -187,31 +187,31 @@ cGrBoard::selectBoard(int val)
   switch (val) {
     case 0:
       boardFlag = (boardFlag + 1) % NB_BOARDS;
-      GfParmSetNum(grHandle, path, GR_ATT_BOARD, (char*)NULL, (tdble)boardFlag);
+      GfParmSetNum(grHandle, path, GR_ATT_BOARD, (char*)NULL, (float)boardFlag);
       break;
     case 1:
       counterFlag = (counterFlag + 1) % NB_BOARDS;
-      GfParmSetNum(grHandle, path, GR_ATT_COUNTER, (char*)NULL, (tdble)counterFlag);
+      GfParmSetNum(grHandle, path, GR_ATT_COUNTER, (char*)NULL, (float)counterFlag);
       break;
     case 2:
       leaderFlag = (leaderFlag + 1) % NB_LBOARDS;
-      GfParmSetNum(grHandle, path, GR_ATT_LEADER, (char*)NULL, (tdble)leaderFlag);
+      GfParmSetNum(grHandle, path, GR_ATT_LEADER, (char*)NULL, (float)leaderFlag);
       break;
     case 3:
       debugFlag = (debugFlag + 1) % NB_DEBUG;
-      GfParmSetNum(grHandle, path, GR_ATT_DEBUG, (char*)NULL, (tdble)debugFlag);
+      GfParmSetNum(grHandle, path, GR_ATT_DEBUG, (char*)NULL, (float)debugFlag);
       break;
     case 4:
       GFlag = (GFlag + 1) % NB_GFLAG;
-      GfParmSetNum(grHandle, path, GR_ATT_GGRAPH, (char*)NULL, (tdble)GFlag);
+      GfParmSetNum(grHandle, path, GR_ATT_GGRAPH, (char*)NULL, (float)GFlag);
       break;
     case 5:
       arcadeFlag = 1 - arcadeFlag;
-      GfParmSetNum(grHandle, path, GR_ATT_ARCADE, (char*)NULL, (tdble)arcadeFlag);
+      GfParmSetNum(grHandle, path, GR_ATT_ARCADE, (char*)NULL, (float)arcadeFlag);
       break;
     case 6:
       dashboardFlag = (dashboardFlag + 1) % 3;
-      GfParmSetNum(grHandle, path, GR_ATT_DASHBOARD, (char*)NULL, (tdble)dashboardFlag);
+      GfParmSetNum(grHandle, path, GR_ATT_DASHBOARD, (char*)NULL, (float)dashboardFlag);
       break;
   }
   GfParmWriteFile(NULL, grHandle, "graph");
@@ -294,10 +294,10 @@ void
 cGrBoard::grDispGGraph()
 {
   // Position the graph
-  const tdble X1 = (tdble)(rightAnchor - 100);
-  const tdble Y1 = (tdble)(BOTTOM_ANCHOR + 70);
-  const tdble XC = (tdble)(rightAnchor - 30);
-  const tdble YC = (tdble)(Y1 - 50);
+  const float X1 = (float)(rightAnchor - 100);
+  const float Y1 = (float)(BOTTOM_ANCHOR + 70);
+  const float XC = (float)(rightAnchor - 30);
+  const float YC = (float)(Y1 - 50);
 
   // Draw the static blue thin cross and vertical segment.
   glBegin(GL_LINES);
@@ -312,7 +312,7 @@ cGrBoard::grDispGGraph()
 
   // Draw the throttle gauge (vertical thick segment, starting in X1,Y1,
   // going upwards, length proportional to the throttle command).
-  static const tdble THNSS = 2.0f;
+  static const float THNSS = 2.0f;
 
   glBegin(GL_QUADS);
   glColor4fv(behind_color_);
@@ -383,7 +383,7 @@ cGrBoard::grDispGGraph()
   
   // Draw the tire slip color gauges
   if (GFlag == 2) {
-    tdble s;
+    float s;
     // FR wheel
     s = car_->_wheelSlipNorm(0)/car_->_wheelSlipOpt(0);
     if (s > 1.0) {
@@ -438,8 +438,8 @@ cGrBoard::grDispGGraph()
 
   // Draw the acceleration gauge (thin segment, starting in X1, Y1,
   // going in the direction of the acceleration vector).
-  const tdble X2 = -car_->_DynGC.acc.y / 9.81f * 25.0f + X1;
-  const tdble Y2 = car_->_DynGC.acc.x / 9.81f * 25.0f + Y1;
+  const float X2 = -car_->_DynGC.acc.y / 9.81f * 25.0f + X1;
+  const float Y2 = car_->_DynGC.acc.x / 9.81f * 25.0f + Y1;
 
   glBegin(GL_LINES);
   glColor4fv(emphasized_color_);
@@ -451,15 +451,15 @@ cGrBoard::grDispGGraph()
 
 
 void
-cGrBoard::grDrawGauge(tdble X1, tdble Y1, tdble H,
+cGrBoard::grDrawGauge(float X1, float Y1, float H,
                         float *color1, float *color2,
-                        tdble val, const char *title)
+                        float val, const char *title)
 {
-  tdble curH = MAX(MIN(val, 1.0), 0.0);
+  float curH = MAX(MIN(val, 1.0), 0.0);
   curH *= H;
 
-  static const tdble THNSSBG = 2.0;
-  static const tdble THNSSFG = 2.0;
+  static const float THNSSBG = 2.0;
+  static const float THNSSFG = 2.0;
 
   glBegin(GL_QUADS);
   // set F and D column to: 404040
@@ -786,8 +786,8 @@ cGrBoard::grDispEngineLeds(int X, int Y, int align, bool bg)
   int ledHeight = 10;
   int ledWidth  = 5;
   int ledSpace  = 2;
-  int ledRed    = (int)((car_->_enginerpmRedLine * 0.9 / car_->_enginerpmMax) * (tdble)ledNb);
-  int ledLit    = (int)((car_->_enginerpm / car_->_enginerpmMax) * (tdble)ledNb);
+  int ledRed    = (int)((car_->_enginerpmRedLine * 0.9 / car_->_enginerpmMax) * (float)ledNb);
+  int ledLit    = (int)((car_->_enginerpm / car_->_enginerpmMax) * (float)ledNb);
 
   int x;
   switch (align) {
@@ -1001,7 +1001,7 @@ cGrBoard::grDispCounterBoard2()
   glCallList(curInst->CounterList);
   glBindTexture(GL_TEXTURE_2D, 0);
 
-  tdble val = (*(curInst->monitored) - curInst->minValue) / curInst->maxValue;
+  float val = (*(curInst->monitored) - curInst->minValue) / curInst->maxValue;
   val = MIN(1.0, MAX(0.0, val));    // val between 0.0 and 1.0
   val = curInst->minAngle + val * curInst->maxAngle;
 
@@ -1080,7 +1080,7 @@ cGrBoard::grDispCounterBoard2()
     grDrawGauge(centerAnchor + 140, BOTTOM_ANCHOR + 25, 100, color,
                 background_color_, car_->_fuel / car_->_tank, "F");
     grDrawGauge(centerAnchor + 155, BOTTOM_ANCHOR + 25, 100, danger_color_, //red
-                background_color_, (tdble)(car_->_dammage) / grMaxDammage, "D");
+                background_color_, (float)(car_->_dammage) / grMaxDammage, "D");
   }
 
   glTranslatef(0, -(speedoRise * TOP_ANCHOR / 100), 0);
@@ -1153,7 +1153,7 @@ cGrBoard::grDispArcade(const tSituation *s)
   grDrawGauge(leftAnchor + XM, BOTTOM_ANCHOR + 25, 100, color,
                 background_color_, car_->_fuel / car_->_tank, "F");
   grDrawGauge(leftAnchor + XM + 15, BOTTOM_ANCHOR + 25, 100, danger_color_, //red
-                background_color_, (tdble)(car_->_dammage) / grMaxDammage, "D");
+                background_color_, (float)(car_->_dammage) / grMaxDammage, "D");
 
   // Display ABS/TCS/SPD indicators
   grDispIndicators(true);
@@ -1192,9 +1192,9 @@ cGrBoard::grDispArcade(const tSituation *s)
 bool cGrBoard::grGetSplitTime(const tSituation *s, bool gap_inrace, double &time,
                                 int *laps_different, float **color)
 {
-  tdble curSplit;
-  tdble bestSplit;
-  tdble bestSessionSplit;
+  float curSplit;
+  float bestSplit;
+  float bestSessionSplit;
   const tCarElt *ocar = car_;
   const tCarElt *fcar = car_;
   int sign = 1;
@@ -1446,14 +1446,14 @@ void grInitBoardCar(tCarElt *car)
   nstate++;
 
   /* Load the instrument placement */
-  tdble xSz = GfParmGetNum(handle, SECT_GROBJECTS, PRM_TACHO_XSZ, (char*)NULL, 128);
-  tdble ySz = GfParmGetNum(handle, SECT_GROBJECTS, PRM_TACHO_YSZ, (char*)NULL, 128);
+  float xSz = GfParmGetNum(handle, SECT_GROBJECTS, PRM_TACHO_XSZ, (char*)NULL, 128);
+  float ySz = GfParmGetNum(handle, SECT_GROBJECTS, PRM_TACHO_YSZ, (char*)NULL, 128);
 
   // position are delta from center of screen
-  tdble xpos = GfParmGetNum(handle, SECT_GROBJECTS, PRM_TACHO_XPOS, (char*)NULL, 0 - xSz);
-  tdble ypos = GfParmGetNum(handle, SECT_GROBJECTS, PRM_TACHO_YPOS, (char*)NULL, 0);
-  tdble needlexSz = GfParmGetNum(handle, SECT_GROBJECTS, PRM_TACHO_NDLXSZ, (char*)NULL, 50);
-  tdble needleySz = GfParmGetNum(handle, SECT_GROBJECTS, PRM_TACHO_NDLYSZ, (char*)NULL, 2);
+  float xpos = GfParmGetNum(handle, SECT_GROBJECTS, PRM_TACHO_XPOS, (char*)NULL, 0 - xSz);
+  float ypos = GfParmGetNum(handle, SECT_GROBJECTS, PRM_TACHO_YPOS, (char*)NULL, 0);
+  float needlexSz = GfParmGetNum(handle, SECT_GROBJECTS, PRM_TACHO_NDLXSZ, (char*)NULL, 50);
+  float needleySz = GfParmGetNum(handle, SECT_GROBJECTS, PRM_TACHO_NDLYSZ, (char*)NULL, 2);
   curInst->needleXCenter = GfParmGetNum(handle, SECT_GROBJECTS, PRM_TACHO_XCENTER, (char*)NULL, xSz / 2.0) + xpos;
   curInst->needleYCenter = GfParmGetNum(handle, SECT_GROBJECTS, PRM_TACHO_YCENTER, (char*)NULL, ySz / 2.0) + ypos;
   curInst->digitXCenter = GfParmGetNum(handle, SECT_GROBJECTS, PRM_TACHO_XDIGITCENTER, (char*)NULL, xSz / 2.0) + xpos;

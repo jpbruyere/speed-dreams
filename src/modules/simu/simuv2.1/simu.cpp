@@ -31,12 +31,12 @@
 
 tCar *SimCarTable = 0;
 
-tdble SimDeltaTime;
+float SimDeltaTime;
 
 int SimTelemetry = -1;
 
-t3Dd vectStart[16];
-t3Dd vectEnd[16];
+glm::vec3 vectStart[16];
+glm::vec3 vectEnd[16];
 
 static tTrack *PTrack = 0;
 
@@ -89,9 +89,9 @@ ctrlCheck(tCar *car)
 	}
     } else if (car->carElt->_state & RM_CAR_STATE_FINISH) {
 	/* when the finish line is passed, continue at "slow" pace */
-	car->ctrl->accelCmd = (tdble) MIN(car->ctrl->accelCmd, 0.20);
+	car->ctrl->accelCmd = (float) MIN(car->ctrl->accelCmd, 0.20);
 	if (car->DynGC.vel.x > 30.0) {
-	    car->ctrl->brakeCmd = (tdble) MAX(car->ctrl->brakeCmd, 0.05);
+	    car->ctrl->brakeCmd = (float) MAX(car->ctrl->brakeCmd, 0.05);
 	}
     }
 
@@ -165,11 +165,11 @@ RemoveCar(tCar *car, tSituation *s)
 	tCarElt *carElt;
 	tTrkLocPos trkPos;
 	int trkFlag;
-	tdble travelTime;
-	tdble dang;
+	float travelTime;
+	float dang;
 
-	static tdble PULL_Z_OFFSET = 3.0;
-	static tdble PULL_SPD = 0.5;
+	static float PULL_Z_OFFSET = 3.0;
+	static float PULL_SPD = 0.5;
 
 	carElt = car->carElt;
 
@@ -321,7 +321,7 @@ SimUpdate(tSituation *s, double deltaTime)
 	tCarElt *carElt;
 	tCar *car;
 	
-	SimDeltaTime = (tdble) deltaTime;
+	SimDeltaTime = (float) deltaTime;
 	for (ncar = 0; ncar < s->_ncars; ncar++) {
 		SimCarTable[ncar].collision = 0;
 		SimCarTable[ncar].blocked = 0;
@@ -486,7 +486,7 @@ SimUpdateSingleCar(int index, double deltaTime,tSituation *s)
 	tCarElt *carElt;
 	tCar *car;
 	
-	SimDeltaTime = (tdble) deltaTime;
+	SimDeltaTime = (float) deltaTime;
 	SimCarTable[index].collision = 0;
 	SimCarTable[index].blocked = 0;
 	

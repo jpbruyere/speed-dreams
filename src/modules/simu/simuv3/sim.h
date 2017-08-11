@@ -51,15 +51,15 @@ extern void SimAxleUpdate(tCar *car, int index);
 extern void SimCarConfig(tCar *car);
 extern void SimCarUpdate(tCar *car, tSituation*);
 extern void SimCarUpdate2(tCar *car, tSituation*);
-extern tdble SimCarDynamicEnergy(tCar* car);
-extern tdble SimCarEnergy(tCar* car);
-extern void SimCarLimitDynamicEnergy(tCar* car, tdble E_limit);
-extern void SimCarLimitEnergy(tCar* car, tdble E_limit);
+extern float SimCarDynamicEnergy(tCar* car);
+extern float SimCarEnergy(tCar* car);
+extern void SimCarLimitDynamicEnergy(tCar* car, float E_limit);
+extern void SimCarLimitEnergy(tCar* car, float E_limit);
 
 extern void SimSuspCheckIn(tSuspension *susp);
 extern void SimSuspUpdate(tSuspension *susp);
-extern void SimSuspConfig(void *hdle, const char *section, tSuspension *susp, tdble F0, tdble X0);
-extern void SimSuspDamage(tSuspension* susp, tdble dmg);
+extern void SimSuspConfig(void *hdle, const char *section, tSuspension *susp, float F0, float X0);
+extern void SimSuspDamage(tSuspension* susp, float dmg);
 
 extern void SimWheelConfig(tCar *car, int index);
 extern void SimWheelUpdateRide(tCar *car, int index);
@@ -77,7 +77,7 @@ extern void SimBrakeSystemUpdate(tCar *car);
 
 extern void SimAeroConfig(tCar *car);
 extern void SimAeroUpdate(tCar *car, tSituation *s);
-extern void SimAeroDamage(tCar *car, sgVec3 poc, tdble F);
+extern void SimAeroDamage(tCar *car, sgVec3 poc, float F);
 extern void SimWingConfig(tCar *car, int index);
 extern void SimWingUpdate(tCar *car, int index, tSituation *s);
 
@@ -94,7 +94,7 @@ extern void SimDifferentialUpdate(tCar *car, tDifferential *differential, int fi
 
 extern void SimEngineConfig(tCar *car);
 extern void SimEngineUpdateTq(tCar *car);
-extern tdble SimEngineUpdateRpm(tCar *car, tdble axleRpm);
+extern float SimEngineUpdateRpm(tCar *car, float axleRpm);
 extern void SimEngineShutdown(tCar *car);
 
 extern void SimCarCollideZ(tCar *car);
@@ -105,25 +105,25 @@ extern void SimCarCollideShutdown(int nbcars);
 extern void SimCarCollideInit(void);
 extern void SimCarCollideAddDeformation(tCar* car, sgVec3 pos, sgVec3 force);
 
-extern void NaiveRotate (t3Dd v, t3Dd u, t3Dd* v0);
-extern void NaiveInverseRotate (t3Dd v, t3Dd u, t3Dd* v0);
+extern void NaiveRotate (glm::vec3 v, glm::vec3 u, glm::vec3* v0);
+extern void NaiveInverseRotate (glm::vec3 v, glm::vec3 u, glm::vec3* v0);
 extern void QuatToEuler (sgVec3 hpr, const sgQuat quat);
-extern void EulerToQuat (sgQuat quat, tdble h, tdble p, tdble r);
+extern void EulerToQuat (sgQuat quat, float h, float p, float r);
 extern void SimCarAddAngularVelocity (tCar* car);
-extern tdble ConstantFriction (tdble u, tdble du);
-extern tdble ConstantFriction (tdble u, tdble a, tdble dt);
-extern tdble PartialFlowRectangle(tdble theta, tdble psi);
-extern tdble PartialFlowSmooth(tdble theta, tdble psi);
-extern tdble PartialFlowSphere(tdble theta, tdble psi);
+extern float ConstantFriction (float u, float du);
+extern float ConstantFriction (float u, float a, float dt);
+extern float PartialFlowRectangle(float theta, float psi);
+extern float PartialFlowSmooth(float theta, float psi);
+extern float PartialFlowSphere(float theta, float psi);
 
-extern tdble SimDeltaTime;
+extern float SimDeltaTime;
 extern int SimTelemetry;
 extern tCar *SimCarTable;
-extern t3Dd vectStart[];
-extern t3Dd vectEnd[];
+extern glm::vec3 vectStart[];
+extern glm::vec3 vectEnd[];
 
-extern tdble simDammageFactor[];
-extern tdble simSkidFactor[];
+extern float simDammageFactor[];
+extern float simSkidFactor[];
 
 extern double SimTicks;
 extern double SimTicks2;
@@ -146,14 +146,14 @@ inline float safe_urandom() {
 	return X;
 }
 
-inline void t2sg3 (t3Dd& p, sgVec3& v)
+inline void t2sg3 (glm::vec3& p, sgVec3& v)
 {
 	v[SG_X] = p.x;
 	v[SG_Y] = p.y;
 	v[SG_Z] = p.z;
 }
 
-inline void sg2t3 (sgVec3& v, t3Dd& p)
+inline void sg2t3 (sgVec3& v, glm::vec3& p)
 {
 	p.x = v[SG_X];
 	p.y = v[SG_Y];
@@ -162,7 +162,7 @@ inline void sg2t3 (sgVec3& v, t3Dd& p)
 
 /// If a src vector is in local coordinates,
 /// transform it via q to global coordinates
-inline void QuatRotate(t3Dd& src, sgQuat& q, t3Dd& dst)
+inline void QuatRotate(glm::vec3& src, sgQuat& q, glm::vec3& dst)
 {
     sgVec3 V;
     t2sg3(src, V);
@@ -172,7 +172,7 @@ inline void QuatRotate(t3Dd& src, sgQuat& q, t3Dd& dst)
 
 /// If a src vector is in global coordinates,
 /// transform it via q to local coordinates
-inline void QuatInverseRotate(t3Dd& src, sgQuat& q, t3Dd& dst)
+inline void QuatInverseRotate(glm::vec3& src, sgQuat& q, glm::vec3& dst)
 {
     sgVec3 V;
     t2sg3(src, V);

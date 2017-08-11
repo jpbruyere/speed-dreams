@@ -103,7 +103,7 @@ class SDHUD
 
 		//car data that need to be remembered between frames for the hud
 		int carLaps;
-		tdble lapLength;
+		float lapLength;
 		float startingFuel;
 		float remainingFuelForLaps;
 

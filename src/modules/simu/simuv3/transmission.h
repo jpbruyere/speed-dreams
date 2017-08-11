@@ -2,7 +2,7 @@
 
     file                 : transmission.h
     created              : Mon Apr 16 16:04:36 CEST 2001
-    copyright            : (C) 2001 by Eric Espié
+    copyright            : (C) 2001 by Eric EspiÃ©
     email                : Eric.Espie@torcs.org
     version              : $Id$
 
@@ -42,10 +42,10 @@ typedef struct
     int		mode;
 #define CLUTCH_AUTO	0
 #define CLUTCH_MANUAL	1
-    tdble	timeToRelease;	/* remaining time before releasing the clutch pedal */
-    tdble	releaseTime;	/* time needed for releasing the clutch pedal */
-    tdble	transferValue;	/* 1.0 -> released, 0.0 -> applied */
-    tdble	plip;		/* automatic plip... */
+    float	timeToRelease;	/* remaining time before releasing the clutch pedal */
+    float	releaseTime;	/* time needed for releasing the clutch pedal */
+    float	transferValue;	/* 1.0 -> released, 0.0 -> applied */
+    float	plip;		/* automatic plip... */
 } tClutch;
 
 typedef struct
@@ -56,12 +56,12 @@ typedef struct
 #define TRANS_RWD	0
 #define TRANS_FWD	1
 #define TRANS_4WD	2
-    tdble	overallRatio[MAX_GEARS];	/* including final drive ratio */
-    tdble	driveI[MAX_GEARS];		/* Inertia (including engine) */
-    tdble	freeI[MAX_GEARS];		/* Inertia when clutch is applied (wheels side) */
-    tdble	gearEff[MAX_GEARS];		/* Gear Efficiency */
-    tdble	curOverallRatio;
-    tdble	curI;
+    float	overallRatio[MAX_GEARS];	/* including final drive ratio */
+    float	driveI[MAX_GEARS];		/* Inertia (including engine) */
+    float	freeI[MAX_GEARS];		/* Inertia when clutch is applied (wheels side) */
+    float	gearEff[MAX_GEARS];		/* Gear Efficiency */
+    float	curOverallRatio;
+    float	curI;
 
 #define TRANS_FRONT_DIFF	0
 #define TRANS_REAR_DIFF		1

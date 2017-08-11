@@ -2,7 +2,7 @@
 
     file        : simuconfig.h
     created     : Wed Nov  3 21:48:57 CET 2004
-    copyright   : (C) 2004 by Eric Espié                        
+    copyright   : (C) 2004 by Eric EspiÃ©                        
     email       : eric.espie@free.fr 
     version     : $Id$                                  
 

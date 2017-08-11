@@ -50,12 +50,12 @@
 /** Wheels Specifications */
 typedef struct
 {
-    tdble	rimRadius;	        /**< Rim radius */
-    tdble	tireHeight;	        /**< Tire height  */
-    tdble	tireWidth;	        /**< Tire width */
-    tdble	brakeDiskRadius;        /**< Brake disk radius */
-    tdble	wheelRadius;	        /**< Overall wheel radius */
-    tdble	idealTemperature;       /**< Tire ideal temperature */
+    float	rimRadius;	        /**< Rim radius */
+    float	tireHeight;	        /**< Tire height  */
+    float	tireWidth;	        /**< Tire width */
+    float	brakeDiskRadius;        /**< Brake disk radius */
+    float	wheelRadius;	        /**< Overall wheel radius */
+    float	idealTemperature;       /**< Tire ideal temperature */
 } tWheelSpec;
 /* structure access short cuts */
 #define _rimRadius(i)		info.wheel[i].rimRadius 	/**< short cut to tWheelSpec#rimRadius */
@@ -67,8 +67,8 @@ typedef struct
 /** Static visual attributes */
 typedef struct {
     int		exhaustNb;      /**< Number of exhaust pipes (max 2) */
-    t3Dd	exhaustPos[2];	/**< Position of exhaust pipes */
-    tdble	exhaustPower;	/**< Power of the flames (from 1 to 3) */
+    glm::vec3	exhaustPos[2];	/**< Position of exhaust pipes */
+    float	exhaustPower;	/**< Power of the flames (from 1 to 3) */
 } tVisualAttributes;
 
 /** Static Public info */
@@ -84,13 +84,13 @@ typedef struct {
     int		driverType;                 /**< Driver type */
     int		networkplayer;              /**< Network player */
     int		skillLevel;                 /**< Driver's skill level (0=rookie -> 3=pro) */
-    tdble	iconColor[3];               /**< Car color in leaders board */
-    t3Dd	dimension;                  /**< Car's mesures */
-    t3Dd	drvPos;                     /**< Driver's position */
-    t3Dd	bonnetPos;                  /**< Bonnet's position */
-    tdble	tank;                       /**< Fuel tank capa */
-    tdble	steerLock;                  /**< Steer lock angle */
-    t3Dd	statGC;                     /**< Static pos of GC (should be the origin of car axis) */
+    float	iconColor[3];               /**< Car color in leaders board */
+    glm::vec3	dimension;                  /**< Car's mesures */
+    glm::vec3	drvPos;                     /**< Driver's position */
+    glm::vec3	bonnetPos;                  /**< Bonnet's position */
+    float	tank;                       /**< Fuel tank capa */
+    float	steerLock;                  /**< Steer lock angle */
+    glm::vec3	statGC;                     /**< Static pos of GC (should be the origin of car axis) */
     tWheelSpec	wheel[4];               /**< Wheels specifications */
     tVisualAttributes visualAttr;       /**< Visual attributes */
     char	masterModel[MAX_NAME_LEN];	/**< Master 3D model car name (the exact folder name) */
@@ -177,8 +177,8 @@ typedef struct
     double*		curSplitTime;
     double		lastLapTime;
     double		curTime;
-    tdble		topSpeed;
-    tdble		currentMinSpeedForLap;	// Min speed on current lap, reset on start line crossing
+    float		topSpeed;
+    float		currentMinSpeedForLap;	// Min speed on current lap, reset on start line crossing
     int			laps;
     int			bestLap;
     int			nbPitStops;
@@ -188,15 +188,15 @@ typedef struct
     int			lapsBehindLeader;
     double		timeBehindPrev;
     double		timeBeforeNext;
-    tdble		distRaced;
-    tdble		distFromStartLine;
+    float		distRaced;
+    float		distFromStartLine;
     int			currentSector;
     double		scheduledEventTime;
     tTrackOwnPit 	*pit;
     int			event;
     tCarPenaltyHead	penaltyList;	/**< List of current penalties */
-    tdble               penaltyTime;
-    tdble		prevFromStartLine;
+    float               penaltyTime;
+    float		prevFromStartLine;
     double		wrongWayTime;
 } tCarRaceInfo;
 /* structure access */
@@ -234,7 +234,7 @@ typedef struct
 typedef struct {
     tDynPt	DynGC;          /**< GC data (car axis) */
     tDynPt	DynGCg;         /**< GC data (world axis) */
-    tdble	speed;		/**< total speed, sqrt(vx*vx + vy*vy + vz*vz) */
+    float	speed;		/**< total speed, sqrt(vx*vx + vy*vy + vz*vz) */
     sgMat4	posMat;         /**< position matrix */
     tTrkLocPos	trkPos;		/**< current track position. The segment is the track segment (not sides)*/
     int		state;	    	/**< state of the car.
@@ -267,8 +267,8 @@ typedef struct {
 #define RM_CAR_STATE_ENDRACE_CALLED	0x00001000				/**< Endrace called so robot freed a part of its data */
 #define RM_CAR_STATE_SIMU_NO_MOVE	0x00010000 				/**< Simulation without car move (i.e. clutch applied and no wheel move)  */
     tPosd	corner[4];
-    tdble       glance;         /* Glance angle degrees, left -ve, right +ve */
-    tdble       oldglance;
+    float       glance;         /* Glance angle degrees, left -ve, right +ve */
+    float       oldglance;
 } tPublicCar;
 /* structure access */
 #define _DynGC		pub.DynGC
@@ -299,27 +299,27 @@ typedef struct {
 /** Dynamic wheel information */
 typedef struct {
   tPosd	        relPos;			/**< position relative to GC */
-  tdble	        spinVel;		/**< spin velocity rad/s */
-  tdble	        brakeTemp;		/**< brake temperature from 0 (cool) to 1.0 (hot) */
+  float	        spinVel;		/**< spin velocity rad/s */
+  float	        brakeTemp;		/**< brake temperature from 0 (cool) to 1.0 (hot) */
   int		state;			/**< wheel state */
   tTrackSeg	*seg;			/**< Track segment where the wheel is */
-  tdble         rollRes;                /**< rolling resistance, useful for sound */
-  tdble         temp_in, temp_mid, temp_out;
-  tdble         condition;      	/**< tire condition, between 0 and 1 */
-  tdble         treadDepth;     	/**< tread depth, between 0 and 1 */
-  tdble         critTreadDepth; 	/**< critical tread depth, when grip falls off suddenly, between 0 and treadDepth */
-  tdble         slipNorm; 		/**< normalized slip, the variable of Magic Formula */
-  tdble         slipOpt;		/**< the value of slipNorm giving maximal grip */
-  tdble         slipSide;
-  tdble         slipAccel;
-  tdble         Fx;
-  tdble         Fy;
-  tdble         Fz;
-  tdble         effectiveMu;
-  tdble         currentPressure;	/**< current tire pressure considering temperature */
-  tdble         currentTemperature;	/**< current temperature */
-  tdble         currentWear;		/**< [0..1], 1 means totally worn (tread thickness 0) */
-  tdble         currentGraining;	/**< [0..1], 1 means totally grained */
+  float         rollRes;                /**< rolling resistance, useful for sound */
+  float         temp_in, temp_mid, temp_out;
+  float         condition;      	/**< tire condition, between 0 and 1 */
+  float         treadDepth;     	/**< tread depth, between 0 and 1 */
+  float         critTreadDepth; 	/**< critical tread depth, when grip falls off suddenly, between 0 and treadDepth */
+  float         slipNorm; 		/**< normalized slip, the variable of Magic Formula */
+  float         slipOpt;		/**< the value of slipNorm giving maximal grip */
+  float         slipSide;
+  float         slipAccel;
+  float         Fx;
+  float         Fy;
+  float         Fz;
+  float         effectiveMu;
+  float         currentPressure;	/**< current tire pressure considering temperature */
+  float         currentTemperature;	/**< current temperature */
+  float         currentWear;		/**< [0..1], 1 means totally worn (tread thickness 0) */
+  float         currentGraining;	/**< [0..1], 1 means totally grained */
 } tWheelState;
 /* structure access */
 #define _ride(i)                priv.wheel[i].relPos.z
@@ -368,10 +368,10 @@ typedef struct MemPoolCar
 /* structrure to store one parameter of car setup */
 typedef struct
 {
-    tdble	value;		/* actual value */
-    tdble	min, max;	/* limits for value*/
-    tdble	desired_value;	/* desired new value */
-    tdble	stepsize;	/* value of increment/decrement in one step */
+    float	value;		/* actual value */
+    float	min, max;	/* limits for value*/
+    float	desired_value;	/* desired new value */
+    float	stepsize;	/* value of increment/decrement in one step */
     bool	changed;	/* TRUE if the item has been changed */
 } tCarSetupItem;
 
@@ -417,34 +417,34 @@ typedef struct
     tPosd	corner[4];              /**< car's corners position */
     int		gear;                   /**< current gear */
     int		gearNext;               /**< next gear while shiting */
-    tdble	fuel;                   /**< remaining fuel (liters) */
-    tdble       fuel_consumption_total; // l
-    tdble       fuel_consumption_instant; // l/100km (>100 means infinity)
-    tdble	enginerpm;
-    tdble	enginerpmRedLine;
-    tdble	enginerpmMax;
-    tdble	enginerpmMaxTq;
-    tdble	enginerpmMaxPw;
-    tdble	engineMaxTq;
-    tdble	engineMaxPw;
-    tdble	gearRatio[MAX_GEARS];	/**< including final drive */
+    float	fuel;                   /**< remaining fuel (liters) */
+    float       fuel_consumption_total; // l
+    float       fuel_consumption_instant; // l/100km (>100 means infinity)
+    float	enginerpm;
+    float	enginerpmRedLine;
+    float	enginerpmMax;
+    float	enginerpmMaxTq;
+    float	enginerpmMaxPw;
+    float	engineMaxTq;
+    float	engineMaxPw;
+    float	gearRatio[MAX_GEARS];	/**< including final drive */
     int		gearNb;                 /**< incl reverse and neutral */
     int		gearOffset;             /**< gearRatio[gear + gearOffset] is the ratio for gear */
-    tdble	skid[4];                /**< skid intensity */
-    tdble	reaction[4];            /**< reaction on wheels */
+    float	skid[4];                /**< skid intensity */
+    float	reaction[4];            /**< reaction on wheels */
     int		collision;
     int		simcollision;           /**< For rules etc. reflects the collision state from simu */
     float       smoke;
-    t3Dd	normal;
-    t3Dd	collpos;                /**< Collision position, useful for sound ; Simu V2 only */
+    glm::vec3	normal;
+    glm::vec3	collpos;                /**< Collision position, useful for sound ; Simu V2 only */
     int		dammage;
     int		debug;
     tCollisionState collision_state;    /**< collision state ; Simu V3 only  */
-    tdble       localPressure;	        /**< Environment pressure at cars location */
+    float       localPressure;	        /**< Environment pressure at cars location */
     tMemPoolCar	memoryPool;
-    tdble       driveSkill;             /**< Skill level for robots: 0.0 means as fast as possible; 10.0 means at a slower speed so players can easier win */
-    tdble       steerTqCenter;          /**< torques on steering wheel for force feedback, this is the centering torque, linear with steering angle */
-    tdble	steerTqAlign;		/**< force feedback torque: tire aligning torque from magic formula */
+    float       driveSkill;             /**< Skill level for robots: 0.0 means as fast as possible; 10.0 means at a slower speed so players can easier win */
+    float       steerTqCenter;          /**< torques on steering wheel for force feedback, this is the centering torque, linear with steering angle */
+    float	steerTqAlign;		/**< force feedback torque: tire aligning torque from magic formula */
     tDashboardItem dashboardInstant[NR_DI_INSTANT];
     int		dashboardInstantNb;	/**< number and list of immediately changing items in dashboard */
     tDashboardItem dashboardRequest[NR_DI_REQUEST];
@@ -501,22 +501,22 @@ typedef struct
 /** New order to get better alignment, additional parameters for new features */
 typedef struct
 {
-    tdble	steer;	            /**< Steer command       [-1.0, 1.0]  */
-    tdble	accelCmd;           /**< Accelerator command [ 0.0, 1.0] */
-    tdble	brakeCmd;           /**< Brake command       [ 0.0, 1.0] */
-    tdble	clutchCmd;          /**< Clutch command      [ 0.0, 1.0] */
+    float	steer;	            /**< Steer command       [-1.0, 1.0]  */
+    float	accelCmd;           /**< Accelerator command [ 0.0, 1.0] */
+    float	brakeCmd;           /**< Brake command       [ 0.0, 1.0] */
+    float	clutchCmd;          /**< Clutch command      [ 0.0, 1.0] */
 
     // New commands for single wheel braking
-    tdble	brakeFrontLeftCmd;  /**< Brake front left command  [0.0, 1.0] 0: no brake; 1: max brake */
-    tdble	brakeFrontRightCmd; /**< Brake front right command [0.0, 1.0] 0: no brake; 1: max brake */
-    tdble	brakeRearLeftCmd;   /**< Brake rear left command   [0.0, 1.0] 0: no brake; 1: max brake */
-    tdble	brakeRearRightCmd;  /**< Brake rear right command  [0.0, 1.0] 0: no brake; 1: max brake */
+    float	brakeFrontLeftCmd;  /**< Brake front left command  [0.0, 1.0] 0: no brake; 1: max brake */
+    float	brakeFrontRightCmd; /**< Brake front right command [0.0, 1.0] 0: no brake; 1: max brake */
+    float	brakeRearLeftCmd;   /**< Brake rear left command   [0.0, 1.0] 0: no brake; 1: max brake */
+    float	brakeRearRightCmd;  /**< Brake rear right command  [0.0, 1.0] 0: no brake; 1: max brake */
 
     // New commands for variable wings (incl. airbrake)
-    tdble	wingFrontCmd;       /**< Wing angle of attack front [0, PI/4: angle in rad] */
-    tdble	wingRearCmd;        /**< Wing angle of attack rear  [0, PI/4: angle in rad] */
-    tdble	reserved1;          /**< reserved for future use */
-    tdble	reserved2;          /**< reserved for future use */
+    float	wingFrontCmd;       /**< Wing angle of attack front [0, PI/4: angle in rad] */
+    float	wingRearCmd;        /**< Wing angle of attack rear  [0, PI/4: angle in rad] */
+    float	reserved1;          /**< reserved for future use */
+    float	reserved2;          /**< reserved for future use */
 
     int		gear;  	            /**< [-1,MAX_GEARS - 2] for gear selection */
     int		raceCmd;            /**< command issued by the driver */
@@ -597,7 +597,7 @@ typedef struct
 /** Command issued by the car during pit stop */
 typedef struct CarPitCmd
 {
-    tdble		fuel;
+    float		fuel;
     int			repair;
 #define RM_PIT_REPAIR		0
 #define RM_PIT_STOPANDGO	1

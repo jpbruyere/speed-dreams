@@ -56,7 +56,7 @@ typedef struct FormAnswer
 	
 	bool boolean;
 	int integer;
-	tdble number;
+	float number;
 	char *string;
 } tFormAnswer;
 
@@ -69,7 +69,7 @@ typedef struct FormNode
 	struct FormNode *firstChild;
 	struct FormNode *next;
 	int type;
-	tdble number;
+	float number;
 	char *string;
 	tEvalFunc func;
 } tFormNode;
@@ -517,7 +517,7 @@ static char cmdPushCommand( tPSStackItem **topStack, void* cmd, const char* /*pa
 static char cmdPushVar( tPSStackItem **topStack, void* v_varname, const char* path )
 {
 	char *key = strdup( (char*)v_varname );
-	tdble var;
+	float var;
 
 	var = GfParmGetVariable((*topStack)->varList, path, key);
 	pushDouble( topStack, (double)var );
@@ -707,16 +707,16 @@ void GfFormFreeCommand( void *commands )
 	}
 }
 
-tdble GfFormCalcFunc( void *cmd, void *parmHandle, const char *path )
+float GfFormCalcFunc( void *cmd, void *parmHandle, const char *path )
 {
-	tdble result;
+	float result;
 	char error = FALSE;
 	tPSCommand *command = (tPSCommand *)cmd;
 	tPSStackItem *item = NULL;
 	pushDouble( &item, 0.0f );
 	item->varList = parmHandle;
 	execCommands( &item, command, path );
-	result = (tdble)popDouble( &item, &error );
+	result = (float)popDouble( &item, &error );
 	while( item != NULL && !error )
 		popFree( &item );
 	return result;
@@ -829,7 +829,7 @@ static void parseFormStringStep1( tFormNode **node, const char *string )
 				for( xx = startPos; xx < currentPos; ++xx )
 					newNode->string[ xx - startPos ] = string[ xx ];
 				newNode->string[ currentPos - startPos ] = '\0';
-				newNode->number = (tdble)atof( newNode->string );
+				newNode->number = (float)atof( newNode->string );
 				FREEZ( newNode->string );
 
 				if( *node )
@@ -1200,7 +1200,7 @@ static tFormAnswer eval( tFormNode *node, void *parmHandle, char const *path )
 {
 	tFormAnswer result;
 	char *key;
-	tdble var;
+	float var;
 
 	switch( node->type ) {
 	case FORMNODE_TYPE_NUMBER:
@@ -1277,7 +1277,7 @@ static tFormAnswer eval( tFormNode *node, void *parmHandle, char const *path )
 	return result;
 }
 
-char GfFormCalcFuncNew(void *cmd, void *parmHandle, char const *path, char *boolean, int *integer, tdble *number, char ** string)
+char GfFormCalcFuncNew(void *cmd, void *parmHandle, char const *path, char *boolean, int *integer, float *number, char ** string)
 {
 	tFormula *formula = (tFormula*)cmd;
 	tFormAnswer answer;

@@ -63,11 +63,11 @@ static		char buf[1024];
 
 static int	ScrW, ScrH, ViewW, ViewH;
 
-static tdble DelayRepeat;
+static float DelayRepeat;
 static double LastTimeClick;
 
-static const tdble REPEAT1 = 1.0;
-static const tdble REPEAT2 = 0.2;
+static const float REPEAT1 = 1.0;
+static const float REPEAT2 = 0.2;
 
 
 static void

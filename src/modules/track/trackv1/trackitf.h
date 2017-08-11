@@ -52,12 +52,12 @@ class TRACK_API TrackModule : public GfModule, public ITrackLoader //, public IT
 	virtual void unload();
 
 	// Implementation of ITrack ?
-	//virtual tdble globalHeight(tTrackSeg*, tdble x, tdble y);
-	//virtual tdble localHeight(tTrkLocPos* pos);
-	//virtual void global2Local(tTrackSeg* seg, tdble x, tdble y, tTrkLocPos* pos, int sides);
-	//virtual void local2Global(tTrkLocPos* pos, tdble* x, tdble* y);
-	//virtual void sideNormal(tTrackSeg* seg, tdble x, tdble y, int side, t3Dd* norm);
-	//virtual void surfaceNormal(tTrkLocPos* pos, t3Dd* norm);
+	//virtual float globalHeight(tTrackSeg*, float x, float y);
+	//virtual float localHeight(tTrkLocPos* pos);
+	//virtual void global2Local(tTrackSeg* seg, float x, float y, tTrkLocPos* pos, int sides);
+	//virtual void local2Global(tTrkLocPos* pos, float* x, float* y);
+	//virtual void sideNormal(tTrackSeg* seg, float x, float y, int side, glm::vec3* norm);
+	//virtual void surfaceNormal(tTrkLocPos* pos, glm::vec3* norm);
 
 	// Accessor to the singleton.
 	static TrackModule& self();

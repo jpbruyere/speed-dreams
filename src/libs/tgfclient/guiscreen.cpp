@@ -703,8 +703,8 @@ bool GfScrInitSDL2(int nWinWidth, int nWinHeight, int nFullScreen)
 					   nWinWidth, nWinHeight, nTotalDepth);
 		
 		// Update screen specs.
-		GfParmSetNum(hparmScreen, pszScrPropSec, GFSCR_ATT_WIN_X, 0, (tdble)nWinWidth);
-		GfParmSetNum(hparmScreen, pszScrPropSec, GFSCR_ATT_WIN_Y, 0, (tdble)nWinHeight);
+		GfParmSetNum(hparmScreen, pszScrPropSec, GFSCR_ATT_WIN_X, 0, (float)nWinWidth);
+		GfParmSetNum(hparmScreen, pszScrPropSec, GFSCR_ATT_WIN_Y, 0, (float)nWinHeight);
 		GfParmWriteFile(NULL, hparmScreen, "Screen");
 	}
 
@@ -718,7 +718,7 @@ bool GfScrInitSDL2(int nWinWidth, int nWinHeight, int nFullScreen)
 					   nWinWidth, nWinHeight, nTotalDepth);
 		
 		// Update screen specs.
-		GfParmSetNum(hparmScreen, pszScrPropSec, GFSCR_ATT_BPP, 0, (tdble)nTotalDepth);
+		GfParmSetNum(hparmScreen, pszScrPropSec, GFSCR_ATT_BPP, 0, (float)nTotalDepth);
 		GfParmWriteFile(NULL, hparmScreen, "Screen");
 	}
 
@@ -1067,8 +1067,8 @@ bool GfScrInitSDL1(int nWinWidth, int nWinHeight, int nFullScreen)
 					   nWinWidth, nWinHeight, nTotalDepth);
 		
 		// Update screen specs.
-		GfParmSetNum(hparmScreen, pszScrPropSec, GFSCR_ATT_WIN_X, 0, (tdble)nWinWidth);
-		GfParmSetNum(hparmScreen, pszScrPropSec, GFSCR_ATT_WIN_Y, 0, (tdble)nWinHeight);
+		GfParmSetNum(hparmScreen, pszScrPropSec, GFSCR_ATT_WIN_X, 0, (float)nWinWidth);
+		GfParmSetNum(hparmScreen, pszScrPropSec, GFSCR_ATT_WIN_Y, 0, (float)nWinHeight);
 		GfParmWriteFile(NULL, hparmScreen, "Screen");
 	}
 
@@ -1082,7 +1082,7 @@ bool GfScrInitSDL1(int nWinWidth, int nWinHeight, int nFullScreen)
 					   nWinWidth, nWinHeight, nTotalDepth);
 		
 		// Update screen specs.
-		GfParmSetNum(hparmScreen, pszScrPropSec, GFSCR_ATT_BPP, 0, (tdble)nTotalDepth);
+		GfParmSetNum(hparmScreen, pszScrPropSec, GFSCR_ATT_BPP, 0, (float)nTotalDepth);
 		GfParmWriteFile(NULL, hparmScreen, "Screen");
 	}
 

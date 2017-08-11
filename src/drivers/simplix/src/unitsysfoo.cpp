@@ -9,41 +9,41 @@
 // File         : unitsysfoo.cpp
 // Created      : 2007.02.20
 // Last changed : 2014.11.29
-// Copyright    : © 2007-2014 Wolf-Dieter Beelitz
+// Copyright    : Â© 2007-2014 Wolf-Dieter Beelitz
 // eMail        : wdbee@users.sourceforge.net
 // Version      : 4.05.000
 //--------------------------------------------------------------------------*
 // Realisierung einer speziellen "Systemfunktion" zur einfachen und schnellen
 // Berechnung des Faltungsintegrals eines lineraren Systems.
 //
-// Mit dieser Systemfunktion können u.a. auch gleitende Mittelwerte sehr
-// schnell berechnet oder Ringpuffer für die verzögerte Auswertung
+// Mit dieser Systemfunktion kÃ¶nnen u.a. auch gleitende Mittelwerte sehr
+// schnell berechnet oder Ringpuffer fÃ¼r die verzÃ¶gerte Auswertung
 // von Signalen bereitgestellt werden.
 //
 // Hier wird z.B. die Bewegungserkennung damit realisiert. Wenn ein Fahrzeug
-// durch ein Hindernis blockiert ist (Mauer, andere Wagen usw.), dann ändern
+// durch ein Hindernis blockiert ist (Mauer, andere Wagen usw.), dann Ã¤ndern
 // sich die Koordinaten der Position nicht bzw. nur sehr gering.
 // Durch den Vergleich von alter Position mit aktueller Position bei frei
-// wählbarer Länge der Verzögrung im Ringpuffer kann diese Situation
-// zuverlässig erkannt werden.
-// Die in anderen Quellen veröffentlichten Ansätze zur Erkennung von
-// Blockaden beruhen auf einer Verknüpfung von verschiedenen aktuellen
-// Zustandswerten wie der Richtung, was in ausgefallenen Fällen nicht
+// wÃ¤hlbarer LÃ¤nge der VerzÃ¶grung im Ringpuffer kann diese Situation
+// zuverlÃ¤ssig erkannt werden.
+// Die in anderen Quellen verÃ¶ffentlichten AnsÃ¤tze zur Erkennung von
+// Blockaden beruhen auf einer VerknÃ¼pfung von verschiedenen aktuellen
+// Zustandswerten wie der Richtung, was in ausgefallenen FÃ¤llen nicht
 // immer funktioniert.
 //
-// Die erforderliche Rechenzeit ist bei diesem Ansatz von der Länge der
-// Verzögerung unabhängig und es werden keine Winkelfunktionen benötigt!
-// Da die Bewegungserkennung ständig mitlaufen muss, ist das eine
+// Die erforderliche Rechenzeit ist bei diesem Ansatz von der LÃ¤nge der
+// VerzÃ¶gerung unabhÃ¤ngig und es werden keine Winkelfunktionen benÃ¶tigt!
+// Da die Bewegungserkennung stÃ¤ndig mitlaufen muss, ist das eine
 // entscheidende Verbesserung.
 //--------------------------------------------------------------------------*
 // Das Programm wurde unter Windows XP entwickelt und getestet.
 // Fehler sind nicht bekannt, dennoch gilt:
-// Wer die Dateien verwendet erkennt an, dass für Fehler, Schäden,
-// Folgefehler oder Folgeschäden keine Haftung übernommen wird.
+// Wer die Dateien verwendet erkennt an, dass fÃ¼r Fehler, SchÃ¤den,
+// Folgefehler oder FolgeschÃ¤den keine Haftung Ã¼bernommen wird.
 //
-// Im übrigen gilt für die Nutzung und/oder Weitergabe die
+// Im Ã¼brigen gilt fÃ¼r die Nutzung und/oder Weitergabe die
 // GNU GPL (General Public License)
-// Version 2 oder nach eigener Wahl eine spätere Version.
+// Version 2 oder nach eigener Wahl eine spÃ¤tere Version.
 //--------------------------------------------------------------------------*
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -65,8 +65,8 @@ TSysFoo::TSysFoo(unsigned int N, unsigned int K) :
 
   if (N < 1)                                     // Keine Division durch 0!
     N = 1;
-  if (N + K > 255)                               // Gesamtlänge begrenzen,
-    N = 255 - K;                                 //   Verzögerung erhalten!
+  if (N + K > 255)                               // GesamtlÃ¤nge begrenzen,
+    N = 255 - K;                                 //   VerzÃ¶gerung erhalten!
 
   for (I = 0; I < 256; I++)
   {
@@ -77,7 +77,7 @@ TSysFoo::TSysFoo(unsigned int N, unsigned int K) :
   for (I = K; I < K + N; I++)                    // Systemfunktion generieren
     oSysFoo[I] = 1.0f / N;
 
-  oNSysFoo = N + K;                              // Länge der Systemfunktion
+  oNSysFoo = N + K;                              // LÃ¤nge der Systemfunktion
 };
 //==========================================================================*
 
@@ -95,7 +95,7 @@ float TSysFoo::Get(int Index)
 //--------------------------------------------------------------------------*
 void TSysFoo::Put(int Index, float Value)
 {
-  oDirty = true;                                 // Änderungen erfordern
+  oDirty = true;                                 // Ã„nderungen erfordern
   oSysFoo[Index] = Value;                        // ggf. eine Normalisierung
   if (oAutoNorm)                                 // Wenn aktiviert,
     Normalize();                                   //   automatisch normieren
@@ -132,10 +132,10 @@ float TSysFoo::Faltung(float Impuls)
   int I;
   unsigned char J; 
 
-  oSignal[oSigIndex] = 0.0;                      // Alte Werte löschen
+  oSignal[oSigIndex] = 0.0;                      // Alte Werte lÃ¶schen
   oSigIndex++;                                   // Start im Ringpuffer
   J = oSigIndex;                                 // Faltungsindex
-  for (I = 0; I < oNSysFoo; I++)                 // Über die Länge der
+  for (I = 0; I < oNSysFoo; I++)                 // Ãœber die LÃ¤nge der
   {                                              //   Faltung
     oSignal[J] += oSysFoo[I] * Impuls;
     J++;

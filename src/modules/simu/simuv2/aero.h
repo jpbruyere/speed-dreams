@@ -23,26 +23,26 @@
 typedef struct
 {
     /* dynamic */
-    tdble	drag;		/* drag force along car x axis */
-    tdble	lift[2];	/* front & rear lift force along car z axis */
+    float	drag;		/* drag force along car x axis */
+    float	lift[2];	/* front & rear lift force along car z axis */
 
     /* static */
-    tdble	SCx2;
-    tdble	Clift[2];	/* front & rear lift due to body not wings */
-    tdble	Cd;		/* for aspiration */
+    float	SCx2;
+    float	Clift[2];	/* front & rear lift due to body not wings */
+    float	Cd;		/* for aspiration */
 } tAero;
 
 
 typedef struct
 {
     /* dynamic */
-    t3Dd	forces;
-    tdble	Kx;
-    tdble	Kz;
-	tdble	angle;
+    glm::vec3	forces;
+    float	Kx;
+    float	Kz;
+	float	angle;
     
     /* static */
-    t3Dd	staticPos;
+    glm::vec3	staticPos;
     
 } tWing;
 

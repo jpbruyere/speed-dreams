@@ -2,7 +2,7 @@
 
     file        : racestate.h
     created     : Sat Nov 16 14:05:06 CET 2002
-    copyright   : (C) 2002 by Eric Espié                        
+    copyright   : (C) 2002 by Eric EspiÃ©                        
     email       : eric.espie@torcs.org   
     version     : $Id$                                  
 

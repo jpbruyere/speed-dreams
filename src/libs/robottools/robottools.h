@@ -43,7 +43,7 @@
 
 #define RELAXATION2(target, prev, rate)			\
 do {								\
-    tdble __tmp__;						\
+    float __tmp__;						\
     __tmp__ = target;						\
     target = (prev) + (rate) * ((target) - (prev)) * 0.01;	\
     prev = __tmp__;						\
@@ -51,7 +51,7 @@ do {								\
 
 #define FLOAT_RELAXATION2(target, prev, rate) 			\
 do {								\
-    tdble __tmp__;						\
+    float __tmp__;						\
     __tmp__ = target;						\
     target = (prev) + (rate) * ((target) - (prev)) * 0.01f;	\
     prev = __tmp__;						\
@@ -75,7 +75,7 @@ do {								\
  *******************/
 
 /* for variable width segments */
-ROBOTTOOLS_API tdble RtTrackGetWidth(tTrackSeg *seg, tdble toStart);
+ROBOTTOOLS_API float RtTrackGetWidth(tTrackSeg *seg, float toStart);
 
 /*
  * Convert a Local position (segment, toRight, toStart)
@@ -88,7 +88,7 @@ ROBOTTOOLS_API tdble RtTrackGetWidth(tTrackSeg *seg, tdble toStart);
  * and a length in meters for straights.
  *
  */
-ROBOTTOOLS_API void RtTrackLocal2Global(tTrkLocPos *p, tdble *X, tdble *Y, int flag);
+ROBOTTOOLS_API void RtTrackLocal2Global(tTrkLocPos *p, float *X, float *Y, int flag);
 
 /*
  * Convert a Global (segment, X, Y) position into a Local one (segment, toRight, toStart)
@@ -101,7 +101,7 @@ ROBOTTOOLS_API void RtTrackLocal2Global(tTrkLocPos *p, tdble *X, tdble *Y, int f
  * The sides parameters is to indicate wether to use the track sides (1) or not (0) in
  * the toRight computation.
  */
-ROBOTTOOLS_API void RtTrackGlobal2Local(tTrackSeg *segment, tdble X, tdble Y, tTrkLocPos *p, int type);
+ROBOTTOOLS_API void RtTrackGlobal2Local(tTrackSeg *segment, float X, float Y, tTrkLocPos *p, int type);
 
 /*
  * Returns the absolute height in meters of the road
@@ -124,13 +124,13 @@ ROBOTTOOLS_API void RtTrackGlobal2Local(tTrackSeg *segment, tdble X, tdble Y, tT
     track side
 
  */
-ROBOTTOOLS_API tdble RtTrackHeightL(tTrkLocPos *p);
+ROBOTTOOLS_API float RtTrackHeightL(tTrkLocPos *p);
 
 /*
  * Returns the absolute height in meters of the road
  * at the Global position (segment, X, Y)
  */
-ROBOTTOOLS_API tdble RtTrackHeightG(tTrackSeg *seg, tdble X, tdble Y);
+ROBOTTOOLS_API float RtTrackHeightG(tTrackSeg *seg, float X, float Y);
 
 /*
  * Give the normal vector of the border of the track
@@ -145,7 +145,7 @@ ROBOTTOOLS_API tdble RtTrackHeightG(tTrackSeg *seg, tdble X, tdble Y);
  *
  * The vector is normalized.
  */
-ROBOTTOOLS_API void RtTrackSideNormalG(tTrackSeg *seg, tdble X, tdble Y, int side, t3Dd *norm);
+ROBOTTOOLS_API void RtTrackSideNormalG(tTrackSeg *seg, float X, float Y, int side, glm::vec3 *norm);
 
 /*
  * Used to get the tangent angle for a track position
@@ -153,7 +153,7 @@ ROBOTTOOLS_API void RtTrackSideNormalG(tTrackSeg *seg, tdble X, tdble Y, int sid
  *
  * the angle 0 is parallel to the first segment start.
  */
-ROBOTTOOLS_API tdble RtTrackSideTgAngleL(tTrkLocPos *p);
+ROBOTTOOLS_API float RtTrackSideTgAngleL(tTrkLocPos *p);
 
 /*
  * Used to get the normal vector of the road itself (pointing
@@ -164,16 +164,16 @@ ROBOTTOOLS_API tdble RtTrackSideTgAngleL(tTrkLocPos *p);
  *
  * The vector is normalized.
  */
-ROBOTTOOLS_API void RtTrackSurfaceNormalL(tTrkLocPos *p, t3Dd *norm);
+ROBOTTOOLS_API void RtTrackSurfaceNormalL(tTrkLocPos *p, glm::vec3 *norm);
 
 /** Get the current segment
  */
 ROBOTTOOLS_API tTrackSeg *RtTrackGetSeg(tTrkLocPos *p);
 
-ROBOTTOOLS_API int RtDistToPit(struct CarElt *car, tTrack *track, tdble *dL, tdble *dW);
+ROBOTTOOLS_API int RtDistToPit(struct CarElt *car, tTrack *track, float *dL, float *dW);
 
-ROBOTTOOLS_API tdble RtGetDistFromStart(tCarElt *car);
-ROBOTTOOLS_API tdble RtGetDistFromStart2(tTrkLocPos *p);
+ROBOTTOOLS_API float RtGetDistFromStart(tCarElt *car);
+ROBOTTOOLS_API float RtGetDistFromStart2(tTrkLocPos *p);
 
 
 /****************
@@ -185,7 +185,7 @@ ROBOTTOOLS_API tdble RtGetDistFromStart2(tTrkLocPos *p);
     @param	ymax	Maximum value for Y.
     @return	None
  */
-ROBOTTOOLS_API void RtTelemInit(tdble ymin, tdble ymax);
+ROBOTTOOLS_API void RtTelemInit(float ymin, float ymax);
 
 /** Create a new telemetry channel.
     @param	name	Name of the channel.
@@ -194,7 +194,7 @@ ROBOTTOOLS_API void RtTelemInit(tdble ymin, tdble ymax);
     @param	max	Maximum value of this variable.
     @return	None
  */
-ROBOTTOOLS_API void RtTelemNewChannel(const char * name, tdble * var, tdble min, tdble max);
+ROBOTTOOLS_API void RtTelemNewChannel(const char * name, float * var, float min, float max);
 ROBOTTOOLS_API void RtTelemStartMonitoring(const char * filename);
 ROBOTTOOLS_API void RtTelemStopMonitoring(void);
 ROBOTTOOLS_API void RtTelemUpdate(double time);

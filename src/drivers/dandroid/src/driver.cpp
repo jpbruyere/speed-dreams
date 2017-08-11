@@ -168,7 +168,7 @@ void TDriver::InitTrack(PTrack Track, PCarHandle CarHandle, PCarSettings *CarPar
     mFuelStart = 5.0;
     GfParmSetNum(*CarParmHandle, SECT_ENGINE, PRM_FUELCONS, (char*)NULL, 0.0);
   }
-  GfParmSetNum(*CarParmHandle, SECT_CAR, PRM_FUEL, (char*)NULL, (tdble) mFuelStart);
+  GfParmSetNum(*CarParmHandle, SECT_CAR, PRM_FUEL, (char*)NULL, (float) mFuelStart);
   
   // Get skill level
   handle = NULL;
@@ -458,12 +458,12 @@ void TDriver::calcTarget()
 
 void TDriver::setControls()
 {
-  oCar->_steerCmd = (tdble) getSteer();
+  oCar->_steerCmd = (float) getSteer();
   oCar->_gearCmd = getGear();
-  oCar->_clutchCmd = (tdble) getClutch();  // must be after gear
-  oCar->_brakeCmd = (tdble) filterABS(getBrake(mMaxspeed));
+  oCar->_clutchCmd = (float) getClutch();  // must be after gear
+  oCar->_brakeCmd = (float) filterABS(getBrake(mMaxspeed));
   mAccel = filterTCLSideSlip(filterTCL(getAccel(mMaxspeed)));  // must be after brake
-  oCar->_accelCmd = (tdble) mAccel; 
+  oCar->_accelCmd = (float) mAccel; 
   oCar->_lightCmd = RM_LIGHT_HEAD1 | RM_LIGHT_HEAD2;
 }
 
@@ -2055,9 +2055,9 @@ void TDriver::calcGlobalTarget()
     mGlobalTarget = mPath[mDrvPath].tarpos.pos;
   } else {
     tTrkLocPos target_local;
-    RtTrackGlobal2Local(oCar->_trkPos.seg, (tdble) mPath[mDrvPath].tarpos.pos.x, (tdble) mPath[mDrvPath].tarpos.pos.y, &target_local, TR_LPOS_MAIN);
-    target_local.toMiddle = (tdble) mTargetToMiddle;
-    tdble x, y;
+    RtTrackGlobal2Local(oCar->_trkPos.seg, (float) mPath[mDrvPath].tarpos.pos.x, (float) mPath[mDrvPath].tarpos.pos.y, &target_local, TR_LPOS_MAIN);
+    target_local.toMiddle = (float) mTargetToMiddle;
+    float x, y;
     RtTrackLocal2Global(&target_local, &x, &y, TR_TOMIDDLE);
     mGlobalTarget.x = x;
     mGlobalTarget.y = y;

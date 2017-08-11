@@ -76,7 +76,7 @@ public:
     inline tCarElt *getCurrentCar(void) { return curCar; }
     inline SDCameras *getCameras() { return cameras; }
 
-    inline tdble getViewRatio() { return width/(tdble)height; }
+    inline float getViewRatio() { return width/(float)height; }
     //used for sound
     Camera* getCamera();
 

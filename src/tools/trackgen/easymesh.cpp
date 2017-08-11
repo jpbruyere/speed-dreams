@@ -28,14 +28,14 @@
 #include "easymesh.h"
 
 
-static tdble 	Margin;
-static tdble 	ExtHeight;
-static tdble 	GridStep;
-static tdble	TrackStep;
+static float 	Margin;
+static float 	ExtHeight;
+static float 	GridStep;
+static float	TrackStep;
 static char	buf[1024];
 static const char	*TexName;
-static tdble	TexSize;
-static tdble	TexRand;
+static float	TexSize;
+static float	TexRand;
 
 #ifndef max
 #define max(a,b)  (((a) > (b)) ? (a) : (b))
@@ -1745,7 +1745,7 @@ groups(void)
 	    r_node[node[n].new_numb].x    = node[n].x;
 	    r_node[node[n].new_numb].y    = node[n].y;
 	    if ((node[n].mark == 0) || (node[n].mark == 100000)) {
-		r_node[node[n].new_numb].z = GetElevation((tdble)node[n].x, (tdble)node[n].y, (tdble)node[n].z);
+		r_node[node[n].new_numb].z = GetElevation((float)node[n].x, (float)node[n].y, (float)node[n].z);
 	    } else {
 		r_node[node[n].new_numb].z = node[n].z;
 	    }
@@ -1893,7 +1893,7 @@ GetTrackOrientation(tTrack *track)
 {
     tTrackSeg 	*seg;
     int		i;
-    tdble	ang = 0;
+    float	ang = 0;
 
     for (i = 0, seg = track->seg->next; i < track->nseg; i++, seg = seg->next) {
 	switch (seg->type) {
@@ -1944,12 +1944,12 @@ GenerateMesh(tTrack *Track, int rightside, int reverse, int exterior)
 {
     int		startNeeded;
     int		i, j, nbvert, maxVert;
-    tdble	ts, step, anz;
+    float	ts, step, anz;
     tTrackSeg 	*seg;
     tTrackSeg 	*mseg;
     tTrkLocPos 	trkpos;
-    tdble	x, y;
-    //tdble 	radiusr, radiusl; // Never used
+    float	x, y;
+    //float 	radiusr, radiusl; // Never used
     struct nod	*point2;
     int		nb_relief_vtx, nb_relief_seg;
 
@@ -2249,7 +2249,7 @@ GenerateTerrain(tTrack *track, void *TrackHandle, char *outfile, FILE *AllFd, in
     }
     TexName = GfParmGetStr(TrackHandle, buf, TRK_ATT_TEXTURE, "grass.png");
     TexSize = GfParmGetNum(TrackHandle, buf, TRK_ATT_TEXSIZE, (char*)NULL, 20.0f);
-    TexRand = GfParmGetNum(TrackHandle, buf, TRK_ATT_SURFRAND, (char*)NULL, (tdble)(TexSize / 10.0));
+    TexRand = GfParmGetNum(TrackHandle, buf, TRK_ATT_SURFRAND, (char*)NULL, (float)(TexSize / 10.0));
 
     FileName = GfParmGetStr(TrackHandle, TRK_SECT_TERRAIN, TRK_ATT_RELIEF, NULL);
     if (FileName) {

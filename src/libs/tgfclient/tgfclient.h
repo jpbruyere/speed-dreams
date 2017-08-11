@@ -631,8 +631,8 @@ TGFCLIENT_API int GfuiMenuCreateCheckboxControl(void* hscr, void* hparm, const c
 												void* userData, tfuiCheckboxCallback onChange);
 TGFCLIENT_API int GfuiMenuCreateProgressbarControl(void* hscr, void* hparm, const char* pszName);
 
-TGFCLIENT_API tdble GfuiMenuGetNumProperty(void* hparm, const char* pszName,
-										   tdble nDefVal, const char* pszUnit = 0);
+TGFCLIENT_API float GfuiMenuGetNumProperty(void* hparm, const char* pszName,
+										   float nDefVal, const char* pszUnit = 0);
 TGFCLIENT_API const char* GfuiMenuGetStrProperty(void* hparm, const char* pszName,
 												 const char* pszDefVal);
 

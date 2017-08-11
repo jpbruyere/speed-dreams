@@ -74,11 +74,11 @@ void SimpleStrategy::setFuelAtRaceStart(tTrack* t, void **carParmHandle, tSituat
     /* Trivial strategy: fill in as much fuel as required for the whole race, or if the tank is
        too small fill the tank completely. */
     // Load and set parameters.
-    maxFuel = (tdble)(GfParmGetNum(*carParmHandle, SECT_CAR, PRM_TANK, (char*)NULL, (tdble) MAX_FUEL_TANK));
+    maxFuel = (float)(GfParmGetNum(*carParmHandle, SECT_CAR, PRM_TANK, (char*)NULL, (float) MAX_FUEL_TANK));
     LogSHADOW.info("Strategy max fuel =  %.2f\n", maxFuel);
-    FuelperMeters = GfParmGetNum(*carParmHandle, SECT_PRIV, PRV_FUELPERMETERS, (char*)NULL, (tdble) MAX_FUEL_PER_METER);
+    FuelperMeters = GfParmGetNum(*carParmHandle, SECT_PRIV, PRV_FUELPERMETERS, (char*)NULL, (float) MAX_FUEL_PER_METER);
     LogSHADOW.info("Strategy fuel per meters =  %.5f\n", FuelperMeters);
-    fuelPerLap = (tdble) (TrackLength * FuelperMeters);
+    fuelPerLap = (float) (TrackLength * FuelperMeters);
     LogSHADOW.info("Strategy fuel per lap =  %.2f\n", fuelPerLap);
     fullfuel = GfParmGetNum(*carParmHandle, SECT_PRIV, PRV_FULL_FUEL, (char*)NULL, 0.0);
     fuel_Strat = (int)GfParmGetNum(*carParmHandle, SECT_PRIV, PRV_PITSTRAT, (char*)NULL, 0.0);
@@ -129,16 +129,16 @@ void SimpleStrategy::setFuelAtRaceStart(tTrack* t, void **carParmHandle, tSituat
     if (fuelForRace > maxFuel * 3)
     {
         // welcome in Endurance race :-)
-        m_FuelStart = (tdble)(m_fuel + calcFuel(fuelForRace));
+        m_FuelStart = (float)(m_fuel + calcFuel(fuelForRace));
 
     } else if (fuelForRace < maxFuel)
     {
         //maybe we are in Practice mode
-        m_FuelStart = (tdble)(m_fuel + raceLaps * fuelPerLap);
+        m_FuelStart = (float)(m_fuel + raceLaps * fuelPerLap);
     }
     else
     {
-        m_FuelStart = (tdble)(m_fuel + fuelForRace);
+        m_FuelStart = (float)(m_fuel + fuelForRace);
     }
 
     if (s->_raceType == RM_TYPE_QUALIF)
@@ -147,7 +147,7 @@ void SimpleStrategy::setFuelAtRaceStart(tTrack* t, void **carParmHandle, tSituat
         m_fuel = 0;
         if (index == 1)
         {
-            m_FuelStart = (tdble)((s->_totLaps * fuelPerLap) + 0.0);
+            m_FuelStart = (float)((s->_totLaps * fuelPerLap) + 0.0);
         } else
         {
             m_FuelStart = s->_totLaps * fuelPerLap;
@@ -159,7 +159,7 @@ void SimpleStrategy::setFuelAtRaceStart(tTrack* t, void **carParmHandle, tSituat
     {
         m_fuel = 0;
         //m_FuelStart = ((raceLaps / 2) * fuelPerLap) + 0.3;
-        m_FuelStart = (tdble)(1.92 * fuelPerLap);
+        m_FuelStart = (float)(1.92 * fuelPerLap);
         fprintf(stderr,"...Check PitStop Enabled!\n");
         //maybe we need to check Best Lap Time for qualifying
     } else if (test_qualifTime && s->_raceType == RM_TYPE_PRACTICE)
@@ -172,17 +172,17 @@ void SimpleStrategy::setFuelAtRaceStart(tTrack* t, void **carParmHandle, tSituat
 
     if (m_FuelStart > maxFuel)
     {
-        m_FuelStart = (tdble) maxFuel;
+        m_FuelStart = (float) maxFuel;
         if (index == 1)
         {
-            m_FuelStart = (tdble)(maxFuel - fuelPerLap);
+            m_FuelStart = (float)(maxFuel - fuelPerLap);
         }
     }
 
     if (fullfuel > 0)
-        m_FuelStart = (tdble) fullfuel;
+        m_FuelStart = (float) fullfuel;
 
-    m_FuelStart = (tdble)(MIN(m_FuelStart, maxFuel));
+    m_FuelStart = (float)(MIN(m_FuelStart, maxFuel));
 
     fprintf(stderr,"# SHADOW Index %d : Laps = %d, Fuel per Lap = %.2f, securityFuel = + %.2f, Fuel at Start Race = %.2f\n",
             index, s->_totLaps, fuelPerLap, m_fuel, m_FuelStart);
@@ -256,7 +256,7 @@ bool SimpleStrategy::needPitstop(tCarElt* car, tSituation *s)
     int m_maxDamage = PIT_DAMMAGE;
     float attvalue = 0.0f;
     // load defined value in xml file of Max Dammage before pitstops for this track
-    attvalue = GfParmGetNum(car->_carHandle, SECT_PRIV, PRV_DAMAGE, (char*) NULL, (tdble) PIT_DAMMAGE);
+    attvalue = GfParmGetNum(car->_carHandle, SECT_PRIV, PRV_DAMAGE, (char*) NULL, (float) PIT_DAMMAGE);
     m_maxDamage = (int)attvalue;
     // Estimated average fuel per lap
     //m_Fuel = GfParmGetNum(car->_carHandle, BT_SECT_PRIV, BT_ATT_FUELPERLAP, (char*) NULL, m_expectedfuelperlap);
@@ -376,13 +376,13 @@ float SimpleStrategy::pitRefuel(tCarElt* car, tSituation *s)
 
     lapsToEnd = car->_remainingLaps - car->_lapsBehindLeader;
     // int inLap = s->_totLaps - car->_remainingLaps;               // Removed 6th April 2015 - Not Used
-    fuelToEnd = (tdble)(MIN(getRefuel1(lapsToEnd), getRefuel2(lapsToEnd)));
+    fuelToEnd = (float)(MIN(getRefuel1(lapsToEnd), getRefuel2(lapsToEnd)));
 
     //m_remainingstops = int(floor(fuelToEnd / car->_tank));
     m_remainingstops = (int)(fabs(fuelToEnd / car->_tank));
     int num_remStops = m_remainingstops + 1;
     m_fuelperstint = car->_tank - car->_fuel;
-    fuel = (tdble)(m_fuelperstint * 0.90);
+    fuel = (float)(m_fuelperstint * 0.90);
     double addFuel = fuelPerLap;
     double addMinFuel = fuelPerLap * 0.80;
 
@@ -403,18 +403,18 @@ float SimpleStrategy::pitRefuel(tCarElt* car, tSituation *s)
         }
         LogSHADOW.debug(" %s in Pit to refuel < PitStop %d >\n", car->_name, countPitStop);
 
-        m_fuelperstint = (tdble)((fuelToEnd / num_remStops) + addFuel);
+        m_fuelperstint = (float)((fuelToEnd / num_remStops) + addFuel);
 
         if (m_remainingstops && (m_fuelperstint / car->_tank > 0.98))
         {
             m_fuelperstint = car->_tank;
         }
 
-        fuel = (tdble)(MAX(MIN(m_fuelperstint - car->_fuel, car->_tank - car->_fuel), 0.0));
+        fuel = (float)(MAX(MIN(m_fuelperstint - car->_fuel, car->_tank - car->_fuel), 0.0));
 
         if (!m_remainingstops)
         {
-            m_fuelperstint = (tdble)((lapsToEnd * fuelPerLap) + addMinFuel);
+            m_fuelperstint = (float)((lapsToEnd * fuelPerLap) + addMinFuel);
         }
 
     } else
@@ -427,10 +427,10 @@ float SimpleStrategy::pitRefuel(tCarElt* car, tSituation *s)
 
         if (m_remainingstops >= 1)
         {
-            m_fuelperstint = (tdble)((fuelToEnd / num_remStops) + addFuel);
+            m_fuelperstint = (float)((fuelToEnd / num_remStops) + addFuel);
         } else if (m_remainingstops <= 0)
         {
-            m_fuelperstint = (tdble)((lapsToEnd * fuelPerLap) + addMinFuel);
+            m_fuelperstint = (float)((lapsToEnd * fuelPerLap) + addMinFuel);
         }
 
         fuel = MIN(m_fuelperstint - car->_fuel, car->_tank - car->_fuel);
@@ -493,7 +493,7 @@ float SimpleStrategy::calcFuel(double totalFuel)
 #endif
 
     nb_pitstop = (int)(1 + fabs(totalFuel / maxFuel));
-    m_lastfuel = (tdble)(totalFuel / nb_pitstop);  //Max refuel per pit stop
+    m_lastfuel = (float)(totalFuel / nb_pitstop);  //Max refuel per pit stop
     nb_laps = (int)(1 + floor( m_lastfuel / fuelPerLap));
     fuelAtStart = nb_laps * fuelPerLap;
 

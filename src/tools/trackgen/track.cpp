@@ -77,13 +77,13 @@ static float		*trackvertices;
 static float		*tracktexcoord;
 static unsigned int	*trackindices;
 
-static tdble		TrackStep;
+static float		TrackStep;
 
 #ifndef sqr
 #define sqr(x) ((x)*(x))
 #endif
 
-tdble Distance(tdble x0, tdble y0, tdble z0, tdble x1, tdble y1, tdble z1)
+float Distance(float x0, float y0, float z0, float x1, float y1, float z1)
 {
 	return sqrt((x0-x1)*(x0-x1)+(y0-y1)*(y0-y1)+(z0-z1)*(z0-z1));
 }
@@ -97,8 +97,8 @@ static void initPits(tTrack *theTrack, void *TrackHandle, tTrackPitInfo *pits) {
 	int		i;
 	bool found = false;
 	bool changeSeg = false;
-	tdble offset = 0;
-	tdble toStart = 0;
+	float offset = 0;
+	float toStart = 0;
 	static char		path2[256];
 
 	sprintf(path2, "%s/%s", TRK_SECT_MAIN, TRK_SECT_PITS);
@@ -194,7 +194,7 @@ static void initPits(tTrack *theTrack, void *TrackHandle, tTrackPitInfo *pits) {
 				//Proper handling of this should enable non-linear pitlanes.
 				//Postponed after 2.0
 #if 0
-				tdble pitCenter = toStart + pits->len / 2.0;
+				float pitCenter = toStart + pits->len / 2.0;
 				switch(curMainSeg->type) {
 					case TR_STR:
 						pits->driversPits[i].pos.toStart = pitCenter;
@@ -259,43 +259,43 @@ InitScene(tTrack *Track, void *TrackHandle, int bump)
     tTrackSeg 		*lastSeg = NULL;
     tTrackSeg 		*mseg;
     int 		nbvert;
-    tdble 		width;
-    //tdble       wi2; // Never used.
-    tdble 		anz, ts = 0;
-    tdble               radiusr, radiusl;
-    tdble 		step;
+    float 		width;
+    //float       wi2; // Never used.
+    float 		anz, ts = 0;
+    float               radiusr, radiusl;
+    float 		step;
     tTrkLocPos 		trkpos;
-    tdble		x, y, z;
-    tdble		x2, y2, z2;
-    tdble		x3, y3, z3;
+    float		x, y, z;
+    float		x2, y2, z2;
+    float		x3, y3, z3;
     int			startNeeded;
 
-    tdble xprev = 0;
-    tdble yprev = 0;
+    float xprev = 0;
+    float yprev = 0;
 
     tDispElt		*aDispElt = NULL;
     unsigned int	prevTexId;
     unsigned int	curTexId = 0;
     int			curTexType = 0;
     int			curTexLink = 0;
-    tdble		curTexOffset = 0;
-    tdble		curTexSeg;
-    tdble		curTexSize = 0;
-    tdble		curHeight;
+    float		curTexOffset = 0;
+    float		curTexSeg;
+    float		curTexSize = 0;
+    float		curHeight;
     tTexElt		*texList = (tTexElt*)NULL;
     tTexElt		*curTexElt = NULL;
     tTrackBarrier	*curBarrier;
-    tdble		texLen;
-    tdble		texStep;
-    tdble		texMaxT = 0;
+    float		texLen;
+    float		texStep;
+    float		texMaxT = 0;
     tTrackPitInfo	*pits;
     static int		GenTexId = 1;
-    tdble		runninglentgh;
+    float		runninglentgh;
 
-    tdble		tmWidth  = Track->graphic.turnMarksInfo.width;
-    tdble		tmHeight = Track->graphic.turnMarksInfo.height;
-    tdble		tmVSpace = Track->graphic.turnMarksInfo.vSpace;
-    tdble		tmHSpace = Track->graphic.turnMarksInfo.hSpace;
+    float		tmWidth  = Track->graphic.turnMarksInfo.width;
+    float		tmHeight = Track->graphic.turnMarksInfo.height;
+    float		tmVSpace = Track->graphic.turnMarksInfo.vSpace;
+    float		tmHSpace = Track->graphic.turnMarksInfo.hSpace;
     char		buf[256];
     int			hasBorder;
     tDispElt		*theCurDispElt = NULL;
@@ -318,10 +318,10 @@ InitScene(tTrack *Track, void *TrackHandle, int bump)
     printf("YSize     = %f\n", Track->max.y);
     printf("ZSize     = %f\n", Track->max.z);
 
-    tdble delatx = Track->seg->next->vertex[TR_SL].x - Track->seg->vertex[TR_EL].x;
-    tdble delaty = Track->seg->next->vertex[TR_SL].y - Track->seg->vertex[TR_EL].y;
-    tdble delatz = Track->seg->next->vertex[TR_SL].z - Track->seg->vertex[TR_EL].z;
-    tdble delata = Track->seg->next->angle[TR_ZS] - Track->seg->angle[TR_ZE];
+    float delatx = Track->seg->next->vertex[TR_SL].x - Track->seg->vertex[TR_EL].x;
+    float delaty = Track->seg->next->vertex[TR_SL].y - Track->seg->vertex[TR_EL].y;
+    float delatz = Track->seg->next->vertex[TR_SL].z - Track->seg->vertex[TR_EL].z;
+    float delata = Track->seg->next->angle[TR_ZS] - Track->seg->angle[TR_ZE];
     NORM_PI_PI(delata);
     
     printf("Delta X   = %f\n", delatx);
@@ -510,8 +510,8 @@ InitScene(tTrack *Track, void *TrackHandle, int bump)
 	    trackindices[nbvert]      = nbvert;		\
 	    ++nbvert;								\
 	    printf("x=%f y=%f z=%f  u=%f v=%f\n",		\
-		   (tdble)(x), (tdble)(y), (tdble)(z),		\
-		   (tdble)(t1), (tdble)(t2));			\
+		   (float)(x), (float)(y), (float)(z),		\
+		   (float)(t1), (float)(t2));			\
 	}							\
     } while (0)
 
@@ -1061,8 +1061,8 @@ InitScene(tTrack *Track, void *TrackHandle, int bump)
 
 		if (!startNeeded)
 		{
-			tdble d0 = Distance(lastSeg->vertex[TR_EL].x, lastSeg->vertex[TR_EL].y, lastSeg->vertex[TR_EL].z, seg->vertex[TR_SL].x, seg->vertex[TR_SL].y, seg->vertex[TR_SL].z);
-			tdble d1 = Distance(lastSeg->vertex[TR_ER].x, lastSeg->vertex[TR_ER].y, lastSeg->vertex[TR_ER].z, seg->vertex[TR_SR].x, seg->vertex[TR_SR].y, seg->vertex[TR_SR].z);
+			float d0 = Distance(lastSeg->vertex[TR_EL].x, lastSeg->vertex[TR_EL].y, lastSeg->vertex[TR_EL].z, seg->vertex[TR_SL].x, seg->vertex[TR_SL].y, seg->vertex[TR_SL].z);
+			float d1 = Distance(lastSeg->vertex[TR_ER].x, lastSeg->vertex[TR_ER].y, lastSeg->vertex[TR_ER].z, seg->vertex[TR_SR].x, seg->vertex[TR_SR].y, seg->vertex[TR_SR].z);
 			if ((d0 > 0.01) || (d1 > 0.01))
 				startNeeded = 1;
 		}
@@ -1589,8 +1589,8 @@ InitScene(tTrack *Track, void *TrackHandle, int bump)
 
 		if (!startNeeded)
 		{
-			tdble d0 = Distance(lastSeg->vertex[TR_EL].x, lastSeg->vertex[TR_EL].y, lastSeg->vertex[TR_EL].z, seg->vertex[TR_SL].x, seg->vertex[TR_SL].y, seg->vertex[TR_SL].z);
-			tdble d1 = Distance(lastSeg->vertex[TR_ER].x, lastSeg->vertex[TR_ER].y, lastSeg->vertex[TR_ER].z, seg->vertex[TR_SR].x, seg->vertex[TR_SR].y, seg->vertex[TR_SR].z);
+			float d0 = Distance(lastSeg->vertex[TR_EL].x, lastSeg->vertex[TR_EL].y, lastSeg->vertex[TR_EL].z, seg->vertex[TR_SL].x, seg->vertex[TR_SL].y, seg->vertex[TR_SL].z);
+			float d1 = Distance(lastSeg->vertex[TR_ER].x, lastSeg->vertex[TR_ER].y, lastSeg->vertex[TR_ER].z, seg->vertex[TR_SR].x, seg->vertex[TR_SR].y, seg->vertex[TR_SR].z);
 			if ((d0 > 0.01) || (d1 > 0.01))
 				startNeeded = 1;
 		}
@@ -2274,14 +2274,14 @@ InitScene(tTrack *Track, void *TrackHandle, int bump)
 	/* Turn Marks */
 	for (i = 0, seg = Track->seg->next; i < Track->nseg; i++, seg = seg->next) {
 	    if (seg->ext) {
-		t3Dd	normvec;
+		glm::vec3	normvec;
 		int 	nbMarks = seg->ext->nbMarks;
 		int 	*marks  = seg->ext->marks;
 		int		j, k;
 
 		for (j = 0; j < nbMarks; j++) {
 		    /* find the segment */
-		    tdble lgfs = seg->lgfromstart - (tdble)marks[j];
+		    float lgfs = seg->lgfromstart - (float)marks[j];
 		    if (lgfs < 0) {
 			lgfs += Track->length;
 		    }
@@ -2521,7 +2521,7 @@ InitScene(tTrack *Track, void *TrackHandle, int bump)
 		case TR_PIT_ON_TRACK_SIDE:
 		{
 			static int	uid = 1;
-			t3Dd	normvec;
+			glm::vec3	normvec;
 
 			startNeeded = 1;
 			sprintf(sname, "P%dts", uid++);
@@ -2575,8 +2575,8 @@ InitScene(tTrack *Track, void *TrackHandle, int bump)
 				SETPOINT(pits->len, 0, x2, y2, z2 + PIT_HEIGHT - PIT_TOP);
 				SETPOINT(0, 0, x3, y3, z3 + PIT_HEIGHT - PIT_TOP);
 
-				tdble dx = PIT_TOP * normvec.x;
-				tdble dy = PIT_TOP * normvec.y;
+				float dx = PIT_TOP * normvec.x;
+				float dy = PIT_TOP * normvec.y;
 				SETPOINT(pits->len, PIT_TOP, x2 + dx, y2 + dy, z2 + PIT_HEIGHT - PIT_TOP);
 				SETPOINT(0, PIT_TOP, x3 + dx, y3 + dy, z3 + PIT_HEIGHT - PIT_TOP);
 				SETPOINT(pits->len, 2 * PIT_TOP, x2 + dx, y2 + dy, z2 + PIT_HEIGHT);

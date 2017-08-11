@@ -9,7 +9,7 @@
 // File         : unitstrategy.h
 // Created      : 2007.02.20
 // Last changed : 2014.11.29
-// Copyright    : © 2007-2014 Wolf-Dieter Beelitz
+// Copyright    : Â© 2007-2014 Wolf-Dieter Beelitz
 // eMail        : wdbee@users.sourceforge.net
 // Version      : 4.05.000
 //--------------------------------------------------------------------------*
@@ -34,17 +34,17 @@
 //
 // Das Programm wurde unter Windows XP entwickelt und getestet.
 // Fehler sind nicht bekannt, dennoch gilt:
-// Wer die Dateien verwendet erkennt an, dass für Fehler, Schäden,
-// Folgefehler oder Folgeschäden keine Haftung übernommen wird.
+// Wer die Dateien verwendet erkennt an, dass fÃ¼r Fehler, SchÃ¤den,
+// Folgefehler oder FolgeschÃ¤den keine Haftung Ã¼bernommen wird.
 //--------------------------------------------------------------------------*
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2 of the License, or
 // (at your option) any later version.
 //
-// Im übrigen gilt für die Nutzung und/oder Weitergabe die
+// Im Ã¼brigen gilt fÃ¼r die Nutzung und/oder Weitergabe die
 // GNU GPL (General Public License)
-// Version 2 oder nach eigener Wahl eine spätere Version.
+// Version 2 oder nach eigener Wahl eine spÃ¤tere Version.
 //--------------------------------------------------------------------------*
 #ifndef _UNITSTRATEGY_H_
 #define _UNITSTRATEGY_H_
@@ -67,7 +67,7 @@
 #include "unitpit.h"
 
 //==========================================================================*
-// Basisklasse für Strategien zum Boxenstopp
+// Basisklasse fÃ¼r Strategien zum Boxenstopp
 //--------------------------------------------------------------------------*
 class TAbstractStrategy
 {
@@ -129,7 +129,7 @@ class TAbstractStrategy
 //==========================================================================*
 
 //==========================================================================*
-// Einfache Strategie für Boxenstopps (Tanken und Reparieren)
+// Einfache Strategie fÃ¼r Boxenstopps (Tanken und Reparieren)
 //--------------------------------------------------------------------------*
 class TSimpleStrategy
   : public TAbstractStrategy
@@ -141,14 +141,14 @@ class TSimpleStrategy
     bool oFuelChecked;          // Treibstoffverbrauchsstatistik berechnet?
     float oFuelPerM;            // Mittlerer Treibstoffverbrauch in kg pro m
     float oLastPitFuel;         // Getankte Menge an Treibstoff
-    float oLastFuel;            // Tankinhalt beim Überqueren der Startlinie
-    float oExpectedFuelPerM;    // Gesch. Treibst.bedarf fürs Rennen in kg/m
+    float oLastFuel;            // Tankinhalt beim Ãœberqueren der Startlinie
+    float oExpectedFuelPerM;    // Gesch. Treibst.bedarf fÃ¼rs Rennen in kg/m
 	int oPitTicker;             // Overrunner
 	int oPitStartTicker;        // Blockadebrecher
-    float oRaceDistance;        // Gesamtlänge des Rennens in m
-    float oRemainingDistance;   // Verbeleibende Länge des Rennens in m
+    float oRaceDistance;        // GesamtlÃ¤nge des Rennens in m
+    float oRemainingDistance;   // Verbeleibende LÃ¤nge des Rennens in m
     float oReserve;             // Reserve in m
-    float oTrackLength;         // Länge der Rennstrecke in m
+    float oTrackLength;         // LÃ¤nge der Rennstrecke in m
     float oMaxFuel;             // Maximaler Tankinhalt in kg
 	int oMinLaps;               // Mindestanzahl von Runden mit Tankinhalt
     float oMinDistBack;
@@ -175,8 +175,8 @@ class TSimpleStrategy
 	bool StartPitEntry(float& Ratio);
 	bool StopPitEntry(float Offset);
 
-	static const float cMAX_FUEL_PER_METER;	// [kg/m] Geschätzter Spritverbrauch
-	static const int cPIT_DAMMAGE;			// Grenzwert für Schäden
+	static const float cMAX_FUEL_PER_METER;	// [kg/m] GeschÃ¤tzter Spritverbrauch
+	static const int cPIT_DAMMAGE;			// Grenzwert fÃ¼r SchÃ¤den
 };
 //==========================================================================*
 #endif // _UNITSTRATEGY_H_

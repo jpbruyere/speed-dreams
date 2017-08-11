@@ -2,7 +2,7 @@
 
     file                 : relief.h
     created              : Sat Jun  1 18:03:02 CEST 2002
-    copyright            : (C) 2001 by Eric Espié
+    copyright            : (C) 2001 by Eric EspiÃ©
     email                : Eric.Espie@torcs.org
     version              : $Id$
 

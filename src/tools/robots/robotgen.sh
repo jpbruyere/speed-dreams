@@ -4,7 +4,7 @@
 #
 #    file                 : robotgen
 #    created              : Mon Jul 29 21:01:37 CEST 2002
-#    copyright            : (C) 2002 by Eric Espié                        
+#    copyright            : (C) 2002 by Eric EspiÃ©                        
 #    email                : Eric.Espie@torcs.org   
 #    version              : $Id: sd-robotgen.sh 3254 2011-01-09 22:17:22Z pouillot $                                  
 #

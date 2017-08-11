@@ -4,12 +4,12 @@
 // A robot for Speed Dreams-Version 2.X simuV4
 //--------------------------------------------------------------------------*
 // Class for driving and driver/robot
-// Zentrale Klasse für das Fahren bzw. den Fahrer/Roboter
+// Zentrale Klasse fÃ¼r das Fahren bzw. den Fahrer/Roboter
 //
 // File         : unitdriver.cpp
 // Created      : 2007.11.25
 // Last changed : 2014.11.29
-// Copyright    : © 2007-2014 Wolf-Dieter Beelitz
+// Copyright    : Â© 2007-2014 Wolf-Dieter Beelitz
 // eMail        : wdbee@users.sourceforge.net
 // Version      : 4.05.000
 //--------------------------------------------------------------------------*
@@ -44,17 +44,17 @@
 //
 // Das Programm wurde unter Windows XP entwickelt und getestet.
 // Fehler sind nicht bekannt, dennoch gilt:
-// Wer die Dateien verwendet erkennt an, dass für Fehler, Schäden,
-// Folgefehler oder Folgeschäden keine Haftung übernommen wird.
+// Wer die Dateien verwendet erkennt an, dass fÃ¼r Fehler, SchÃ¤den,
+// Folgefehler oder FolgeschÃ¤den keine Haftung Ã¼bernommen wird.
 //--------------------------------------------------------------------------*
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2 of the License, or
 // (at your option) any later version.
 //
-// Im übrigen gilt für die Nutzung und/oder Weitergabe die
+// Im Ã¼brigen gilt fÃ¼r die Nutzung und/oder Weitergabe die
 // GNU GPL (General Public License)
-// Version 2 oder nach eigener Wahl eine spätere Version.
+// Version 2 oder nach eigener Wahl eine spÃ¤tere Version.
 //--------------------------------------------------------------------------*
 // THIS VERSION WAS MODIFIED TO BE USED WITH SD CAREER MODE
 // This results in some issues while using it with windows!
@@ -507,7 +507,7 @@ void TDriver::SetBotName(void* RobotSettings, char* Value)
 	oRaceNumber = (int) GfParmGetNum             // Get pointer to
       (RobotSettings                             // race number
       , Section, ROB_ATTR_RACENUM                // defined in corresponding
-      , (char *) NULL, (tdble) oIndex + 1);      // section, index as default
+      , (char *) NULL, (float) oIndex + 1);      // section, index as default
 
     LogSimplix.debug("#Bot name    : %s\n",oBotName);
     LogSimplix.debug("#Team name   : %s\n",oTeamName);
@@ -632,7 +632,7 @@ void TDriver::AdjustDriving(
   }
 
   oTelemetrieMode = (int)
-	GfParmGetNum(Handle,TDriver::SECT_PRIV,PRV_TELE_MODE,NULL,(tdble) oTelemetrieMode);
+	GfParmGetNum(Handle,TDriver::SECT_PRIV,PRV_TELE_MODE,NULL,(float) oTelemetrieMode);
   LogSimplix.info("#Telemetrie Mode: %d\n",oTelemetrieMode);
 
   oBumpMode =
@@ -1291,7 +1291,7 @@ void TDriver::InitTrack
 
   // Read/merge car parms
   // First all params out of the common files
-  oMaxFuel = GfParmGetNum(CarHandle              // Maximal möglicher
+  oMaxFuel = GfParmGetNum(CarHandle              // Maximal mÃ¶glicher
     , SECT_CAR, PRM_TANK                         //   Tankinhalt
     , (char*) NULL, 100.0);
   LogSimplix.debug("#oMaxFuel (TORCS)   = %.1f\n",oMaxFuel);
@@ -1301,20 +1301,20 @@ void TDriver::InitTrack
     , (char*) NULL, 1.0);
   LogSimplix.debug("#oFuelCons (TORCS)  = %.2f\n",oFuelCons);
 
-  tdble TireLimitFront = 0.0;
+  float TireLimitFront = 0.0;
   for (int I = 0; I < 2; I++)
   {
     TireLimitFront = MAX(TireLimitFront,
 		GfParmGetNum(CarHandle,WheelSect[I], 
-		PRM_FALLOFFGRIPMULT, (char*)NULL, (tdble) 0.85f));
+		PRM_FALLOFFGRIPMULT, (char*)NULL, (float) 0.85f));
     LogSimplix.debug("#oTireLimitFront      = %.3f\n",TireLimitFront);
   }
-  tdble TireLimitRear = 0.0;
+  float TireLimitRear = 0.0;
   for (int I = 2; I < 4; I++)
   {
     TireLimitRear = MAX(TireLimitRear,
 		GfParmGetNum(CarHandle,WheelSect[I], 
-		PRM_FALLOFFGRIPMULT, (char*)NULL, (tdble) 0.85f));
+		PRM_FALLOFFGRIPMULT, (char*)NULL, (float) 0.85f));
     LogSimplix.debug("#oTireLimitRear       = %.3f\n",TireLimitRear);
   }
 
@@ -2470,14 +2470,14 @@ void TDriver::InitBrake()
 }
 //==========================================================================*
 
-tdble F(tWing* wing)
+float F(tWing* wing)
 {
 	return 1 - exp( pow(-(wing->a / wing->b),wing->c));
 }
 
-tdble CliftFromAoA(tWing* wing)
+float CliftFromAoA(tWing* wing)
 {
-	tdble angle = (tdble) (wing->angle * 180/PI);
+	float angle = (float) (wing->angle * 180/PI);
 	//fprintf(stderr,"wing->angle: %g rad = angle: %g deg\n",wing->angle,angle);
 
 	wing->Kz_org = 4.0f * wing->Kx;
@@ -2490,13 +2490,13 @@ tdble CliftFromAoA(tWing* wing)
 		//fprintf(stderr,"a: %g\n",wing->a);
 		s = sin(wing->a/180.0*PI);
 		//fprintf(stderr,"s: %g\n",s);
-		return (tdble)(s * s * (wing->CliftMax + wing->d) - wing->d);
+		return (float)(s * s * (wing->CliftMax + wing->d) - wing->d);
 	}
 	else
 	{
 		wing->a = (angle - wing->AoAatMax - 90.0f);
 		//fprintf(stderr,"a: %g F(a): %g\n",wing->a,F(wing));
-		return (tdble)(wing->CliftMax - F(wing) * (wing->CliftMax - wing->CliftAsymp));
+		return (float)(wing->CliftMax - F(wing) * (wing->CliftMax - wing->CliftAsymp));
 	}
 }
 
@@ -2620,7 +2620,7 @@ void TDriver::InitCa()
 	  /* [deg] Angle of Attack at coefficient of lift = 0 (-30 < AoAatZero < 0) */
 	  wing->AoAatZero = GfParmGetNum(oCarHandle, WingSect[index], PRM_AOAATZERO, (char*) "deg", 0);
 	  //fprintf(stderr,"AoAatZero: %g\n",wing->AoAatZero);
-	  wing->AoAatZRad = (tdble) (wing->AoAatZero/180*PI);
+	  wing->AoAatZRad = (float) (wing->AoAatZero/180*PI);
 
 	  /* [deg] Offset for Angle of Attack */
 	  wing->AoAOffset = GfParmGetNum(oCarHandle, WingSect[index], PRM_AOAOFFSET, (char*) "deg", 0);	
@@ -2647,7 +2647,7 @@ void TDriver::InitCa()
 	  //fprintf(stderr,"c: %g\n",wing->c);
 
 	  /* Scale factor for angle */
-	  wing->f = (tdble) (90.0 / (wing->AoAatMax + wing->AoAOffset));			
+	  wing->f = (float) (90.0 / (wing->AoAatMax + wing->AoAOffset));			
 	  //fprintf(stderr,"f: %g\n",wing->f);
 	  phi = wing->f * (wing->AoAOffset);
 	  //fprintf(stderr,"phi: %g deg\n",phi);
@@ -2658,7 +2658,7 @@ void TDriver::InitCa()
 	  sinphi2 = sinphi * sinphi;
 
 	  /* Scale at AoA = 0 */
-	  wing->d = (tdble) (1.8f * (sinphi2 * wing->CliftMax - wing->CliftZero));	
+	  wing->d = (float) (1.8f * (sinphi2 * wing->CliftMax - wing->CliftZero));	
 	  //fprintf(stderr,"d: %g\n",wing->d);
 
   	  if (index == 0)
@@ -2881,15 +2881,15 @@ void TDriver::InitAdaptiveShiftLevels()
 
   struct tEdesc
   {
-    tdble rpm;
-    tdble tq;
+    float rpm;
+    float tq;
   } *Edesc;
 
   struct TDataPoints
   {
-    tdble rads;
-    tdble a;
-    tdble b;
+    float rads;
+    float a;
+    float b;
   } *DataPoints;
 
   float RevsMax;
@@ -3083,7 +3083,7 @@ bool TDriver::EcoShift()
 //==========================================================================*
 
 //==========================================================================*
-// S²GCuASL ;D
+// SÂ²GCuASL ;D
 // = Simplified sequential gear controller using adaptive shift levels
 //--------------------------------------------------------------------------*
 void TDriver::GearTronic()
@@ -4162,7 +4162,7 @@ double TDriver::FilterBrake(double Brake)
 	  oBrakeLeft = 1.0f;
 	  oBrakeFront = 1.0f;
 	  oBrakeRear = 1.0f;
-	  //LogSimplix.debug("#BR = BL %.3f°\n",oDriftAngle*180/PI);
+	  //LogSimplix.debug("#BR = BL %.3fÂ°\n",oDriftAngle*180/PI);
 	}
   }
   // ... EPS system for use with SimuV4

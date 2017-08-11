@@ -718,9 +718,9 @@ bool LinePath::LoadPath( const char* pDataFile )
             pos.seg = m_pTrack->GetAt(0).pSeg;
             pos.type = 0;
             pos.toStart = 0;
-            pos.toRight = (tdble)(m_pTrack->GetWidth() / 2);
+            pos.toRight = (float)(m_pTrack->GetWidth() / 2);
             pos.toMiddle = 0;
-            pos.toLeft = (tdble)(m_pTrack->GetWidth() / 2);
+            pos.toLeft = (float)(m_pTrack->GetWidth() / 2);
 
             float	x, y;
             RtTrackLocal2Global( &pos, &x, &y, 0 );

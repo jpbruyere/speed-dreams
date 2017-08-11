@@ -1,7 +1,7 @@
 /***************************************************************************
     file        : nfsperf.cpp
     created     : Tue Aug  5 23:20:23 CEST 2003
-    copyright   : (C) 2003 by Eric Espié                        
+    copyright   : (C) 2003 by Eric EspiÃ©                        
     email       : eric.espie@torcs.org   
     version     : $Id$                                  
  ***************************************************************************/
@@ -149,7 +149,7 @@ int main (int argc, char **argv)
     int		i;
     int		idx;
     int		vald;
-    tdble	valf;
+    float	valf;
     init_args (argc, argv);    
     fin = fopen (infile, "rb");
     if (!fin) {
@@ -188,7 +188,7 @@ int main (int argc, char **argv)
 		exit (1);
 	    }
 	    sscanf (buf, "%d", &vald);
-	    valf = 0.025f * (tdble)vald;
+	    valf = 0.025f * (float)vald;
 	    GfParmSetNum (param, "Gearbox", "shift time", "s", valf);
 	    break;
 	case 8:			/* gear ratios (size 8) */
@@ -266,7 +266,7 @@ int main (int argc, char **argv)
 		exit (1);
 	    }
 	    sscanf (buf, "%d", &vald);
-	    valf = (tdble)vald;
+	    valf = (float)vald;
 	    GfParmSetNum (param, "Engine", "tickover", "rpm", valf);
 	    break;
 	case 13:			/* engine redline in rpm */
@@ -274,7 +274,7 @@ int main (int argc, char **argv)
 		exit (1);
 	    }
 	    sscanf (buf, "%d", &vald);
-	    valf = (tdble)vald;
+	    valf = (float)vald;
 	    GfParmSetNum (param, "Engine", "revs limiter", "rpm", valf);
 	    GfParmSetNum (param, "Engine", "revs maxi", "rpm", valf + 1000.0f);
 	    break;
@@ -338,8 +338,8 @@ int main (int argc, char **argv)
 		end++;
 	    }
 	    sscanf (s, "%d", &vald);
-	    GfParmSetNum (param, "Front Right Wheel", "tire width", "mm", (tdble)vald);
-	    GfParmSetNum (param, "Front Left Wheel", "tire width", "mm", (tdble)vald);
+	    GfParmSetNum (param, "Front Right Wheel", "tire width", "mm", (float)vald);
+	    GfParmSetNum (param, "Front Left Wheel", "tire width", "mm", (float)vald);
 	    s = end;
 
 	    end = strchr (s, ',');
@@ -348,8 +348,8 @@ int main (int argc, char **argv)
 		end++;
 	    }
 	    sscanf (s, "%d", &vald);
-	    GfParmSetNum (param, "Front Right Wheel", "tire height-width ratio", "%", (tdble)vald);
-	    GfParmSetNum (param, "Front Left Wheel", "tire height-width ratio", "%", (tdble)vald);
+	    GfParmSetNum (param, "Front Right Wheel", "tire height-width ratio", "%", (float)vald);
+	    GfParmSetNum (param, "Front Left Wheel", "tire height-width ratio", "%", (float)vald);
 	    s = end;
 	    end = strchr (s, ',');
 	    if (end) {
@@ -357,8 +357,8 @@ int main (int argc, char **argv)
 		end++;
 	    }
 	    sscanf (s, "%d", &vald);
-	    GfParmSetNum (param, "Front Right Wheel", "rim diameter", "in", (tdble)vald);
-	    GfParmSetNum (param, "Front Left Wheel", "rim diameter", "in", (tdble)vald);
+	    GfParmSetNum (param, "Front Right Wheel", "rim diameter", "in", (float)vald);
+	    GfParmSetNum (param, "Front Left Wheel", "rim diameter", "in", (float)vald);
 	    s = end;
 	    break;
 	case 36:		/* tire specs rear */
@@ -372,8 +372,8 @@ int main (int argc, char **argv)
 		end++;
 	    }
 	    sscanf (s, "%d", &vald);
-	    GfParmSetNum (param, "Rear Right Wheel", "tire width", "mm", (tdble)vald);
-	    GfParmSetNum (param, "Rear Left Wheel", "tire width", "mm", (tdble)vald);
+	    GfParmSetNum (param, "Rear Right Wheel", "tire width", "mm", (float)vald);
+	    GfParmSetNum (param, "Rear Left Wheel", "tire width", "mm", (float)vald);
 	    s = end;
 	    end = strchr (s, ',');
 	    if (end) {
@@ -381,8 +381,8 @@ int main (int argc, char **argv)
 		end++;
 	    }
 	    sscanf (s, "%d", &vald);
-	    GfParmSetNum (param, "Rear Right Wheel", "tire height-width ratio", "%", (tdble)vald);
-	    GfParmSetNum (param, "Rear Left Wheel", "tire height-width ratio", "%", (tdble)vald);
+	    GfParmSetNum (param, "Rear Right Wheel", "tire height-width ratio", "%", (float)vald);
+	    GfParmSetNum (param, "Rear Left Wheel", "tire height-width ratio", "%", (float)vald);
 	    s = end;
 	    end = strchr (s, ',');
 	    if (end) {
@@ -390,8 +390,8 @@ int main (int argc, char **argv)
 		end++;
 	    }
 	    sscanf (s, "%d", &vald);
-	    GfParmSetNum (param, "Rear Right Wheel", "rim diameter", "in", (tdble)vald);
-	    GfParmSetNum (param, "Rear Left Wheel", "rim diameter", "in", (tdble)vald);
+	    GfParmSetNum (param, "Rear Right Wheel", "rim diameter", "in", (float)vald);
+	    GfParmSetNum (param, "Rear Left Wheel", "rim diameter", "in", (float)vald);
 	    s = end;
 	    break;	    
 	default:

@@ -71,11 +71,11 @@ initWheel(tCarElt *car, int wheel_index, const char *wheel_mod_name)
 	sgVec3	nrm;
 	sgVec2	tex;
 	float	b_offset = 0;
-	tdble	curAngle = 0.0;
+	float	curAngle = 0.0;
 
 	static const int brakeBranch = 16;
-	static const tdble brakeAngle = 2.0 * M_PI / (tdble)brakeBranch;
-	static const tdble brakeOffset = 0.1;
+	static const float brakeAngle = 2.0 * M_PI / (float)brakeBranch;
+	static const float brakeOffset = 0.1;
 
 	switch(wheel_index) {
 		case FRNT_RGT:
@@ -100,7 +100,7 @@ initWheel(tCarElt *car, int wheel_index, const char *wheel_mod_name)
 	ssgVertexArray	*brk_vtx = new ssgVertexArray(brakeBranch + 1);
 	ssgColourArray	*brk_clr = new ssgColourArray(1);
 	ssgNormalArray	*brk_nrm = new ssgNormalArray(1);
-	tdble hubRadius;
+	float hubRadius;
 	
 	/* center */
 	vtx[0] = vtx[2] = 0.0;
@@ -479,15 +479,15 @@ grPropagateDamage (ssgEntity* l, sgVec3 poc, sgVec3 force, int cnt)
 		ssgVtxTable* vt = (ssgVtxTable*) l;
 		Nv = vt->getNumVertices();
 		vt->getVertexList ((void**) &v);
-		tdble sigma = sgLengthVec3 (force);
-		tdble invSigma = 5.0;
+		float sigma = sgLengthVec3 (force);
+		float invSigma = 5.0;
 		//		if (sigma < 0.1) 
 		//			invSigma = 10.0;
 		//		else
 		//			invSigma = 1.0/sigma;
 		for (int i=0; i<Nv; i++) {
-			tdble r =  sgDistanceSquaredVec3 (poc, v[i]);
-			tdble f = exp(-r*invSigma)*5.0;
+			float r =  sgDistanceSquaredVec3 (poc, v[i]);
+			float f = exp(-r*invSigma)*5.0;
 			v[i][0] += force[0]*f;
 			v[i][1] += force[1]*f;
 			// use sigma as a random number generator (!)
@@ -925,10 +925,10 @@ grInitCar(tCarElt *car)
 			ssgTransform *steerLoc = new ssgTransform;
 
 			sgCoord steerpos;
-			tdble xpos = GfParmGetNum(handle, path, PRM_XPOS, NULL, 0.0);
-			tdble ypos = GfParmGetNum(handle, path, PRM_YPOS, NULL, 0.0);
-			tdble zpos = GfParmGetNum(handle, path, PRM_ZPOS, NULL, 0.0);
-			tdble angl = GfParmGetNum(handle, path, PRM_SW_ANGLE, NULL, 0.0);
+			float xpos = GfParmGetNum(handle, path, PRM_XPOS, NULL, 0.0);
+			float ypos = GfParmGetNum(handle, path, PRM_YPOS, NULL, 0.0);
+			float zpos = GfParmGetNum(handle, path, PRM_ZPOS, NULL, 0.0);
+			float angl = GfParmGetNum(handle, path, PRM_SW_ANGLE, NULL, 0.0);
 
 			grCarInfo[index].steerRot[0] = new ssgTransform;
 			sgSetCoord(&steerpos, 0, 0, 0, 0, 0, 0);
@@ -1002,9 +1002,9 @@ grInitCar(tCarElt *car)
 			param = GfParmGetStr(handle, buf, PRM_DRIVERMODEL, "");
 			grCarInfo[index].DRMThreshold[selIndex] = GfParmGetNum(handle, buf, PRM_DRIVERSTEER, NULL, 0.0);
 
-			tdble xpos = GfParmGetNum(handle, buf, PRM_XPOS, NULL, 0.0);
-			tdble ypos = GfParmGetNum(handle, buf, PRM_YPOS, NULL, 0.0);
-			tdble zpos = GfParmGetNum(handle, buf, PRM_ZPOS, NULL, 0.0);
+			float xpos = GfParmGetNum(handle, buf, PRM_XPOS, NULL, 0.0);
+			float ypos = GfParmGetNum(handle, buf, PRM_YPOS, NULL, 0.0);
+			float zpos = GfParmGetNum(handle, buf, PRM_ZPOS, NULL, 0.0);
 			sgSetCoord(&driverpos, xpos, ypos, zpos, 0, 0, 0.0);
 			driverLoc->setTransform( &driverpos);
 
@@ -1062,9 +1062,9 @@ grInitCar(tCarElt *car)
 			param = GfParmGetStr(handle, buf, PRM_REARWINGMODEL, "");
 			grCarInfo[index].DRMThreshold2[selIndex] = GfParmGetNum(handle, buf, PRM_REARWINGANGLE, NULL, 0.0);
 
-			tdble xpos = GfParmGetNum(handle, buf, PRM_XPOS, NULL, 0.0);
-			tdble ypos = GfParmGetNum(handle, buf, PRM_YPOS, NULL, 0.0);
-			tdble zpos = GfParmGetNum(handle, buf, PRM_ZPOS, NULL, 0.0);
+			float xpos = GfParmGetNum(handle, buf, PRM_XPOS, NULL, 0.0);
+			float ypos = GfParmGetNum(handle, buf, PRM_YPOS, NULL, 0.0);
+			float zpos = GfParmGetNum(handle, buf, PRM_ZPOS, NULL, 0.0);
 			sgSetCoord(&rearwingpos, xpos, ypos, zpos, 0, 0, 0.0);
 			rearwingLoc->setTransform( &rearwingpos);
 
@@ -1130,10 +1130,10 @@ grDrawShadow(tCarElt *car, int visible)
 }
 
 
-tdble grGetDistToStart(tCarElt *car)
+float grGetDistToStart(tCarElt *car)
 {
 	tTrackSeg *seg;
-	tdble lg;
+	float lg;
 
 	seg = car->_trkPos.seg;
 	lg = seg->lgfromstart;

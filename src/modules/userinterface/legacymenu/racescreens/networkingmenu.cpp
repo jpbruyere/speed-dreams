@@ -287,7 +287,7 @@ UpdateNetworkPlayers()
 					break;
 				}
 
-				if ((tdble)pSData->m_vecNetworkPlayers[i].idx == GfParmGetNum(reInfo->params, path2, RM_ATTR_IDX, NULL, 1.0) &&
+				if ((float)pSData->m_vecNetworkPlayers[i].idx == GfParmGetNum(reInfo->params, path2, RM_ATTR_IDX, NULL, 1.0) &&
 						strcmp(NETWORKROBOT, GfParmGetStr(reInfo->params, path2, RM_ATTR_MODULE, "")) == 0) {
 					pSData->m_vecNetworkPlayers[i].active = true;
 				}

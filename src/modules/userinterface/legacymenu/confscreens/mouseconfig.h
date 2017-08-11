@@ -2,7 +2,7 @@
 
     file        : mouseconfig.h
     created     : Thu Mar 13 21:29:35 CET 2003
-    copyright   : (C) 2003 by Eric Espié                        
+    copyright   : (C) 2003 by Eric EspiÃ©                        
     email       : eric.espie@torcs.org   
     version     : $Id$                                  
 

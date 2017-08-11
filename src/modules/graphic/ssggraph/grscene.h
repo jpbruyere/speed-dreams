@@ -65,7 +65,7 @@ extern int grLoadScene(tTrack *track);
 extern void grDrawScene();
 extern void grShutdownScene(void);
 extern void grCustomizePits(void);
-extern void grLoadPitsIndicator(tdble x,tdble y, tdble z, char *buf, int Pitind);
+extern void grLoadPitsIndicator(float x,float y, float z, char *buf, int Pitind);
 extern void grDrawBackground(class cGrCamera *, class cGrBackgroundCam *bgCam);
 
 //TODO: Question: What is this??? kilo
@@ -74,22 +74,22 @@ extern void grDrawBackground(class cGrCamera *, class cGrBackgroundCam *bgCam);
 class cDoV
 {
 public:
-  tdble FrontLevelGroupGlobal; /* the distance for the end of the front scene */
-  tdble FrontLevelGroup1;      /* the distance for the end of the front scene for group type 1*/
-  tdble FrontLevelGroup2;      /* the distance for the end of the front scene for group type 2*/
-  tdble FrontLevelGroup3;      /* the distance for the end of the front scene for group type 3*/
+  float FrontLevelGroupGlobal; /* the distance for the end of the front scene */
+  float FrontLevelGroup1;      /* the distance for the end of the front scene for group type 1*/
+  float FrontLevelGroup2;      /* the distance for the end of the front scene for group type 2*/
+  float FrontLevelGroup3;      /* the distance for the end of the front scene for group type 3*/
 
-  tdble RearLevelGroupGlobal; /* the distance for the end of the front scene */
-  tdble RearLevelGroup1;
-  tdble RearLevelGroup2;
-  tdble RearLevelGroup3;
+  float RearLevelGroupGlobal; /* the distance for the end of the front scene */
+  float RearLevelGroup1;
+  float RearLevelGroup2;
+  float RearLevelGroup3;
 
-  tdble FrontLevelMap1;      /* the distance for the end of the front scene with only one mapping*/
-  tdble FrontLevelMap2;      /* the distance for the end of the front scene with two mapping*/
-  tdble FrontLevelMap3;      /* the distance for the end of the front scene with three mapping*/
-  tdble RearLevelMap1;
-  tdble RearLevelMap2;
-  tdble RearLevelMap3;
+  float FrontLevelMap1;      /* the distance for the end of the front scene with only one mapping*/
+  float FrontLevelMap2;      /* the distance for the end of the front scene with two mapping*/
+  float FrontLevelMap3;      /* the distance for the end of the front scene with three mapping*/
+  float RearLevelMap1;
+  float RearLevelMap2;
+  float RearLevelMap3;
 };
 
 class cHashMapElement

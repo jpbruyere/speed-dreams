@@ -34,7 +34,7 @@ void SimCarCollideAddDeformation(tCar* car, sgVec3 pos, sgVec3 force)
     // must average position and add up force.
     tCollisionState* collision_state = &car->carElt->priv.collision_state;
     collision_state->collision_count++;
-    //tdble k = (tdble) cnt;
+    //float k = (float) cnt;
     if (sgLengthVec3(collision_state->force) < sgLengthVec3(force)) {
         for (int i=0; i<3; i++) {
             collision_state->pos[i] = pos[i];// + k*collision_state->pos[i])/(k+1.0);
@@ -47,8 +47,8 @@ void SimCarCollideAddDeformation(tCar* car, sgVec3 pos, sgVec3 force)
 void SimCarCollideZ(tCar *car)
 {
     int i;
-    t3Dd normal;
-    tdble dotProd;
+    glm::vec3 normal;
+    float dotProd;
     tWheel *wheel;
     const float CRASH_THRESHOLD = -5.0f;
 
@@ -84,11 +84,11 @@ void
 SimCarCollideZ(tCar *car)
 {
     int         i;
-    t3Dd        car_normal;
-    t3Dd        rel_car_normal;
-    tdble       dotProd;
+    glm::vec3        car_normal;
+    glm::vec3        rel_car_normal;
+    float       dotProd;
     tWheel      *wheel;
-    tdble corner_factor = 0.9f; // how much to shrink the bounding box
+    float corner_factor = 0.9f; // how much to shrink the bounding box
 
     if (car->collide_timer < 10.0) {
         car->collide_timer += SimDeltaTime;
@@ -98,8 +98,8 @@ SimCarCollideZ(tCar *car)
         return;
     }
 
-    tdble energy_restitution = 0.99f;
-    tdble E_prev = SimCarEnergy(car);
+    float energy_restitution = 0.99f;
+    float E_prev = SimCarEnergy(car);
     bool collide = false;
     // Get normal N
     //RtTrackSurfaceNormalL(&(car->trkPos), &car_normal);
@@ -116,19 +116,19 @@ SimCarCollideZ(tCar *car)
         car->upside_down_timer += (float)(0.01*SimDeltaTime);
     }
 
-    tdble gc_height_difference = (float)MIN(0.0, car->DynGCg.pos.z - RtTrackHeightL(&(car->trkPos)));
+    float gc_height_difference = (float)MIN(0.0, car->DynGCg.pos.z - RtTrackHeightL(&(car->trkPos)));
     // Go through all corners and check for collision.
-    tdble min_height_difference = (float)MIN(0.0, gc_height_difference);
+    float min_height_difference = (float)MIN(0.0, gc_height_difference);
     for (i = 0; i < 4; i++) {
         wheel = &(car->wheel[i]);
         // We only need to check for body collision with the floor if
         // the suspension is maximally compressed or the car is upside
         // down.
         for (int j=0; j<2; j++) {
-            t3Dd orig; // corner position in local coordinates
-            t3Dd delta; // corner position in global coordinates
-            t3Dd normal; // normal at corner position
-            t3Dd rel_normal; // normal at corner position (local coords)
+            glm::vec3 orig; // corner position in local coordinates
+            glm::vec3 delta; // corner position in global coordinates
+            glm::vec3 normal; // normal at corner position
+            glm::vec3 rel_normal; // normal at corner position (local coords)
             
             tDynPt *corner = &(car->corner[i]);
         
@@ -163,7 +163,7 @@ SimCarCollideZ(tCar *car)
                                 corner->pos.ax,
                                 corner->pos.ay,
                                 &trkPos, TR_LPOS_SEGMENT);
-            tdble height_difference = car->DynGCg.pos.z + delta.z -  RtTrackHeightL(&trkPos);
+            float height_difference = car->DynGCg.pos.z + delta.z -  RtTrackHeightL(&trkPos);
             //printf ("%d %d %f %f %f\n", i, j, height_difference, car->statGC.z, car->DynGCg.pos.z -  RtTrackHeightL(&trkPos));
             if (height_difference > 0) {
                 continue;
@@ -183,17 +183,17 @@ SimCarCollideZ(tCar *car)
 #if 1
             // option 1: just use the car velocity
             // this works fine when more than 1 corner hits at the same time
-            tdble cvx = (car->DynGCg.vel.x);
-            tdble cvy = (car->DynGCg.vel.y);
-            tdble cvz = (car->DynGCg.vel.z);
+            float cvx = (car->DynGCg.vel.x);
+            float cvy = (car->DynGCg.vel.y);
+            float cvz = (car->DynGCg.vel.z);
 #else
             // option 2: add the hopefully correctly calculated corner velocity
             // to use this, the code must take special consideration
             // of multiple corner hits, or we can just update corner
             // velocity and position after every hit
-            tdble cvx = corner->vel.x;
-            tdble cvy = corner->vel.y;
-            tdble cvz = corner->vel.z; // NOTE: this last one is an approximation, sadly
+            float cvx = corner->vel.x;
+            float cvy = corner->vel.y;
+            float cvz = corner->vel.z; // NOTE: this last one is an approximation, sadly
 #endif
             // option 3: recalculate the velocity
             // TODO
@@ -203,42 +203,42 @@ SimCarCollideZ(tCar *car)
                        + cvy * normal.y
                        + cvz * normal.z); 
             if (dotProd < 0) {
-                //tdble dotProd2 = 0.25*dotProd *car->mass / SimDeltaTime;
-                tdble mu = 0.5;
+                //float dotProd2 = 0.25*dotProd *car->mass / SimDeltaTime;
+                float mu = 0.5;
                 // normal
-                tdble nx = normal.x;
-                tdble ny = normal.y;
-                tdble nz = normal.z;
+                float nx = normal.x;
+                float ny = normal.y;
+                float nz = normal.z;
 #ifdef DEBUG_COLLIDE_Z
                 printf("CollideZ:  %d %d %f\n          N = (%f %f %f)\n", i, j, dotProd, nx, ny, nz);
 #endif
 
                 // veolcity projected to normal
-                tdble vPx = nx * cvx;
-                tdble vPy = ny * cvy;
-                tdble vPz = nz * cvz;
-                //tdble vP = sqrt(vPx*vPx + vPy*vPy + vPz*vPz);
+                float vPx = nx * cvx;
+                float vPy = ny * cvy;
+                float vPz = nz * cvz;
+                //float vP = sqrt(vPx*vPx + vPy*vPy + vPz*vPz);
 #ifdef DEBUG_COLLIDE_Z
                 printf("           V = (%.2f %.2f %.2f) -(P)-> (%.2f %.2f %.2f)\n",
                        cvx, cvy, cvz,
                        vPx, vPy, vPz);
 #endif
                 // veolcity projected to tangent plane
-                tdble vQx = cvx - vPx;
-                tdble vQy = cvy - vPy;
-                tdble vQz = cvz - vPz;
-                tdble vQ =  sqrt(vQx*vQx + vQy*vQy + vQz*vQz);
+                float vQx = cvx - vPx;
+                float vQy = cvy - vPy;
+                float vQz = cvz - vPz;
+                float vQ =  sqrt(vQx*vQx + vQy*vQy + vQz*vQz);
 
                 // v|n = n'v'n = cn
                 // reaction force - by definition has the
                 // same direction as the normal
-                t3Dd forces;
+                glm::vec3 forces;
             
                 forces.x = - dotProd * nx;
                 forces.y = - dotProd * ny;
                 forces.z = - dotProd * nz;
-                tdble dP3 = (float)(dotProd * mu / (0.001 + vQ));
-                t3Dd friction;
+                float dP3 = (float)(dotProd * mu / (0.001 + vQ));
+                glm::vec3 friction;
                 friction.x = vQx * dP3;
                 friction.y = vQy * dP3;
                 friction.z = vQz * dP3;
@@ -274,7 +274,7 @@ SimCarCollideZ(tCar *car)
                 // rotate it to the car's frame
                 sgRotateVecQuat (impulse, car->posQuat);
 
-                //tdble E_prev = SimCarEnergy(car);
+                //float E_prev = SimCarEnergy(car);
 
                 // add to local-frame speed
                 car->DynGC.vel.x += impulse[SG_X];
@@ -297,11 +297,11 @@ SimCarCollideZ(tCar *car)
                         v[SG_Z], orig.x, orig.y);
 #endif
                 // Calculate moments
-                tdble Mx = + impulse[SG_Z] * v[SG_Y] - impulse[SG_Y] * v[SG_Z];
-                tdble My = - impulse[SG_Z] * v[SG_X] + impulse[SG_X] * v[SG_Z];
-                tdble Mz = - impulse[SG_X] * v[SG_Y] + impulse[SG_Y] * v[SG_X];
+                float Mx = + impulse[SG_Z] * v[SG_Y] - impulse[SG_Y] * v[SG_Z];
+                float My = - impulse[SG_Z] * v[SG_X] + impulse[SG_X] * v[SG_Z];
+                float Mz = - impulse[SG_X] * v[SG_Y] + impulse[SG_Y] * v[SG_X];
                 // Add moments to rotational inertia
-                tdble rot_mom_scale = 0.25f*car->mass;
+                float rot_mom_scale = 0.25f*car->mass;
 #ifdef DEBUG_COLLIDE_Z
                 printf ("          J = (%f %f %f)\n",
                         car->rot_mom[SG_X],
@@ -328,8 +328,8 @@ SimCarCollideZ(tCar *car)
 
                 // transform velocity to global frame
                 if (1) {
-                    t3Dd original;
-                    t3Dd updated;
+                    glm::vec3 original;
+                    glm::vec3 updated;
                     original.x = car->DynGC.vel.x;
                     original.y = car->DynGC.vel.y;
                     original.z = car->DynGC.vel.z;
@@ -355,11 +355,11 @@ SimCarCollideZ(tCar *car)
                 // should be this way..
                 if (dotProd <-5.0) {
                     // if it's hard, do a damage thing
-                    static tdble WHEEL_ROT_DAMAGE = 0.001f;
-                    static tdble WHEEL_BENT_DAMAGE = 0.01f;
-                    static tdble WHEEL_DAMAGE_LIMIT = 0.25f;
-                    static tdble SUSP_DAMAGE_CONST = 1.0f;
-                    static tdble SUSP_DAMAGE = 0.1f;
+                    static float WHEEL_ROT_DAMAGE = 0.001f;
+                    static float WHEEL_BENT_DAMAGE = 0.01f;
+                    static float WHEEL_DAMAGE_LIMIT = 0.25f;
+                    static float SUSP_DAMAGE_CONST = 1.0f;
+                    static float SUSP_DAMAGE = 0.1f;
                     car->collision |= 16;
                     wheel->rotational_damage_x -= dotProd*WHEEL_ROT_DAMAGE*urandom();
                     wheel->rotational_damage_z -= dotProd*WHEEL_ROT_DAMAGE*urandom();
@@ -422,7 +422,7 @@ SimCarCollideZ(tCar *car)
 
 #endif
 
-const tdble BorderFriction = 0.00;
+const float BorderFriction = 0.00;
 
 void
 SimCarCollideXYScene(tCar *car)
@@ -431,24 +431,24 @@ SimCarCollideXYScene(tCar *car)
     tTrkLocPos  trkpos;
     int         i;
     tDynPt      *corner;
-    //t3Dd      normal;
-    tdble       initDotProd;
-    tdble       dotProd;
+    //glm::vec3      normal;
+    float       initDotProd;
+    float       dotProd;
     tTrackBarrier *curBarrier;
-    tdble       dmg;
+    float       dmg;
     
     if (car->carElt->_state & RM_CAR_STATE_NO_SIMU) {
         return;
     }
 
-    tdble energy_restitution = 0.999f;
+    float energy_restitution = 0.999f;
 
     corner = &(car->corner[0]);
     for (i = 0; i < 4; i++, corner++) {
         seg = car->trkPos.seg;
         RtTrackGlobal2Local(seg, corner->pos.ax, corner->pos.ay, &trkpos, TR_LPOS_TRACK);
         seg = trkpos.seg;
-        tdble toSide;
+        float toSide;
 
         if (trkpos.toRight < 0.0) {
             // collision with right border.
@@ -462,16 +462,16 @@ SimCarCollideXYScene(tCar *car)
             continue;
         }
 
-        const tdble& nx = curBarrier->normal.x;
-        const tdble& ny = curBarrier->normal.y;
-        t3Dd normal = {nx, ny, 0.0f};
+        const float& nx = curBarrier->normal.x;
+        const float& ny = curBarrier->normal.y;
+        glm::vec3 normal = glm::vec3(nx, ny, 0.0f);
         car->DynGCg.pos.x -= nx * toSide;
         car->DynGCg.pos.y -= ny * toSide;
         car->DynGC.pos.x = car->DynGCg.pos.x;
         car->DynGC.pos.y = car->DynGCg.pos.y;
         // Corner position relative to center of gravity.
-        //tdble cx = corner->pos.ax - car->DynGCg.pos.x;
-        //tdble cy = corner->pos.ay - car->DynGCg.pos.y;
+        //float cx = corner->pos.ax - car->DynGCg.pos.x;
+        //float cy = corner->pos.ay - car->DynGCg.pos.y;
 
         car->blocked = 1;
         car->collision |= SEM_COLLISION;
@@ -480,20 +480,20 @@ SimCarCollideXYScene(tCar *car)
         initDotProd = nx * corner->vel.x + ny * corner->vel.y;
         //printf("%f = (%f %f)'(%f %f)\n", initDotProd, nx, ny, corner->vel.x, corner->vel.y);
         // Compute dmgDotProd (base value for later damage) with a heuristic.
-        tdble absvel = (float)MAX(1.0, sqrt(car->DynGCg.vel.x*car->DynGCg.vel.x + car->DynGCg.vel.y*car->DynGCg.vel.y));
-        tdble GCgnormvel = car->DynGCg.vel.x*nx + car->DynGCg.vel.y*ny;
-        tdble cosa = GCgnormvel/absvel;
-        tdble dmgDotProd = GCgnormvel*cosa;
+        float absvel = (float)MAX(1.0, sqrt(car->DynGCg.vel.x*car->DynGCg.vel.x + car->DynGCg.vel.y*car->DynGCg.vel.y));
+        float GCgnormvel = car->DynGCg.vel.x*nx + car->DynGCg.vel.y*ny;
+        float cosa = GCgnormvel/absvel;
+        float dmgDotProd = GCgnormvel*cosa;
 
         // veolcity projected to normal
-        tdble vPx = nx * corner->vel.x;
-        tdble vPy = ny * corner->vel.y;
-        //tdble vP = sqrt(vPx*vPx + vPy*vPy);
+        float vPx = nx * corner->vel.x;
+        float vPy = ny * corner->vel.y;
+        //float vP = sqrt(vPx*vPx + vPy*vPy);
 
         // veolcity projected to tangent plane
-        tdble vQx = corner->vel.x - vPx;
-        tdble vQy = corner->vel.y - vPy;
-        tdble vQ = sqrt(vQx*vQx + vQy*vQy);
+        float vQx = corner->vel.x - vPx;
+        float vQy = corner->vel.y - vPy;
+        float vQ = sqrt(vQx*vQx + vQy*vQy);
 
         // Fix this to be applied only perpendicular to the normal
         dotProd = initDotProd * curBarrier->surface->kFriction;
@@ -504,7 +504,7 @@ SimCarCollideXYScene(tCar *car)
         {
             // this is only used for propagating response to other layers
             sgVec3 normal_l; 
-            tdble d2 = dotProd;
+            float d2 = dotProd;
             t2sg3(normal, normal_l);
             sgRotateVecQuat (normal_l, car->posQuat);
             car->DynGC.acc.x -= normal_l[SG_X] * d2;
@@ -525,15 +525,15 @@ SimCarCollideXYScene(tCar *car)
         }
         // If the car moves toward the barrier, rebound.
        
-        tdble normal_impulse_x = - nx * dotProd;
-        tdble normal_impulse_y = - ny * dotProd;
-        tdble dP3 = initDotProd * curBarrier->surface->kFriction / vQ;// could divide by vQ, but it's better (I think) to have it proportional to speed.
-        tdble friction_impulse_x = vQx * dP3;
-        tdble friction_impulse_y = vQy * dP3;
+        float normal_impulse_x = - nx * dotProd;
+        float normal_impulse_y = - ny * dotProd;
+        float dP3 = initDotProd * curBarrier->surface->kFriction / vQ;// could divide by vQ, but it's better (I think) to have it proportional to speed.
+        float friction_impulse_x = vQx * dP3;
+        float friction_impulse_y = vQy * dP3;
         if (dotProd < 0.0f) {
             //printf ("CollideXY\n");
 
-            tdble E_prev = SimCarDynamicEnergy(car);
+            float E_prev = SimCarDynamicEnergy(car);
 
 
             // propagate damages
@@ -572,11 +572,11 @@ SimCarCollideXYScene(tCar *car)
                         -car->statGC.z};
 
             // Calculate moments
-            tdble Mx = + impulse[SG_Z] * v[SG_Y] - impulse[SG_Y] * v[SG_Z];
-            tdble My = - impulse[SG_Z] * v[SG_X] + impulse[SG_X] * v[SG_Z];
-            tdble Mz = - impulse[SG_X] * v[SG_Y] + impulse[SG_Y] * v[SG_X];
+            float Mx = + impulse[SG_Z] * v[SG_Y] - impulse[SG_Y] * v[SG_Z];
+            float My = - impulse[SG_Z] * v[SG_X] + impulse[SG_X] * v[SG_Z];
+            float Mz = - impulse[SG_X] * v[SG_Y] + impulse[SG_Y] * v[SG_X];
             // Add moments to rotational inertia
-            tdble rot_mom_scale = 0.25f*car->mass;// * SimDeltaTime;
+            float rot_mom_scale = 0.25f*car->mass;// * SimDeltaTime;
             car->rot_mom[SG_X] -= rot_mom_scale * Mx;// * car->Iinv.x;
             car->rot_mom[SG_Y] -= rot_mom_scale * My;// * car->Iinv.y;
             car->rot_mom[SG_Z] -= rot_mom_scale * Mz; //* car->Iinv.z;
@@ -590,8 +590,8 @@ SimCarCollideXYScene(tCar *car)
             }
             // transform velocity to global frame
             if (1) {
-                t3Dd original;
-                t3Dd updated;
+                glm::vec3 original;
+                glm::vec3 updated;
                 original.x = car->DynGC.vel.x;
                 original.y = car->DynGC.vel.y;
                 original.z = car->DynGC.vel.z;
@@ -604,7 +604,7 @@ SimCarCollideXYScene(tCar *car)
             SimCarLimitDynamicEnergy(car, energy_restitution*E_prev); 
         }
 #if 0
-        static tdble DEFORMATION_THRESHOLD = 0.01f;
+        static float DEFORMATION_THRESHOLD = 0.01f;
         if (car->options->aero_damage
             || sgLengthVec3(force) > DEFORMATION_THRESHOLD) {
             sgVec3 poc;
@@ -700,7 +700,7 @@ SimCarCollideXYScene(tCar *car)
     const float ROT_K = 0.5f;
 
     // Damage.
-    tdble damFactor, atmp;
+    float damFactor, atmp;
     atmp = atan2(r[1], r[0]);
     if (fabs(atmp) < (PI / 3.0)) {
         // Front collision gives more damage.
@@ -874,7 +874,7 @@ static void SimCarCollideResponse(void * /*dummy*/, DtObjectRef obj1, DtObjectRe
         }
 
         // Damage.
-        tdble damFactor, atmp;
+        float damFactor, atmp;
         atmp = atan2(r[i][1], r[i][0]);
         if (fabs(atmp) < (PI / 3.0)) {
             // Front collision gives more damage.
@@ -1006,9 +1006,9 @@ SimCarCollideCars(tSituation *s)
     }
 }
 
-extern tdble ConstantFriction (tdble u, tdble du)
+extern float ConstantFriction (float u, float du)
 {
-    tdble u2 = u + du;
+    float u2 = u + du;
     if (u*du > 0.0) {
         return u;
     }
@@ -1016,7 +1016,7 @@ extern tdble ConstantFriction (tdble u, tdble du)
         return 0.0;
     return u2;
 }
-extern tdble ConstantFriction (tdble u, tdble a, tdble dt)
+extern float ConstantFriction (float u, float a, float dt)
 {
     return ConstantFriction (u, a*dt);
 }

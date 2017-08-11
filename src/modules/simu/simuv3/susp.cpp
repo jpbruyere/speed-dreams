@@ -34,7 +34,7 @@ initDamper(tSuspension *susp)
     damp->rebound.b2 = (damp->rebound.C1 - damp->rebound.C2) * damp->rebound.v1 + damp->rebound.b1;
 }
 
-void SimSuspDamage(tSuspension* susp, tdble dmg)
+void SimSuspDamage(tSuspension* susp, float dmg)
 {
 	susp->damper.efficiency *= exp(dmg);
 	//printf ("Leak: %f -> %f\n", exp(dmg), susp->damper.efficiency);
@@ -44,13 +44,13 @@ void SimSuspDamage(tSuspension* susp, tdble dmg)
 /*
  * get damper force
  */
-static tdble
+static float
 damperForce(tSuspension *susp)
 {
     tDamperDef *dampdef;
-    tdble     f;
-    tdble     av;
-    tdble     v;
+    float     f;
+    float     av;
+    float     v;
 
     v = susp->v;
 
@@ -81,17 +81,17 @@ damperForce(tSuspension *susp)
 /*
  * get spring force
  */
-static tdble
+static float
 springForce(tSuspension *susp)
 {
     tSpring *spring = &(susp->spring);
-    tdble f;
+    float f;
 
     /* K is < 0 */
     f = spring->K * (susp->x - spring->x0) + spring->F0;
     if (susp->over_x < 0) {
         //printf ("over: %f ", f);
-        tdble extra_f = MAX(spring->K, 2 * spring->K * susp->over_x);
+        float extra_f = MAX(spring->K, 2 * spring->K * susp->over_x);
         f += extra_f;
         //printf (" -> %f\n", f);
     }
@@ -130,25 +130,25 @@ SimSuspCheckIn(tSuspension *susp)
     switch (susp->type) {
     case Wishbone:
         {
-            //tdble link_u = asin(((susp->x - .5*susp->spring.x0)/susp->spring.bellcrank)/susp->link.y);
-            tdble link_u = (float)(asin(((susp->x - .2*susp->spring.x0)/susp->spring.bellcrank)/susp->link.y));
-            tdble x1 = susp->link.y * cos(link_u);
-            tdble y1 = susp->link.y * sin(link_u);
-            tdble r1 = susp->link.z;
-            tdble r0 = susp->link.x;
-            tdble x0 = 0.1f;
-            tdble y0 = 0.20f;
-            tdble dx = x1 - x0;
-            tdble dy = y1 - y0;
-            tdble d2 =(dx*dx+dy*dy);
-            tdble d = sqrt(d2);
+            //float link_u = asin(((susp->x - .5*susp->spring.x0)/susp->spring.bellcrank)/susp->link.y);
+            float link_u = (float)(asin(((susp->x - .2*susp->spring.x0)/susp->spring.bellcrank)/susp->link.y));
+            float x1 = susp->link.y * cos(link_u);
+            float y1 = susp->link.y * sin(link_u);
+            float r1 = susp->link.z;
+            float r0 = susp->link.x;
+            float x0 = 0.1f;
+            float y0 = 0.20f;
+            float dx = x1 - x0;
+            float dy = y1 - y0;
+            float d2 =(dx*dx+dy*dy);
+            float d = sqrt(d2);
             if ((d<r0+r1)||(d>fabs(r0-r1))) {
-                tdble a = (float)((r0*r0-r1*r1+d2)/(2.0*d));
-                tdble h = sqrt (r0*r0-a*a);
-                tdble x2 = x0 + a*(x1-x0)/d;
-                tdble y2 = y0 + a*(x1-y0)/d;
-                tdble x3 = x2 + h*(y1-y0)/d;
-                tdble y3 = y2 + h*(x1-x0)/d;
+                float a = (float)((r0*r0-r1*r1+d2)/(2.0*d));
+                float h = sqrt (r0*r0-a*a);
+                float x2 = x0 + a*(x1-x0)/d;
+                float y2 = y0 + a*(x1-y0)/d;
+                float x3 = x2 + h*(y1-y0)/d;
+                float y3 = y2 + h*(x1-x0)/d;
                 susp->dynamic_angles.x = atan2(x3-x1, y3-y1);
                 //printf ("d:%f sR:%f dR:%f u:%f a:%f\n", d, r0+r1, fabs(r0-r1),link_u,susp->dynamic_angles.x);
             } else {
@@ -183,7 +183,7 @@ SimSuspUpdate(tSuspension *susp)
 
 
 void
-SimSuspConfig(void *hdle, const char *section, tSuspension *susp, tdble F0, tdble X0)
+SimSuspConfig(void *hdle, const char *section, tSuspension *susp, float F0, float X0)
 {
     susp->spring.K          = GfParmGetNum(hdle, section, PRM_SPR, (char*)NULL, 175000);
     susp->spring.xMax       = GfParmGetNum(hdle, section, PRM_SUSPCOURSE, (char*)NULL, 0.5);

@@ -44,8 +44,8 @@ static bool gfFileSetupCopy( char* dataLocation, char* localLocation, int major,
 		{
 			GfParmSetCurStr( localHandle, "versions", "Data location", dataLocation );
 			GfParmSetCurStr( localHandle, "versions", "Local location", localLocation );
-			GfParmSetCurNum( localHandle, "versions", "Major version", NULL, (tdble)major );
-			GfParmSetCurNum( localHandle, "versions", "Minor version", NULL, (tdble)minor );
+			GfParmSetCurNum( localHandle, "versions", "Major version", NULL, (float)major );
+			GfParmSetCurNum( localHandle, "versions", "Minor version", NULL, (float)minor );
 		}
 		else
 		{
@@ -53,8 +53,8 @@ static bool gfFileSetupCopy( char* dataLocation, char* localLocation, int major,
 			snprintf( buf, 30, "versions/%d", count );
 			GfParmSetStr( localHandle, buf, "Data location", dataLocation );
 			GfParmSetStr( localHandle, buf, "Local location", localLocation );
-			GfParmSetNum( localHandle, buf, "Major version", NULL, (tdble)major );
-			GfParmSetNum( localHandle, buf, "Minor version", NULL, (tdble)minor );
+			GfParmSetNum( localHandle, buf, "Major version", NULL, (float)major );
+			GfParmSetNum( localHandle, buf, "Minor version", NULL, (float)minor );
 		}
 	}
 

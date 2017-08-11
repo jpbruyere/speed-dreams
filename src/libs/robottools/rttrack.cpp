@@ -49,8 +49,8 @@
     @return	Width of the track at this point.
     @note	The Pit lane and the track have different width, and the side segments have variable width.
  */
-tdble
-RtTrackGetWidth(tTrackSeg *seg, tdble toStart)
+float
+RtTrackGetWidth(tTrackSeg *seg, float toStart)
 {
     return fabs(seg->startWidth + toStart * seg->Kyl);
 }
@@ -73,10 +73,10 @@ RtTrackGetWidth(tTrackSeg *seg, tdble toStart)
 			- TR_TOLEFT the toLeft field is used
 */
 void
-RtTrackLocal2Global(tTrkLocPos *p, tdble *X, tdble *Y, int flag)
+RtTrackLocal2Global(tTrkLocPos *p, float *X, float *Y, int flag)
 {
-    tdble r, a;
-    tdble tr;
+    float r, a;
+    float tr;
 
     tTrackSeg *seg = p->seg;
     switch (flag) {
@@ -213,15 +213,15 @@ RtTrackLocal2Global(tTrkLocPos *p, tdble *X, tdble *Y, int flag)
  */
 
 void
-RtTrackGlobal2Local(tTrackSeg *segment, tdble X, tdble Y, tTrkLocPos *p, int type)
+RtTrackGlobal2Local(tTrackSeg *segment, float X, float Y, tTrkLocPos *p, int type)
 {
     int 	segnotfound = 1;
-    tdble 	x, y;
+    float 	x, y;
     tTrackSeg 	*seg = segment;
     tTrackSeg 	*sseg;
-    tdble 	theta, a2;
+    float 	theta, a2;
     int 	depl = 0;
-    tdble	curWidth;
+    float	curWidth;
 
     p->type = type;
 
@@ -230,7 +230,7 @@ RtTrackGlobal2Local(tTrackSeg *segment, tdble X, tdble Y, tTrkLocPos *p, int typ
 	switch(seg->type) {
 	case TR_STR:
 	    /* rotation */
-	    tdble ts;
+	    float ts;
 
 	    x = X - seg->vertex[TR_SR].x;
 	    y = Y - seg->vertex[TR_SR].y;
@@ -383,11 +383,11 @@ RtTrackGlobal2Local(tTrackSeg *segment, tdble X, tdble Y, tTrkLocPos *p, int typ
     @param	p	Local position
     @return	Height in meters
  */
-tdble
+float
 RtTrackHeightL(tTrkLocPos *p)
 {
-    tdble	lg;
-    tdble	tr = p->toRight;
+    float	lg;
+    float	tr = p->toRight;
     tTrackSeg	*seg = p->seg;
     //bool left_side = true; // Never used.
     if ((tr < 0) && (seg->rside != NULL)) {
@@ -425,10 +425,10 @@ RtTrackHeightL(tTrkLocPos *p)
         // height in global coords).
 	if (seg->type2 == TR_RBORDER) {
             // alpha shows how far we've moved into this segment.
-            tdble alpha = seg->width - tr;
-            tdble angle = seg->angle[TR_XS] + p->toStart * seg->Kzw;
-            tdble noise = seg->surface->kRoughness * sin(seg->surface->kRoughWaveLen * lg) * alpha / seg->width;
-            tdble start_height = seg->vertex[TR_SR].z + p->toStart * seg->Kzl;
+            float alpha = seg->width - tr;
+            float angle = seg->angle[TR_XS] + p->toStart * seg->Kzw;
+            float noise = seg->surface->kRoughness * sin(seg->surface->kRoughWaveLen * lg) * alpha / seg->width;
+            float start_height = seg->vertex[TR_SR].z + p->toStart * seg->Kzl;
             return start_height + tr * tan(angle) + alpha * atan2(seg->height, seg->width) + noise;
 
 	}
@@ -447,7 +447,7 @@ RtTrackHeightL(tTrkLocPos *p)
 tTrackSeg *
 RtTrackGetSeg(tTrkLocPos *p)
 {
-    tdble tr = p->toRight;
+    float tr = p->toRight;
     tTrackSeg *seg = p->seg;
 
     if ((tr < 0) && (seg->rside != NULL)) {
@@ -476,8 +476,8 @@ RtTrackGetSeg(tTrkLocPos *p)
     @param	Y	Global Y position
     @return	Height in meters
  */
-tdble
-RtTrackHeightG(tTrackSeg *seg, tdble X, tdble Y)
+float
+RtTrackHeightG(tTrackSeg *seg, float X, float Y)
 {
     tTrkLocPos p;
 
@@ -504,9 +504,9 @@ RtTrackHeightG(tTrackSeg *seg, tdble X, tdble Y)
     @todo	RtTrackSideNormalG: Give the correct normal for variable width sides.
  */
 void
-RtTrackSideNormalG(tTrackSeg *seg, tdble X, tdble Y, int side, t3Dd *norm)
+RtTrackSideNormalG(tTrackSeg *seg, float X, float Y, int side, glm::vec3 *norm)
 {
-    tdble lg;
+    float lg;
 
     switch (seg->type) {
     case TR_STR:
@@ -554,7 +554,7 @@ RtTrackSideNormalG(tTrackSeg *seg, tdble X, tdble Y, int side, t3Dd *norm)
     @note	For side segment, the track side is used for the tangent.
  */
 
-tdble
+float
 RtTrackSideTgAngleL(tTrkLocPos *p)
 {
     switch (p->seg->type) {
@@ -581,12 +581,12 @@ RtTrackSideTgAngleL(tTrkLocPos *p)
     @param	norm	Returned normalized road normal vector
  */
 void
-RtTrackSurfaceNormalL(tTrkLocPos *p, t3Dd *norm)
+RtTrackSurfaceNormalL(tTrkLocPos *p, glm::vec3 *norm)
 {
     tTrkLocPos	p1;
-    t3Dd	px1, px2, py1, py2;
-    t3Dd	v1, v2;
-    tdble	lg;
+    glm::vec3	px1, px2, py1, py2;
+    glm::vec3	v1, v2;
+    float	lg;
 
     p1.seg = p->seg;
 
@@ -640,7 +640,7 @@ RtTrackSurfaceNormalL(tTrkLocPos *p, t3Dd *norm)
     @param	car 	the concerned car.
     @return	The distance between the start lane and the car.
  */
-tdble
+float
 RtGetDistFromStart(tCarElt *car)
 {
     tTrkLocPos *p = &(car->_trkPos);
@@ -652,11 +652,11 @@ RtGetDistFromStart(tCarElt *car)
     @param	p	Local position
     @return	The distance between the start lane and the car.
  */
-tdble
+float
 RtGetDistFromStart2(tTrkLocPos *p)
 {
     tTrackSeg	*seg;
-    tdble	lg;
+    float	lg;
 
     seg = p->seg;
     lg = seg->lgfromstart;
@@ -683,12 +683,12 @@ RtGetDistFromStart2(tTrkLocPos *p)
     @note	dW > 0 if the pit is on the right
 */
 int
-RtDistToPit(struct CarElt *car, tTrack *track, tdble *dL, tdble *dW)
+RtDistToPit(struct CarElt *car, tTrack *track, float *dL, float *dW)
 {
     tTrkLocPos	*pitpos;
     tTrkLocPos	*carpos;
-    tdble	pitts;
-    tdble	carts;
+    float	pitts;
+    float	carts;
 
 	// In case there is no pit initialize the output variables
 	*dL = 99999.0; // Means far far away

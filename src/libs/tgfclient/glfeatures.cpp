@@ -740,21 +740,21 @@ bool GfglFeatures::loadSupport(int &nWidth, int &nHeight, int &nDepth,
 	// 2) Color buffer depth.
 	const int nColorDepth =
 		(int)GfParmGetNum(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_COLORDEPTH,
-						  pszNoUnit, (tdble)0);
+						  pszNoUnit, (float)0);
 	if (nColorDepth > 0)
 		_mapSupportedInt[ColorDepth] = nColorDepth;
 
 	// 3) Alpha-channel depth.
 	const int nAlphaDepth =
 		(int)GfParmGetNum(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_ALPHADEPTH,
-						  pszNoUnit, (tdble)-1);
+						  pszNoUnit, (float)-1);
 	if (nAlphaDepth >= 0)
 		_mapSupportedInt[AlphaDepth] = nAlphaDepth;
 
 	// 4) Max texture size.
 	const int nMaxTexSize =
 		(int)GfParmGetNum(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_MAXTEXTURESIZE,
-						  pszNoUnit, (tdble)0);
+						  pszNoUnit, (float)0);
 	if (nMaxTexSize > 0)
 		_mapSupportedInt[TextureMaxSize] = nMaxTexSize;
 
@@ -776,7 +776,7 @@ bool GfglFeatures::loadSupport(int &nWidth, int &nHeight, int &nDepth,
 
 	const int nMultiTexUnits =
 		(int)GfParmGetNum(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_MULTITEXTURINGUNITS,
-						  pszNoUnit, (tdble)0);
+						  pszNoUnit, (float)0);
 	if (nMultiTexUnits > 0)
 		_mapSupportedInt[MultiTexturingUnits] = nMultiTexUnits;
 
@@ -806,7 +806,7 @@ bool GfglFeatures::loadSupport(int &nWidth, int &nHeight, int &nDepth,
 	
 	const int nMultiSampSamples =
 		(int)GfParmGetNum(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_MULTISAMPLINGSAMPLES,
-						  pszNoUnit, (tdble)0);
+						  pszNoUnit, (float)0);
 	if (nMultiSampSamples > 0)
 		_mapSupportedInt[MultiSamplingSamples] = nMultiSampSamples;
 
@@ -829,7 +829,7 @@ bool GfglFeatures::loadSupport(int &nWidth, int &nHeight, int &nDepth,
     // 11) Anisotropic Filtering.
     const int nAF =
         (int)GfParmGetNum(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_ANISOTROPICFILTERING,
-                          pszNoUnit, (tdble)0);
+                          pszNoUnit, (float)0);
     if (nMaxTexSize > 0)
         _mapSupportedInt[AnisotropicFiltering] =nAF;
 
@@ -865,13 +865,13 @@ void GfglFeatures::storeSupport(int nWidth, int nHeight, int nDepth,
 	{
 		// Write new frame buffer specs for the stored supported features.
 		GfParmSetNum(hparm, GFSCR_SECT_GLDETSPECS, GFSCR_ATT_WIN_X, pszNoUnit,
-					 (tdble)nWidth);
+					 (float)nWidth);
 		GfParmSetNum(hparm, GFSCR_SECT_GLDETSPECS, GFSCR_ATT_WIN_Y, pszNoUnit,
-					 (tdble)nHeight);
+					 (float)nHeight);
 		GfParmSetNum(hparm, GFSCR_SECT_GLDETSPECS, GFSCR_ATT_BPP, pszNoUnit,
-					 (tdble)nDepth);
+					 (float)nDepth);
         GfParmSetNum(hparm, GFSCR_SECT_GLDETSPECS, GFSCR_ATT_ANISOTROPICFILTERING, pszNoUnit,
-                     (tdble)nAniFilt);
+                     (float)nAniFilt);
         GfParmSetStr(hparm, GFSCR_SECT_GLDETSPECS, GFSCR_ATT_ALPHACHANNEL,
 					 bAlpha ? GFSCR_VAL_YES : GFSCR_VAL_NO);
 		GfParmSetStr(hparm, GFSCR_SECT_GLDETSPECS, GFSCR_ATT_FSCR,
@@ -889,21 +889,21 @@ void GfglFeatures::storeSupport(int nWidth, int nHeight, int nDepth,
 		// 2) Color buffer depth.
 		if (getSupported(ColorDepth) != InvalidInt)
 			GfParmSetNum(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_COLORDEPTH, pszNoUnit,
-						 (tdble)getSupported(ColorDepth));
+						 (float)getSupported(ColorDepth));
 		else
 			GfParmRemove(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_COLORDEPTH);
 
 		// 3) Alpha-channel depth.
 		if (getSupported(AlphaDepth) != InvalidInt)
 			GfParmSetNum(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_ALPHADEPTH, pszNoUnit,
-						 (tdble)getSupported(AlphaDepth));
+						 (float)getSupported(AlphaDepth));
 		else
 			GfParmRemove(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_ALPHADEPTH);
 
 		// 4) Max texture size.
 		if (getSupported(TextureMaxSize) != InvalidInt)
 			GfParmSetNum(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_MAXTEXTURESIZE, pszNoUnit,
-						 (tdble)getSupported(TextureMaxSize));
+						 (float)getSupported(TextureMaxSize));
 		else
 			GfParmRemove(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_MAXTEXTURESIZE);
 		
@@ -916,7 +916,7 @@ void GfglFeatures::storeSupport(int nWidth, int nHeight, int nDepth,
 					 isSupported(MultiTexturing) ? GFSCR_VAL_YES : GFSCR_VAL_NO);
 		if (getSupported(MultiTexturingUnits) != InvalidInt)
 			GfParmSetNum(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_MULTITEXTURINGUNITS, pszNoUnit,
-						 (tdble)getSupported(MultiTexturingUnits));
+						 (float)getSupported(MultiTexturingUnits));
 		else
 			GfParmRemove(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_MULTITEXTURINGUNITS);
 
@@ -934,7 +934,7 @@ void GfglFeatures::storeSupport(int nWidth, int nHeight, int nDepth,
 	
 		if (getSupported(MultiSamplingSamples) != InvalidInt)
 			GfParmSetNum(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_MULTISAMPLINGSAMPLES, pszNoUnit,
-						 (tdble)getSupported(MultiSamplingSamples));
+						 (float)getSupported(MultiSamplingSamples));
 		else
 			GfParmRemove(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_MULTISAMPLINGSAMPLES);
 
@@ -949,7 +949,7 @@ void GfglFeatures::storeSupport(int nWidth, int nHeight, int nDepth,
         // 12) Aniso Filtering
         if (getSupported(AnisotropicFiltering) != InvalidInt)
             GfParmSetNum(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_ANISOTROPICFILTERING, pszNoUnit,
-                         (tdble)getSupported(AnisotropicFiltering));
+                         (float)getSupported(AnisotropicFiltering));
         else
             GfParmRemove(hparm, GFSCR_SECT_GLDETFEATURES, GFSCR_ATT_ANISOTROPICFILTERING);
 
@@ -1011,11 +1011,11 @@ bool GfglFeatures::checkBestSupport(int nWidth, int nHeight, int nDepth,
 			// Note: Sure the specs are in the 'in-test' state here,
 			//       otherwise they would not have changed.
 			GfParmSetNum(hparm, GFSCR_SECT_INTESTPROPS, GFSCR_ATT_WIN_X, pszNoUnit,
-						 (tdble)nDetWidth);
+						 (float)nDetWidth);
 			GfParmSetNum(hparm, GFSCR_SECT_INTESTPROPS, GFSCR_ATT_WIN_Y, pszNoUnit,
-						 (tdble)nDetHeight);
+						 (float)nDetHeight);
 			GfParmSetNum(hparm, GFSCR_SECT_INTESTPROPS, GFSCR_ATT_BPP, pszNoUnit,
-						 (tdble)nDetDepth);
+						 (float)nDetDepth);
 			GfParmSetStr(hparm, GFSCR_SECT_INTESTPROPS, GFSCR_ATT_ALPHACHANNEL,
 						 bDetAlpha ? GFSCR_VAL_YES : GFSCR_VAL_NO);
 			GfParmSetStr(hparm, GFSCR_SECT_INTESTPROPS, GFSCR_ATT_FSCR,
@@ -1119,7 +1119,7 @@ void GfglFeatures::loadSelection(void* hparmConfig)
 	// 4) Max texture size : load from config file.
 	_mapSelectedInt[TextureMaxSize] =
 		(int)GfParmGetNum(hparm, GFSCR_SECT_GLSELFEATURES, GFSCR_ATT_MAXTEXTURESIZE,
-						  pszNoUnit, (tdble)getSupported(TextureMaxSize));
+						  pszNoUnit, (float)getSupported(TextureMaxSize));
 	if (_mapSelectedInt[TextureMaxSize] > getSupported(TextureMaxSize))
 		_mapSelectedInt[TextureMaxSize] = getSupported(TextureMaxSize);
 
@@ -1138,7 +1138,7 @@ void GfglFeatures::loadSelection(void* hparmConfig)
 		   == GFSCR_ATT_MULTITEXTURING_ENABLED;
 	_mapSelectedInt[MultiTexturingUnits] = 
 		(int)GfParmGetNum(hparm, GFSCR_SECT_GLSELFEATURES, GFSCR_ATT_MULTITEXTURINGUNITS,
-						  pszNoUnit, (tdble)getSupported(TextureMaxSize));
+						  pszNoUnit, (float)getSupported(TextureMaxSize));
 	if (_mapSelectedInt[MultiTexturingUnits] > getSupported(MultiTexturingUnits))
 		_mapSelectedInt[MultiTexturingUnits] = getSupported(MultiTexturingUnits);
 
@@ -1160,7 +1160,7 @@ void GfglFeatures::loadSelection(void* hparmConfig)
 	
 	_mapSelectedInt[MultiSamplingSamples] =
 		(int)GfParmGetNum(hparm, GFSCR_SECT_GLSELFEATURES, GFSCR_ATT_MULTISAMPLINGSAMPLES,
-						  pszNoUnit, (tdble)8); // Good but reasonable value.
+						  pszNoUnit, (float)8); // Good but reasonable value.
 	if (_mapSelectedInt[MultiSamplingSamples] > getSupported(MultiSamplingSamples))
 		_mapSelectedInt[MultiSamplingSamples] = getSupported(MultiSamplingSamples);
 
@@ -1183,7 +1183,7 @@ void GfglFeatures::loadSelection(void* hparmConfig)
 
     // 12) Anisotropic Filtering : load from config file.
     _mapSelectedInt[AnisotropicFiltering] = (int)GfParmGetNum(hparm, GFSCR_SECT_GLSELFEATURES, GFSCR_ATT_ANISOTROPICFILTERING,
-                                    pszNoUnit, (tdble)getSupported(AnisotropicFiltering));
+                                    pszNoUnit, (float)getSupported(AnisotropicFiltering));
 	// Close config file if we open it.
 	if (!hparmConfig)
 		closeConfigFile(hparm);
@@ -1208,7 +1208,7 @@ void GfglFeatures::storeSelection(void* hparmConfig) const
 				 ? GFSCR_ATT_TEXTURECOMPRESSION_ENABLED : GFSCR_ATT_TEXTURECOMPRESSION_DISABLED);
 	if (getSupported(TextureMaxSize) != InvalidInt)
 		GfParmSetNum(hparm, GFSCR_SECT_GLSELFEATURES, GFSCR_ATT_MAXTEXTURESIZE, pszNoUnit,
-					 (tdble)getSelected(TextureMaxSize));
+					 (float)getSelected(TextureMaxSize));
 	else
 		GfParmRemove(hparm, GFSCR_SECT_GLSELFEATURES, GFSCR_ATT_MAXTEXTURESIZE);
 		
@@ -1220,7 +1220,7 @@ void GfglFeatures::storeSelection(void* hparmConfig) const
 				 ? GFSCR_ATT_MULTISAMPLING_ENABLED : GFSCR_ATT_MULTISAMPLING_DISABLED);
 	if (getSupported(MultiSamplingSamples) != InvalidInt)
 		GfParmSetNum(hparm, GFSCR_SECT_GLSELFEATURES, GFSCR_ATT_MULTISAMPLINGSAMPLES, pszNoUnit,
-					 (tdble)getSelected(MultiSamplingSamples));
+					 (float)getSelected(MultiSamplingSamples));
 	else
 		GfParmRemove(hparm, GFSCR_SECT_GLSELFEATURES, GFSCR_ATT_MULTISAMPLINGSAMPLES);
 
@@ -1258,7 +1258,7 @@ void GfglFeatures::storeSelection(void* hparmConfig) const
 
     if (getSupported(AnisotropicFiltering) != InvalidInt)
         GfParmSetNum(hparm, GFSCR_SECT_GLSELFEATURES, GFSCR_ATT_ANISOTROPICFILTERING, pszNoUnit,
-                     (tdble)getSelected(AnisotropicFiltering));
+                     (float)getSelected(AnisotropicFiltering));
     else
         GfParmRemove(hparm, GFSCR_SECT_GLSELFEATURES, GFSCR_ATT_ANISOTROPICFILTERING);
 	

@@ -249,7 +249,7 @@ reTrackInitTimeOfDay(void)
 			break;
 
 		case RM_IND_TIME_RANDOM:			
-			trackLocal->timeofday = (tdble)(rand() % (24*60*60));
+			trackLocal->timeofday = (float)(rand() % (24*60*60));
 			break;
 
 		default:
@@ -316,7 +316,7 @@ reTrackInitWeather(void)
 		clouds = TR_CLOUDS_RANDOM;
 		
 		// Random rain (if random[0,1] < trackLocal->anyrainlkhood, then it rains).
-		const tdble randDraw = (tdble)(rand()/(double)RAND_MAX);
+		const float randDraw = (float)(rand()/(double)RAND_MAX);
 
 		GfLogTrace("Rain likelyhoods : overall=%.2f, little=%.2f, medium=%.2f\n",
 				   trackLocal->anyrainlkhood, trackLocal->littlerainlkhood,
@@ -326,7 +326,7 @@ reTrackInitWeather(void)
 		{
 			// Now, let's determine how much it rains :
 			// if random[0,1] < little rain likelyhood => rain = little rain
-			const tdble randDraw2 = (tdble)(rand()/(double)RAND_MAX);
+			const float randDraw2 = (float)(rand()/(double)RAND_MAX);
 			GfLogDebug("Specific rain random draw = %.2f,\n", randDraw2);
 			if (randDraw2 < trackLocal->littlerainlkhood)
 				rain = TR_RAIN_LITTLE;
@@ -394,12 +394,12 @@ reTrackUpdatePhysics(void)
 	// Get the wet / dry friction coefficients ratio.
 	void* hparmTrackConsts =
 		GfParmReadFile(TRK_PHYSICS_FILE, GFPARM_RMODE_STD | GFPARM_RMODE_CREAT);
-	const tdble kFrictionWetDryRatio = 
+	const float kFrictionWetDryRatio = 
 		GfParmGetNum(hparmTrackConsts, TRKP_SECT_SURFACES, TRKP_VAL_FRICTIONWDRATIO, (char*)NULL, 0.5f);
 	GfParmReleaseHandle(hparmTrackConsts);
 	
 	// Determine the "wetness" of the track (inside  [0, 1]).
-	const tdble wetness = (tdble)trackLocal->water / TR_WATER_MUCH;
+	const float wetness = (float)trackLocal->water / TR_WATER_MUCH;
 
 	GfLogDebug("ReTrackUpdate : water = %d, wetness = %.2f, wet/dry mu = %.4f\n",
 			   trackLocal->water, wetness, kFrictionWetDryRatio);

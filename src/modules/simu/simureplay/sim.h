@@ -55,7 +55,7 @@ extern void SimCarUpdate2(tCar *car, tSituation*);
 
 extern void SimSuspCheckIn(tSuspension *susp);
 extern void SimSuspUpdate(tSuspension *susp);
-extern void SimSuspConfig(void *hdle, const char *section, tSuspension *susp, tdble F0, tdble X0);
+extern void SimSuspConfig(void *hdle, const char *section, tSuspension *susp, float F0, float X0);
 
 extern void SimWheelConfig(tCar *car, int index);
 extern void SimWheelUpdateRide(tCar *car, int index);
@@ -88,7 +88,7 @@ extern void SimDifferentialUpdate(tCar *car, tDifferential *differential, int fi
 
 extern void SimEngineConfig(tCar *car);
 extern void SimEngineUpdateTq(tCar *car);
-extern tdble SimEngineUpdateRpm(tCar *car, tdble axleRpm);
+extern float SimEngineUpdateRpm(tCar *car, float axleRpm);
 extern void SimEngineShutdown(tCar *car);
 
 extern void SimCarCollideZ(tCar *car);
@@ -99,14 +99,14 @@ extern void SimCarCollideShutdown(int nbcars);
 extern void SimCarCollideInit(tTrack *track);
 extern void SimCollideRemoveCar(tCar *car, int nbcars);
 
-extern tdble SimDeltaTime;
+extern float SimDeltaTime;
 extern int SimTelemetry;
 extern tCar *SimCarTable;
-extern t3Dd vectStart[];
-extern t3Dd vectEnd[];
+extern glm::vec3 vectStart[];
+extern glm::vec3 vectEnd[];
 
-extern tdble simDammageFactor[];
-extern tdble simSkidFactor[];
+extern float simDammageFactor[];
+extern float simSkidFactor[];
 #endif
 
 /// return a number drawn uniformly from [0,1]

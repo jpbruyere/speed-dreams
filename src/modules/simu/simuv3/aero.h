@@ -25,39 +25,39 @@
 typedef struct
 {
     /* dynamic */
-    tdble	drag;		/* drag force along car x axis */
-    tdble	lift[2];	/* front & rear lift force along car z axis */
-    tdble   lateral_drag; /* drag force along car y axis */
-    tdble   vertical_drag; /* drag force along car z axis */
-	tdble   Mx, My, Mz; /* torques (only with aero damage) */
+    float	drag;		/* drag force along car x axis */
+    float	lift[2];	/* front & rear lift force along car z axis */
+    float   lateral_drag; /* drag force along car y axis */
+    float   vertical_drag; /* drag force along car z axis */
+	float   Mx, My, Mz; /* torques (only with aero damage) */
 	sgVec3   rot_front;
 	sgVec3   rot_lateral; 
 	sgVec3   rot_vertical;
     /* static */
-    tdble	SCx2;
-    tdble	Clift[2];	/* front & rear lift due to body not wings */
-    tdble	Cd;		/* for aspiration */
+    float	SCx2;
+    float	Clift[2];	/* front & rear lift due to body not wings */
+    float	Cd;		/* for aspiration */
 } tAero;
 
 
 typedef struct
 {
     /* dynamic */
-    t3Dd	forces;
-    tdble	Kx;
-    tdble	Kz;
-	tdble	angle;
-    tdble efficiency;
+    glm::vec3	forces;
+    float	Kx;
+    float	Kz;
+	float	angle;
+    float efficiency;
     /* static */
-    t3Dd	staticPos;
+    glm::vec3	staticPos;
     
 } tWing;
 
 /// Get the maximum possible lift coefficient given a drag coefficient
-tdble Max_Cl_given_Cd (tdble Cd);
+float Max_Cl_given_Cd (float Cd);
 
 /// Get the maximum possible lift given a drag coefficient and area
-tdble Max_Cl_given_Cd (tdble Cd, tdble A);
+float Max_Cl_given_Cd (float Cd, float A);
 
 /** Get the maximum lift given drag.
  * 
@@ -80,7 +80,7 @@ tdble Max_Cl_given_Cd (tdble Cd, tdble A);
  *
  * \arg \c drag
  */
-tdble MaximumLiftGivenDrag (tdble drag, tdble A = 1.0);
+float MaximumLiftGivenDrag (float drag, float A = 1.0);
 
 
 #endif /* _AERO_H_  */ 

@@ -65,7 +65,7 @@ static int	VisibilityLabelId, VisibilityLeftButtonId, VisibilityRightButtonId;
 static int	FovFactorValue = 100;
 static int	SmokeValue = 300;
 static int	SkidValue = 20;
-static tdble	LodFactorValue = 1.0;
+static float	LodFactorValue = 1.0;
 static int 	SkyDomeDistanceIndex = 0;
 static int 	DynamicTimeOfDayIndex = 0;
 static int 	PrecipDensityIndex = NbPrecipDensityValues - 1;

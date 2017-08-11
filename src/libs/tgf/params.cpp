@@ -73,12 +73,12 @@ struct param
     char				*name;		/**< Name of the parameter  */
     char				*fullName;	/**< Name of the parameter including the full section name ('/' separated) */
     char				*value;		/**< Value of the parameter */
-    tdble				valnum;
+    float				valnum;
     void				*formula;
     int					type;
     char				*unit;		/* for output only */
-    tdble				min;
-    tdble				max;
+    float				min;
+    float				max;
     struct withinHead			withinList;
     GF_TAILQ_ENTRY (struct param)	linkParam;	/**< Next parameter in the same section */
 };
@@ -614,17 +614,17 @@ myStrcmp(const void *s1, const void * s2)
     return strcmp((const char *)s1, (const char *)s2);
 }
 
-static tdble
+static float
 getValNumFromStr (const char *str)
 {
-    tdble val = 0.0;
+    float val = 0.0;
 
     if (!str || !strlen (str)) {
 	return 0.0;
     }
 
     if (strncmp (str, "0x", 2) == 0) {
-	return (tdble)strtol(str, NULL, 0);
+	return (float)strtol(str, NULL, 0);
     }
     
     sscanf (str, "%g", &val);
@@ -2116,10 +2116,10 @@ void GfParmReleaseHandle (void *parmHandle)
 
 
 static void
-evalUnit (char *unit, tdble *dest, int invert)
+evalUnit (char *unit, float *dest, int invert)
 {
-	// TODO: Use a static std::map<const char*, tdble> to make this code faster ?
-    tdble coeff = 1.0;
+	// TODO: Use a static std::map<const char*, float> to make this code faster ?
+    float coeff = 1.0;
 	
     // SI units.
     if (strcmp(unit, "m") == 0) return;
@@ -2202,14 +2202,14 @@ evalUnit (char *unit, tdble *dest, int invert)
 	     <br>All other units are considered SI, and thus not converted (coef=1)
     @see	GfParmSI2Unit
  */
-tdble
-GfParmUnit2SI (const char *unit, tdble val)
+float
+GfParmUnit2SI (const char *unit, float val)
 {
 	char buf[256];
 	int  idx;
 	const char *s;
 	int  inv;
-	tdble dest = val;
+	float dest = val;
 	
 	if ((unit == NULL) || (strlen(unit) == 0)) return dest;
 	
@@ -2256,14 +2256,14 @@ GfParmUnit2SI (const char *unit, tdble val)
     @return	converted value to units
     @see	GfParmUnit2SI
  */
-tdble
-GfParmSI2Unit (const char *unit, tdble val)
+float
+GfParmSI2Unit (const char *unit, float val)
 {
 	char buf[256];
 	int  idx;
 	const char *s;
 	int  inv;
-	tdble dest = val;
+	float dest = val;
 	
 	if ((unit == NULL) || (strlen(unit) == 0)) return dest;
 	
@@ -2939,13 +2939,13 @@ GfParmGetCurStrNC (void *handle, const char *path, const char *key, char *deflt)
     @param	deflt	default string	
     @return	parameter value
  */
-tdble
-GfParmGetNum (void *handle, char const *path, const char *key, const char *unit, tdble deflt)
+float
+GfParmGetNum (void *handle, char const *path, const char *key, const char *unit, float deflt)
 {
 	struct parmHandle *parmHandle = (struct parmHandle *)handle;
 	struct parmHeader *conf;
 	struct param *param;
-	tdble val;
+	float val;
 
 	if ((parmHandle == NULL) || (parmHandle->magic != PARM_MAGIC)) {
 		GfLogError ("GfParmGetNum: bad handle (%p)\n", parmHandle);
@@ -2995,8 +2995,8 @@ GfParmGetNum (void *handle, char const *path, const char *key, const char *unit,
     @param	deflt	default string	
     @return	parameter value
  */
-tdble
-GfParmGetNumMin (void *handle, char const *path, const char *key, const char *unit, tdble deflt)
+float
+GfParmGetNumMin (void *handle, char const *path, const char *key, const char *unit, float deflt)
 {
 	struct parmHandle *parmHandle = (struct parmHandle *)handle;
 
@@ -3005,7 +3005,7 @@ GfParmGetNumMin (void *handle, char const *path, const char *key, const char *un
 
 	struct parmHeader *conf;
 	struct param *param;
-	tdble min;
+	float min;
 
 	if (parmHandle->magic != PARM_MAGIC) {
 		GfFatal ("GfParmGetNumMin: bad handle (%p)\n", parmHandle);
@@ -3045,8 +3045,8 @@ GfParmGetNumMin (void *handle, char const *path, const char *key, const char *un
     @param	deflt	default string	
     @return	parameter value
  */
-tdble
-GfParmGetNumMax (void *handle, char const *path, const char *key, const char *unit, tdble deflt)
+float
+GfParmGetNumMax (void *handle, char const *path, const char *key, const char *unit, float deflt)
 {
 	struct parmHandle *parmHandle = (struct parmHandle *)handle;
 
@@ -3055,7 +3055,7 @@ GfParmGetNumMax (void *handle, char const *path, const char *key, const char *un
 
 	struct parmHeader *conf;
 	struct param *param;
-	tdble max;
+	float max;
 
 	if (parmHandle->magic != PARM_MAGIC) {
 		GfFatal ("GfParmGetNum: bad handle (%p)\n", parmHandle);
@@ -3101,7 +3101,7 @@ GfParmGetNumMax (void *handle, char const *path, const char *key, const char *un
     in success value, min and max is changed
  */
 int
-GfParmGetNumWithLimits (void *handle, char const *path, const char *key, const char *unit, tdble* value, tdble* min, tdble* max)
+GfParmGetNumWithLimits (void *handle, char const *path, const char *key, const char *unit, float* value, float* min, float* max)
 {
 	struct parmHandle *parmHandle = (struct parmHandle *)handle;
 	struct parmHeader *conf;
@@ -3159,14 +3159,14 @@ GfParmGetNumWithLimits (void *handle, char const *path, const char *key, const c
     @param	deflt	default string	
     @return	parameter value
  */
-tdble
-GfParmGetCurNum (void *handle, const char *path, const char *key, const char *unit, tdble deflt)
+float
+GfParmGetCurNum (void *handle, const char *path, const char *key, const char *unit, float deflt)
 {
     struct parmHandle *parmHandle = (struct parmHandle *)handle;
     struct parmHeader *conf;
     struct section	*section;
     struct param	*param;
-    tdble val;
+    float val;
 
 	if ((parmHandle == NULL) || (parmHandle->magic != PARM_MAGIC)) {
 		GfLogError ("GfParmGetCurNum: bad handle (%p)\n", parmHandle);
@@ -3210,14 +3210,14 @@ GfParmGetCurNum (void *handle, const char *path, const char *key, const char *un
     @param	deflt	default string	
     @return	parameter value
  */
-tdble
-GfParmGetCurNumMin (void *handle, const char *path, const char *key, const char *unit, tdble deflt)
+float
+GfParmGetCurNumMin (void *handle, const char *path, const char *key, const char *unit, float deflt)
 {
     struct parmHandle *parmHandle = (struct parmHandle *)handle;
     struct parmHeader *conf;
     struct section	*section;
     struct param	*param;
-	tdble min;
+	float min;
 
 	if ((parmHandle == NULL) || (parmHandle->magic != PARM_MAGIC)) {
 		GfLogError ("GfParmGetCurNum: bad handle (%p)\n", parmHandle);
@@ -3258,14 +3258,14 @@ GfParmGetCurNumMin (void *handle, const char *path, const char *key, const char 
     @param	deflt	default string	
     @return	parameter value
  */
-tdble
-GfParmGetCurNumMax (void *handle, const char *path, const char *key, const char *unit, tdble deflt)
+float
+GfParmGetCurNumMax (void *handle, const char *path, const char *key, const char *unit, float deflt)
 {
     struct parmHandle *parmHandle = (struct parmHandle *)handle;
     struct parmHeader *conf;
     struct section	*section;
     struct param	*param;
-    tdble max;
+    float max;
 
 	if ((parmHandle == NULL) || (parmHandle->magic != PARM_MAGIC)) {
 		GfLogError ("GfParmGetCurNum: bad handle (%p)\n", parmHandle);
@@ -3506,7 +3506,7 @@ GfParmSetCurStr(void *handle, const char *path, const char *key, const char *val
     @warning	The key is created is necessary
  */
 int
-GfParmSetNum(void *handle, const char *path, const char *key, const char *unit, tdble val)
+GfParmSetNum(void *handle, const char *path, const char *key, const char *unit, float val)
 {
 	struct parmHandle *parmHandle = (struct parmHandle *)handle;
 	struct parmHeader *conf;
@@ -3556,7 +3556,7 @@ GfParmSetNum(void *handle, const char *path, const char *key, const char *unit, 
     @warning	The key is created is necessary
  */
 int
-GfParmSetNum(void *handle, const char *path, const char *key, const char *unit, tdble val, tdble min, tdble max)
+GfParmSetNum(void *handle, const char *path, const char *key, const char *unit, float val, float min, float max)
 {
     struct parmHandle *parmHandle = (struct parmHandle *)handle;
     struct parmHeader *conf;
@@ -3598,7 +3598,7 @@ GfParmSetNum(void *handle, const char *path, const char *key, const char *unit, 
     @warning	The key is created is necessary
  */
 int
-GfParmSetCurNum(void *handle, const char *path, const char *key, const char *unit, tdble val)
+GfParmSetCurNum(void *handle, const char *path, const char *key, const char *unit, float val)
 {
     struct parmHandle *parmHandle = (struct parmHandle *)handle;
     struct parmHeader *conf;
@@ -3729,13 +3729,13 @@ GfParmSetCurFormula(void *handle, char const *path, char const *key, char const 
     return 0;
 }
 
-tdble GfParmGetVariable(void *handle, char const *path, char const *key)
+float GfParmGetVariable(void *handle, char const *path, char const *key)
 {
     struct parmHandle *parmHandle = (struct parmHandle *)handle;
     struct parmHeader *conf;
     char *pathdup = (char*)malloc( strlen( path ) + strlen( key ) + 3 );
     char *str;
-    tdble *val;
+    float *val;
     strcpy( pathdup, path );
     if( pathdup[ 0 ] == '/' )
     	memmove( pathdup, pathdup + sizeof( char ), sizeof( char ) * strlen( pathdup ) );
@@ -3750,7 +3750,7 @@ tdble GfParmGetVariable(void *handle, char const *path, char const *key)
     do {
         strcat( pathdup, "/" );
 	strcat( pathdup, key );
-        val = (tdble*)GfHashGetStr(conf->variableHash, pathdup);
+        val = (float*)GfHashGetStr(conf->variableHash, pathdup);
 	str = strrchr(pathdup, '/');
 	if (!str)
 	    break;
@@ -3802,13 +3802,13 @@ void GfParmRemoveVariable(void *handle, char const *path, char const *key)
     	free(val);
 }
 
-void GfParmSetVariable(void *handle, char const *path, char const *key, tdble val)
+void GfParmSetVariable(void *handle, char const *path, char const *key, float val)
 {
     struct parmHandle *parmHandle = (struct parmHandle *)handle;
     struct parmHeader *conf;
     char *pathdup = (char*)malloc( strlen( path ) + strlen( key ) + 3 );
 
-    tdble *val_ptr;
+    float *val_ptr;
     strcpy( pathdup, path );
     if( pathdup[ 0 ] == '/' )
     	memmove( pathdup, pathdup + sizeof( char ), sizeof( char ) * strlen( pathdup ) );
@@ -3823,10 +3823,10 @@ void GfParmSetVariable(void *handle, char const *path, char const *key, tdble va
 
 	conf = parmHandle->conf;
  
-    val_ptr = (tdble*)malloc( sizeof(tdble) );
+    val_ptr = (float*)malloc( sizeof(float) );
     *val_ptr = val;
     GfHashAddStr(conf->variableHash, pathdup, (void*)val_ptr);
-    val_ptr = (tdble*)GfHashGetStr(conf->variableHash, pathdup );
+    val_ptr = (float*)GfHashGetStr(conf->variableHash, pathdup );
     free(pathdup);
 }
 
@@ -3961,12 +3961,12 @@ int GfParmSetCurStrf(void *handle, const char *val, char const *format, ...)
     return ret;
 }
 
-tdble GfParmGetNumf(void *handle, const char *unit, tdble deflt, char const* format, ...)
+float GfParmGetNumf(void *handle, const char *unit, float deflt, char const* format, ...)
 {
     va_list arg;
     char const* path;
     char const* key;
-    tdble ret;
+    float ret;
 
     va_start( arg, format );
     path = GfParmMakePathKey( format, arg, &key );
@@ -3976,12 +3976,12 @@ tdble GfParmGetNumf(void *handle, const char *unit, tdble deflt, char const* for
     return ret;
 }
 
-tdble GfParmGetCurNumf(void *handle, const char *unit, tdble deflt, char const* format, ...)
+float GfParmGetCurNumf(void *handle, const char *unit, float deflt, char const* format, ...)
 {
     va_list arg;
     char const* path;
     char const* key;
-    tdble ret;
+    float ret;
 
     va_start( arg, format );
     path = GfParmMakePathKey( format, arg, &key );
@@ -3991,7 +3991,7 @@ tdble GfParmGetCurNumf(void *handle, const char *unit, tdble deflt, char const* 
     return ret;
 }
 
-int GfParmSetNumf(void *handle, const char *unit, tdble val, char const* format, ...)
+int GfParmSetNumf(void *handle, const char *unit, float val, char const* format, ...)
 {
     va_list arg;
     char const* path;
@@ -4006,7 +4006,7 @@ int GfParmSetNumf(void *handle, const char *unit, tdble val, char const* format,
     return ret;
 }
 
-int GfParmSetCurNumf(void *handle, const char *unit, tdble val, char const* format, ...)
+int GfParmSetCurNumf(void *handle, const char *unit, float val, char const* format, ...)
 {
     va_list arg;
     char const* path;
@@ -4194,7 +4194,7 @@ insertParamMerge (struct parmHandle *parmHandle, char *path, struct param *param
     struct param	*paramNew;
     struct within	*withinRef;
     struct within	*within;
-    tdble		num;
+    float		num;
     char		*str;
 
 	if ((parmHandle == NULL) || (parmHandle->magic != PARM_MAGIC)) {
@@ -4514,7 +4514,7 @@ void* GfParmMergeFiles(void * params, const char* fileName)
 		<br>-1 Parameter not existing
  */
 int
-GfParmGetNumBoundaries(void *handle, char *path, char *key, tdble *min, tdble *max)
+GfParmGetNumBoundaries(void *handle, char *path, char *key, float *min, float *max)
 {
     struct parmHandle *parmHandle = (struct parmHandle *)handle;
     struct parmHeader *conf;

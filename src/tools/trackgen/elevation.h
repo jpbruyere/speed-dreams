@@ -2,7 +2,7 @@
 
     file                 : elevation.h
     created              : Mon May 20 23:11:14 CEST 2002
-    copyright            : (C) 2001 by Eric Espié
+    copyright            : (C) 2001 by Eric EspiÃ©
     email                : Eric.Espie@torcs.org
     version              : $Id$
 
@@ -27,7 +27,7 @@
 #define _ELEVATION_H_
 
 extern void LoadElevation(tTrack *track, void *TrackHandle, char *imgFile);
-extern tdble GetElevation(tdble x, tdble y, tdble z);
+extern float GetElevation(float x, float y, float z);
 extern void SaveElevation(tTrack *track, void *TrackHandle, char *imgFile, char *meshFile, int disp);
 
 

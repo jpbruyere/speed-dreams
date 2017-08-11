@@ -84,8 +84,8 @@ typedef struct objdef
     int			random;
     unsigned int	color;
     ssgEntity		*obj;
-    tdble		deltaHeight;
-    tdble		deltaVert;
+    float		deltaHeight;
+    float		deltaVert;
 } tobjdef;
 
 GF_TAILQ_HEAD(objlist, objdef);
@@ -192,12 +192,12 @@ AddToRoot(ssgEntity *node)
 }
 
 static void
-AddObject(unsigned int clr, tdble x, tdble y)
+AddObject(unsigned int clr, float x, float y)
 {
     struct objdef	*curObj;
     ssgEntity		*obj;
     sgMat4		m;
-    tdble		dv;
+    float		dv;
     
     for (curObj = GF_TAILQ_FIRST(&objhead); curObj; curObj = GF_TAILQ_NEXT(curObj, link)) {
 	if (clr == curObj->color) {
@@ -389,7 +389,7 @@ InsertInner(ssgEntity *ent)
 static void
 Group(tTrack *track, void *TrackHandle, ssgEntity *ent)
 {
-    tdble	Margin;
+    float	Margin;
     
     if (GroupRoot) {
 	delete (GroupRoot);
@@ -422,9 +422,9 @@ GenerateObjects(tTrack *track, void *TrackHandle, void *CfgHandle, FILE *save_fd
     const char		*map;
     unsigned char	*MapImage;
     int			width, height;
-    tdble		xmin, xmax, ymin, ymax;
-    tdble 		Margin;
-    tdble		kX, kY, dX, dY;
+    float		xmin, xmax, ymin, ymax;
+    float 		Margin;
+    float		kX, kY, dX, dY;
     unsigned int	clr;
     int			index;
     const char		*extName;

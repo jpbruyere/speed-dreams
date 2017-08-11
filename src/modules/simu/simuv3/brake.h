@@ -22,19 +22,19 @@
 
 typedef struct
 {
-    tdble	pressure;
-    tdble	Tq;
-    tdble	coeff;
-    tdble	I;
-    tdble	radius;
-    tdble	temp;
+    float	pressure;
+    float	Tq;
+    float	coeff;
+    float	I;
+    float	radius;
+    float	temp;
 } tBrake;
 
 typedef struct
 {
-    tdble	rep;	/* front/rear repartition */ 
-    tdble	coeff;
-    tdble   ebrake_pressure;
+    float	rep;	/* front/rear repartition */ 
+    float	coeff;
+    float   ebrake_pressure;
 } tBrakeSyst;
 
 

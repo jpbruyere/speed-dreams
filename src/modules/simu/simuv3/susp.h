@@ -23,25 +23,25 @@
 
 typedef struct 
 {
-    tdble C1, b1, v1; /* coefs for slow */
-    tdble C2, b2;     /* coefs for fast */
+    float C1, b1, v1; /* coefs for slow */
+    float C2, b2;     /* coefs for fast */
 } tDamperDef;
 
 typedef struct
 {
     tDamperDef bump;
     tDamperDef rebound;
-	tdble efficiency;
+	float efficiency;
 } tDamper;
     
 typedef struct 
 {
-    tdble K;          /* spring coef */
-    tdble F0;         /* initial force */
-    tdble x0;         /* initial suspension travel */
-    tdble xMax;       /* maxi suspension travel */
-    tdble bellcrank;  /* ratio of movement between wheel and suspension */
-    tdble packers;     /* packer size (min susp. travel) */
+    float K;          /* spring coef */
+    float F0;         /* initial force */
+    float x0;         /* initial suspension travel */
+    float xMax;       /* maxi suspension travel */
+    float bellcrank;  /* ratio of movement between wheel and suspension */
+    float packers;     /* packer size (min susp. travel) */
 } tSpring;
 
 
@@ -55,15 +55,15 @@ typedef struct Suspension
     tSpring spring;
     tDamper damper;
 
-    tdble x; /* suspension travel */
-    tdble over_x; /* suspension travel beyond packers */
-    tdble v; /* suspension travel speed */
-    tdble fx; // pure elastic collision 
-    tdble fy; // pure elastic collision
+    float x; /* suspension travel */
+    float over_x; /* suspension travel beyond packers */
+    float v; /* suspension travel speed */
+    float fx; // pure elastic collision 
+    float fy; // pure elastic collision
     eSuspensionType type;
-    t3Dd dynamic_angles;
-    t3Dd link;
-    tdble force;        /* generated force */
+    glm::vec3 dynamic_angles;
+    glm::vec3 link;
+    float force;        /* generated force */
     int    state;        /* indicate the state of the suspension */
 #define SIM_SUSP_COMP   1  	/* the suspension is fully compressed */
 #define SIM_SUSP_EXT    2  	/* the suspension is fully extended */

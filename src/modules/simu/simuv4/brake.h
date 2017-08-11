@@ -22,19 +22,19 @@
 
 typedef struct
 {
-    tdble	pressure;
-    tdble	Tq;
-    tdble	coeff;
-    tdble	I;
-    tdble	radius;
-    tdble	temp;
+    float	pressure;
+    float	Tq;
+    float	coeff;
+    float	I;
+    float	radius;
+    float	temp;
 
 	// Options that can be enabled in simuV4 
 	// by parameters in the car type setup file 
 
-	// Add variables here (tdble)
-	tdble	TCL;		// TCL factor
-	tdble	ABS;		// ABS factor
+	// Add variables here (float)
+	float	TCL;		// TCL factor
+	float	ABS;		// ABS factor
 
 	// Add switches here (bool)
 	bool	EnableABS;	// Switch to enable ABS 
@@ -42,9 +42,9 @@ typedef struct
 
 typedef struct
 {
-    tdble	rep;	/* front/rear repartition */ 
-    tdble	coeff;
-    tdble   ebrake_pressure;
+    float	rep;	/* front/rear repartition */ 
+    float	coeff;
+    float   ebrake_pressure;
 } tBrakeSyst;
 
 

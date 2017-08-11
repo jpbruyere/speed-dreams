@@ -38,12 +38,12 @@ static void initDamper(tSuspension *susp)
 /*
  * get damper force
  */
-static tdble damperForce(tSuspension *susp)
+static float damperForce(tSuspension *susp)
 {
 	tDamperDef *dampdef;
-	tdble     f;
-	tdble     av;
-	tdble     v;
+	float     f;
+	float     av;
+	float     v;
 
 	v = susp->v;
 	
@@ -77,10 +77,10 @@ static tdble damperForce(tSuspension *susp)
 /*
  * get spring force
  */
-static tdble springForce(tSuspension *susp)
+static float springForce(tSuspension *susp)
 {
 	tSpring *spring = &(susp->spring);
-	tdble f;
+	float f;
 	
 	/* K is < 0 */
 	f = spring->K * (susp->x - spring->x0) + spring->F0;
@@ -119,7 +119,7 @@ void SimSuspUpdate(tSuspension *susp)
 
 
 
-void SimSuspConfig(void *hdle, const char *section, tSuspension *susp, tdble F0, tdble X0)
+void SimSuspConfig(void *hdle, const char *section, tSuspension *susp, float F0, float X0)
 {
 	susp->spring.K          = GfParmGetNum(hdle, section, PRM_SPR, (char*)NULL, 175000.0f);
 	susp->spring.xMax       = GfParmGetNum(hdle, section, PRM_SUSPCOURSE, (char*)NULL, 0.5f);

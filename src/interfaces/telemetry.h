@@ -25,8 +25,8 @@
 
 #include <tgf.h>
 
-typedef void(*tftlmInit)(tdble /* ymin */, tdble /* ymax */);
-typedef void(*tftlmNewChannel)(const char * /* name */, tdble * /* var */, tdble /* min */, tdble /* max */);
+typedef void(*tftlmInit)(float /* ymin */, float /* ymax */);
+typedef void(*tftlmNewChannel)(const char * /* name */, float * /* var */, float /* min */, float /* max */);
 typedef void(*tftlmStartMonitoring)(const char * /* filename */);
 typedef void(*tftlmStopMonitoring)(void);
 typedef void(*tftlmUpdate)(double /* time */);

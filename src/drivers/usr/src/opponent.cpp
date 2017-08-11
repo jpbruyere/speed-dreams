@@ -390,7 +390,7 @@ nocollide:
             fprintf(stderr," BACK\n");
 #endif
             //catchdist = driver->getSpeed()*distance/(getSpeed() - driver->getSpeed());
-            catchdist = (tdble) (mspeed*distance/(ospeed - mspeed));
+            catchdist = (float) (mspeed*distance/(ospeed - mspeed));
             state |= OPP_BACK;
             distance -= MAX(car->_dimension_x, mycar->_dimension_x);
             distance -= LENGTH_MARGIN;
@@ -455,7 +455,7 @@ void Opponent::updateOverlapTimer(tSituation *s, tCarElt *mycar, int alone)
 {
     // If there is an opponent overlapping near by (60 m), let him go imediately
     if ((car->race.laps > mycar->race.laps) && (team != TEAM_FRIEND) && (mycar->_distFromStartLine - car->_distFromStartLine < 60))
-        overlaptimer =  (tdble) (OVERLAP_WAIT_TIME + s->deltaTime);
+        overlaptimer =  (float) (OVERLAP_WAIT_TIME + s->deltaTime);
     else
     {
         // Other cases
@@ -464,7 +464,7 @@ void Opponent::updateOverlapTimer(tSituation *s, tCarElt *mycar, int alone)
         {
             if (getState() & (OPP_BACK | OPP_SIDE))
             {
-                overlaptimer += (tdble) s->deltaTime;
+                overlaptimer += (float) s->deltaTime;
             } else if (getState() & OPP_FRONT)
             {
                 overlaptimer = LAP_BACK_TIME_PENALTY;
@@ -472,10 +472,10 @@ void Opponent::updateOverlapTimer(tSituation *s, tCarElt *mycar, int alone)
             {
                 if (overlaptimer > 0.0f)
                 {
-                    overlaptimer -= (tdble) s->deltaTime;
+                    overlaptimer -= (float) s->deltaTime;
                 } else
                 {
-                    overlaptimer += (tdble) s->deltaTime;
+                    overlaptimer += (float) s->deltaTime;
                 }
             }
         } else
@@ -591,8 +591,8 @@ int Opponent::testCollision(Driver *driver, double impact, double sizefactor, ve
         // correct corner positions
         for (i=0; i<4; i++)
         {
-            d_new2[i].ax = d_new[i].ax = (tdble) (dcar->_corner_x(i) + (d_speedX*impact));
-            d_new2[i].ay = d_new[i].ay = (tdble) (dcar->_corner_y(i) + (d_speedY*impact));
+            d_new2[i].ax = d_new[i].ax = (float) (dcar->_corner_x(i) + (d_speedX*impact));
+            d_new2[i].ay = d_new[i].ay = (float) (dcar->_corner_y(i) + (d_speedY*impact));
         }
     }
 
@@ -605,8 +605,8 @@ int Opponent::testCollision(Driver *driver, double impact, double sizefactor, ve
         // correct corner positions
         for (i=0; i<4; i++)
         {
-            o_new2[i].ax = o_new[i].ax = (tdble) (car->_corner_x(i) + (o_speedX*impact));
-            o_new2[i].ay = o_new[i].ay = (tdble) (car->_corner_y(i) + (o_speedY*impact));
+            o_new2[i].ax = o_new[i].ax = (float) (car->_corner_x(i) + (o_speedX*impact));
+            o_new2[i].ay = o_new[i].ay = (float) (car->_corner_y(i) + (o_speedY*impact));
         }
     }
 #endif
@@ -654,24 +654,24 @@ int Opponent::testCollision(Driver *driver, double impact, double sizefactor, ve
     if (t_impact < 1.0)
     {
 #if 1
-        o_new[REAR_LFT].ax += (tdble) ((o_new[REAR_LFT].ax-o_new[FRNT_RGT].ax) / 6.0);
-        o_new[REAR_LFT].ay += (tdble) ((o_new[REAR_LFT].ay-o_new[FRNT_RGT].ay) / 6.0);
-        o_new[REAR_RGT].ax += (tdble) ((o_new[REAR_RGT].ax-o_new[FRNT_LFT].ax) / 6.0);
-        o_new[REAR_RGT].ay += (tdble) ((o_new[REAR_RGT].ay-o_new[FRNT_LFT].ay) / 6.0);
-        o_new[FRNT_LFT].ax += (tdble) ((o_new[FRNT_LFT].ax-o_new[REAR_RGT].ax) / 6.0);
-        o_new[FRNT_LFT].ay += (tdble) ((o_new[FRNT_LFT].ay-o_new[REAR_RGT].ay) / 6.0);
-        o_new[FRNT_RGT].ax += (tdble) ((o_new[FRNT_RGT].ax-o_new[REAR_LFT].ax) / 6.0);
-        o_new[FRNT_RGT].ay += (tdble) ((o_new[FRNT_RGT].ay-o_new[REAR_LFT].ay) / 6.0);
+        o_new[REAR_LFT].ax += (float) ((o_new[REAR_LFT].ax-o_new[FRNT_RGT].ax) / 6.0);
+        o_new[REAR_LFT].ay += (float) ((o_new[REAR_LFT].ay-o_new[FRNT_RGT].ay) / 6.0);
+        o_new[REAR_RGT].ax += (float) ((o_new[REAR_RGT].ax-o_new[FRNT_LFT].ax) / 6.0);
+        o_new[REAR_RGT].ay += (float) ((o_new[REAR_RGT].ay-o_new[FRNT_LFT].ay) / 6.0);
+        o_new[FRNT_LFT].ax += (float) ((o_new[FRNT_LFT].ax-o_new[REAR_RGT].ax) / 6.0);
+        o_new[FRNT_LFT].ay += (float) ((o_new[FRNT_LFT].ay-o_new[REAR_RGT].ay) / 6.0);
+        o_new[FRNT_RGT].ax += (float) ((o_new[FRNT_RGT].ax-o_new[REAR_LFT].ax) / 6.0);
+        o_new[FRNT_RGT].ay += (float) ((o_new[FRNT_RGT].ay-o_new[REAR_LFT].ay) / 6.0);
 #endif
 
-        o_new[REAR_LFT].ax += (tdble) ((o_new[REAR_LFT].ax-o_new[REAR_RGT].ax) / 4.0);
-        o_new[REAR_LFT].ay += (tdble) ((o_new[REAR_LFT].ay-o_new[REAR_RGT].ay) / 4.0);
-        o_new[REAR_RGT].ax += (tdble) ((o_new[REAR_RGT].ax-o_new[REAR_LFT].ax) / 4.0);
-        o_new[REAR_RGT].ay += (tdble) ((o_new[REAR_RGT].ay-o_new[REAR_LFT].ay) / 4.0);
-        o_new[FRNT_LFT].ax += (tdble) ((o_new[FRNT_LFT].ax-o_new[FRNT_RGT].ax) / 4.0);
-        o_new[FRNT_LFT].ay += (tdble) ((o_new[FRNT_LFT].ay-o_new[FRNT_RGT].ay) / 4.0);
-        o_new[FRNT_RGT].ax += (tdble) ((o_new[FRNT_RGT].ax-o_new[FRNT_LFT].ax) / 4.0);
-        o_new[FRNT_RGT].ay += (tdble) ((o_new[FRNT_RGT].ay-o_new[FRNT_LFT].ay) / 4.0);
+        o_new[REAR_LFT].ax += (float) ((o_new[REAR_LFT].ax-o_new[REAR_RGT].ax) / 4.0);
+        o_new[REAR_LFT].ay += (float) ((o_new[REAR_LFT].ay-o_new[REAR_RGT].ay) / 4.0);
+        o_new[REAR_RGT].ax += (float) ((o_new[REAR_RGT].ax-o_new[REAR_LFT].ax) / 4.0);
+        o_new[REAR_RGT].ay += (float) ((o_new[REAR_RGT].ay-o_new[REAR_LFT].ay) / 4.0);
+        o_new[FRNT_LFT].ax += (float) ((o_new[FRNT_LFT].ax-o_new[FRNT_RGT].ax) / 4.0);
+        o_new[FRNT_LFT].ay += (float) ((o_new[FRNT_LFT].ay-o_new[FRNT_RGT].ay) / 4.0);
+        o_new[FRNT_RGT].ax += (float) ((o_new[FRNT_RGT].ax-o_new[FRNT_LFT].ax) / 4.0);
+        o_new[FRNT_RGT].ay += (float) ((o_new[FRNT_RGT].ay-o_new[FRNT_LFT].ay) / 4.0);
     }
 #endif
 
@@ -730,49 +730,49 @@ int Opponent::testCollision(Driver *driver, double impact, double sizefactor, ve
 
         for (i=0; i<4; i++)
         {
-            o_new2[i].ax = (tdble) (o_cur[i].ax + (o_cur[i].ax - o_old1[i].ax) * (ti * deltamult));
-            o_new2[i].ay = (tdble) (o_cur[i].ay + (o_cur[i].ay - o_old1[i].ay) * (ti * deltamult));
-            d_new2[i].ax = (tdble) (d_cur[i].ax + (d_cur[i].ax - d_old1[i].ax) * (ti * deltamult));
-            d_new2[i].ay = (tdble) (d_cur[i].ay + (d_cur[i].ay - d_old1[i].ay) * (ti * deltamult));
-            o_new[i].ax = (tdble) (o_cur[i].ax + (o_speedX*ti));
-            o_new[i].ay = (tdble) (o_cur[i].ay + (o_speedY*ti));
-            d_new[i].ax = (tdble) (d_cur[i].ax + (d_speedX*ti));
-            d_new[i].ay = (tdble) (d_cur[i].ay + (d_speedY*ti));
+            o_new2[i].ax = (float) (o_cur[i].ax + (o_cur[i].ax - o_old1[i].ax) * (ti * deltamult));
+            o_new2[i].ay = (float) (o_cur[i].ay + (o_cur[i].ay - o_old1[i].ay) * (ti * deltamult));
+            d_new2[i].ax = (float) (d_cur[i].ax + (d_cur[i].ax - d_old1[i].ax) * (ti * deltamult));
+            d_new2[i].ay = (float) (d_cur[i].ay + (d_cur[i].ay - d_old1[i].ay) * (ti * deltamult));
+            o_new[i].ax = (float) (o_cur[i].ax + (o_speedX*ti));
+            o_new[i].ay = (float) (o_cur[i].ay + (o_speedY*ti));
+            d_new[i].ax = (float) (d_cur[i].ax + (d_speedX*ti));
+            d_new[i].ay = (float) (d_cur[i].ay + (d_speedY*ti));
         }
 
-        o_new[REAR_LFT].ax += (tdble) ((o_new[REAR_LFT].ax-o_new[FRNT_RGT].ax) / 6.0);
-        o_new[REAR_LFT].ay += (tdble) ((o_new[REAR_LFT].ay-o_new[FRNT_RGT].ay) / 6.0);
-        o_new[REAR_RGT].ax += (tdble) ((o_new[REAR_RGT].ax-o_new[FRNT_LFT].ax) / 6.0);
-        o_new[REAR_RGT].ay += (tdble) ((o_new[REAR_RGT].ay-o_new[FRNT_LFT].ay) / 6.0);
-        o_new[FRNT_LFT].ax += (tdble) ((o_new[FRNT_LFT].ax-o_new[REAR_RGT].ax) / 6.0);
-        o_new[FRNT_LFT].ay += (tdble) ((o_new[FRNT_LFT].ay-o_new[REAR_RGT].ay) / 6.0);
-        o_new[FRNT_RGT].ax += (tdble) ((o_new[FRNT_RGT].ax-o_new[REAR_LFT].ax) / 6.0);
-        o_new[FRNT_RGT].ay += (tdble) ((o_new[FRNT_RGT].ay-o_new[REAR_LFT].ay) / 6.0);
+        o_new[REAR_LFT].ax += (float) ((o_new[REAR_LFT].ax-o_new[FRNT_RGT].ax) / 6.0);
+        o_new[REAR_LFT].ay += (float) ((o_new[REAR_LFT].ay-o_new[FRNT_RGT].ay) / 6.0);
+        o_new[REAR_RGT].ax += (float) ((o_new[REAR_RGT].ax-o_new[FRNT_LFT].ax) / 6.0);
+        o_new[REAR_RGT].ay += (float) ((o_new[REAR_RGT].ay-o_new[FRNT_LFT].ay) / 6.0);
+        o_new[FRNT_LFT].ax += (float) ((o_new[FRNT_LFT].ax-o_new[REAR_RGT].ax) / 6.0);
+        o_new[FRNT_LFT].ay += (float) ((o_new[FRNT_LFT].ay-o_new[REAR_RGT].ay) / 6.0);
+        o_new[FRNT_RGT].ax += (float) ((o_new[FRNT_RGT].ax-o_new[REAR_LFT].ax) / 6.0);
+        o_new[FRNT_RGT].ay += (float) ((o_new[FRNT_RGT].ay-o_new[REAR_LFT].ay) / 6.0);
 
-        o_new[REAR_LFT].ax += (tdble) rlftincr_x;
-        o_new[REAR_LFT].ay += (tdble) rlftincr_y;
-        o_new[REAR_RGT].ax += (tdble) rrgtincr_x;
-        o_new[REAR_RGT].ay += (tdble) rrgtincr_x;
-        o_new[REAR_LFT].ax += (tdble) rsideincr_x;
-        o_new[REAR_LFT].ay += (tdble) rsideincr_y;
-        o_new[REAR_RGT].ax -= (tdble) rsideincr_x;
-        o_new[REAR_RGT].ay -= (tdble) rsideincr_y;
-        o_new[FRNT_LFT].ax += (tdble) fsideincr_x;
-        o_new[FRNT_LFT].ay += (tdble) fsideincr_y;
-        o_new[FRNT_RGT].ax -= (tdble) fsideincr_x;
-        o_new[FRNT_RGT].ay -= (tdble) fsideincr_y;
-        o_new2[REAR_LFT].ax += (tdble) rlftincr_x;
-        o_new2[REAR_LFT].ay += (tdble) rlftincr_y;
-        o_new2[REAR_RGT].ax += (tdble) rrgtincr_x;
-        o_new2[REAR_RGT].ay += (tdble) rrgtincr_y;
-        o_new2[REAR_LFT].ax += (tdble) rsideincr_x;
-        o_new2[REAR_LFT].ay += (tdble) rsideincr_y;
-        o_new2[REAR_RGT].ax -= (tdble) rsideincr_x;
-        o_new2[REAR_RGT].ay -= (tdble) rsideincr_y;
-        o_new2[FRNT_LFT].ax += (tdble) fsideincr_x;
-        o_new2[FRNT_LFT].ay += (tdble) fsideincr_y;
-        o_new2[FRNT_RGT].ax -= (tdble) fsideincr_x;
-        o_new2[FRNT_RGT].ay -= (tdble) fsideincr_y;
+        o_new[REAR_LFT].ax += (float) rlftincr_x;
+        o_new[REAR_LFT].ay += (float) rlftincr_y;
+        o_new[REAR_RGT].ax += (float) rrgtincr_x;
+        o_new[REAR_RGT].ay += (float) rrgtincr_x;
+        o_new[REAR_LFT].ax += (float) rsideincr_x;
+        o_new[REAR_LFT].ay += (float) rsideincr_y;
+        o_new[REAR_RGT].ax -= (float) rsideincr_x;
+        o_new[REAR_RGT].ay -= (float) rsideincr_y;
+        o_new[FRNT_LFT].ax += (float) fsideincr_x;
+        o_new[FRNT_LFT].ay += (float) fsideincr_y;
+        o_new[FRNT_RGT].ax -= (float) fsideincr_x;
+        o_new[FRNT_RGT].ay -= (float) fsideincr_y;
+        o_new2[REAR_LFT].ax += (float) rlftincr_x;
+        o_new2[REAR_LFT].ay += (float) rlftincr_y;
+        o_new2[REAR_RGT].ax += (float) rrgtincr_x;
+        o_new2[REAR_RGT].ay += (float) rrgtincr_y;
+        o_new2[REAR_LFT].ax += (float) rsideincr_x;
+        o_new2[REAR_LFT].ay += (float) rsideincr_y;
+        o_new2[REAR_RGT].ax -= (float) rsideincr_x;
+        o_new2[REAR_RGT].ay -= (float) rsideincr_y;
+        o_new2[FRNT_LFT].ax += (float) fsideincr_x;
+        o_new2[FRNT_LFT].ay += (float) fsideincr_y;
+        o_new2[FRNT_RGT].ax -= (float) fsideincr_x;
+        o_new2[FRNT_RGT].ay -= (float) fsideincr_y;
 
 #if 0
         if (team == TEAM_FRIEND)

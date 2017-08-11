@@ -56,7 +56,7 @@ class cSmokeDef
 {
 public:
     inline void Init(const double c1, const double c2, const double c3,
-                     const tdble is, const tdble th, const tdble slc, const tdble ssc)
+                     const float is, const float th, const float slc, const float ssc)
     {
         cur_clr[0] = c1;
         cur_clr[1] = c2;
@@ -68,10 +68,10 @@ public:
     }
 
     sgVec3 cur_clr;
-    tdble init_speed;
-    tdble threshold;
-    tdble smoke_life_coefficient;
-    tdble smoke_speed_coefficient;
+    float init_speed;
+    float threshold;
+    float smoke_life_coefficient;
+    float smoke_speed_coefficient;
 };
 
 
@@ -216,7 +216,7 @@ grAddSmoke(tCarElt *car, const double t)
     if(grSmokeMaxNumber)
     {
         //Speed ^ 2
-        tdble spd2 = car->_speed_x * car->_speed_x + car->_speed_y * car->_speed_y;
+        float spd2 = car->_speed_x * car->_speed_x + car->_speed_y * car->_speed_y;
 
         //!Add smoke from spinning/skidding wheels
         if (spd2 > 0.001f)
@@ -300,7 +300,7 @@ grAddSmoke(tCarElt *car, const double t)
                     //!The need for exhaust fire is calculated from the RPM change
                     //Only need to display exhaust fire when the gear is changing backwards
                     tgrCarInstrument *curInst = &(grCarInfo[index].instrument[0]);
-                    tdble val = ((*(curInst->monitored) - curInst->minValue)
+                    float val = ((*(curInst->monitored) - curInst->minValue)
                                  - (curInst->rawPrev - curInst->minValue)) / curInst->maxValue;
                     curInst->rawPrev = *(curInst->monitored);
 
@@ -455,7 +455,7 @@ void ssgVtxTableSmoke::draw_geometry ()
     }
     //printf ("%f %f %f\n", offset[0], offset[1], offset[2]);
 
-    tdble dist = sqrt(offset[0]*offset[0]
+    float dist = sqrt(offset[0]*offset[0]
             + offset[1]*offset[1]
             + offset[2]*offset[2]);
 
@@ -565,8 +565,8 @@ cGrSmoke::Update(const double t)
 
     sgVec3 *vx = (sgVec3 *) smoke->getVertices()->get(0);
 
-    tdble dt = smoke->dt;
-    tdble damp = 0.2f;
+    float dt = smoke->dt;
+    float damp = 0.2f;
     smoke->vvx -= damp * smoke->vvx * fabs(smoke->vvx) * dt;
     smoke->vvy -= damp * smoke->vvy * fabs(smoke->vvy) * dt;
     smoke->vvz -= damp * smoke->vvz * fabs(smoke->vvz) * dt;
@@ -608,11 +608,11 @@ cGrSmoke::Add(tCarElt *car, const int i, const double t,
     if(type == SMOKE_TYPE_TIRE)
     {
         //!Add tire smoke
-        tdble sinCarYaw = sin(car->_yaw);
-        tdble cosCarYaw = cos(car->_yaw);
-        tdble spd2 = car->_speed_x * car->_speed_x + car->_speed_y * car->_speed_y;
-        tdble smoke_life_coefficient = sd->smoke_life_coefficient * (1.0f - urandom() * urandom());
-        tdble spd_fx = tanh(0.001f * car->_reaction[i]) * sd->smoke_speed_coefficient * sqrt(spd2);
+        float sinCarYaw = sin(car->_yaw);
+        float cosCarYaw = cos(car->_yaw);
+        float spd2 = car->_speed_x * car->_speed_x + car->_speed_y * car->_speed_y;
+        float smoke_life_coefficient = sd->smoke_life_coefficient * (1.0f - urandom() * urandom());
+        float spd_fx = tanh(0.001f * car->_reaction[i]) * sd->smoke_speed_coefficient * sqrt(spd2);
         double slip = MAX(0.0, ((car->_wheelSpinVel(i) * car->_wheelRadius(i)) - fabs(car->_speed_x)) - 9.0);
         bool skidsmoke = (car->_skid[i] + 0.025f * urandom() * spd_fx > urandom() + sd->threshold); // instead of 0.3, to randomize
 
@@ -629,12 +629,12 @@ cGrSmoke::Add(tCarElt *car, const int i, const double t,
             vtx[0] = car->priv.wheel[i].relPos.x;
             vtx[1] = car->priv.wheel[i].relPos.y;
             vtx[2] = car->priv.wheel[i].relPos.z - car->_wheelRadius(i) * 1.0f + 0.5f * SMOKE_INIT_SIZE;
-            tdble stretchX = 0.1f * (spd_fx + stretch_factor * fabs(car->_speed_X));
-            tdble stretchY = 0.1f * (spd_fx + stretch_factor * fabs(car->_speed_Y));
+            float stretchX = 0.1f * (spd_fx + stretch_factor * fabs(car->_speed_X));
+            float stretchY = 0.1f * (spd_fx + stretch_factor * fabs(car->_speed_Y));
             vtx[0] -= 0.05f * car->_speed_x;
             shd_vtx->add(vtx);
 
-            tdble init_speed = sd->init_speed * urandom();
+            float init_speed = sd->init_speed * urandom();
 
             smoke = new ssgVtxTableSmoke(shd_vtx, SMOKE_INIT_SIZE, SMOKE_TYPE_TIRE);
 

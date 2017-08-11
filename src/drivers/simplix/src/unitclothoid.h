@@ -4,12 +4,12 @@
 // A robot for Speed Dreams-Version 2.X simuV4
 //--------------------------------------------------------------------------*
 // Lane clothoide like
-// Fahrspur clothoiden�hnlich
+// Fahrspur clothoidenähnlich
 //
 // File         : unitclothoid.h
 // Created      : 2007.11.17
 // Last changed : 2014.11.29
-// Copyright    : � 2007-2014 Wolf-Dieter Beelitz
+// Copyright    : © 2007-2014 Wolf-Dieter Beelitz
 // eMail        : wdbee@users.sourceforge.net
 // Version      : 4.05.000
 //--------------------------------------------------------------------------*
@@ -42,12 +42,12 @@
 //--------------------------------------------------------------------------*
 // Das Programm wurde unter Windows XP entwickelt und getestet.
 // Fehler sind nicht bekannt, dennoch gilt:
-// Wer die Dateien verwendet erkennt an, dass f�r Fehler, Sch�den,
-// Folgefehler oder Folgesch�den keine Haftung �bernommen wird.
+// Wer die Dateien verwendet erkennt an, dass fï¿½r Fehler, Schï¿½den,
+// Folgefehler oder Folgeschï¿½den keine Haftung ï¿½bernommen wird.
 //
-// Im �brigen gilt f�r die Nutzung und/oder Weitergabe die
+// Im ï¿½brigen gilt fï¿½r die Nutzung und/oder Weitergabe die
 // GNU GPL (General Public License)
-// Version 2 oder nach eigener Wahl eine sp�tere Version.
+// Version 2 oder nach eigener Wahl eine spï¿½tere Version.
 //--------------------------------------------------------------------------*
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by

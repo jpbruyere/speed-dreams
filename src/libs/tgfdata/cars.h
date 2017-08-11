@@ -55,7 +55,7 @@ public:
 	
 	unsigned getCylinders() const;
 	
-	tdble getEngineCapacity() const;
+	float getEngineCapacity() const;
 	
 	enum EEngineShape { eV, eL, eH, eW, eNEngineShapes };
 	EEngineShape getEngineShape() const;
@@ -63,17 +63,17 @@ public:
 	enum EEnginePosition { eFront, eFrontMid, eMid, eRearMid, eRear, eNEnginePositions };
 	EEnginePosition getEnginePosition() const;
 	
-	tdble getMaxPower() const;
-	tdble getMaxPowerSpeed() const;
-	tdble getMaxTorque() const;
-	tdble getMaxTorqueSpeed() const;
-	tdble getMass() const;
-	tdble getFrontRearMassRatio() const;
+	float getMaxPower() const;
+	float getMaxPowerSpeed() const;
+	float getMaxTorque() const;
+	float getMaxTorqueSpeed() const;
+	float getMass() const;
+	float getFrontRearMassRatio() const;
 
-	tdble getTopSpeed() const;
-	tdble getLowSpeedGrip() const;
-	tdble getHighSpeedGrip() const;
-	tdble getInvertedZAxisInertia() const;
+	float getTopSpeed() const;
+	float getLowSpeedGrip() const;
+	float getHighSpeedGrip() const;
+	float getInvertedZAxisInertia() const;
 	
 	void load(void* hparmCar);
 
@@ -88,19 +88,19 @@ protected:
 	EDriveTrain _eDriveTrain;
 	unsigned _nGears; // Number of gears.
 	bool _bTurboCharged; // TODO: Move to an enum (Turbo, Compressor, ...)
-	tdble _fEngineCapacity; // litres
+	float _fEngineCapacity; // litres
 	unsigned _nCylinders;
 	EEngineShape _eEngineShape;
 	EEnginePosition _eEnginePosition;
-	tdble _fMaxPower, _fMaxPowerSpeed; // Engine max power (SI) and associated engine speed.
-	tdble _fMaxTorque, _fMaxTorqueSpeed; // Engine max torque (Nm) and associated engine speed.
-	tdble _fMass; // Total mass (kg).
-	tdble _fFrontRearMassRatio; // Front to rear mass ratio (no unit, inside ]0,1[).
+	float _fMaxPower, _fMaxPowerSpeed; // Engine max power (SI) and associated engine speed.
+	float _fMaxTorque, _fMaxTorqueSpeed; // Engine max torque (Nm) and associated engine speed.
+	float _fMass; // Total mass (kg).
+	float _fFrontRearMassRatio; // Front to rear mass ratio (no unit, inside ]0,1[).
 	
-	tdble _fTopSpeed; // Theorical top speed (m/s)
-	tdble _fLowSpeedGrip; // Mechanical grip (~mu*g, but with front/rear mass repartition)
-	tdble _fHighSpeedGrip; // Aerodynamic grip (same + with aero down-force)
-	tdble _fInvertedZAxisInertia; // (SI)
+	float _fTopSpeed; // Theorical top speed (m/s)
+	float _fLowSpeedGrip; // Mechanical grip (~mu*g, but with front/rear mass repartition)
+	float _fHighSpeedGrip; // Aerodynamic grip (same + with aero down-force)
+	float _fInvertedZAxisInertia; // (SI)
 };
 
 class TGFDATA_API GfCars

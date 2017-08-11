@@ -30,8 +30,8 @@ SimWheelConfig(tCar *car, int index)
 	void *hdle = car->params;
 	tCarElt *carElt = car->carElt;
 	tWheel *wheel = &(car->wheel[index]);
-	tdble rimdiam, tirewidth, tireratio, pressure, tireheight;
-	tdble x0, Ca, RFactor, EFactor, patchLen;
+	float rimdiam, tirewidth, tireratio, pressure, tireheight;
+	float x0, Ca, RFactor, EFactor, patchLen;
 
 	pressure              = GfParmGetNum(hdle, WheelSect[index], PRM_PRESSURE, (char*)NULL, 275600);
 	rimdiam               = GfParmGetNum(hdle, WheelSect[index], PRM_RIMDIAM, (char*)NULL, 0.33f);
@@ -94,7 +94,7 @@ SimWheelConfig(tCar *car, int index)
 	carElt->_brakeDiskRadius(index) = wheel->brake.radius;
 	carElt->_wheelRadius(index) = wheel->radius;
 
-	wheel->mfC = (tdble)(2.0 - asin(RFactor) * 2.0 / PI);
+	wheel->mfC = (float)(2.0 - asin(RFactor) * 2.0 / PI);
 	wheel->mfB = Ca / wheel->mfC;
 	wheel->mfE = EFactor;
 
@@ -112,7 +112,7 @@ SimWheelConfig(tCar *car, int index)
 void SimWheelUpdateRide(tCar *car, int index)
 {
 	tWheel *wheel = &(car->wheel[index]);
-	tdble Zroad;
+	float Zroad;
 
 	// compute suspension travel
 	RtTrackGlobal2Local(car->trkPos.seg, wheel->pos.x, wheel->pos.y, &(wheel->trkPos), TR_LPOS_SEGMENT);
@@ -120,10 +120,10 @@ void SimWheelUpdateRide(tCar *car, int index)
 
 	// Wheel susp.x is not the wheel movement, look at SimSuspCheckIn, it becomes there scaled with
 	// susp->spring.bellcrank, so we invert this here.
-	tdble prexwheel = wheel->susp.x / wheel->susp.spring.bellcrank;
+	float prexwheel = wheel->susp.x / wheel->susp.spring.bellcrank;
 
-	tdble new_susp_x= prexwheel - wheel->rel_vel * SimDeltaTime;
-    tdble max_extend =  wheel->pos.z - Zroad;
+	float new_susp_x= prexwheel - wheel->rel_vel * SimDeltaTime;
+    float max_extend =  wheel->pos.z - Zroad;
 	wheel->rideHeight = max_extend;
 
 	if (max_extend < new_susp_x) {
@@ -133,7 +133,7 @@ void SimWheelUpdateRide(tCar *car, int index)
 		wheel->rel_vel = 0.0f;
 	}
  
-	tdble prex = wheel->susp.x;
+	float prex = wheel->susp.x;
 	wheel->susp.x = new_susp_x;
 
 	// verify the suspension travel, beware, wheel->susp.x will be scaled by SimSuspCheckIn
@@ -150,15 +150,15 @@ void SimWheelUpdateRide(tCar *car, int index)
 void SimWheelUpdateForce(tCar *car, int index)
 {
 	tWheel *wheel = &(car->wheel[index]);
-	tdble axleFz = wheel->axleFz;
-	tdble vt, v, v2, wrl; // wheel related velocity
-	tdble Fn, Ft;
-	tdble waz;
-	tdble CosA, SinA;
-	tdble s, sa, sx, sy; // slip vector
-	tdble stmp, F, Bx;
-	tdble mu;
-	tdble reaction_force = 0.0f;
+	float axleFz = wheel->axleFz;
+	float vt, v, v2, wrl; // wheel related velocity
+	float Fn, Ft;
+	float waz;
+	float CosA, SinA;
+	float s, sa, sx, sy; // slip vector
+	float stmp, F, Bx;
+	float mu;
+	float reaction_force = 0.0f;
 	wheel->state = 0;
 
 	// VERTICAL STUFF CONSIDERING SMALL PITCH AND ROLL ANGLES
@@ -279,8 +279,8 @@ SimWheelUpdateRotation(tCar *car)
 {
 	int i;
 	tWheel *wheel;
-	tdble deltan;
-	tdble cosaz, sinaz;
+	float deltan;
+	float cosaz, sinaz;
 
 	for (i = 0; i < 4; i++) {
 		wheel = &(car->wheel[i]);
@@ -313,9 +313,9 @@ SimUpdateFreeWheels(tCar *car, int axlenb)
 {
 	int i;
 	tWheel *wheel;
-	tdble BrTq;		// brake torque
-	tdble ndot;		// rotation acceleration
-	tdble I;
+	float BrTq;		// brake torque
+	float ndot;		// rotation acceleration
+	float I;
 
 	for (i = axlenb * 2; i < axlenb * 2 + 2; i++) {
 		wheel = &(car->wheel[i]);
@@ -325,7 +325,7 @@ SimUpdateFreeWheels(tCar *car, int axlenb)
 		ndot = SimDeltaTime * wheel->spinTq / I;
 		wheel->spinVel -= ndot;
 
-		BrTq = (tdble)(- SIGN(wheel->spinVel) * wheel->brake.Tq);
+		BrTq = (float)(- SIGN(wheel->spinVel) * wheel->brake.Tq);
 		ndot = SimDeltaTime * BrTq / I;
 
         if (fabs(ndot) > fabs(wheel->spinVel)) {

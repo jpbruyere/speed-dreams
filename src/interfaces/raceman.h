@@ -126,14 +126,14 @@ typedef struct Situation {
 typedef struct
 {
     tTrkLocPos	prevTrkPos;
-    tdble	sTime;
+    float	sTime;
     int		lapFlag;
     char	*raceMsg;
     double	totalPitTime;
     double	startPitTime;
-    tdble	topSpd;
-    tdble	botSpd;
-    tdble	fuel;
+    float	topSpd;
+    float	botSpd;
+    float	fuel;
 } tReCarInfo;
 
 #define	RM_DISP_MODE_NONE    0x00
@@ -200,13 +200,13 @@ typedef struct RmRaceRules
   };
 
   int enabled;
-  tdble fuelFactor;
-  tdble damageFactor;
-  tdble refuelFuelFlow;
-  tdble damageRepairFactor;
-  tdble pitstopBaseTime;
-  tdble tireFactor;
-  tdble allTiresChangeTime;
+  float fuelFactor;
+  float damageFactor;
+  float refuelFuelFlow;
+  float damageRepairFactor;
+  float pitstopBaseTime;
+  float tireFactor;
+  float allTiresChangeTime;
 } tRmRaceRules;
 
 

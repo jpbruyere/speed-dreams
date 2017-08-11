@@ -25,15 +25,15 @@ SimTransmissionConfig(tCar *car)
 {
     void		*hdle = car->params;
     tCarElt		*carElt = car->carElt;
-    //tdble		clutchI; // Never used
+    //float		clutchI; // Never used
     tTransmission	*trans = &(car->transmission);
     tClutch		*clutch = &(trans->clutch);
     tDifferential	*differential;
     const char		*transType;
     int			i, j;
-    tdble		gRatio, fRatio, gEff;
-    //tdble       fEff; // Never used
-    tdble		gearI;
+    float		gRatio, fRatio, gEff;
+    //float       fEff; // Never used
+    float		gearI;
     char		path[256];
 
     //clutchI		= GfParmGetNum(hdle, SECT_CLUTCH, PRM_INERTIA, (char*)NULL, 0.12f);
@@ -249,7 +249,7 @@ SimTransmissionUpdate(tCar *car)
     tClutch		*clutch = &(trans->clutch);
     tGearbox		*gearbox = &(trans->gearbox);
     tDifferential	*differential, *differential0, *differential1;
-    tdble		transfer = MIN(clutch->transferValue * 3.0f, 1.0f);
+    float		transfer = MIN(clutch->transferValue * 3.0f, 1.0f);
 
     switch(trans->type) {
     case TRANS_RWD:

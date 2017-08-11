@@ -156,12 +156,12 @@ void cGrScreen::selectTrackMap()
 	viewmode = board->getTrackMap()->getViewMode();
 	
 	sprintf(path, "%s/%d", GR_SCT_DISPMODE, id);
-	GfParmSetNum(grHandle, path, GR_ATT_MAP, NULL, (tdble)viewmode);
+	GfParmSetNum(grHandle, path, GR_ATT_MAP, NULL, (float)viewmode);
 
 	/* save also as user's preference if human */
 	if (curCar->_driverType == RM_DRV_HUMAN) {
 		sprintf(path2, "%s/%s", GR_SCT_DISPMODE, curCar->_name);
-		GfParmSetNum(grHandle, path2, GR_ATT_MAP, NULL, (tdble)viewmode);
+		GfParmSetNum(grHandle, path2, GR_ATT_MAP, NULL, (float)viewmode);
 	}
 	GfParmWriteFile(NULL, grHandle, "Graph");
 }
@@ -185,12 +185,12 @@ void cGrScreen::switchMirror(void)
 {
 	mirrorFlag = 1 - mirrorFlag;
 	sprintf(path, "%s/%d", GR_SCT_DISPMODE, id);
-	GfParmSetNum(grHandle, path, GR_ATT_MIRROR, NULL, (tdble)mirrorFlag);
+	GfParmSetNum(grHandle, path, GR_ATT_MIRROR, NULL, (float)mirrorFlag);
 
 	/* save also as user's preference if human */
 	if (curCar->_driverType == RM_DRV_HUMAN) {
 		sprintf(path2, "%s/%s", GR_SCT_DISPMODE, curCar->_name);
-		GfParmSetNum(grHandle, path2, GR_ATT_MIRROR, NULL, (tdble)mirrorFlag);
+		GfParmSetNum(grHandle, path2, GR_ATT_MIRROR, NULL, (float)mirrorFlag);
 	}
 	GfParmWriteFile(NULL, grHandle, "Graph");
 }
@@ -259,14 +259,14 @@ void cGrScreen::saveCamera(void)
 {
 	sprintf(path, "%s/%d", GR_SCT_DISPMODE, id);
 	GfParmSetStr(grHandle, path, GR_ATT_CUR_DRV, curCar->_name);
-	GfParmSetNum(grHandle, path, GR_ATT_CAM, (char*)NULL, (tdble)curCam->getId());
-	GfParmSetNum(grHandle, path, GR_ATT_CAM_HEAD, (char*)NULL, (tdble)curCamHead);
+	GfParmSetNum(grHandle, path, GR_ATT_CAM, (char*)NULL, (float)curCam->getId());
+	GfParmSetNum(grHandle, path, GR_ATT_CAM_HEAD, (char*)NULL, (float)curCamHead);
 	
 	/* save also as user's preference if human */
 	if (curCar->_driverType == RM_DRV_HUMAN) {
 		sprintf(path2, "%s/%s", GR_SCT_DISPMODE, curCar->_name);
-		GfParmSetNum(grHandle, path2, GR_ATT_CAM, (char*)NULL, (tdble)curCam->getId());
-		GfParmSetNum(grHandle, path2, GR_ATT_CAM_HEAD, (char*)NULL, (tdble)curCamHead);
+		GfParmSetNum(grHandle, path2, GR_ATT_CAM, (char*)NULL, (float)curCam->getId());
+		GfParmSetNum(grHandle, path2, GR_ATT_CAM_HEAD, (char*)NULL, (float)curCamHead);
 	}
 	
 	sprintf(buf, "%s-%d-%d", GR_ATT_FOVY, curCamHead, curCam->getId());
@@ -514,15 +514,15 @@ void cGrScreen::loadParams(tSituation *s)
 	// Load "current camera" settings (attached to the "current car").
 	curCamHead	= (int)GfParmGetNum(grHandle, path, GR_ATT_CAM_HEAD, NULL, 9);
 	camNum	= (int)GfParmGetNum(grHandle, path, GR_ATT_CAM, NULL, 0);
-	mirrorFlag	= (int)GfParmGetNum(grHandle, path, GR_ATT_MIRROR, NULL, (tdble)mirrorFlag);
+	mirrorFlag	= (int)GfParmGetNum(grHandle, path, GR_ATT_MIRROR, NULL, (float)mirrorFlag);
 
 	// Only apply driver preferences when not spanning split screens
 	pszSpanSplit = GfParmGetStr(grHandle, GR_SCT_GRAPHIC, GR_ATT_SPANSPLIT, GR_VAL_NO);
 	if (strcmp(pszSpanSplit, GR_VAL_YES)) {
 		sprintf(path2, "%s/%s", GR_SCT_DISPMODE, curCar->_name);
-		curCamHead	= (int)GfParmGetNum(grHandle, path2, GR_ATT_CAM_HEAD, NULL, (tdble)curCamHead);
-		camNum	= (int)GfParmGetNum(grHandle, path2, GR_ATT_CAM, NULL, (tdble)camNum);
-		mirrorFlag	= (int)GfParmGetNum(grHandle, path2, GR_ATT_MIRROR, NULL, (tdble)mirrorFlag);
+		curCamHead	= (int)GfParmGetNum(grHandle, path2, GR_ATT_CAM_HEAD, NULL, (float)curCamHead);
+		camNum	= (int)GfParmGetNum(grHandle, path2, GR_ATT_CAM, NULL, (float)camNum);
+		mirrorFlag	= (int)GfParmGetNum(grHandle, path2, GR_ATT_MIRROR, NULL, (float)mirrorFlag);
 	}
 
 	// Get board width (needed for scissor)
@@ -545,8 +545,8 @@ void cGrScreen::loadParams(tSituation *s)
 	if (!curCam) {
 		curCamHead = 0;
 		curCam = (cGrPerspCamera*)GF_TAILQ_FIRST(&cams[curCamHead]);
-		GfParmSetNum(grHandle, path, GR_ATT_CAM, NULL, (tdble)curCam->getId());
-		GfParmSetNum(grHandle, path, GR_ATT_CAM_HEAD, NULL, (tdble)curCamHead);
+		GfParmSetNum(grHandle, path, GR_ATT_CAM, NULL, (float)curCam->getId());
+		GfParmSetNum(grHandle, path, GR_ATT_CAM_HEAD, NULL, (float)curCamHead);
 	}
 	
 	sprintf(buf, "%s-%d-%d", GR_ATT_FOVY, curCamHead, curCam->getId());
@@ -560,12 +560,12 @@ void cGrScreen::loadParams(tSituation *s)
 void cGrScreen::initCams(tSituation *s)
 {
 	// Get the factor of visibiity from the graphics settings and from the track.
-	tdble fovFactor = GfParmGetNum(grHandle, GR_SCT_GRAPHIC, GR_ATT_FOVFACT, (char*)NULL, 1.0);
+	float fovFactor = GfParmGetNum(grHandle, GR_SCT_GRAPHIC, GR_ATT_FOVFACT, (char*)NULL, 1.0);
 	fovFactor *= GfParmGetNum(grTrackHandle, TRK_SECT_GRAPH, TRK_ATT_FOVFACT, (char*)NULL, 1.0);
 
 	// If sky dome is enabled, we have a "fixed far" cut plane.
 	// Warning: In theory, 2*grSkyDomeDistance+1 should be enough, but it is not (why ?).
-	const tdble fixedFar = grSkyDomeDistance ? (2.1f * grSkyDomeDistance + 1.0f) : 0;
+	const float fixedFar = grSkyDomeDistance ? (2.1f * grSkyDomeDistance + 1.0f) : 0;
 	
 	GfLogTrace("Screen #%d : FOV = %.2f, Far=%.0f\n", id, fovFactor, fixedFar);
 

@@ -466,9 +466,9 @@ void cgrVtxTableCarPart::draw ()
 
 void cgrVtxTableCarPart::draw_geometry ()
 {
-	tdble ttx = 0;
-	tdble tty = 0;
-	tdble ttz = 0;
+	float ttx = 0;
+	float tty = 0;
+	float ttz = 0;
 	sgMat4 mat;
 	sgVec3 axis;
 
@@ -574,9 +574,9 @@ void cgrVtxTableCarPart::draw_geometry_array ()
 	int num_colours = getNumColours();
 	int num_normals = getNumNormals();
 	int numTexCoords = getNumTexCoords();
-	tdble ttx = 0;
-	tdble tty = 0;
-	tdble ttz = 0;
+	float ttx = 0;
+	float tty = 0;
+	float ttz = 0;
 	sgMat4 mat;
 	sgMat4 mat2;
 	sgMat4 mat4;
@@ -601,8 +601,8 @@ void cgrVtxTableCarPart::draw_geometry_array ()
 	}
 
 	if (_nTexMaps > 3 && grEnvShadowStateOnCars) {
-		tdble xxx = (grCarInfo[_carIndex].px-shad_xmin)/(shad_xmax-shad_xmin);
-		tdble yyy = (grCarInfo[_carIndex].py-shad_ymin)/(shad_ymax-shad_ymin);
+		float xxx = (grCarInfo[_carIndex].px-shad_xmin)/(shad_xmax-shad_xmin);
+		float yyy = (grCarInfo[_carIndex].py-shad_ymin)/(shad_ymax-shad_ymin);
 
 		/* UP Vector for OpenGl */
 		axis[0]=0;

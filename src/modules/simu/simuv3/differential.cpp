@@ -58,13 +58,13 @@ SimDifferentialConfig(void *hdle, const char *section, tDifferential *differenti
 static void
 updateSpool(tCar *car, tDifferential *differential, int first)
 {
-    tdble	DrTq;
-    tdble	ndot;
-    tdble	spinVel;
-    tdble	BrTq;
-    tdble	engineReaction;
-    tdble	I;
-    tdble	inTq, brkTq;
+    float	DrTq;
+    float	ndot;
+    float	spinVel;
+    float	BrTq;
+    float	engineReaction;
+    float	I;
+    float	inTq, brkTq;
     
     DrTq = differential->in.Tq;
 
@@ -100,15 +100,15 @@ updateSpool(tCar *car, tDifferential *differential, int first)
 void 
 SimDifferentialUpdate(tCar *car, tDifferential *differential, int first)
 {
-    tdble	DrTq, DrTq0, DrTq1;
-    tdble	ndot0, ndot1;
-    tdble	spinVel0, spinVel1;
-    tdble	inTq0, inTq1;
-    tdble	spdRatio, spdRatioMax;
-    tdble	deltaSpd, deltaTq;
-    tdble	BrTq;
-    tdble	engineReaction;
-    tdble	meanv;
+    float	DrTq, DrTq0, DrTq1;
+    float	ndot0, ndot1;
+    float	spinVel0, spinVel1;
+    float	inTq0, inTq1;
+    float	spdRatio, spdRatioMax;
+    float	deltaSpd, deltaTq;
+    float	BrTq;
+    float	engineReaction;
+    float	meanv;
 
     if (differential->type == DIFF_SPOOL) {
 		updateSpool(car, differential, first);

@@ -20,8 +20,8 @@
 #ifndef _TLM_H_
 #define _TLM_H_
 
-extern void TlmInit(tdble ymin, tdble ymax);
-extern void TlmNewChannel(const char *name, tdble *var, tdble min, tdble max);
+extern void TlmInit(float ymin, float ymax);
+extern void TlmNewChannel(const char *name, float *var, float min, float max);
 extern void TlmStartMonitoring(const char *filename);
 extern void TlmUpdate(double time);
 extern void TlmStopMonitoring(void);

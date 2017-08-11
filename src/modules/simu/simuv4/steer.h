@@ -22,9 +22,9 @@
 
 typedef struct
 {
-    tdble	steerLock;	/* in rad */
-    tdble	maxSpeed;	/* in rad/s */
-    tdble	steer;		/* current steer value */
+    float	steerLock;	/* in rad */
+    float	maxSpeed;	/* in rad/s */
+    float	steer;		/* current steer value */
     
 } tSteer;
 

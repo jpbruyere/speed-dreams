@@ -26,16 +26,16 @@
 
 typedef struct
 {
-    tdble xpos;
+    float xpos;
 
     tSuspension arbSusp;	/* anti-roll bar */
     tSuspension heaveSusp;  /* heave/3rd/central spring */
-    tdble	wheight0;
+    float	wheight0;
 
     /* dynamic */
-    tdble	force[2]; /* right and left */
+    float	force[2]; /* right and left */
 
-    tdble	I;	/* including differential inertia but not wheels */
+    float	I;	/* including differential inertia but not wheels */
 } tAxle;
 
 

@@ -35,12 +35,12 @@ class ITrackLoader
 	virtual void unload() = 0;
 
 	// ???? a ITrack interface ??????
-	//virtual tdble globalHeight(tTrackSeg*, tdble x, tdble y) = 0;
-	//virtual tdble localHeight(tTrkLocPos* pos) = 0;
- 	//virtual void global2Local(tTrackSeg* seg, tdble x, tdble y, tTrkLocPos* pos, int sides) = 0;
- 	//virtual void local2Global(tTrkLocPos* pos, tdble* x, tdble* y) = 0;
- 	//virtual void sideNormal(tTrackSeg* seg, tdble x, tdble y, int side, t3Dd* norm) = 0;
-	//virtual void surfaceNormal(tTrkLocPos* pos, t3Dd* norm) = 0;
+	//virtual float globalHeight(tTrackSeg*, float x, float y) = 0;
+	//virtual float localHeight(tTrkLocPos* pos) = 0;
+ 	//virtual void global2Local(tTrackSeg* seg, float x, float y, tTrkLocPos* pos, int sides) = 0;
+ 	//virtual void local2Global(tTrkLocPos* pos, float* x, float* y) = 0;
+ 	//virtual void sideNormal(tTrackSeg* seg, float x, float y, int side, glm::vec3* norm) = 0;
+	//virtual void surfaceNormal(tTrkLocPos* pos, glm::vec3* norm) = 0;
 };
 
 #endif // __ITRACKLOADER__H__

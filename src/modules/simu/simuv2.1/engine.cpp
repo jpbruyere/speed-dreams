@@ -24,13 +24,13 @@ SimEngineConfig(tCar *car)
 {
 	void	*hdle = car->params;
 	int		i;
-	tdble	maxTq;
-	tdble	rpmMaxTq = 0;
+	float	maxTq;
+	float	rpmMaxTq = 0;
 	char	idx[64];
 	tEngineCurveElem *data;
 	struct tEdesc {
-		tdble rpm;
-		tdble tq;
+		float rpm;
+		float tq;
 	} *edesc;
 
 
@@ -134,36 +134,36 @@ SimEngineUpdateTq(tCar *car)
 	}
 
     engine->rads = MIN(engine->rads, engine->revsMax);
-	tdble EngBrkK = engine->brakeLinCoeff * engine->rads;
+	float EngBrkK = engine->brakeLinCoeff * engine->rads;
 
     if ( (engine->rads < engine->tickover) ||
          ( (engine->rads == engine->tickover) && (car->ctrl->accelCmd <= 1e-6) ) ) {
 		engine->Tq = 0.0f;
 		engine->rads = engine->tickover;
 	} else {
-        tdble Tq_max = 0.0;
+        float Tq_max = 0.0;
 		for (i = 0; i < car->engine.curve.nbPts; i++) {
 			if (engine->rads < curve->data[i].rads) {
 				Tq_max = engine->rads * curve->data[i].a + curve->data[i].b;
                 break;
             }
         }
-		tdble alpha = car->ctrl->accelCmd;
+		float alpha = car->ctrl->accelCmd;
         if (engine->rads > engine->revsLimiter) {
             alpha = 0.0;
         }
-		tdble Tq_cur = (Tq_max + EngBrkK) * alpha;
+		float Tq_cur = (Tq_max + EngBrkK) * alpha;
 		engine->Tq = Tq_cur;
 		engine->Tq -= EngBrkK;
 		if (alpha <= 1e-6) {
 			engine->Tq -= engine->brakeCoeff;
 		}
 
-		tdble cons = Tq_cur * 0.75f;
+		float cons = Tq_cur * 0.75f;
 		if (cons > 0) {
-			car->fuel -= (tdble) (cons * engine->rads * engine->fuelcons * 0.0000001 * SimDeltaTime);
+			car->fuel -= (float) (cons * engine->rads * engine->fuelcons * 0.0000001 * SimDeltaTime);
 		}
-        car->fuel = (tdble) MAX(car->fuel, 0.0);
+        car->fuel = (float) MAX(car->fuel, 0.0);
     }
 }
 
@@ -181,8 +181,8 @@ SimEngineUpdateTq(tCar *car)
  *	axle rpm for wheel update
  *	0 if no wheel update
  */
-tdble
-SimEngineUpdateRpm(tCar *car, tdble axleRpm)
+float
+SimEngineUpdateRpm(tCar *car, float axleRpm)
 {
 tTransmission *trans = &(car->transmission);
 tClutch *clutch = &(trans->clutch);
@@ -201,11 +201,11 @@ return 0.0;
 freerads = engine->rads;
 freerads += engine->Tq / engine->I * SimDeltaTime;
 {
-    tdble dp = engine->pressure;
+    float dp = engine->pressure;
     engine->pressure = engine->pressure*0.9f + 0.1f*engine->Tq;
     dp = (0.001f*fabs(engine->pressure - dp));
     dp = fabs(dp);
-    tdble rth = urandom();
+    float rth = urandom();
     if (dp > rth) {
         engine->exhaust_pressure += rth;
     }
@@ -222,8 +222,8 @@ freerads += engine->Tq / engine->I * SimDeltaTime;
  float ttq = 0.0;
  float I_response = trans->differential[0].feedBack.I + trans->differential[1].feedBack.I;
  engine->Tq_response = 0.0;
- tdble dI = fabs(trans->curI - engine->I_joint);
- tdble sdI = dI;
+ float dI = fabs(trans->curI - engine->I_joint);
+ float sdI = dI;
 
  // limit the difference to avoid model instability
  if (sdI>1.0) {
@@ -231,7 +231,7 @@ freerads += engine->Tq / engine->I * SimDeltaTime;
  }
 
  float alpha = 0.1f; // transition coefficient
- engine->I_joint = (tdble) (engine->I_joint*(1.0-alpha) +  alpha*trans->curI);
+ engine->I_joint = (float) (engine->I_joint*(1.0-alpha) +  alpha*trans->curI);
 
  // only use these values when the clutch is engaged or the gear
  // has changed.
@@ -240,7 +240,7 @@ freerads += engine->Tq / engine->I * SimDeltaTime;
      transfer = clutch->transferValue * clutch->transferValue * clutch->transferValue * clutch->transferValue;
 
      ttq = (float) (dI* tanh(0.01*(axleRpm * trans->curOverallRatio * transfer + freerads * (1.0-transfer) -engine->rads))*100.0);
-     engine->rads = (tdble) ((1.0-sdI) * (axleRpm * trans->curOverallRatio * transfer + freerads * (1.0-transfer)) + sdI *(engine->rads + ((ttq)*SimDeltaTime)/(engine->I)));
+     engine->rads = (float) ((1.0-sdI) * (axleRpm * trans->curOverallRatio * transfer + freerads * (1.0-transfer)) + sdI *(engine->rads + ((ttq)*SimDeltaTime)/(engine->I)));
      if (engine->rads < 0.0) {
          engine->rads = 0;
          engine->Tq = 0.0;

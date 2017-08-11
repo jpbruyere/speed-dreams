@@ -401,7 +401,7 @@ void NetNetwork::WriteDriverData(NetDriver driver,int index,void *params)
     char path2[256];
     sprintf(path2, "%s/%d", RM_SECT_DRIVERS, index);
     GfParmSetStr(params, path2, RM_ATTR_MODULE,driver.module);
-    GfParmSetNum(params, path2, RM_ATTR_IDX, NULL,(tdble)driver.idx);
+    GfParmSetNum(params, path2, RM_ATTR_IDX, NULL,(float)driver.idx);
 }
 
 std::string NetNetwork::GetNetworkDriverName()

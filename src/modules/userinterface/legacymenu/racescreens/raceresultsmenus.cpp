@@ -302,7 +302,7 @@ rmRaceResults(void *prevHdle, tRmInfo *info, int start)
     //snprintf(path, sizeof(path), "%s/%s/%s", info->track->name, RE_SECT_RESULTS, race);
     //int totLaps = (int)GfParmGetNum(results, path, RE_ATTR_LAPS, NULL, 0);
     //snprintf(path, sizeof(path), "%s/%s/%s/%s/%d", info->track->name, RE_SECT_RESULTS, race, RE_SECT_RANK, 1);
-    //tdble refTime = GfParmGetNum(results, path, RE_ATTR_TIME, NULL, 0);
+    //float refTime = GfParmGetNum(results, path, RE_ATTR_TIME, NULL, 0);
 
     //Get number of cars
     snprintf(path, sizeof(path), "%s/%s/%s/%s", info->track->name, RE_SECT_RESULTS, race, RE_SECT_RANK);
@@ -462,7 +462,7 @@ rmQualifResults(void *prevHdle, tRmInfo *info, const char* pszTitle, int start)
 
 	// Never used : remove ?
     //snprintf(path, sizeof(path), "%s/%s/%s/%s/%d", info->track->name, RE_SECT_RESULTS, race, RE_SECT_RANK, 1);
-    //tdble refTime = GfParmGetNum(results, path, RE_ATTR_TIME, NULL, 0);
+    //float refTime = GfParmGetNum(results, path, RE_ATTR_TIME, NULL, 0);
     //snprintf(path, sizeof(path), "%s/%s/%s", info->track->name, RE_SECT_RESULTS, race);
     //const int totLaps = (int)GfParmGetNum(results, path, RE_ATTR_LAPS, NULL, 0);
     snprintf(path, sizeof(path), "%s/%s/%s/%s", info->track->name, RE_SECT_RESULTS, race, RE_SECT_RANK);

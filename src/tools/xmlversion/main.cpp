@@ -141,8 +141,8 @@ static int process( const char* versionFile, const char* dataLocation,
 	// Note : Data location is set to a relative path if specified such, absolute otherwise.
 	GfParmSetStr( versionHandle, path, "Data location", actualDataLoc);
 	GfParmSetStr( versionHandle, path, "Local location", userLocation );
-	GfParmSetNum( versionHandle, path, "Major version", NULL, (tdble)majorVer);
-	GfParmSetNum( versionHandle, path, "Minor version", NULL, (tdble)minorVer);
+	GfParmSetNum( versionHandle, path, "Major version", NULL, (float)majorVer);
+	GfParmSetNum( versionHandle, path, "Minor version", NULL, (float)minorVer);
 
 	free( path );
 	free(absDataLocation);

@@ -30,56 +30,56 @@ typedef struct
     tBrake       brake;		/* associated brake disk */
 
     /* dynamic */
-    t3Dd	forces;		/* forces acting on car */
-    tdble	rollRes;	/* Rolling Resistance (summed over the car) */
-    tdble	rideHeight;	/* height of the bottom of the car */
-    tdble	zRoad;		/* z of the road */
-    t3Dd   	pos;	   	/* world related */
-    t3Dd	bodyVel;	/* world related */
-    tdble  	driveTq;   	/* engine torque */
-    tdble	vt;
+    glm::vec3	forces;		/* forces acting on car */
+    float	rollRes;	/* Rolling Resistance (summed over the car) */
+    float	rideHeight;	/* height of the bottom of the car */
+    float	zRoad;		/* z of the road */
+    glm::vec3   	pos;	   	/* world related */
+    glm::vec3	bodyVel;	/* world related */
+    float  	driveTq;   	/* engine torque */
+    float	vt;
 
-    tdble  	spinTq;		/* spin torque feedback */
-    tdble  	spinVel;   	/* spin velocity */
-    tdble  	prespinVel;   	/* spin velocity */
+    float  	spinTq;		/* spin torque feedback */
+    float  	spinVel;   	/* spin velocity */
+    float  	prespinVel;   	/* spin velocity */
     int     	state;     	/* wheel state */
     /* 1 and 2 are for suspension state */
 #define SIM_WH_SPINNING 4	/* the wheel is spinning */
 #define SIM_WH_LOCKED   8	/* the wheel is locked */
-    tdble	axleFz;		/* force from axle (anti-roll bar) */
+    float	axleFz;		/* force from axle (anti-roll bar) */
     tTrkLocPos	trkPos;		/* current track position */
     tPosd	relPos;		/* relative pos / GC */
-    tdble	sa;		/* slip angle */
-    tdble	sx;		/* longitudinal slip value */
-    tdble	steer;
+    float	sa;		/* slip angle */
+    float	sx;		/* longitudinal slip value */
+    float	steer;
     
     /* static */
     tPosd	staticPos;	/* pos relative to the GC (z is suspension travel at rest) */
 				/* and angles are camber (ax), caster (ay) and toe (az) */
-    tdble	rollCenter;
+    float	rollCenter;
 
-    tdble  	weight0;	/* initial weight on this wheel */
-    tdble	tireSpringRate;
-    tdble  	radius;
-    tdble  	mu;
-    tdble  	I;       	/* I = inertial moment of the wheel */
-    tdble  	curI;       	/* Current inertia for the wheel (including transmission) */
-    tdble	mfC;		/* Magic Formula C coeff */
-    tdble	mfB;		/* Magic Formula B coeff */
-    tdble	mfE;		/* Magic Formula E coeff */
-    tdble	lfMax;		/* Load factor */
-    tdble	lfMin;		/* Load factor */
-    tdble	lfK;		/* Load factor */
-    tdble	opLoad;		/* Operating load */
-    tdble	mass;		/* total wheel mass (incl. brake) (unsprung mass) */
-    tdble	camber;		/* camber, negative toward exterior on both sides */
-    tdble	pressure;	/* tire pressure */
-	tdble   rel_vel;    /* relative velocity - used for realstic suspension movement*/
+    float  	weight0;	/* initial weight on this wheel */
+    float	tireSpringRate;
+    float  	radius;
+    float  	mu;
+    float  	I;       	/* I = inertial moment of the wheel */
+    float  	curI;       	/* Current inertia for the wheel (including transmission) */
+    float	mfC;		/* Magic Formula C coeff */
+    float	mfB;		/* Magic Formula B coeff */
+    float	mfE;		/* Magic Formula E coeff */
+    float	lfMax;		/* Load factor */
+    float	lfMin;		/* Load factor */
+    float	lfK;		/* Load factor */
+    float	opLoad;		/* Operating load */
+    float	mass;		/* total wheel mass (incl. brake) (unsprung mass) */
+    float	camber;		/* camber, negative toward exterior on both sides */
+    float	pressure;	/* tire pressure */
+	float   rel_vel;    /* relative velocity - used for realstic suspension movement*/
 
     tDynAxis	in;
     tDynAxis	feedBack;
 
-    tdble	preFn, preFt;
+    float	preFn, preFt;
 } tWheel;
 
     

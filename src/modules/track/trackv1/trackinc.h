@@ -32,13 +32,13 @@ extern void ReadTrack5(tTrack *theTrack, void *TrackHandle, tRoadCam **camList, 
 
 extern tRoadCam *TrackGetCamList(void);
 
-extern tdble TrackHeightG(tTrackSeg *seg, tdble x, tdble y);
-extern tdble TrackHeightL(tTrkLocPos *p);
-extern void TrackGlobal2Local(tTrackSeg *segment, tdble X, tdble Y, tTrkLocPos *p, int sides);
-extern void TrackLocal2Global(tTrkLocPos *p, tdble *X, tdble *Y);
-extern void TrackSideNormal(tTrackSeg*, tdble, tdble, int, t3Dd*);
-extern void TrackSurfaceNormal(tTrkLocPos *p, t3Dd *norm);
-extern tdble TrackSpline(tdble p0, tdble p1, tdble t0, tdble t1, tdble t);
+extern float TrackHeightG(tTrackSeg *seg, float x, float y);
+extern float TrackHeightL(tTrkLocPos *p);
+extern void TrackGlobal2Local(tTrackSeg *segment, float X, float Y, tTrkLocPos *p, int sides);
+extern void TrackLocal2Global(tTrkLocPos *p, float *X, float *Y);
+extern void TrackSideNormal(tTrackSeg*, float, float, int, glm::vec3*);
+extern void TrackSurfaceNormal(tTrkLocPos *p, glm::vec3 *norm);
+extern float TrackSpline(float p0, float p1, float t0, float t1, float t);
 
 
 #endif /* _TRACKINC_H__ */ 

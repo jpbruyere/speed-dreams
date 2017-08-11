@@ -23,51 +23,51 @@
 typedef struct
 {
     /* dynamic */
-    tdble	drag;		/* drag force along car x axis */
-    tdble	lift[2];	/* front & rear lift force along car z axis */
+    float	drag;		/* drag force along car x axis */
+    float	lift[2];	/* front & rear lift force along car z axis */
 
     /* static */
-    //tdble	SCx2;       replaced by CdBody as initial Cd
-    tdble	Clift[2];	/* front & rear lift due to body not wings */
-    tdble	Cd;		    /* for aspiration, value updated depending on wing angles */
-    tdble	CdBody;	    /* for aspiration, value without wings, for variable wing angles */
+    //float	SCx2;       replaced by CdBody as initial Cd
+    float	Clift[2];	/* front & rear lift due to body not wings */
+    float	Cd;		    /* for aspiration, value updated depending on wing angles */
+    float	CdBody;	    /* for aspiration, value without wings, for variable wing angles */
 } tAero;
 
 
 typedef struct
 {
     /* dynamic */
-    t3Dd	forces;
-    tdble	Kx;
-    tdble	Kz;
-    tdble	Kz_org;
-    tdble	angle;
+    glm::vec3	forces;
+    float	Kx;
+    float	Kz;
+    float	Kz_org;
+    float	angle;
     
     /* static */
-    t3Dd	staticPos;
+    glm::vec3	staticPos;
 
 //>>> simuV4
     /* static for wings with const angle */
-    tdble	AoAatMax;	/* [deg] Angle of Attack at the maximum of coefficient of lift */
-    tdble	AoAatZero;	/* [deg] Angle of Attack at coefficient of lift = 0 (-30 < AoAatZero < 0) */
-    tdble	AoAatZRad;	/* [rad] Angle of Attack at coefficient of lift = 0 (-30 < AoAatZero < 0) */
-    tdble	AoAOffset;	/* [deg] Offset for Angle of Attack */
+    float	AoAatMax;	/* [deg] Angle of Attack at the maximum of coefficient of lift */
+    float	AoAatZero;	/* [deg] Angle of Attack at coefficient of lift = 0 (-30 < AoAatZero < 0) */
+    float	AoAatZRad;	/* [rad] Angle of Attack at coefficient of lift = 0 (-30 < AoAatZero < 0) */
+    float	AoAOffset;	/* [deg] Offset for Angle of Attack */
 
-    tdble	CliftMax;	/* Maximum of coefficient of lift (0 < CliftMax < 4) */
-    tdble	CliftZero;	/* Coefficient of lift at Angle of Attack = 0 */
-    tdble	CliftAsymp;	/* Asymptotic coefficient of lift at large Angle of Attack */
-    tdble	a;			/* [deg] Scaled angle at decreasing */
-    tdble	b;			/* Delay of decreasing */
-    tdble	c;			/* Curvature of start of decreasing */
-    tdble	d;			/* Scale at AoA = 0 */
-    tdble	f;			/* Scale factor */
+    float	CliftMax;	/* Maximum of coefficient of lift (0 < CliftMax < 4) */
+    float	CliftZero;	/* Coefficient of lift at Angle of Attack = 0 */
+    float	CliftAsymp;	/* Asymptotic coefficient of lift at large Angle of Attack */
+    float	a;			/* [deg] Scaled angle at decreasing */
+    float	b;			/* Delay of decreasing */
+    float	c;			/* Curvature of start of decreasing */
+    float	d;			/* Scale at AoA = 0 */
+    float	f;			/* Scale factor */
     
     /* parameters for THIN wing model */
-    tdble   AoStall;    /* angle of stall =15 deg (1 < AoStall < 45 in degrees) */
-    tdble   Stallw;     /* stall width =2 deg, (1 < Stallw < AoStall) */
-    tdble   AR;         /* effective aspect ratio of wing, 0 means infinite, must be positive */
-    tdble   Kx1, Kx2, Kx3, Kx4;
-    tdble   Kz1, Kz2, Kz3;
+    float   AoStall;    /* angle of stall =15 deg (1 < AoStall < 45 in degrees) */
+    float   Stallw;     /* stall width =2 deg, (1 < Stallw < AoStall) */
+    float   AR;         /* effective aspect ratio of wing, 0 means infinite, must be positive */
+    float   Kx1, Kx2, Kx3, Kx4;
+    float   Kz1, Kz2, Kz3;
 
     int		WingType;	/* -1=None, 0=FLAT, 1=PROFILE, 2=THIN... */
 //<<< simuV4

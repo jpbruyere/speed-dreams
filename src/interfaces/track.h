@@ -275,7 +275,7 @@
 typedef struct RoadCam
 {
     char		*name;
-    t3Dd		pos;
+    glm::vec3		pos;
     struct RoadCam	*next;
 } tRoadCam;
 
@@ -294,13 +294,13 @@ typedef struct trackSurface
 
     const char *material;       /**< Type of material used */
 
-    tdble kFriction;            /**< Actual mu = coefficient of friction (set at race start) */
-    tdble kFrictionDry;         /**< Coefficient of friction when dry */
-    tdble kRebound;             /**< Coefficient of energy restitution */
-    tdble kRollRes;             /**< Rolling resistance */
-    tdble kRoughness;           /**< Roughtness in m of the surface (wave height) */
-    tdble kRoughWaveLen;        /**< Wave length in m of the surface */
-    tdble kDammage;             /**< Dammages in case of collision */
+    float kFriction;            /**< Actual mu = coefficient of friction (set at race start) */
+    float kFrictionDry;         /**< Coefficient of friction when dry */
+    float kRebound;             /**< Coefficient of energy restitution */
+    float kRollRes;             /**< Rolling resistance */
+    float kRoughness;           /**< Roughtness in m of the surface (wave height) */
+    float kRoughWaveLen;        /**< Wave length in m of the surface */
+    float kDammage;             /**< Dammages in case of collision */
 
 } tTrackSurface;
 
@@ -310,8 +310,8 @@ typedef struct trackSurface
 typedef struct trackBarrier
 {
     int			style;          /**< Barrier style */
-    tdble		width;          /**< Barrier width */
-    tdble		height;         /**< Barrier height */
+    float		width;          /**< Barrier width */
+    float		height;         /**< Barrier height */
     tTrackSurface	*surface;   /**< Barrier surface */
     vec2f normal;               // Normal on the vertical track inside pointing towards the track middle.
 } tTrackBarrier;
@@ -365,17 +365,17 @@ typedef struct trackSeg
 #define TR_FENCE	3           /**< Fence (no width) (barrier only) */
 #define TR_PITBUILDING	4       /**< Pit building wall (barrier only) */
 
-    tdble length;               /**< Length in meters of the middle of the track */
-    tdble width;                /**< Width of the segment (if constant width) */
-    tdble startWidth;           /**< Width of the beginning of the segment */
-    tdble endWidth;             /**< Width of the end of the segment */
-    tdble lgfromstart;          /**< Length of begining of segment from starting line */
-    tdble radius;               /**< Radius in meters of the middle of the track (>0) */
-    tdble radiusr;              /**< Radius in meters of the right side of the track (>0) */
-    tdble radiusl;              /**< Radius in meters of the left side of the track (>0) */
-    tdble arc;                  /**< Arc in rad of the curve (>0) */
-    t3Dd center;                /**< Center of the curve */
-    t3Dd vertex[4];             /**< Coord of the 4 corners of the segment.
+    float length;               /**< Length in meters of the middle of the track */
+    float width;                /**< Width of the segment (if constant width) */
+    float startWidth;           /**< Width of the beginning of the segment */
+    float endWidth;             /**< Width of the end of the segment */
+    float lgfromstart;          /**< Length of begining of segment from starting line */
+    float radius;               /**< Radius in meters of the middle of the track (>0) */
+    float radiusr;              /**< Radius in meters of the right side of the track (>0) */
+    float radiusl;              /**< Radius in meters of the left side of the track (>0) */
+    float arc;                  /**< Arc in rad of the curve (>0) */
+    glm::vec3 center;                /**< Center of the curve */
+    glm::vec3 vertex[4];             /**< Coord of the 4 corners of the segment.
                                 <br>Index in:
                                         - TR_SL
                                         - TR_SL
@@ -387,7 +387,7 @@ typedef struct trackSeg
 #define TR_EL	2               /**< End-Left corner */
 #define TR_ER	3               /**< End_Right corner */
 
-    tdble angle[7];             /** Rotation angles of the track in rad anti-clockwise:
+    float angle[7];             /** Rotation angles of the track in rad anti-clockwise:
                                     <br>Index in:
                                         - TR_ZS
                                         - TR_ZE
@@ -408,18 +408,18 @@ typedef struct trackSeg
     /* Straight segment directions, precalculated at track load time.
      * They are used frequently by rt* functions, so this can
      * optimize track handling a bit. */
-    tdble sin;                  /**< = sin(seg->angle[TR_ZS]) */
-    tdble cos;                  /**< = cos(seg->angle[TR_ZS]) */
+    float sin;                  /**< = sin(seg->angle[TR_ZS]) */
+    float cos;                  /**< = cos(seg->angle[TR_ZS]) */
 
     /* constants used to find the height of a point */
-    tdble Kzl;                  /* long constant */
-    tdble Kzw;                  /* width constant */
+    float Kzl;                  /* long constant */
+    float Kzw;                  /* width constant */
     /* constant used to find the width of a segment */
-    tdble	Kyl;                /* find y along x */
-    t3Dd	rgtSideNormal;      /* normal to the right side in case of straight segment */
+    float	Kyl;                /* find y along x */
+    glm::vec3	rgtSideNormal;      /* normal to the right side in case of straight segment */
     int		envIndex;           /* Environment mapping image index */
 
-    tdble	height;             /**< Max height for curbs */
+    float	height;             /**< Max height for curbs */
 
     unsigned int raceInfo;      /**< Type of segment regarding the race:
                                     <br>Mask value in:
@@ -444,7 +444,7 @@ typedef struct trackSeg
 #define TR_PITEND	0x00000100  /**< Car pit End */
 #define TR_PITBUILD 0x00000200  /**< Car pit while buildings */
 
-    tdble DoVfactor;            /* the factor to use in calculating DoV for this Seg */
+    float DoVfactor;            /* the factor to use in calculating DoV for this Seg */
 
     /* pointers */
 
@@ -488,10 +488,10 @@ typedef struct TrkLocPos
 #define TR_LPOS_SEGMENT	1	/**< If the point is on a side, relative to this side */
 #define TR_LPOS_TRACK	2	/**< Local pos includes all the track width */
 
-    tdble	toStart;        /**< Distance to start of segment (or arc if turn) */
-    tdble	toRight;        /**< Distance to right side of segment (+ to inside of track - to outside) */
-    tdble	toMiddle;       /**< Distance to middle of segment (+ to left - to right) */
-    tdble	toLeft;         /**< Distance to left side of segment (+ to inside of track - to outside) */
+    float	toStart;        /**< Distance to start of segment (or arc if turn) */
+    float	toRight;        /**< Distance to right side of segment (+ to inside of track - to outside) */
+    float	toMiddle;       /**< Distance to middle of segment (+ to left - to right) */
+    float	toLeft;         /**< Distance to left side of segment (+ to inside of track - to outside) */
 } tTrkLocPos;
 
 struct CarElt;
@@ -503,8 +503,8 @@ typedef struct TrackOwnPit
     int pitCarIndex;        /**< Index of the car in the car array below which occupies the pit. If the pit is free the value is TR_PIT_STATE_FREE */
 #define TR_PIT_STATE_FREE	-1
 #define TR_PIT_MAXCARPERPIT 4		// maximum cars per pit
-    tdble lmin;             /**< Pitting area length min */
-    tdble lmax;             /**< Pitting area length max */
+    float lmin;             /**< Pitting area length min */
+    float lmax;             /**< Pitting area length max */
     int freeCarIndex;       // Index of next free car entry (look at the next line).
     struct CarElt	*car[TR_PIT_MAXCARPERPIT];	/**< Car links for pit */
 } tTrackOwnPit;
@@ -529,9 +529,9 @@ typedef struct tTrackPitInfo
                                             - TR_RGT
                                             - TR_LFT
                                     */
-    tdble len;                      /**< Lenght of each pit stop */
-    tdble width;                    /**< Width of each pit stop */
-    tdble speedLimit;               /**< Speed limit between pitStart and pitEnd */
+    float len;                      /**< Lenght of each pit stop */
+    float width;                    /**< Width of each pit stop */
+    float speedLimit;               /**< Speed limit between pitStart and pitEnd */
     tTrackSeg *pitEntry;            /**< Pit lane segment */
     tTrackSeg *pitStart;            /**< Pit lane segment */
     tTrackSeg *pitEnd;              /**< Pit lane segment */
@@ -544,16 +544,16 @@ typedef struct tTrackPitInfo
 
 typedef struct TurnMarksInfo
 {
-    tdble	height;
-    tdble	width;
-    tdble	hSpace;
-    tdble	vSpace;
+    float	height;
+    float	width;
+    float	hSpace;
+    float	vSpace;
 } tTurnMarksInfo;
 
 typedef struct GraphicLightInfo
 {
-    t3Dd topleft;
-    t3Dd bottomright;
+    glm::vec3 topleft;
+    glm::vec3 bottomright;
     char *onTexture;
     char *offTexture;
     int index;
@@ -570,9 +570,9 @@ typedef struct GraphicLightInfo
 #define GR_TRACKLIGHT_PIT_GREEN 11
 #define GR_TRACKLIGHT_PIT_BLUE 12
     int role;
-    tdble red;
-    tdble green;
-    tdble blue;
+    float red;
+    float green;
+    float blue;
 } tGraphicLightInfo;
 
 typedef struct TrackGraphicInfo
@@ -599,14 +599,14 @@ typedef struct TrackLocalInfo
     /* Constant spec. data, read from <track>.xml */
     const char *station;	/**<Station Weather */
     int	timezone;                   /**< timezone for real timeday with not connection http */
-    tdble anyrainlkhood;            /**< Overall likelyhood of having rain (when random) [0, 1] */
-    tdble littlerainlkhood;         /**< Likelyhood of having little rain when it rains [0, 1] */
-    tdble mediumrainlkhood;         /**< Likelyhood of having medium rain when it rains [0, 1-little] */
+    float anyrainlkhood;            /**< Overall likelyhood of having rain (when random) [0, 1] */
+    float littlerainlkhood;         /**< Likelyhood of having little rain when it rains [0, 1] */
+    float mediumrainlkhood;         /**< Likelyhood of having medium rain when it rains [0, 1-little] */
 
     /* Actual data for a race (computed at race start) */
-    tdble timeofday;                /**< Local time of day, in seconds from 0:00 (0 = 0:00, 86400 = 24:00 */
+    float timeofday;                /**< Local time of day, in seconds from 0:00 (0 = 0:00, 86400 = 24:00 */
     int timeofdayindex;
-    tdble sunascension;             /**< Local sun "height" (related to the latitude, not to the time of day) */
+    float sunascension;             /**< Local sun "height" (related to the latitude, not to the time of day) */
 
     int clouds;	/**< Clouds coverage in the sky  (warning : consistency with RM_VAL_CLOUDS_*) */
 #define TR_CLOUDS_NONE   0
@@ -646,14 +646,14 @@ typedef struct Track
     const char    *subcategory; /**< used for the moment for long/short speedway */
     int           nseg;         /**< Number of segments */
     int           version;      /**< Version of the track type */
-    tdble         length;       /**< main track length */
-    tdble         width;        /**< main track width */
+    float         length;       /**< main track length */
+    float         width;        /**< main track width */
     tTrackPitInfo pits;         /**< Pits information */
     tTrackSeg	  *seg;         /**< Segment list for the main track */
     tTrackSurface *surfaces;	/**< Segment surface list */
 
-    t3Dd		min;
-    t3Dd		max;
+    glm::vec3		min;
+    glm::vec3		max;
     tTrackGraphicInfo	graphic;
 
     int		numberOfSectors;	/**< Number of sectors. Every sector is used for calculating split times */

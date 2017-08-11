@@ -281,8 +281,8 @@ cGrSkidmarks::Update(const tCarElt* car, const double t)
 	cur_clr[0] = cur_clr[1] = cur_clr[2] = 1.0f;
 
 	for(int i = 0; i < 4; i++) {
-		tdble sling_mud = 1.0f;
-		tdble skid_sensitivity = 0.75f;
+		float sling_mud = 1.0f;
+		float skid_sensitivity = 0.75f;
 		
 		if(car->priv.wheel[i].seg) { // sanity check
 			const char* s = car->priv.wheel[i].seg->surface->material;
@@ -327,7 +327,7 @@ cGrSkidmarks::Update(const tCarElt* car, const double t)
 		}//if car->skid
 
 		for(int c = 0; c < 3; c++) {
-			tdble tmp = strips[i].smooth_colour[c];
+			float tmp = strips[i].smooth_colour[c];
 			strips[i].smooth_colour[c] = 0.9f*tmp + 0.1f*cur_clr[c];
 			cur_clr[c] = tmp;
 		}//for c
@@ -339,8 +339,8 @@ cGrSkidmarks::Update(const tCarElt* car, const double t)
 		if((car->_speed_x * car->_speed_x + car->_speed_y * car->_speed_y) > 1.0f) {
 			if (cur_clr[3] > 0.1f) {
 				ssgVertexArray *basevtx = new ssgVertexArray(4 * 2 + 1);
-				tdble sling_left = -sling_mud;
-				tdble sling_right = sling_mud; 
+				float sling_left = -sling_mud;
+				float sling_right = sling_mud; 
 
 				// TO-DO: Temporary fix, trying to make sure that
 				// skids are above the road surface. This is needed
@@ -353,8 +353,8 @@ cGrSkidmarks::Update(const tCarElt* car, const double t)
 				// routine grTrackHeightL(tTrkLocPos *p), similar to 
 				// TrTrackHeightL(), but which aim to give the height
 				// of the graphical track.
-				tdble z_adjust = 0.95f;
-				tdble contact_z = car->priv.wheel[i].relPos.z - car->_wheelRadius(i)*z_adjust; 
+				float z_adjust = 0.95f;
+				float contact_z = car->priv.wheel[i].relPos.z - car->_wheelRadius(i)*z_adjust; 
 
 				//One side
 				sgVec3 vtx;

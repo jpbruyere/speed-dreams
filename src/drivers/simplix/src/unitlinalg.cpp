@@ -3,24 +3,24 @@
 //--------------------------------------------------------------------------*
 // A robot for Speed Dreams-Version 2.X simuV4
 //--------------------------------------------------------------------------*
-// Hilfsfunktionen für 2D- und 3D-Vektoren
+// Hilfsfunktionen fÃ¼r 2D- und 3D-Vektoren
 // (C++-Portierung der Unit UnitLinAlg.pas)
 // 
 // File         : unitlinalg.cpp
 // Created      : 2007.02.20
 // Last changed : 2014.11.29
-// Copyright    : © 2007-2014 Wolf-Dieter Beelitz
+// Copyright    : Â© 2007-2014 Wolf-Dieter Beelitz
 // eMail        : wdbee@users.sourceforge.net
 // Version      : 4.05.000
 //--------------------------------------------------------------------------*
 // Das Programm wurde unter Windows XP entwickelt und getestet.
 // Fehler sind nicht bekannt, dennoch gilt:
-// Wer die Dateien verwendet erkennt an, dass für Fehler, Schäden,
-// Folgefehler oder Folgeschäden keine Haftung übernommen wird.
+// Wer die Dateien verwendet erkennt an, dass fÃ¼r Fehler, SchÃ¤den,
+// Folgefehler oder FolgeschÃ¤den keine Haftung Ã¼bernommen wird.
 //
-// Im übrigen gilt für die Nutzung und/oder Weitergabe die
+// Im Ã¼brigen gilt fÃ¼r die Nutzung und/oder Weitergabe die
 // GNU GPL (General Public License)
-// Version 2 oder nach eigener Wahl eine spätere Version.
+// Version 2 oder nach eigener Wahl eine spÃ¤tere Version.
 //--------------------------------------------------------------------------*
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -118,7 +118,7 @@ TV2D Divide(const TV2D &Vector, const Tdble &Value)
 //==========================================================================*
 
 //==========================================================================*
-// 2D: Result := Len(Vector) (Länge des Vectors)
+// 2D: Result := Len(Vector) (LÃ¤nge des Vectors)
 //--------------------------------------------------------------------------*
 Tdble Len(const TV2D &Vector)
 {
@@ -139,7 +139,7 @@ TV2D Neg(const TV2D &Vector)
 //==========================================================================*
 
 //==========================================================================*
-// 2D: Result := Normalize(Vector) (Vektor mit Länge 1, Richtung wie Vector)
+// 2D: Result := Normalize(Vector) (Vektor mit LÃ¤nge 1, Richtung wie Vector)
 //--------------------------------------------------------------------------*
 TV2D Normalize(const TV2D &Vector)
 {
@@ -297,7 +297,7 @@ TV3D Divide(const TV3D &Vector, const Tdble &Value)
 //==========================================================================*
 
 //==========================================================================*
-// 3D: Result := Len(Vector) (Länge des Vectors)
+// 3D: Result := Len(Vector) (LÃ¤nge des Vectors)
 //--------------------------------------------------------------------------*
 Tdble Len(const TV3D &Vector)
 {
@@ -321,7 +321,7 @@ TV3D Neg(const TV3D &Vector)
 //==========================================================================*
 
 //==========================================================================*
-// 3D: Result := Normalize(Vector) (Vektor mit Länge 1, Richtung wie Vector)
+// 3D: Result := Normalize(Vector) (Vektor mit LÃ¤nge 1, Richtung wie Vector)
 //--------------------------------------------------------------------------*
 TV3D Normalize(const TV3D &Vector)
 {

@@ -53,7 +53,7 @@ ReCarsUpdateCarPitTime(tCarElt *car)
 
 	switch (car->_pitStopType) {
 		case RM_PIT_REPAIR:
-			info->totalPitTime = 2.0f + fabs((double)(car->_pitFuel)) / 8.0f + (tdble)(fabs((double)(car->_pitRepair))) * 0.007f;
+			info->totalPitTime = 2.0f + fabs((double)(car->_pitFuel)) / 8.0f + (float)(fabs((double)(car->_pitRepair))) * 0.007f;
 			car->_scheduledEventTime = s->currentTime + info->totalPitTime;
 			RePhysicsEngine().reconfigureCar(car);
 
@@ -331,7 +331,7 @@ ReCarsManageCar(tCarElt *car, bool& bestLapChanged)
 	int i;
 	int xx;
 	tTrackSeg *sseg;
-	tdble wseg;
+	float wseg;
 	static const float ctrlMsgColor[] = {0.0, 0.0, 1.0, 1.0};
 	tSituation *s = ReInfo->s;
 	
@@ -389,7 +389,7 @@ ReCarsManageCar(tCarElt *car, bool& bestLapChanged)
 			snprintf(car->ctrl.msg[2], RM_CMD_MAX_MSG_SIZE, "Pit request");
 			car->ctrl.msg[2][RM_CMD_MAX_MSG_SIZE-1] = 0; // Some snprintf implementations fail to do so.
  
-			tdble lgFromStart = car->_trkPos.seg->lgfromstart;
+			float lgFromStart = car->_trkPos.seg->lgfromstart;
 			
 			switch (car->_trkPos.seg->type) {
 				case TR_STR:
@@ -402,7 +402,7 @@ ReCarsManageCar(tCarElt *car, bool& bestLapChanged)
 		
 			if ((lgFromStart > car->_pit->lmin) && (lgFromStart < car->_pit->lmax)) {
 				int side;
-				tdble toBorder;
+				float toBorder;
 				if (ReInfo->track->pits.side == TR_RGT) {
 					side = TR_SIDE_RGT;
 					toBorder = car->_trkPos.toRight;
@@ -596,7 +596,7 @@ ReCarsManageCar(tCarElt *car, bool& bestLapChanged)
 							car->_timeBehindPrev = 0;
 						}
 						
-						info->sTime = (tdble)s->currentTime;
+						info->sTime = (float)s->currentTime;
 /*
 						if (ReInfo->s->_raceType == RM_TYPE_PRACTICE && 
 								(car->_laps > 1 || s->_totLaps == 0))

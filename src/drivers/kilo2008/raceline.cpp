@@ -818,8 +818,8 @@ void LRaceLine::GetPoint(const double offset, const double lookahead,
                           vec2f * const rt) const {
   double dLane = (width_ / 2.0 - offset) / width_;
   vec2f last;
-  last.x = (tdble) (dLane * seg_[this_].txRight + (1.0 - dLane) * seg_[this_].txLeft);
-  last.y = (tdble) (dLane * seg_[this_].tyRight + (1.0 - dLane) * seg_[this_].tyLeft);
+  last.x = (float) (dLane * seg_[this_].txRight + (1.0 - dLane) * seg_[this_].txLeft);
+  last.y = (float) (dLane * seg_[this_].tyRight + (1.0 - dLane) * seg_[this_].tyLeft);
 
   int ndiv = next_;
   double dLength = 0.0;
@@ -827,8 +827,8 @@ void LRaceLine::GetPoint(const double offset, const double lookahead,
                 * MIN(1.0, MAX(0.8, car_->_speed_x / target_speed_));
   int iLookaheadLimit = static_cast<int>(la / div_length_);
   for (int count = 0; count < iLookaheadLimit && dLength < la; count++) {
-    rt->x = (tdble) (dLane * seg_[ndiv].txRight + (1 - dLane) * seg_[ndiv].txLeft);
-    rt->y = (tdble) (dLane * seg_[ndiv].tyRight + (1 - dLane) * seg_[ndiv].tyLeft);
+    rt->x = (float) (dLane * seg_[ndiv].txRight + (1 - dLane) * seg_[ndiv].txLeft);
+    rt->y = (float) (dLane * seg_[ndiv].tyRight + (1 - dLane) * seg_[ndiv].tyLeft);
     vec2f d = (*rt) - last;
     dLength += Mag(d.x, d.y);
 

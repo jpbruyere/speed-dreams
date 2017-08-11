@@ -311,6 +311,6 @@ void Pit::pitCommand()
 {
   car->_pitRepair = getRepair();
   lastpitfuel = getFuel();
-  car->_pitFuel = (tdble) lastpitfuel;
+  car->_pitFuel = (float) lastpitfuel;
   setPitstop(false);
 }

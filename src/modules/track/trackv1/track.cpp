@@ -29,7 +29,7 @@
 #include "trackinc.h"
 
 
-static const tdble DEGPRAD = (tdble)(180.0 / PI);   /* degrees per radian */
+static const float DEGPRAD = (float)(180.0 / PI);   /* degrees per radian */
 
 static tTrack	*theTrack = NULL;
 static tRoadCam *theCamList;
@@ -147,7 +147,7 @@ GetTrackHeader(void *TrackHandle) {
     local->anyrainlkhood = GfParmGetNum(TrackHandle, TRK_SECT_LOCAL, TRK_ATT_ANYRAINLKHD, (char*)NULL, 0);
     local->littlerainlkhood = GfParmGetNum(TrackHandle, TRK_SECT_LOCAL, TRK_ATT_LITTLERAINLKHD, (char*)NULL, 0);
     local->mediumrainlkhood = GfParmGetNum(TrackHandle, TRK_SECT_LOCAL, TRK_ATT_MEDIUMRAINLKHD, (char*)NULL, 0);
-    local->timeofday = GfParmGetNum(TrackHandle, TRK_SECT_LOCAL, TRK_ATT_TIMEOFDAY, (char*)NULL, (tdble)(15 * 3600 + 0 * 60 + 0)); // 15:00:00
+    local->timeofday = GfParmGetNum(TrackHandle, TRK_SECT_LOCAL, TRK_ATT_TIMEOFDAY, (char*)NULL, (float)(15 * 3600 + 0 * 60 + 0)); // 15:00:00
     local->sunascension = GfParmGetNum(TrackHandle, TRK_SECT_LOCAL, TRK_ATT_SUN_ASCENSION, (char*)NULL, 0.0f);
 
     // Read Graphic section

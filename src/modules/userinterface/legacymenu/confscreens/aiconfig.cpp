@@ -36,7 +36,7 @@ static const char* AIGlobalSkillFilePathName = "config/raceman/extra/skill.xml";
 
 /* Available skill level names and associated values */
 static const char *SkillLevels[] = { ROB_VAL_ARCADE, ROB_VAL_SEMI_ROOKIE, ROB_VAL_ROOKIE, ROB_VAL_AMATEUR, ROB_VAL_SEMI_PRO, ROB_VAL_PRO };
-static const tdble SkillLevelValues[] = { 30.0, 20.0, 10.0, 7.0, 3.0, 0.0};
+static const float SkillLevelValues[] = { 30.0, 20.0, 10.0, 7.0, 3.0, 0.0};
 static const int NSkillLevels = sizeof(SkillLevels) / sizeof(SkillLevels[0]);
 static int CurSkillLevelIndex = 0;
 
@@ -51,7 +51,7 @@ static void	*PrevHandle = NULL;
 /* Load the parameter values from the corresponding parameter file */
 static void ReadAICfg(void)
 {
-	tdble aiSkillValue;
+	float aiSkillValue;
 	int i;
 
 	char buf[256];

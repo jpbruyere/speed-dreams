@@ -96,9 +96,9 @@ typedef struct HumanContext
     int			nbPitStops;
     int			lastPitStopLap;
     bool 		autoReverseEngaged;
-    tdble		shiftThld[MAX_GEARS+1];
-    tdble		gear;
-    tdble		distToStart;
+    float		shiftThld[MAX_GEARS+1];
+    float		gear;
+    float		distToStart;
     float		clutchTime;
     float		maxClutchTime;
     float		clutchdelay;
@@ -138,7 +138,7 @@ typedef struct HumanContext
 } tHumanContext;
 
 static const int FuelReserve = 3;
-static const tdble MaxFuelPerMeter = 0.0008;	// [kg/m] fuel consumption.
+static const float MaxFuelPerMeter = 0.0008;	// [kg/m] fuel consumption.
 
 static void updateKeys(void);
 static void SetFuelAtRaceStart(tTrack *track, void **carParmHandle, tSituation *s, int idx);
@@ -157,7 +157,7 @@ static int ControlsUpdaterIndex = -1;
 static std::vector<tHumanContext*> HCtx;
 
 static bool speedLimiter = false;
-static tdble speedLimit;
+static float speedLimit;
 
 typedef struct
 {
@@ -181,7 +181,7 @@ static tKeyInfo keyInfo[GFUIK_MAX+1];
 static bool init_keybd = true;
 static bool init_mouse = false;
 static bool resume_keybd = true;
-static tdble lastKeyUpdate = -10.0;
+static float lastKeyUpdate = -10.0;
 
 static void *PrefHdle = NULL;
 
@@ -594,10 +594,10 @@ void HumanDriver::new_race(int index, tCarElt* car, tSituation *s)
     char midx[64];
     struct tEdesc
     {
-        tdble rpm;
-        tdble tq;
-        tdble drpm;
-        tdble dtq;
+        float rpm;
+        float tq;
+        float drpm;
+        float dtq;
     } *Edesc;
 
     sprintf(midx, "%s/%s", SECT_ENGINE, ARR_DATAPTS);
@@ -858,16 +858,16 @@ static int onKeyAction(int key, int modifier, int state)
  */
 static void common_drive(const int index, tCarElt* car, tSituation *s)
 {
-    tdble slip;
-    tdble ax0;
-    tdble brake;
-    tdble clutch;
-    tdble throttle;
-    tdble leftSteer;
-    tdble rightSteer;
-    tdble newGlance;;
+    float slip;
+    float ax0;
+    float brake;
+    float clutch;
+    float throttle;
+    float leftSteer;
+    float rightSteer;
+    float newGlance;;
 #if (BINCTRL_STEERING == JEPZ || BINCTRL_STEERING == JPM)
-    tdble sensFrac, speedFrac;
+    float sensFrac, speedFrac;
 #endif
     int scrw, scrh, dummy;
 
@@ -888,7 +888,7 @@ static void common_drive(const int index, tCarElt* car, tSituation *s)
     }
 
     HCtx[idx]->distToStart = RtGetDistFromStart(car);
-    HCtx[idx]->gear = (tdble)car->_gear;	/* telemetry */
+    HCtx[idx]->gear = (float)car->_gear;	/* telemetry */
 
     GfScrGetSize(&scrw, &scrh, &dummy, &dummy);
 
@@ -1451,9 +1451,9 @@ static void common_drive(const int index, tCarElt* car, tSituation *s)
     {
         if (s->currentTime > 1.0)
         {
-            static const tdble inc_rate = 0.2f;
+            static const float inc_rate = 0.2f;
 
-            tdble d_brake = car->_brakeCmd - HCtx[idx]->pbrake;
+            float d_brake = car->_brakeCmd - HCtx[idx]->pbrake;
             if (fabs(d_brake) > inc_rate && car->_brakeCmd > HCtx[idx]->pbrake)
                 car->_brakeCmd =
                     MIN(car->_brakeCmd, HCtx[idx]->pbrake + inc_rate*d_brake/fabs(d_brake));
@@ -1467,9 +1467,9 @@ static void common_drive(const int index, tCarElt* car, tSituation *s)
     {
         if (s->currentTime > 1.0)
         {
-            static const tdble inc_rate = 0.2f;
+            static const float inc_rate = 0.2f;
 
-            tdble d_accel = car->_accelCmd - HCtx[idx]->paccel;
+            float d_accel = car->_accelCmd - HCtx[idx]->paccel;
             if (fabs(d_accel) > inc_rate && car->_accelCmd > HCtx[idx]->paccel)
                 car->_accelCmd =
                     MIN(car->_accelCmd, HCtx[idx]->paccel + inc_rate*d_accel/fabs(d_accel));
@@ -1506,12 +1506,12 @@ static void common_drive(const int index, tCarElt* car, tSituation *s)
     {
         if (fabs(car->_speed_x) > 10.0 && car->_brakeCmd > 0.0)
         {
-            tdble brake1 = car->_brakeCmd, brake2 = car->_brakeCmd, brake3 = car->_brakeCmd;
-            //tdble rearskid = MAX(0.0, MAX(car->_skid[2], car->_skid[3]) - MAX(car->_skid[0], car->_skid[1]));
+            float brake1 = car->_brakeCmd, brake2 = car->_brakeCmd, brake3 = car->_brakeCmd;
+            //float rearskid = MAX(0.0, MAX(car->_skid[2], car->_skid[3]) - MAX(car->_skid[0], car->_skid[1]));
             int i;
 
             // reduce brake if car sliding sideways
-            tdble skidAng = atan2(car->_speed_Y, car->_speed_X) - car->_yaw;
+            float skidAng = atan2(car->_speed_Y, car->_speed_X) - car->_yaw;
             NORM_PI_PI(skidAng);
 
             if (car->_speed_x > 5 && fabs(skidAng) > 0.2)
@@ -1521,13 +1521,13 @@ static void common_drive(const int index, tCarElt* car, tSituation *s)
             // reduce brake if car steering sharply
             if (fabs(car->_steerCmd) > 0.1)
             {
-                tdble decel = ((fabs(car->_steerCmd)-0.1) * (1.0 + fabs(car->_steerCmd)) * 0.2);
+                float decel = ((fabs(car->_steerCmd)-0.1) * (1.0 + fabs(car->_steerCmd)) * 0.2);
                 brake2 = MIN(car->_brakeCmd, MAX(0.35, 1.0 - decel));
             }
 #endif
 
-            const tdble abs_slip = 1.0;
-            const tdble abs_range = 9.0;
+            const float abs_slip = 1.0;
+            const float abs_range = 9.0;
 
             // reduce brake if wheels are slipping
             slip = 0;
@@ -1545,9 +1545,9 @@ static void common_drive(const int index, tCarElt* car, tSituation *s)
 
     if (HCtx[idx]->paramAsr)
     {
-        tdble origaccel = car->_accelCmd;
+        float origaccel = car->_accelCmd;
 
-        tdble drivespeed = 0.0;
+        float drivespeed = 0.0;
         switch (HCtx[idx]->driveTrain)
         {
         case e4WD:
@@ -1575,15 +1575,15 @@ static void common_drive(const int index, tCarElt* car, tSituation *s)
             // is steering against the yaw rate, we decrease the amount of acceleration to stop
             // tirespin sending the rear wheels into a spinout.
 
-            tdble friction = MIN(car->_wheelSeg(REAR_RGT)->surface->kFriction, car->_wheelSeg(REAR_LFT)->surface->kFriction) - 0.2;
+            float friction = MIN(car->_wheelSeg(REAR_RGT)->surface->kFriction, car->_wheelSeg(REAR_LFT)->surface->kFriction) - 0.2;
             if (friction < 1.0) friction *= MAX(0.6, friction);
 
             bool  steer_correct = (fabs(car->_yaw_rate) > fabs(car->_steerCmd * MAX(4.0, car->_speed_x/12.0) * friction) ||
                     (car->_yaw_rate < 0.0 && car->_steerCmd > 0.0) ||
                     (car->_yaw_rate > 0.0 && car->_steerCmd < 0.0));
-            tdble steer_diff    = fabs(car->_yaw_rate - car->_steerCmd);
+            float steer_diff    = fabs(car->_yaw_rate - car->_steerCmd);
 
-            tdble slipf = (steer_correct ? 8 * friction : 15 * friction);
+            float slipf = (steer_correct ? 8 * friction : 15 * friction);
 
             drivespeed = (((car->_wheelSpinVel(REAR_RGT) + car->_wheelSpinVel(REAR_LFT)) - (20 * friction)) *
                     car->_wheelRadius(REAR_LFT) +
@@ -1596,14 +1596,14 @@ static void common_drive(const int index, tCarElt* car, tSituation *s)
             break;
         }
 
-        tdble slip = drivespeed - fabs(car->_speed_x);
+        float slip = drivespeed - fabs(car->_speed_x);
         if (slip > 2.5)
             car->_accelCmd = MIN(car->_accelCmd, origaccel - MIN(origaccel-0.2, ((slip - 2.5)/20.0)));
     }
 
     if (speedLimiter) {
         if (speedLimit != 0) {
-            tdble dv = speedLimit - car->_speed_x;
+            float dv = speedLimit - car->_speed_x;
             if (dv > 0.0) {
                 car->_accelCmd = MIN(car->_accelCmd, fabs(dv/6.0));
             } else {
@@ -1697,9 +1697,9 @@ static void common_brake(const int idx, tCarElt* car, tSituation *s)
 /*
  * Changes from original: none
  */
-static tdble getAutoClutch(const int idx, int gear, int newGear, tCarElt *car)
+static float getAutoClutch(const int idx, int gear, int newGear, tCarElt *car)
 {
-    tdble ret = 0.0f;
+    float ret = 0.0f;
 
     if (newGear != 0 && newGear < car->_gearNb) {
         if (newGear != gear)
@@ -2028,13 +2028,13 @@ int HumanDriver::pit_cmd(int index, tCarElt* car, tSituation *s)
     const int idx = index - 1;
 
     HCtx[idx]->nbPitStops++;  //Yet another pitstop
-    //tdble curr_fuel = car->_tank - car->_fuel;  //Can receive max. this fuel
+    //float curr_fuel = car->_tank - car->_fuel;  //Can receive max. this fuel
 
-    /*tdble planned_stops = 1.0
+    /*float planned_stops = 1.0
         + MAX(HCtx[idx]->nbPitStopProg - HCtx[idx]->nbPitStops, 0);*/  //Planned pitstops still ahead
 
     //Need this amount of extra fuel to finish the race
-    /*tdble fuel =
+    /*float fuel =
         ( MaxFuelPerMeter
           * (curTrack->length * car->_remainingLaps + car->_trkPos.seg->lgfromstart)
           + 2.7f / 60.0f * MAX(s->_totTime, 0) )
@@ -2082,8 +2082,8 @@ int HumanDriver::pit_cmd(int index, tCarElt* car, tSituation *s)
 // or if the tank is too small, fill the tank completely.
 static void SetFuelAtRaceStart(tTrack* track, void **carParmHandle,
         tSituation *s, int idx) {
-    tdble fuel_requested;
-    const tdble initial_fuel = GfParmGetNum(*carParmHandle, SECT_CAR,
+    float fuel_requested;
+    const float initial_fuel = GfParmGetNum(*carParmHandle, SECT_CAR,
             PRM_FUEL, NULL, 0.0f);
 
     if (initial_fuel) {
@@ -2092,18 +2092,18 @@ static void SetFuelAtRaceStart(tTrack* track, void **carParmHandle,
         fuel_requested = initial_fuel;
     } else {
         // We must load and calculate parameters.
-        const tdble fuel_cons_factor =
+        const float fuel_cons_factor =
             GfParmGetNum(*carParmHandle, SECT_ENGINE, PRM_FUELCONS, NULL, 1.0f);
-        tdble fuel_per_lap = track->length * MaxFuelPerMeter * fuel_cons_factor;
-        tdble fuel_for_race = fuel_per_lap * (s->_totLaps + 1.0f);// + FuelReserve;
+        float fuel_per_lap = track->length * MaxFuelPerMeter * fuel_cons_factor;
+        float fuel_for_race = fuel_per_lap * (s->_totLaps + 1.0f);// + FuelReserve;
         // aimed at timed sessions:
         fuel_for_race +=  fuel_per_lap / 60.0 * MAX(s->_totTime, 0);
         // divide qty by planned pitstops:
-        fuel_for_race /= (1.0 + ((tdble)HCtx[idx]->nbPitStopProg));
+        fuel_for_race /= (1.0 + ((float)HCtx[idx]->nbPitStopProg));
         // add some reserve:
         //fuel_for_race += FuelReserve;
 
-        const tdble tank_capacity =
+        const float tank_capacity =
             GfParmGetNum(*carParmHandle, SECT_CAR, PRM_TANK, NULL, 100.0f);
         fuel_requested = MIN(fuel_for_race, tank_capacity);
     }
@@ -2206,42 +2206,42 @@ void HumanDriver::human_prefs(const int robot_index, int player_index)
 
         /* min value < max value */
         if (cmdCtrl[cmd].minName) {
-            cmdCtrl[cmd].min = (float)GfParmGetNum(PrefHdle, defaultSettings, cmdCtrl[cmd].minName, (char*)NULL, (tdble)cmdCtrl[cmd].min);
-            cmdCtrl[cmd].min = cmdCtrl[cmd].minVal = (float)GfParmGetNum(PrefHdle, sstring, cmdCtrl[cmd].minName, (char*)NULL, (tdble)cmdCtrl[cmd].min);
+            cmdCtrl[cmd].min = (float)GfParmGetNum(PrefHdle, defaultSettings, cmdCtrl[cmd].minName, (char*)NULL, (float)cmdCtrl[cmd].min);
+            cmdCtrl[cmd].min = cmdCtrl[cmd].minVal = (float)GfParmGetNum(PrefHdle, sstring, cmdCtrl[cmd].minName, (char*)NULL, (float)cmdCtrl[cmd].min);
         }//if minName
 
         /* max value > min value */
         if (cmdCtrl[cmd].maxName) {
-            cmdCtrl[cmd].max = (float)GfParmGetNum(PrefHdle, defaultSettings, cmdCtrl[cmd].maxName, (char*)NULL, (tdble)cmdCtrl[cmd].max);
-            cmdCtrl[cmd].max = (float)GfParmGetNum(PrefHdle, sstring,		 cmdCtrl[cmd].maxName, (char*)NULL, (tdble)cmdCtrl[cmd].max);
+            cmdCtrl[cmd].max = (float)GfParmGetNum(PrefHdle, defaultSettings, cmdCtrl[cmd].maxName, (char*)NULL, (float)cmdCtrl[cmd].max);
+            cmdCtrl[cmd].max = (float)GfParmGetNum(PrefHdle, sstring,		 cmdCtrl[cmd].maxName, (char*)NULL, (float)cmdCtrl[cmd].max);
         }//if maxName
 
         /* 0 < sensitivity */
         if (cmdCtrl[cmd].sensName) {
-            cmdCtrl[cmd].sens = (float)GfParmGetNum(PrefHdle, defaultSettings, cmdCtrl[cmd].sensName, (char*)NULL, (tdble)cmdCtrl[cmd].sens);
-            cmdCtrl[cmd].sens = (float)GfParmGetNum(PrefHdle, sstring,		 cmdCtrl[cmd].sensName, (char*)NULL, (tdble)cmdCtrl[cmd].sens);
+            cmdCtrl[cmd].sens = (float)GfParmGetNum(PrefHdle, defaultSettings, cmdCtrl[cmd].sensName, (char*)NULL, (float)cmdCtrl[cmd].sens);
+            cmdCtrl[cmd].sens = (float)GfParmGetNum(PrefHdle, sstring,		 cmdCtrl[cmd].sensName, (char*)NULL, (float)cmdCtrl[cmd].sens);
             if (cmdCtrl[cmd].sens <= 0.0)
                 cmdCtrl[cmd].sens = 1.0e-6;
         }//if sensName
 
         /* 0 < power (1 = linear) */
         if (cmdCtrl[cmd].powName) {
-            cmdCtrl[cmd].pow = (float)GfParmGetNum(PrefHdle, defaultSettings, cmdCtrl[cmd].powName, (char*)NULL, (tdble)cmdCtrl[cmd].pow);
-            cmdCtrl[cmd].pow = (float)GfParmGetNum(PrefHdle, sstring,		 cmdCtrl[cmd].powName, (char*)NULL, (tdble)cmdCtrl[cmd].pow);
+            cmdCtrl[cmd].pow = (float)GfParmGetNum(PrefHdle, defaultSettings, cmdCtrl[cmd].powName, (char*)NULL, (float)cmdCtrl[cmd].pow);
+            cmdCtrl[cmd].pow = (float)GfParmGetNum(PrefHdle, sstring,		 cmdCtrl[cmd].powName, (char*)NULL, (float)cmdCtrl[cmd].pow);
         }//if powName
 
         /* 0 <= sensitivity to car speed */
         if (cmdCtrl[cmd].spdSensName) {
-            cmdCtrl[cmd].spdSens = (float)GfParmGetNum(PrefHdle, defaultSettings, cmdCtrl[cmd].spdSensName, (char*)NULL, (tdble)cmdCtrl[cmd].spdSens);
-            cmdCtrl[cmd].spdSens = (float)GfParmGetNum(PrefHdle, sstring,		 cmdCtrl[cmd].spdSensName, (char*)NULL, (tdble)cmdCtrl[cmd].spdSens);
+            cmdCtrl[cmd].spdSens = (float)GfParmGetNum(PrefHdle, defaultSettings, cmdCtrl[cmd].spdSensName, (char*)NULL, (float)cmdCtrl[cmd].spdSens);
+            cmdCtrl[cmd].spdSens = (float)GfParmGetNum(PrefHdle, sstring,		 cmdCtrl[cmd].spdSensName, (char*)NULL, (float)cmdCtrl[cmd].spdSens);
             if (cmdCtrl[cmd].spdSens < 0.0)
                 cmdCtrl[cmd].spdSens = 0.0;
         }//if spdSendName
 
         /* 0 =< dead zone < max value - min value (not used for on/off controls like keyboard / mouse buttons / joystick buttons) */
         if (cmdCtrl[cmd].deadZoneName) {
-            cmdCtrl[cmd].deadZone = (float)GfParmGetNum(PrefHdle, defaultSettings, cmdCtrl[cmd].deadZoneName, (char*)NULL, (tdble)cmdCtrl[cmd].deadZone);
-            cmdCtrl[cmd].deadZone = (float)GfParmGetNum(PrefHdle, sstring,		 cmdCtrl[cmd].deadZoneName, (char*)NULL, (tdble)cmdCtrl[cmd].deadZone);
+            cmdCtrl[cmd].deadZone = (float)GfParmGetNum(PrefHdle, defaultSettings, cmdCtrl[cmd].deadZoneName, (char*)NULL, (float)cmdCtrl[cmd].deadZone);
+            cmdCtrl[cmd].deadZone = (float)GfParmGetNum(PrefHdle, sstring,		 cmdCtrl[cmd].deadZoneName, (char*)NULL, (float)cmdCtrl[cmd].deadZone);
             if (cmdCtrl[cmd].deadZone < 0.0)
                 cmdCtrl[cmd].deadZone = 0.0;
             else if (cmdCtrl[cmd].deadZone > 1.0)

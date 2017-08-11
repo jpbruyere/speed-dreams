@@ -22,7 +22,7 @@
 void 
 SimBrakeConfig(void *hdle, const char *section, tBrake *brake)
 {
-    tdble diam, area, mu;
+    float diam, area, mu;
     
     diam     = GfParmGetNum(hdle, section, PRM_BRKDIAM, (char*)NULL, 0.2f);
     area     = GfParmGetNum(hdle, section, PRM_BRKAREA, (char*)NULL, 0.002f);
@@ -49,7 +49,7 @@ SimBrakeConfig(void *hdle, const char *section, tBrake *brake)
 	}
 	// ... Option ABS
 
-	brake->coeff = (tdble) (diam * 0.5 * area * mu);
+	brake->coeff = (float) (diam * 0.5 * area * mu);
 
     brake->I = GfParmGetNum(hdle, section, PRM_INERTIA, (char*)NULL, 0.13f);
     brake->radius = diam/2.0f;
@@ -72,15 +72,15 @@ SimBrakeUpdate(tCar *car, tWheel *wheel, tBrake *brake)
 	if (car->features & FEAT_TCLINSIMU)
 	{
 		// Brake most spinning wheel
-		tdble TCL_BrakeScale = 125.0f;	// Make it be a parameter later
-		brake->Tq += (tdble) MAX(0.0,MIN(5000.0,TCL_BrakeScale * brake->TCL)); // Sanity check
+		float TCL_BrakeScale = 125.0f;	// Make it be a parameter later
+		brake->Tq += (float) MAX(0.0,MIN(5000.0,TCL_BrakeScale * brake->TCL)); // Sanity check
 		brake->TCL = 0.0; // Reset for next timestep
 	}
 	// ... Option TCL
 
-    brake->temp -= (tdble) (fabs(car->DynGC.vel.x) * 0.0001 + 0.0002);
+    brake->temp -= (float) (fabs(car->DynGC.vel.x) * 0.0001 + 0.0002);
     if (brake->temp < 0 ) brake->temp = 0;
-    brake->temp += (tdble) (brake->pressure * brake->radius * fabs(wheel->spinVel) * 0.00000000005);
+    brake->temp += (float) (brake->pressure * brake->radius * fabs(wheel->spinVel) * 0.00000000005);
     if (brake->temp > 1.0) brake->temp = 1.0;
 }
 
@@ -132,15 +132,15 @@ SimBrakeSystemUpdate(tCar *car)
 	if (car->features & FEAT_ESPINSIMU)
 	{
 		tCarElt	*carElt = car->carElt;
-		tdble driftAngle = atan2(carElt->_speed_Y, carElt->_speed_X) - carElt->_yaw;
+		float driftAngle = atan2(carElt->_speed_Y, carElt->_speed_X) - carElt->_yaw;
 		FLOAT_NORM_PI_PI(driftAngle);                
-		tdble absDriftAngle = fabs(driftAngle);
+		float absDriftAngle = fabs(driftAngle);
 		//fprintf(stderr,"driftAngle: %.2f deg\n",driftAngle * 180/PI);
 
 		// Make it be parameters later
-		tdble driftAngleLimit = (tdble) (7.5 * PI / 180);       // 7.5 deg activation level
-		tdble brakeSide = 0.0025f * driftAngle/driftAngleLimit; // Car side brake command
-		tdble brakeBalance = 0.005f;                            // Front/Rear brake command 
+		float driftAngleLimit = (float) (7.5 * PI / 180);       // 7.5 deg activation level
+		float brakeSide = 0.0025f * driftAngle/driftAngleLimit; // Car side brake command
+		float brakeBalance = 0.005f;                            // Front/Rear brake command 
 
 		if (absDriftAngle > driftAngleLimit)
 		{
@@ -153,10 +153,10 @@ SimBrakeSystemUpdate(tCar *car)
 		if (car->ctrl->singleWheelBrakeMode == 1)
 		{
 			// Sanity check needed
-			car->ctrl->brakeFrontRightCmd = (tdble) MIN(1.0,MAX(0.0,car->ctrl->brakeFrontRightCmd));
-			car->ctrl->brakeFrontLeftCmd = (tdble) MIN(1.0,MAX(0.0,car->ctrl->brakeFrontLeftCmd));
-			car->ctrl->brakeRearRightCmd = (tdble) MIN(1.0,MAX(0.0,car->ctrl->brakeRearRightCmd));
-			car->ctrl->brakeRearLeftCmd = (tdble) MIN(1.0,MAX(0.0,car->ctrl->brakeRearRightCmd));
+			car->ctrl->brakeFrontRightCmd = (float) MIN(1.0,MAX(0.0,car->ctrl->brakeFrontRightCmd));
+			car->ctrl->brakeFrontLeftCmd = (float) MIN(1.0,MAX(0.0,car->ctrl->brakeFrontLeftCmd));
+			car->ctrl->brakeRearRightCmd = (float) MIN(1.0,MAX(0.0,car->ctrl->brakeRearRightCmd));
+			car->ctrl->brakeRearLeftCmd = (float) MIN(1.0,MAX(0.0,car->ctrl->brakeRearRightCmd));
 
 			car->wheel[FRNT_RGT].brake.pressure = brkSyst->coeff * car->ctrl->brakeFrontRightCmd; 
 			car->wheel[FRNT_LFT].brake.pressure = brkSyst->coeff * car->ctrl->brakeFrontLeftCmd;
@@ -166,15 +166,15 @@ SimBrakeSystemUpdate(tCar *car)
 		}
 		else
 		{
-			tdble	ctrl = car->ctrl->brakeCmd;
+			float	ctrl = car->ctrl->brakeCmd;
 
 			if (absDriftAngle > driftAngleLimit)
 			{
 				// Sanity check needed
-				car->wheel[FRNT_RGT].brake.pressure = (tdble) MIN(1.0,MAX(0.0,ctrl - brakeSide));
-				car->wheel[FRNT_LFT].brake.pressure = (tdble) MIN(1.0,MAX(0.0,ctrl + brakeSide));
-				car->wheel[REAR_RGT].brake.pressure = (tdble) MIN(1.0,MAX(0.0,ctrl - brakeSide - brakeBalance));
-				car->wheel[REAR_LFT].brake.pressure = (tdble) MIN(1.0,MAX(0.0,ctrl + brakeSide - brakeBalance));
+				car->wheel[FRNT_RGT].brake.pressure = (float) MIN(1.0,MAX(0.0,ctrl - brakeSide));
+				car->wheel[FRNT_LFT].brake.pressure = (float) MIN(1.0,MAX(0.0,ctrl + brakeSide));
+				car->wheel[REAR_RGT].brake.pressure = (float) MIN(1.0,MAX(0.0,ctrl - brakeSide - brakeBalance));
+				car->wheel[REAR_LFT].brake.pressure = (float) MIN(1.0,MAX(0.0,ctrl + brakeSide - brakeBalance));
 
 				car->wheel[FRNT_RGT].brake.pressure *= brkSyst->coeff * brkSyst->rep;
 				car->wheel[FRNT_LFT].brake.pressure *= brkSyst->coeff * brkSyst->rep;
@@ -204,7 +204,7 @@ SimBrakeSystemUpdate(tCar *car)
 	}
 	else
 	{
-	    tdble	ctrl = car->ctrl->brakeCmd;
+	    float	ctrl = car->ctrl->brakeCmd;
 		ctrl *= brkSyst->coeff;
 		car->wheel[FRNT_RGT].brake.pressure = car->wheel[FRNT_LFT].brake.pressure = ctrl * brkSyst->rep;
 		car->wheel[REAR_RGT].brake.pressure = car->wheel[REAR_LFT].brake.pressure = ctrl * (1 - brkSyst->rep);

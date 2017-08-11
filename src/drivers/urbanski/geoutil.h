@@ -9,7 +9,7 @@
 struct Point {
 	double x, y;
 	Point(double x = 0.0, double y = 0.0) : x(x), y(y) {}
-	Point(t3Dd p) : x(p.x), y(p.y) {}
+	Point(glm::vec3 p) : x(p.x), y(p.y) {}
 };
 
 struct Vec {

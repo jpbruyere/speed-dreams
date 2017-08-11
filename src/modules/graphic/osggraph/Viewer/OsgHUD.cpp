@@ -431,7 +431,7 @@ std::vector<std::string> split(const std::string &s, char delim) {
 }
 
 
-std::string formatLaptime(tdble sec, int sgn) {
+std::string formatLaptime(float sec, int sgn) {
 
 	std::ostringstream lapTimeString;
 

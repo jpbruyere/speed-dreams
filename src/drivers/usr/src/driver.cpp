@@ -137,7 +137,7 @@ void Driver::SetBotName(void* RobotSettings, char* Value)
 
     m_TeamName = GfParmGetStr(RobotSettings, Section, ROB_ATTR_TEAM, (char *) CarType);                                 // section, default car type
 
-    m_RaceNumber = (int) GfParmGetNum(RobotSettings, Section, ROB_ATTR_RACENUM, (char *) NULL, (tdble) m_Index + 1);      // section, index as default
+    m_RaceNumber = (int) GfParmGetNum(RobotSettings, Section, ROB_ATTR_RACENUM, (char *) NULL, (float) m_Index + 1);      // section, index as default
 
     LogUSR.debug("#Bot name    : %s\n", m_BotName);
     LogUSR.debug("#Team name   : %s\n", m_TeamName);

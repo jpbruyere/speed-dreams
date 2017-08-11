@@ -90,7 +90,7 @@ void grInitSound(tSituation* s, int ncars)
 		FILE *file = NULL;
 
 		// ENGINE PARAMS
-		tdble rpm_scale;
+		float rpm_scale;
 		param = GfParmGetStr(handle, "Sound", "engine sample", "engine-1.wav");
 		rpm_scale = GfParmGetNum(handle, "Sound", "rpm scale", NULL, 1.0);
 		sprintf(filename, "cars/models/%s/%.*s",

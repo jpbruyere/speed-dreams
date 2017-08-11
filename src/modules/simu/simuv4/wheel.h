@@ -30,73 +30,73 @@ typedef struct
     tBrake       brake;		/* associated brake disk */
 
     /* dynamic */
-    t3Dd	forces;		/* forces acting on car */
-    t3Dd	torques;	/* torques acting on car (gyroscopic forces) */
-    tdble   torqueAlign;  /* torque for force feedback from magic formula */
-    tdble	rollRes;	/* Rolling Resistance (summed over the car) */
-    tdble	rideHeight;	/* height of the bottom of the car */
-    tdble	zRoad;		/* z of the road */
-    t3Dd   	pos;	   	/* world related */
-    t3Dd	bodyVel;	/* world related */
-    tdble  	driveTq;   	/* engine torque */
-    tdble	vt;
+    glm::vec3	forces;		/* forces acting on car */
+    glm::vec3	torques;	/* torques acting on car (gyroscopic forces) */
+    float   torqueAlign;  /* torque for force feedback from magic formula */
+    float	rollRes;	/* Rolling Resistance (summed over the car) */
+    float	rideHeight;	/* height of the bottom of the car */
+    float	zRoad;		/* z of the road */
+    glm::vec3   	pos;	   	/* world related */
+    glm::vec3	bodyVel;	/* world related */
+    float  	driveTq;   	/* engine torque */
+    float	vt;
 
-    tdble  	spinTq;		/* spin torque feedback */
-    tdble  	spinVel;   	/* spin velocity */
-    tdble  	prespinVel;   	/* spin velocity */
+    float  	spinTq;		/* spin torque feedback */
+    float  	spinVel;   	/* spin velocity */
+    float  	prespinVel;   	/* spin velocity */
     int     	state;     	/* wheel state */
     /* 1 and 2 are for suspension state */
 #define SIM_WH_SPINNING 4	/* the wheel is spinning */
 #define SIM_WH_LOCKED   8	/* the wheel is locked */
 #define SIM_WH_INAIR   16   /* the wheel is in the air */
-    tdble	axleFz;		/* force from axle (anti-roll bar) */
-    tdble   axleFz3rd;  /* force from axle (3rd/heave spring) */
+    float	axleFz;		/* force from axle (anti-roll bar) */
+    float   axleFz3rd;  /* force from axle (3rd/heave spring) */
     tTrkLocPos	trkPos;		/* current track position */
     tPosd	relPos;		/* relative pos / GC */
-    tdble	sa;		/* slip angle */
-    tdble	sx;		/* longitudinal slip value */
-    tdble	steer;
+    float	sa;		/* slip angle */
+    float	sx;		/* longitudinal slip value */
+    float	steer;
     
     /* static */
     tPosd	staticPos;	/* pos relative to the GC (z is suspension travel at rest) */
 				/* and angles are camber (ax), caster (ay) and toe (az) */
-    tdble   cosax, sinax;/*cosinus and sinus of relPos.ax*/
+    float   cosax, sinax;/*cosinus and sinus of relPos.ax*/
 
-    tdble  	weight0;	/* initial weight on this wheel */
-    tdble	tireSpringRate;
-    tdble  	radius;
-    tdble  	mu;
-    tdble  	I;       	/* I = inertial moment of the wheel */
-    tdble  	curI;       	/* Current inertia for the wheel (including transmission) */
-    tdble	mfC;		/* Magic Formula C coeff */
-    tdble	mfB;		/* Magic Formula B coeff */
-    tdble	mfE;		/* Magic Formula E coeff */
-    tdble	lfMax;		/* Load factor */
-    tdble	lfMin;		/* Load factor */
-    tdble	lfK;		/* Load factor */
-    tdble	opLoad;		/* Operating load */
-    tdble   AlignTqFactor; /* aligning torque factor */
-    tdble	mass;		/* total wheel mass (incl. brake) (unsprung mass) */
-    tdble	camber;		/* camber, negative toward exterior on both sides */
-    tdble	pressure;	/* tire pressure */
+    float  	weight0;	/* initial weight on this wheel */
+    float	tireSpringRate;
+    float  	radius;
+    float  	mu;
+    float  	I;       	/* I = inertial moment of the wheel */
+    float  	curI;       	/* Current inertia for the wheel (including transmission) */
+    float	mfC;		/* Magic Formula C coeff */
+    float	mfB;		/* Magic Formula B coeff */
+    float	mfE;		/* Magic Formula E coeff */
+    float	lfMax;		/* Load factor */
+    float	lfMin;		/* Load factor */
+    float	lfK;		/* Load factor */
+    float	opLoad;		/* Operating load */
+    float   AlignTqFactor; /* aligning torque factor */
+    float	mass;		/* total wheel mass (incl. brake) (unsprung mass) */
+    float	camber;		/* camber, negative toward exterior on both sides */
+    float	pressure;	/* tire pressure */
     
-    tdble   Ttire;      /* tire temperature in K */
-    tdble   Topt;       /* optimal temperature in K, where mu maximal */
-    tdble   Tinit;      /* initial tire temperature, right after pit or at start */
-    tdble   muTmult;    /* mu = mumax * (1 - muTmult*(T-Topt)^2) */
-    tdble   heatingm;   /* heating multiplier */
-    tdble   aircoolm;   /* air cooling multiplier */
-    tdble   speedcoolm; /* how aircoolm increases with speed */
-    tdble   wearrate; /* degradation multiplier */
-    tdble   treadDepth; /* tread depth, between 0 and 1 */
-    tdble   critTreadDepth; /* critical tread depth, when grip falls off suddenly */
-    tdble   muTDmult[2]; /* mu is multiplied by muTDmult[i]*treadDepth+muTDoffset[i] */
-    tdble   muTDoffset[2];
+    float   Ttire;      /* tire temperature in K */
+    float   Topt;       /* optimal temperature in K, where mu maximal */
+    float   Tinit;      /* initial tire temperature, right after pit or at start */
+    float   muTmult;    /* mu = mumax * (1 - muTmult*(T-Topt)^2) */
+    float   heatingm;   /* heating multiplier */
+    float   aircoolm;   /* air cooling multiplier */
+    float   speedcoolm; /* how aircoolm increases with speed */
+    float   wearrate; /* degradation multiplier */
+    float   treadDepth; /* tread depth, between 0 and 1 */
+    float   critTreadDepth; /* critical tread depth, when grip falls off suddenly */
+    float   muTDmult[2]; /* mu is multiplied by muTDmult[i]*treadDepth+muTDoffset[i] */
+    float   muTDoffset[2];
 
     tDynAxis	in;
     tDynAxis	feedBack;
 
-    tdble	preFn, preFt;
+    float	preFn, preFt;
 } tWheel;
 
     

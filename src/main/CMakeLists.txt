@@ -2,6 +2,8 @@ INCLUDE(../../cmake/macros.cmake)
 
 PROJECT(speed-dreams-2)
 
+find_package(GLM REQUIRED)
+
 SET(_TARGET_NAME speed-dreams-2)
 
 SET(_SOURCES main.cpp)

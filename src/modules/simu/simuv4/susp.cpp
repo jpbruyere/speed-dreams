@@ -38,12 +38,12 @@ static void initDamper(tSuspension *susp)
 /*
  * get damper force
  */
-static tdble damperForce(tSuspension *susp)
+static float damperForce(tSuspension *susp)
 {
 	tDamperDef *dampdef;
-	tdble     f;
-	tdble     av;
-	tdble     v;
+	float     f;
+	float     av;
+	float     v;
 
 	v = susp->v;
 	
@@ -77,10 +77,10 @@ static tdble damperForce(tSuspension *susp)
 /*
  * get spring force
  */
-static tdble springForce(tSuspension *susp)
+static float springForce(tSuspension *susp)
 {
 	tSpring *spring = &(susp->spring);
-	tdble f;
+	float f;
 	
 	/* K is < 0 */
 	f = spring->K * (susp->x - spring->x0) + spring->F0;
@@ -114,7 +114,7 @@ void SimSuspCheckIn(tSuspension *susp)
 
 void SimSuspUpdate(tSuspension *susp)
 {
-	tdble prevforce = susp->force;
+	float prevforce = susp->force;
 	susp->force = (springForce(susp) + damperForce(susp) + susp->inertance * susp->a) * susp->spring.bellcrank;
 	if (susp->force * prevforce < 0.0) {susp->force = 0.0;}
 }
@@ -218,7 +218,7 @@ void SimSuspConfig(tCar *car, void *hdle, const char *section, tSuspension *susp
 }
 
 
-void SimSuspReConfig(tCar *car, tSuspension *susp, int index, tdble F0, tdble X0)
+void SimSuspReConfig(tCar *car, tSuspension *susp, int index, float F0, float X0)
 {/* called by SimWheelReConfig() in wheel.cpp or SimAxleReConfig() in axle.cpp */
 	tCarSetupItem *setupSpring, *setupBellcrank, *setupInertance;
 	tCarSetupItem *setupFastBump, *setupSlowBump, *setupBumpLvel;

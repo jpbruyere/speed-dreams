@@ -40,7 +40,7 @@ osg::Node *SDBrakes::initBrake(int wheelIndex)
     osg::Vec3 nrm;
     osg::Vec2 tex;
     float	b_offset = 0;
-    tdble	curAngle = 0.0;
+    float	curAngle = 0.0;
     int i;
 
     osg::Geode *pBrake = new osg::Geode;
@@ -64,7 +64,7 @@ osg::Node *SDBrakes::initBrake(int wheelIndex)
     stateSet->setAttribute(material);
 
     int brakeBranch = 32;
-    float brakeAngle = 2.0 * SD_PI / (tdble)brakeBranch;
+    float brakeAngle = 2.0 * SD_PI / (float)brakeBranch;
     float brakeOffset = 0.1;
 
     switch(wheelIndex)
@@ -92,7 +92,7 @@ osg::Node *SDBrakes::initBrake(int wheelIndex)
     osg::Vec4Array *hub_clr = new osg::Vec4Array();
     osg::Vec3Array *hub_nrm = new osg::Vec3Array();
 
-    tdble hubRadius;
+    float hubRadius;
 
     /* center */
     vtx[0] = vtx[2] = 0.0;

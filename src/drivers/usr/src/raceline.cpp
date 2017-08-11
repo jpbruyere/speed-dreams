@@ -948,7 +948,7 @@ void LRaceLine::CalcZCurvature(int rl)
     {
         tTrackSeg *seg = SRL[rl].tSegment[SRL[rl].tDivSeg[i]];
 
-        SRL[rl].tz[i] = RtTrackHeightG(seg, (tdble)SRL[rl].tx[i], (tdble)SRL[rl].ty[i]);
+        SRL[rl].tz[i] = RtTrackHeightG(seg, (float)SRL[rl].tx[i], (float)SRL[rl].ty[i]);
 
         int next = (i + 1) % Divs;
         int prev = (i - 1 + Divs) % Divs;
@@ -961,8 +961,8 @@ void LRaceLine::CalcZCurvature(int rl)
         int j = ((i-1)+Divs) % Divs;
 
         vec2f pi, pj;
-        pi.x = (tdble)SRL[rl].tx[i]; pi.y = (tdble)SRL[rl].ty[i];
-        pj.x = (tdble)SRL[rl].tx[j]; pj.y = (tdble)SRL[rl].ty[j];
+        pi.x = (float)SRL[rl].tx[i]; pi.y = (float)SRL[rl].ty[i];
+        pj.x = (float)SRL[rl].tx[j]; pj.y = (float)SRL[rl].ty[j];
 
         SRL[rl].tzd[i] = (SRL[rl].tz[i] - SRL[rl].tz[j]) / PointDist(&pi, &pj);
     }
@@ -1584,8 +1584,8 @@ void LRaceLine::GetRLSteerPoint( vec2f *rt, double *offset, double time )
             count++;
         }
 
-        rt->x = (tdble)SRL[SRLidx].tx[next];
-        rt->y = (tdble)SRL[SRLidx].ty[next];
+        rt->x = (float)SRL[SRLidx].tx[next];
+        rt->y = (float)SRL[SRLidx].ty[next];
         *offset = -(SRL[SRLidx].tLane[next] * seg->width - seg->width/2);
     }
 }
@@ -1636,8 +1636,8 @@ void LRaceLine::GetSteerPoint( double lookahead, vec2f *rt, double offset, doubl
             count++;
         }
 
-        rt->x = (tdble)(offlane * SRL[SRLidx].txRight[next] + (1 - offlane) * SRL[SRLidx].txLeft[next]);
-        rt->y = (tdble)(offlane * SRL[SRLidx].tyRight[next] + (1 - offlane) * SRL[SRLidx].tyLeft[next]);
+        rt->x = (float)(offlane * SRL[SRLidx].txRight[next] + (1 - offlane) * SRL[SRLidx].txLeft[next]);
+        rt->y = (float)(offlane * SRL[SRLidx].tyRight[next] + (1 - offlane) * SRL[SRLidx].tyLeft[next]);
     }
     else
     {
@@ -1659,8 +1659,8 @@ void LRaceLine::GetSteerPoint( double lookahead, vec2f *rt, double offset, doubl
             }
             dist += thisdist;
 
-            rt->x = (tdble)txNext;
-            rt->y = (tdble)tyNext;
+            rt->x = (float)txNext;
+            rt->y = (float)tyNext;
 
             if (dist >= lookahead)
             {
@@ -2372,8 +2372,8 @@ void LRaceLine::GetPoint( double offset, vec2f *rt, double *mInverse )
 
     if (rt)
     {
-        rt->x = (tdble)txNext;
-        rt->y = (tdble)tyNext;
+        rt->x = (float)txNext;
+        rt->y = (float)tyNext;
     }
 
     if (mInverse)

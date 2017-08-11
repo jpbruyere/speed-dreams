@@ -124,7 +124,7 @@ void SingleCardata::evalTrueSpeed()
 	double avglength = lengthlft/2 + lengthrgt/2;
 	double change = MIN(1.0, MAX(0.85, ourlength / avglength));
 
-	truespeed *= (tdble) change;
+	truespeed *= (float) change;
 }
 
 // compute speed component parallel to the track.
@@ -135,7 +135,7 @@ float SingleCardata::getSpeed(tCarElt *car, float ltrackangle)
 	speed.y = car->_speed_Y;
 	dir.x = cos(ltrackangle);
 	dir.y = sin(ltrackangle);
-	return (tdble) (speed*dir);
+	return (float) (speed*dir);
 }
 
 void SingleCardata::init( CarElt *pcar )

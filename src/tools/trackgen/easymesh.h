@@ -2,7 +2,7 @@
 
     file                 : easymesh.h
     created              : Sun Feb 25 22:50:07 /etc/localtime 2001
-    copyright            : Bojan NICENO & Eric Espié
+    copyright            : Bojan NICENO & Eric EspiÃ©
     email                : niceno@univ.trieste.it Eric.Espie@torcs.org
     version              : $Id$
 

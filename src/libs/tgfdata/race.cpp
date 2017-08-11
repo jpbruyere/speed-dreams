@@ -550,19 +550,19 @@ void GfRace::store()
 		// or remove the parameter if invalid value.
 		if (pSessionParams->nLaps >= 0)
 			GfParmSetNum(hparmRaceMan, pszSessionName, RM_ATTR_LAPS,
-						 (char*)NULL, (tdble)pSessionParams->nLaps);
+						 (char*)NULL, (float)pSessionParams->nLaps);
 		else
 			GfParmRemove(hparmRaceMan, pszSessionName, RM_ATTR_LAPS);
 
 		if (pSessionParams->nDistance >= 0)
 			GfParmSetNum(hparmRaceMan, pszSessionName, RM_ATTR_DISTANCE,
-						 "km", (tdble)pSessionParams->nDistance);
+						 "km", (float)pSessionParams->nDistance);
 		else
 			GfParmRemove(hparmRaceMan, pszSessionName, RM_ATTR_DISTANCE);
 		
 		if (pSessionParams->nDuration >= 0)
 			GfParmSetNum(hparmRaceMan, pszSessionName, RM_ATTR_SESSIONTIME,
-						 "s", (tdble)pSessionParams->nDuration);
+						 "s", (float)pSessionParams->nDuration);
 		else
 			GfParmRemove(hparmRaceMan, pszSessionName, RM_ATTR_SESSIONTIME);
 		
@@ -615,7 +615,7 @@ void GfRace::store()
 		const std::string strDrvSec(ossDrvSecPath.str());
 		
 		GfParmSetNum(hparmRaceMan, strDrvSec.c_str(), RM_ATTR_IDX, (char*)NULL,
-					 (tdble)(*itComp)->getInterfaceIndex());
+					 (float)(*itComp)->getInterfaceIndex());
 		GfParmSetStr(hparmRaceMan, strDrvSec.c_str(), RM_ATTR_MODULE,
 					 (*itComp)->getModuleName().c_str());
 		
@@ -655,7 +655,7 @@ void GfRace::store()
 		// Skin and skin targets.
 		const GfDriverSkin& skin = (*itComp)->getSkin();
 		GfParmSetNum(hparmRaceMan, strDrvSec.c_str(), RM_ATTR_SKINTARGETS, NULL,
-					 (tdble)skin.getTargets());
+					 (float)skin.getTargets());
 		if ((!skin.getName().empty())
 			|| GfParmGetStr(hparmRaceMan, strDrvSec.c_str(), RM_ATTR_SKINNAME, 0))
 			GfParmSetStr(hparmRaceMan, strDrvSec.c_str(), RM_ATTR_SKINNAME,
@@ -666,7 +666,7 @@ void GfRace::store()
 	GfParmSetStr(hparmRaceMan, RM_SECT_DRIVERS, RM_ATTR_FOCUSED,
 				 _pPrivate->strFocusedModuleName.c_str());
 	GfParmSetNum(hparmRaceMan, RM_SECT_DRIVERS, RM_ATTR_FOCUSEDIDX, NULL,
-				 (tdble)_pPrivate->nFocusedItfIndex);
+				 (float)_pPrivate->nFocusedItfIndex);
 
 	// Now we are consistent with the race params (in memory).
 	_pPrivate->bIsDirty = false;

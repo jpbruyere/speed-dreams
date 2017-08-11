@@ -272,10 +272,10 @@ int ForceFeedbackManager::autocenterEffect(tCarElt* car, tSituation *s){
 	
 	int effectForce;
 	int sign;
-	tdble TqAlign;
+	float TqAlign;
 	
 	//force acting on the front wheels
-	tdble H = 450.0;
+	float H = 450.0;
 	TqAlign = car->_steerTqAlign;
 	TqAlign = H * TqAlign / (fabs(TqAlign) + H);
 	effectForce = TqAlign * this->effectsConfig["autocenterEffect"]["frontwheelsmultiplier"] / 100; 

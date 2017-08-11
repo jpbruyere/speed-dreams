@@ -21,17 +21,17 @@
 #define _ENGINE_H_
 
 typedef struct {
-    tdble rads;
-    tdble a;
-    tdble b;
+    float rads;
+    float a;
+    float b;
 } tEngineCurveElem;
 
 typedef struct {
-    tdble		maxTq;
-	tdble       maxPw;
-	tdble       rpmMaxPw;
-	tdble       TqAtMaxPw;
-	tdble       rpmMaxTq;
+    float		maxTq;
+	float       maxPw;
+	float       rpmMaxPw;
+	float       TqAtMaxPw;
+	float       rpmMaxTq;
     int			nbPts;
     tEngineCurveElem	*data;
 } tEngineCurve;
@@ -39,20 +39,20 @@ typedef struct {
 typedef struct
 {
     tEngineCurve	curve;
-    tdble		revsLimiter;
-    tdble		revsMax;
-    tdble		tickover;
-    tdble		I;
-    tdble		rads;   /* revs in rad/s ... */
-    tdble		Tq;	/* output torque */
-    tdble       Tq_response; /* response Tq due to mismatch */
-    tdble       I_joint; /* joint inertia */
-    tdble		fuelcons;
-    tdble		brakeCoeff; /* coefficient for constant engine brake */
-    tdble		brakeLinCoeff; /* coefficient for RPM dependent engine brake */
-	tdble       pressure;
-	tdble       exhaust_pressure;
-	tdble       exhaust_refract;
+    float		revsLimiter;
+    float		revsMax;
+    float		tickover;
+    float		I;
+    float		rads;   /* revs in rad/s ... */
+    float		Tq;	/* output torque */
+    float       Tq_response; /* response Tq due to mismatch */
+    float       I_joint; /* joint inertia */
+    float		fuelcons;
+    float		brakeCoeff; /* coefficient for constant engine brake */
+    float		brakeLinCoeff; /* coefficient for RPM dependent engine brake */
+	float       pressure;
+	float       exhaust_pressure;
+	float       exhaust_refract;
 } tEngine;
 
 #endif /* _ENGINE_H_ */ 

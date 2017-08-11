@@ -57,8 +57,8 @@ void SimAxleConfig(tCar *car, int index)
 		SimSuspConfig(car, hdle, SECT_REARHEAVE, &(axle->heaveSusp), 5);
 	}
 	
-	car->wheel[index*2].feedBack.I += (tdble) (axle->I / 2.0);
-	car->wheel[index*2+1].feedBack.I += (tdble) (axle->I / 2.0);
+	car->wheel[index*2].feedBack.I += (float) (axle->I / 2.0);
+	car->wheel[index*2+1].feedBack.I += (float) (axle->I / 2.0);
 }
 
 void SimArbReConfig(tCar *car, int index)
@@ -72,12 +72,12 @@ void SimArbReConfig(tCar *car, int index)
 	}
 }
 
-void SimAxleReConfig(tCar *car, int index, tdble weight0)
+void SimAxleReConfig(tCar *car, int index, float weight0)
 {/* called by SimCarReConfig() in car.cpp */
 	tCarSetupItem *setupRideHeightR = &(car->carElt->setup.rideHeight[index*2]);
 	tCarSetupItem *setupRideHeightL = &(car->carElt->setup.rideHeight[index*2+1]);
 	tAxle *axle = &(car->axle[index]);
-	tdble x0r, x0l;
+	float x0r, x0l;
 	
 	SimArbReConfig(car, index);
 	
@@ -96,29 +96,29 @@ void SimAxleReConfig(tCar *car, int index, tdble weight0)
 		x0l = setupRideHeightL->value;
 	}
 	if (index==0) {
-		SimSuspReConfig(car, &(axle->heaveSusp), 4, weight0, (tdble) (0.5*(x0r+x0l)));
+		SimSuspReConfig(car, &(axle->heaveSusp), 4, weight0, (float) (0.5*(x0r+x0l)));
 	} else {
-		SimSuspReConfig(car, &(axle->heaveSusp), 5, weight0, (tdble) (0.5*(x0r+x0l)));
+		SimSuspReConfig(car, &(axle->heaveSusp), 5, weight0, (float) (0.5*(x0r+x0l)));
 	}
 }
 
 void SimAxleUpdate(tCar *car, int index)
 {
 	tAxle *axle = &(car->axle[index]);
-	tdble str, stl, sgn, vtl, vtr;
+	float str, stl, sgn, vtl, vtr;
 	
 	str = car->wheel[index*2].susp.x;
 	stl = car->wheel[index*2+1].susp.x;
 	vtr = car->wheel[index*2].susp.v;
 	vtl = car->wheel[index*2+1].susp.v;
 	
-	sgn = (tdble) (SIGN(stl - str));
+	sgn = (float) (SIGN(stl - str));
 	axle->arbSusp.x = fabs(stl - str);		
 	tSpring *spring = &(axle->arbSusp.spring);
 
 	// To save CPU power we compute the force here directly. Just the spring
 	// is considered.
-	tdble f;
+	float f;
 	f = spring->K * axle->arbSusp.x;
 	
 	// right
@@ -127,10 +127,10 @@ void SimAxleUpdate(tCar *car, int index)
 	car->wheel[index*2+1].axleFz = - sgn * f;
 	
 	/* heave/center spring */
-	axle->heaveSusp.x = (tdble) (0.5 * (stl + str));
-	axle->heaveSusp.v = (tdble) (0.5 * (vtl + vtr));
+	axle->heaveSusp.x = (float) (0.5 * (stl + str));
+	axle->heaveSusp.v = (float) (0.5 * (vtl + vtr));
 	SimSuspUpdate(&(axle->heaveSusp));
-	f = (tdble) (0.5 * axle->heaveSusp.force);
+	f = (float) (0.5 * axle->heaveSusp.force);
 	car->wheel[index*2].axleFz3rd = f;
 	car->wheel[index*2+1].axleFz3rd = f;
 }

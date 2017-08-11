@@ -22,10 +22,10 @@
 
 typedef struct
 {
-    tdble	spinVel;
-    tdble	Tq;
-    tdble	brkTq;
-    tdble	I;
+    float	spinVel;
+    float	Tq;
+    float	brkTq;
+    float	I;
 } tDynAxis;
 
 typedef struct
@@ -39,17 +39,17 @@ typedef struct
 #define DIFF_VISCOUS_COUPLER	4
 #define DIFF_15WAY_LSD  5
 #define DIFF_ELECTRONIC_LSD 6
-    tdble	ratio;
-    tdble	I;
-    tdble	efficiency;
-    tdble	bias;
-    tdble	dTqMin;
-    tdble	dTqMax;
-    tdble	dSlipMax;
-    tdble   dCoastSlipMax;
-    tdble	lockInputTq;
-    tdble	viscosity;
-    tdble	viscomax;
+    float	ratio;
+    float	I;
+    float	efficiency;
+    float	bias;
+    float	dTqMin;
+    float	dTqMax;
+    float	dSlipMax;
+    float   dCoastSlipMax;
+    float	lockInputTq;
+    float	viscosity;
+    float	viscomax;
 
     /* dynamic data */
     tDynAxis	in;

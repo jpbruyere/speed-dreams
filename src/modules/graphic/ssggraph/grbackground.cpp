@@ -35,7 +35,7 @@
 #include "grMoonpos.h"
 
 // Some exported constants.
-const tdble grSkyDomeNeutralFOVDistance = 20000.0f; // Not the smallest, a medium one.
+const float grSkyDomeNeutralFOVDistance = 20000.0f; // Not the smallest, a medium one.
 
 static const double m_log01 = -log( 0.01 );
 static const double sqrt_m_log01 = sqrt( m_log01 );

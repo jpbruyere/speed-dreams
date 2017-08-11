@@ -58,8 +58,8 @@ class cGrBoard
     void grDispDebug(const tSituation *s, const cGrFrameInfo* frame);
     void grDispGGraph();
     void grDispMisc(bool bCurrentScreen);
-    void grDrawGauge(tdble X1, tdble Y1, tdble H, float *clr1,
-                        float *clr2, tdble val, const char *title);
+    void grDrawGauge(float X1, float Y1, float H, float *clr1,
+                        float *clr2, float val, const char *title);
     void grDispEngineLeds(int X, int Y, int align, bool bg);
 
     void grDispCarBoard(const tSituation *s);

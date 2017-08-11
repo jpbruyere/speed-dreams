@@ -52,7 +52,7 @@ static tModList		*modlist = (tModList*)NULL;
     @param	ymax	Maximum value for Y.
     @return	None
  */
-void RtTelemInit(tdble ymin, tdble ymax)
+void RtTelemInit(float ymin, float ymax)
 {
 #ifdef later
     char	buf[256];
@@ -78,7 +78,7 @@ void RtTelemInit(tdble ymin, tdble ymax)
     @param	max	Maximum value of this variable.
     @return	None
  */
-void RtTelemNewChannel(const char * name, tdble * var, tdble min, tdble max)
+void RtTelemNewChannel(const char * name, float * var, float min, float max)
 {
 #if 0
     tlm.newChannel(name, var, min, max);

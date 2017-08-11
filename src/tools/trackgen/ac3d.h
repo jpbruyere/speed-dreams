@@ -2,7 +2,7 @@
 
     file                 : ac3d.h
     created              : Wed May 29 22:15:37 CEST 2002
-    copyright            : (C) 2001 by Eric Espié
+    copyright            : (C) 2001 by Eric EspiÃ©
     email                : Eric.Espie@torcs.org
     version              : $Id$
 

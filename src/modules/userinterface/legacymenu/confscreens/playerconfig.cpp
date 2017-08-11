@@ -461,7 +461,7 @@ PutPlayerSettings(unsigned index)
     // Driver preferences params
     snprintf(drvSectionPath, sizeof(drvSectionPath), "%s/%s/%u", HM_SECT_PREF, HM_LIST_DRV, index);
     GfParmSetStr(PrefHdle, drvSectionPath, HM_ATT_TRANS, player->gearChangeModeString());
-    GfParmSetNum(PrefHdle, drvSectionPath, HM_ATT_NBPITS, (char*)NULL, (tdble)player->nbPitStops());
+    GfParmSetNum(PrefHdle, drvSectionPath, HM_ATT_NBPITS, (char*)NULL, (float)player->nbPitStops());
     GfParmSetStr(PrefHdle, drvSectionPath, HM_ATT_AUTOREVERSE, Yn[player->autoReverse()]);
 	#ifdef WEBSERVER
     GfParmSetStr(PrefHdle, drvSectionPath, "WebServerUsername", player->webserverusername());

@@ -227,7 +227,7 @@ cgrMultiTexState* grSsgEnvTexState(const char *img, cgrMultiTexState::tfnTexSche
  * 
  * @return
  */
-void grWriteTime(float *color, int font, int x, int y, int width, tdble sec, int sgn)
+void grWriteTime(float *color, int font, int x, int y, int width, float sec, int sgn)
 {
 	char  buf[256];
 	
@@ -247,7 +247,7 @@ void grWriteTime(float *color, int font, int x, int y, int width, tdble sec, int
  * 
  * @return
  */
-void grWriteTimeBuf(char *buf, tdble sec, int sgn)
+void grWriteTimeBuf(char *buf, float sec, int sgn)
 {
 	const char* sign;
 

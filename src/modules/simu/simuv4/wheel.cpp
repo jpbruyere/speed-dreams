@@ -24,8 +24,8 @@ static const char *WheelSect[4] = {SECT_FRNTRGTWHEEL, SECT_FRNTLFTWHEEL, SECT_RE
 static const char *SuspSect[4] = {SECT_FRNTRGTSUSP, SECT_FRNTLFTSUSP, SECT_REARRGTSUSP, SECT_REARLFTSUSP};
 static const char *BrkSect[4] = {SECT_FRNTRGTBRAKE, SECT_FRNTLFTBRAKE, SECT_REARRGTBRAKE, SECT_REARLFTBRAKE};
 
-tdble Tair = 273; //air temperature in K
-tdble Ttrack = 283; //track temperature in K
+float Tair = 273; //air temperature in K
+float Ttrack = 283; //track temperature in K
 
 void
 SimWheelConfig(tCar *car, int index)
@@ -33,8 +33,8 @@ SimWheelConfig(tCar *car, int index)
 	void *hdle = car->params;
 	tCarElt *carElt = car->carElt;
 	tWheel *wheel = &(car->wheel[index]);
-	tdble rimdiam, tirewidth, tireratio, tireheight;
-	tdble Ca, RFactor, EFactor;
+	float rimdiam, tirewidth, tireratio, tireheight;
+	float Ca, RFactor, EFactor;
 	tCarSetupItem *setupToe = &(car->carElt->setup.toe[index]);
 	tCarSetupItem *setupCamber = &(car->carElt->setup.camber[index]);
 	tCarSetupItem *setupPressure = &(car->carElt->setup.tirePressure[index]);
@@ -45,12 +45,12 @@ SimWheelConfig(tCar *car, int index)
 	setupToe->desired_value = setupToe->min = setupToe->max = 0.0f;
 	GfParmGetNumWithLimits(hdle, WheelSect[index], PRM_TOE, (char*)NULL, &(setupToe->desired_value), &(setupToe->min), &(setupToe->max));
 	setupToe->changed = TRUE;
-	setupToe->stepsize = (tdble) DEG2RAD(0.1);
+	setupToe->stepsize = (float) DEG2RAD(0.1);
 	
 	setupCamber->desired_value = setupCamber->min = setupCamber->max = 0.0f;
 	GfParmGetNumWithLimits(hdle, WheelSect[index], PRM_CAMBER, (char*)NULL, &(setupCamber->desired_value), &(setupCamber->min), &(setupCamber->max));
 	setupCamber->changed = TRUE;
-	setupCamber->stepsize = (tdble) DEG2RAD(0.1);
+	setupCamber->stepsize = (float) DEG2RAD(0.1);
 
 	setupPressure->desired_value = setupPressure->min = setupPressure->max = 275600;
 	GfParmGetNumWithLimits(hdle, WheelSect[index], PRM_PRESSURE, (char*)NULL, &(setupPressure->desired_value), &(setupPressure->min), &(setupPressure->max));
@@ -103,23 +103,23 @@ SimWheelConfig(tCar *car, int index)
 	wheel->Ttire = wheel->Tinit;
 	wheel->treadDepth = 1.0;
 	wheel->Topt = GfParmGetNum(hdle, WheelSect[index], PRM_OPTTEMP, (char*)NULL, 350.0f);
-	tdble coldmufactor = GfParmGetNum(hdle, WheelSect[index], PRM_COLDMUFACTOR, (char*)NULL, 1.0f);
+	float coldmufactor = GfParmGetNum(hdle, WheelSect[index], PRM_COLDMUFACTOR, (char*)NULL, 1.0f);
 	coldmufactor = MIN(MAX(coldmufactor, 0.0f), 1.0f);
 	wheel->muTmult = (1 - coldmufactor) / ((wheel->Topt - Tair) * (wheel->Topt - Tair));
-	wheel->heatingm = GfParmGetNum(hdle, WheelSect[index], PRM_HEATINGMULT, (char*)NULL, (tdble) 6e-5);
-	wheel->aircoolm = GfParmGetNum(hdle, WheelSect[index], PRM_AIRCOOLINGMULT, (char*)NULL, (tdble) 12e-4);
-	wheel->speedcoolm = GfParmGetNum(hdle, WheelSect[index], PRM_SPEEDCOOLINGMULT, (char*)NULL, (tdble) 0.25);
-	wheel->wearrate = GfParmGetNum(hdle, WheelSect[index], PRM_WEARRATE, (char*)NULL, (tdble) 1.5e-8);
+	wheel->heatingm = GfParmGetNum(hdle, WheelSect[index], PRM_HEATINGMULT, (char*)NULL, (float) 6e-5);
+	wheel->aircoolm = GfParmGetNum(hdle, WheelSect[index], PRM_AIRCOOLINGMULT, (char*)NULL, (float) 12e-4);
+	wheel->speedcoolm = GfParmGetNum(hdle, WheelSect[index], PRM_SPEEDCOOLINGMULT, (char*)NULL, (float) 0.25);
+	wheel->wearrate = GfParmGetNum(hdle, WheelSect[index], PRM_WEARRATE, (char*)NULL, (float) 1.5e-8);
 	wheel->wearrate = MIN(MAX(wheel->wearrate, 0.0f), 0.1f);
-	wheel->critTreadDepth = GfParmGetNum(hdle, WheelSect[index], PRM_FALLOFFTREADDEPTH, (char*)NULL, (tdble) 0.03);
+	wheel->critTreadDepth = GfParmGetNum(hdle, WheelSect[index], PRM_FALLOFFTREADDEPTH, (char*)NULL, (float) 0.03);
 	wheel->critTreadDepth = MIN(MAX(wheel->critTreadDepth, 0.0001f), 0.9999f);
-	wheel->muTDoffset[0] = GfParmGetNum(hdle, WheelSect[index], PRM_REMAININGGRIPMULT, (char*)NULL, (tdble) 0.5);
+	wheel->muTDoffset[0] = GfParmGetNum(hdle, WheelSect[index], PRM_REMAININGGRIPMULT, (char*)NULL, (float) 0.5);
 	wheel->muTDoffset[0] = MIN(MAX(wheel->muTDoffset[0], 0.1f), 1.0f);
-	wheel->muTDoffset[1] = GfParmGetNum(hdle, WheelSect[index], PRM_FALLOFFGRIPMULT, (char*)NULL, (tdble) 0.85);
+	wheel->muTDoffset[1] = GfParmGetNum(hdle, WheelSect[index], PRM_FALLOFFGRIPMULT, (char*)NULL, (float) 0.85);
 	wheel->muTDoffset[1] = MIN(MAX(wheel->muTDoffset[1], 0.1f), 1.0f);
 	/* calculate parameters for straight mu(TreadDepth) sections */
 	wheel->muTDmult[0] = (wheel->muTDoffset[1] - wheel->muTDoffset[0]) / wheel->critTreadDepth;
-	wheel->muTDmult[1] = (tdble) ((1.0 - wheel->muTDoffset[1]) / (1.0 - wheel->critTreadDepth));
+	wheel->muTDmult[1] = (float) ((1.0 - wheel->muTDoffset[1]) / (1.0 - wheel->critTreadDepth));
 	wheel->muTDoffset[1] = wheel->muTDoffset[1] - wheel->muTDmult[1] * wheel->critTreadDepth;
 
 	/* components */
@@ -142,7 +142,7 @@ SimWheelConfig(tCar *car, int index)
 		car->carElt->_tyreCritTreadDepth(index) = wheel->critTreadDepth;
     }
 
-	wheel->mfC = (tdble)(2.0 - asin(RFactor) * 2.0 / PI);
+	wheel->mfC = (float)(2.0 - asin(RFactor) * 2.0 / PI);
 	wheel->mfB = Ca / wheel->mfC;
 	wheel->mfE = EFactor;
 
@@ -155,7 +155,7 @@ SimWheelConfig(tCar *car, int index)
 	wheel->torques.x = wheel->torques.y = wheel->torques.z = 0.0f;
 	
 	/* calculate optimal slip value */
-	tdble s, Bx, low, high;
+	float s, Bx, low, high;
 	int i;
 	//wheel->mfC * atan(Bx * (1.0f - wheel->mfE) + wheel->mfE * atan(Bx)) == PI/2
 	low = 0.0;
@@ -167,14 +167,14 @@ SimWheelConfig(tCar *car, int index)
 		GfLogWarning("Tire magic curve parameters are unphysical!");
 	} else {
 		for (i = 0; i < 32; i++) {
-			Bx = (tdble)(0.5 * (low + high));
+			Bx = (float)(0.5 * (low + high));
 			if (wheel->mfC * atan(Bx * (1.0f - wheel->mfE) + wheel->mfE * atan(Bx)) < PI_2) {
 				low = Bx;
 			} else {
 				high = Bx;
 			}
 		}
-		s = (tdble)(0.5 * (low + high) / wheel->mfB);
+		s = (float)(0.5 * (low + high) / wheel->mfB);
 	}
 	car->carElt->_wheelSlipOpt(index) = s;
 }
@@ -185,14 +185,14 @@ SimWheelReConfig(tCar *car, int index)
 {/* called by SimCarReConfig in car.cpp */
 	tCarElt *carElt = car->carElt;
 	tWheel *wheel = &(car->wheel[index]);
-	tdble x0;
+	float x0;
 	
 	tCarSetupItem *setupRideHeight = &(car->carElt->setup.rideHeight[index]);
 	tCarSetupItem *setupToe = &(car->carElt->setup.toe[index]);
 	tCarSetupItem *setupCamber = &(car->carElt->setup.camber[index]);
 	tCarSetupItem *setupPressure = &(car->carElt->setup.tirePressure[index]);
 	tCarSetupItem *setupOpLoad = &(car->carElt->setup.tireOpLoad[index]);
-	tdble pressure, patchLen;
+	float pressure, patchLen;
 	
 	if (setupToe->changed) {
 		wheel->staticPos.az = MIN(setupToe->max, MAX(setupToe->min, setupToe->desired_value));
@@ -236,7 +236,7 @@ SimWheelReConfig(tCar *car, int index)
 void SimWheelUpdateRide(tCar *car, int index)
 {
 	tWheel *wheel = &(car->wheel[index]);
-	tdble Zroad;
+	float Zroad;
 
 	// compute suspension travel
 	RtTrackGlobal2Local(car->trkPos.seg, wheel->pos.x, wheel->pos.y, &(wheel->trkPos), TR_LPOS_SEGMENT);
@@ -245,8 +245,8 @@ void SimWheelUpdateRide(tCar *car, int index)
 	// Wheel susp.x is not the wheel movement, look at SimSuspCheckIn, it becomes there scaled with
 	// susp->spring.bellcrank, so we invert this here.
 
-	tdble new_susp_x = (wheel->susp.x - wheel->susp.v * SimDeltaTime) / wheel->susp.spring.bellcrank;
-    tdble max_extend =  wheel->pos.z - Zroad;
+	float new_susp_x = (wheel->susp.x - wheel->susp.v * SimDeltaTime) / wheel->susp.spring.bellcrank;
+    float max_extend =  wheel->pos.z - Zroad;
 	wheel->rideHeight = max_extend;
 
 	if (max_extend > new_susp_x + 0.01) {
@@ -257,8 +257,8 @@ void SimWheelUpdateRide(tCar *car, int index)
 		new_susp_x = max_extend;
 	}
 
-	tdble prex = wheel->susp.x;
-	tdble prev = wheel->susp.v;
+	float prex = wheel->susp.x;
+	float prev = wheel->susp.v;
 	wheel->susp.x = new_susp_x;
 	
 	// verify the suspension travel, beware, wheel->susp.x will be scaled by SimSuspCheckIn
@@ -287,17 +287,17 @@ void SimWheelUpdateRide(tCar *car, int index)
 void SimWheelUpdateForce(tCar *car, int index)
 {
 	tWheel *wheel = &(car->wheel[index]);
-	tdble axleFz = wheel->axleFz;
-	tdble vt, v, v2, wrl; // wheel related velocity
-	tdble Fn, Ft;
-	tdble waz;
-	tdble CosA, SinA;
-	tdble s, sa, sx, sy; // slip vector
-	tdble stmp, F, Bx;
-	tdble mu;
-	tdble MaxTorqueSlipAngle;
-	tdble tireCond = 1.0;
-	tdble reaction_force = 0.0f;
+	float axleFz = wheel->axleFz;
+	float vt, v, v2, wrl; // wheel related velocity
+	float Fn, Ft;
+	float waz;
+	float CosA, SinA;
+	float s, sa, sx, sy; // slip vector
+	float stmp, F, Bx;
+	float mu;
+	float MaxTorqueSlipAngle;
+	float tireCond = 1.0;
+	float reaction_force = 0.0f;
 	wheel->state = 0;
 
 	// VERTICAL STUFF CONSIDERING SMALL PITCH AND ROLL ANGLES
@@ -408,7 +408,7 @@ void SimWheelUpdateForce(tCar *car, int index)
 		} else {
 			tireCond *= wheel->muTDmult[0] * wheel->treadDepth + wheel->muTDoffset[0];
 		}
-		tireCond = (tdble) MAX(tireCond, 0.1);
+		tireCond = (float) MAX(tireCond, 0.1);
 		mu *= tireCond;
 	}
 
@@ -463,7 +463,7 @@ void SimWheelUpdateForce(tCar *car, int index)
 	car->carElt->_reaction[index] = reaction_force;
 	car->carElt->_tyreEffMu(index) = mu;
 	
-	tdble Work = 0.0;
+	float Work = 0.0;
 	/* update tire temperature and degradation */
 	if (car->features & FEAT_TIRETEMPDEG) {
 		//heat from the work of friction
@@ -487,15 +487,15 @@ void SimWheelUpdateForce(tCar *car, int index)
 	// Option TCL ...
 	if (car->features & FEAT_TCLINSIMU)
 	{
-		tdble TCL_SlipScale = 1.00f;	// Make it be a parameter later
-		tdble TCL_AccelScale = 0.9f;	// Make it be a parameter later
+		float TCL_SlipScale = 1.00f;	// Make it be a parameter later
+		float TCL_AccelScale = 0.9f;	// Make it be a parameter later
 
 		tEngine	*engine = &(car->engine); // Get engine
 		if (sx < -TCL_SlipScale)          // Slip is over our limit
 		{	// Store the TCL_Brake command for this wheel
 			wheel->brake.TCL = -sx;
 			// Store the minimum TCL_Accel command for the engine
-			engine->TCL = (tdble) MIN(TCL_AccelScale * wheel->brake.TCL,engine->TCL);
+			engine->TCL = (float) MIN(TCL_AccelScale * wheel->brake.TCL,engine->TCL);
 			// fprintf(stderr,"sx: %.1f TCL: %.3f %%\n",sx,wheel->brake.TCL);
 		};
 	}
@@ -504,12 +504,12 @@ void SimWheelUpdateForce(tCar *car, int index)
 	// Option ABS ...
 	if (car->features & FEAT_ABSINSIMU)
 	{
-		tdble ABS_SlipScale = 0.1f;		// Make it be a parameter later
-		tdble ABS_BrakeScale = 1.0f;	// Make it be a parameter later
+		float ABS_SlipScale = 0.1f;		// Make it be a parameter later
+		float ABS_BrakeScale = 1.0f;	// Make it be a parameter later
 
 		// If slip is over the limit, reduce brake command for this wheel
 		if (sx > ABS_SlipScale)			
-            wheel->brake.ABS = (tdble) MAX(0.0,MIN(1.0,1 - ABS_BrakeScale * sx));
+            wheel->brake.ABS = (float) MAX(0.0,MIN(1.0,1 - ABS_BrakeScale * sx));
 		else
 			wheel->brake.ABS = 1.0f;
 	}
@@ -522,10 +522,10 @@ SimWheelUpdateRotation(tCar *car)
 {
 	int i;
 	tWheel *wheel;
-	tdble deltan;
-	tdble cosaz, sinaz;
+	float deltan;
+	float cosaz, sinaz;
 
-	tdble maxslip = 0.0;
+	float maxslip = 0.0;
 
 	for (i = 0; i < 4; i++) {
 		wheel = &(car->wheel[i]);
@@ -547,10 +547,10 @@ SimWheelUpdateRotation(tCar *car)
 		
 		if ( (car->features & FEAT_SLOWGRIP) && (wheel->brake.Tq <= 1.0) && (car->ctrl->accelCmd * car->transmission.clutch.transferValue < 0.05) ) {
 			/* prevent wheelspin value oscillating around wheel tangential velocity */
-			tdble waz = wheel->steer + wheel->staticPos.az;
-			tdble vt = wheel->bodyVel.x * cos(waz) + wheel->bodyVel.y * sin(waz);
-			tdble wrl = wheel->spinVel * wheel->radius;
-			tdble oldwrl = wheel->prespinVel * wheel->radius;
+			float waz = wheel->steer + wheel->staticPos.az;
+			float vt = wheel->bodyVel.x * cos(waz) + wheel->bodyVel.y * sin(waz);
+			float wrl = wheel->spinVel * wheel->radius;
+			float oldwrl = wheel->prespinVel * wheel->radius;
 			if( (vt-wrl)*(vt-oldwrl) < 0.0 ) {
 				wheel->spinVel = vt / wheel->radius;
 			}
@@ -592,9 +592,9 @@ SimUpdateFreeWheels(tCar *car, int axlenb)
 {
 	int i;
 	tWheel *wheel;
-	tdble BrTq;		// brake torque
-	tdble ndot;		// rotation acceleration
-	tdble I;
+	float BrTq;		// brake torque
+	float ndot;		// rotation acceleration
+	float I;
 
 	for (i = axlenb * 2; i < axlenb * 2 + 2; i++) {
 		wheel = &(car->wheel[i]);
@@ -604,7 +604,7 @@ SimUpdateFreeWheels(tCar *car, int axlenb)
 		ndot = SimDeltaTime * wheel->spinTq / I;
 		wheel->spinVel -= ndot;
 
-		BrTq = (tdble)(- SIGN(wheel->spinVel) * wheel->brake.Tq);
+		BrTq = (float)(- SIGN(wheel->spinVel) * wheel->brake.Tq);
 		ndot = SimDeltaTime * BrTq / I;
 
         if (fabs(ndot) > fabs(wheel->spinVel)) {

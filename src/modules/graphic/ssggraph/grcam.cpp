@@ -34,7 +34,7 @@ static float bezelComp;
 static float screenDist;
 static float arcRatio;
 static float spanaspect;
-static tdble spanA;
+static float spanA;
 
 static double lastTime;
 
@@ -177,7 +177,7 @@ void cGrPerspCamera::loadDefaults(char *attr)
 
 /* Give the height in pixels of 1 m high object on the screen at this point */
 float cGrPerspCamera::getLODFactor(float x, float y, float z) {
-    tdble	dx, dy, dz, dd;
+    float	dx, dy, dz, dd;
     float	ang;
     int		scrh, dummy;
     float	res;
@@ -311,7 +311,7 @@ void cGrPerspCamera::setZoom(int cmd)
 
     sprintf(buf, "%s-%d-%d", GR_ATT_FOVY, screen->getCurCamHead(), getId());
     sprintf(path, "%s/%d", GR_SCT_DISPMODE, screen->getId());
-    GfParmSetNum(grHandle, path, buf, (char*)NULL, (tdble)fovy);
+    GfParmSetNum(grHandle, path, buf, (char*)NULL, (float)fovy);
     GfParmWriteFile(NULL, grHandle, "Graph");
 }
 
@@ -441,7 +441,7 @@ class cGrCarCamInsideDynDriverEye : public cGrCarCamInsideDriverEye
 {
 #if (CamDriverEyeDynamicBehaviour != 1)
  private:
-    tdble PreA;
+    float PreA;
 #endif
 
  public:
@@ -484,7 +484,7 @@ class cGrCarCamInsideDynDriverEye : public cGrCarCamInsideDriverEye
 	P[2] = car->_drvPos_z;
 
 #if (CamDriverEyeDynamicBehaviour == 3)
-	tdble A = 0;
+	float A = 0;
 
 	// We want uniform movement across split screens when 'spanning'
 	if (viewOffset && lastTime == s->currentTime) {
@@ -503,7 +503,7 @@ class cGrCarCamInsideDynDriverEye : public cGrCarCamInsideDriverEye
 
 	// ignore head movement if glancing left/right
 	if (car->_glance == 0) {
-		tdble headTurn = (A - car->_yaw)/2;
+		float headTurn = (A - car->_yaw)/2;
 
 		if (headTurn > PI/3) headTurn = PI/3;
 		if (headTurn < -PI/3) headTurn = -PI/3;
@@ -516,7 +516,7 @@ class cGrCarCamInsideDynDriverEye : public cGrCarCamInsideDriverEye
 	sgXformPnt3(P, car->_posMat);
 
 #if (CamDriverEyeDynamicBehaviour == 2)
-	tdble A = 0;
+	float A = 0;
 
 	// We want uniform movement across split screens when 'spanning'
 	if (viewOffset && lastTime == s->currentTime) {
@@ -537,10 +537,10 @@ class cGrCarCamInsideDynDriverEye : public cGrCarCamInsideDriverEye
 	if (car->_glance != 0)
 		A = 0;
 
-	const tdble CosA = cos(A);
-	const tdble SinA = sin(A);
+	const float CosA = cos(A);
+	const float SinA = sin(A);
 
-	//tdble brake = 0.0f;
+	//float brake = 0.0f;
 	//if (car->_accel_x < 0.0)
 	//	brake = MIN(2.0, fabs(car->_accel_x) / 20.0);
 
@@ -916,7 +916,7 @@ class cGrCarCamBehindReverse : public cGrPerspCamera
 
 class cGrCarCamBehind : public cGrPerspCamera
 {
-    tdble PreA;
+    float PreA;
 
  protected:
     float dist;
@@ -940,7 +940,7 @@ class cGrCarCamBehind : public cGrPerspCamera
     }
 
     void update(tCarElt *car, tSituation *s) {
-	tdble A;
+	float A;
 	float offset = 0;
 
 	// We want uniform movement across split screens when 'spanning'
@@ -988,7 +988,7 @@ class cGrCarCamBehind : public cGrPerspCamera
 
 class cGrCarCamBehind2 : public cGrPerspCamera
 {
-    tdble PreA;
+    float PreA;
 
  protected:
     float dist;
@@ -1008,11 +1008,11 @@ class cGrCarCamBehind2 : public cGrPerspCamera
     }
 
     void update(tCarElt *car, tSituation *s) {
-	tdble A;
-	tdble CosA;
-	tdble SinA;
-	tdble x;
-	tdble y;
+	float A;
+	float CosA;
+	float SinA;
+	float x;
+	float y;
 
 	A = RtTrackSideTgAngleL(&(car->_trkPos));
 	if (fabs(PreA - A) > fabs(PreA - A + 2*PI)) {
@@ -1118,9 +1118,9 @@ protected:
     }
 
     void update(tCarElt *car, tSituation *s) {
-	tdble x = car->_pos_X + distx;
-	tdble y = car->_pos_Y + disty;
-	tdble z = car->_pos_Z + distz;
+	float x = car->_pos_X + distx;
+	float y = car->_pos_Y + disty;
+	float z = car->_pos_Z + distz;
     
 	eye[0] = x;
 	eye[1] = y;
@@ -1179,9 +1179,9 @@ class cGrCarCamUp : public cGrPerspCamera
     }
 
     void update(tCarElt *car, tSituation *s) {
-	tdble x = car->_pos_X;
-	tdble y = car->_pos_Y;
-	tdble z = car->_pos_Z + distz;
+	float x = car->_pos_X;
+	float y = car->_pos_Y;
+	float z = car->_pos_Z + distz;
     
 	eye[0] = x;
 	eye[1] = y;
@@ -1242,7 +1242,7 @@ class cGrCarCamCenter : public cGrPerspCamera
     }
     
     void update(tCarElt *car, tSituation *s) {
-	tdble	dx, dy, dz, dd;
+	float	dx, dy, dz, dd;
 	
 	center[0] = car->_pos_X;
 	center[1] = car->_pos_Y;
@@ -1650,7 +1650,7 @@ class cGrCarCamRoadZoom : public cGrPerspCamera
     }
     
     void update(tCarElt *car, tSituation *s) {
-	tdble	dx, dy, dz, dd;
+	float	dx, dy, dz, dd;
 	tRoadCam *curCam;
 
 	curCam = car->_trkPos.seg->cam;
@@ -1690,11 +1690,11 @@ class cGrCarCamRoadZoom : public cGrPerspCamera
 };
 
 // cGrCarCamRoadZoomTVD ================================================================
-static tdble
+static float
 GetDistToStart(tCarElt *car)
 {
     tTrackSeg	*seg;
-    tdble	lg;
+    float	lg;
     
     seg = car->_trkPos.seg;
     lg = seg->lgfromstart;
@@ -1724,7 +1724,7 @@ class cGrCarCamRoadZoomTVD : public cGrCarCamRoadZoom
     double camEventInterval;
     double lastEventTime;
     double lastViewTime;
-    tdble  proximityThld;
+    float  proximityThld;
     int		current;
     int		curCar;
 
@@ -1791,7 +1791,7 @@ class cGrCarCamRoadZoomTVD : public cGrCarCamRoadZoom
 	    }
 	    
 	    for (i = 0; i < grNbCars; i++) {
-		tdble dist, fs;
+		float dist, fs;
 
 		car = s->cars[i];
 		schedView[car->index].prio += grNbCars - i;
@@ -1818,8 +1818,8 @@ class cGrCarCamRoadZoomTVD : public cGrCarCamRoadZoom
 
 		    for (j = i+1; j < grNbCars; j++) {
 			tCarElt *car2 = s->cars[j];
-			tdble fs2 = GetDistToStart(car2);
-			tdble d = fabs(fs2 - fs);
+			float fs2 = GetDistToStart(car2);
+			float d = fabs(fs2 - fs);
 
 			if ((car2->_state & RM_CAR_STATE_NO_SIMU) == 0) {
 			    if (d < proximityThld) {
@@ -1885,7 +1885,7 @@ class cGrCarCamRoadZoomTVD : public cGrCarCamRoadZoom
 
 void
 grCamCreateSceneCameraList(class cGrScreen *myscreen, tGrCamHead *cams,
-						   tdble fovFactor, tdble fixedFar)
+						   float fovFactor, float fixedFar)
 {
     int			id;
     int			c;

@@ -36,7 +36,7 @@ class Vec3d : public v3t<double>
   Vec3d() {}
   Vec3d( const v3t<double>& v ) : v3t<double>(v) {}
   Vec3d( double x, double y, double z ) : v3t<double>(x, y, z) {};
-  Vec3d( const t3Dd& v ) : v3t<double>(v.x, v.y, v.z) {}
+  Vec3d( const glm::vec3& v ) : v3t<double>(v.x, v.y, v.z) {}
 
   Vec3d&	operator=( const v3t<double>& v )
   {

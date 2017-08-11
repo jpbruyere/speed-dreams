@@ -67,7 +67,7 @@ extern cGrCamera * grGetCurCamera(void);
 //extern void bendCar (int index, sgVec3 poc, sgVec3 force, int cnt);
 
 extern int grMaxTextureUnits;
-extern tdble grMaxDammage;
+extern float grMaxDammage;
 
 // Number of active screens.
 extern int grNbActiveScreens;
@@ -85,7 +85,7 @@ extern class cGrScreen* grGetCurrentScreen(void);
 
 #define GR_NB_MAX_SCREEN 6
 
-extern tdble grLodFactorValue;
+extern float grLodFactorValue;
 
 class cGrFrameInfo
 {

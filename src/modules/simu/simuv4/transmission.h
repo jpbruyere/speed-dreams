@@ -32,8 +32,8 @@ typedef struct
     int		gearMin;
     int		gearMax;
     int		gearNext;
-    tdble   shiftTime; /* time of shifting in sec */
-    tdble   timeToEngage; /* time to engage gearNext, in sec */
+    float   shiftTime; /* time of shifting in sec */
+    float   timeToEngage; /* time to engage gearNext, in sec */
 } tGearbox;
 
 typedef struct
@@ -45,9 +45,9 @@ typedef struct
     int		mode;
 #define CLUTCH_AUTO	0
 #define CLUTCH_MANUAL	1
-    tdble	timeToRelease;	/* remaining time before releasing the clutch pedal */
-    tdble	releaseTime;	/* time needed for releasing the clutch pedal */
-    tdble	transferValue;	/* 1.0 -> released, 0.0 -> applied */
+    float	timeToRelease;	/* remaining time before releasing the clutch pedal */
+    float	releaseTime;	/* time needed for releasing the clutch pedal */
+    float	transferValue;	/* 1.0 -> released, 0.0 -> applied */
 } tClutch;
 
 typedef struct
@@ -58,13 +58,13 @@ typedef struct
 #define TRANS_RWD	0
 #define TRANS_FWD	1
 #define TRANS_4WD	2
-    tdble	overallRatio[MAX_GEARS];	/* including final drive ratio */
-    tdble   gearI[MAX_GEARS];       /* raw gear inertia */
-    tdble	driveI[MAX_GEARS];		/* Inertia (including engine) */
-    tdble	freeI[MAX_GEARS];		/* Inertia when clutch is applied (wheels side) */
-    tdble	gearEff[MAX_GEARS];		/* Gear Efficiency */
-    tdble	curOverallRatio;
-    tdble	curI;
+    float	overallRatio[MAX_GEARS];	/* including final drive ratio */
+    float   gearI[MAX_GEARS];       /* raw gear inertia */
+    float	driveI[MAX_GEARS];		/* Inertia (including engine) */
+    float	freeI[MAX_GEARS];		/* Inertia when clutch is applied (wheels side) */
+    float	gearEff[MAX_GEARS];		/* Gear Efficiency */
+    float	curOverallRatio;
+    float	curI;
 
 #define TRANS_FRONT_DIFF	0
 #define TRANS_REAR_DIFF		1

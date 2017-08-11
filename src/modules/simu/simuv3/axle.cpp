@@ -25,7 +25,7 @@ void
 SimAxleConfig(tCar *car, int index)
 {
     void	*hdle = car->params;
-    tdble	rollCenter;
+    float	rollCenter;
     
     tAxle *axle = &(car->axle[index]);
 
@@ -51,16 +51,16 @@ SimAxleUpdate(tCar *car, int index)
 {
     tAxle *axle = &(car->axle[index]);
     
-    tdble str = car->wheel[index*2].susp.x;
-    tdble stl = car->wheel[index*2+1].susp.x;
-    tdble delta = stl - str;
-    tdble sgn = (tdble)SIGN(delta);
+    float str = car->wheel[index*2].susp.x;
+    float stl = car->wheel[index*2+1].susp.x;
+    float delta = stl - str;
+    float sgn = (float)SIGN(delta);
 
     axle->arbSusp.x = fabs(delta);
     tSpring *spring = &(axle->arbSusp.spring);
 
     // use a linear model - damping is done at the main suspension anyway
-    tdble F = sgn * spring->K * axle->arbSusp.x ;
+    float F = sgn * spring->K * axle->arbSusp.x ;
 
     // just use linear model
     axle->arbSusp.force = F;
