@@ -881,7 +881,7 @@ double TDriver::CalcPathTarget( double pos, double offs ) const
   return CalcPathTarget(pos, offs, m_avoidS);
 }
 
-Vec2d TDriver::CalcPathTarget2( double pos, double offs ) const
+glm::dvec2 TDriver::CalcPathTarget2( double pos, double offs ) const
 {
   PtInfo	pi, piL, piR;
   GetPtInfo( PATH_NORMAL, pos, pi );
@@ -895,7 +895,7 @@ Vec2d TDriver::CalcPathTarget2( double pos, double offs ) const
 
   double	t = (offs - piL.offs) / (piR.offs - piL.offs);
 
-  return Vec2d(MX(-1, MN(t, 1)) * 2 - 1, 1);
+  return glm::dvec2(MX(-1, MN(t, 1)) * 2 - 1, 1);
 }
 
 double TDriver::CalcPathOffset( double pos, double s, double t ) const
@@ -1539,7 +1539,7 @@ void TDriver::Drive( tSituation* s )
       if( m_raceStart )
         {
           LogSHADOW.debug("SHADOW m_raceStart\n");
-          Vec2d	thisPt(car->_pos_X, car->_pos_Y);
+          glm::dvec2	thisPt(car->_pos_X, car->_pos_Y);
 
           for( int i = 0; i + 1 < HIST; i++ )
             m_lastPts[i] = m_lastPts[i + 1];
@@ -1617,8 +1617,8 @@ void TDriver::Drive( tSituation* s )
   double	spd0 = hypot(car->_speed_x, car->_speed_y);
 
   {
-    Vec2d	thisPt(car->_pos_X, car->_pos_Y);
-    if( (thisPt - m_lastPts[0]).len() > 0.1 && car->ctrl.accelCmd == 1.0 )
+    glm::dvec2	thisPt(car->_pos_X, car->_pos_Y);
+    if( (thisPt - m_lastPts[0]).length() > 0.1 && car->ctrl.accelCmd == 1.0 )
       {
         double	x[2];
         x[0] = Utils::CalcCurvature(m_lastPts[0], m_lastPts[HIST / 2], thisPt);
@@ -2079,7 +2079,7 @@ void TDriver::AvoidOtherCars(int index, tCarElt* car, double k, double& carTarge
   GenericAvoidance		ga;
 
   // int		priority = ga.priority(ai, car);        // Removed 5th April 2015 - Not Used
-  Vec2d	target = ga.calcTarget(ai, car, *this);
+  glm::dvec2	target = ga.calcTarget(ai, car, *this);
 
   carTargetSpd = MN(carTargetSpd, ai.spdF);
   close = (ai.flags & Opponent::F_CLOSE) != 0;

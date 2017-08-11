@@ -196,8 +196,8 @@ DanPoint DanLine::getPos(int index)
 
 double DanLine::calcYaw(DanPoint danpoint)
 {
-  Vec2d prev = danpoint.pos - prevPos(danpoint).pos;
-  Vec2d next = nextPos(danpoint).pos - danpoint.pos;
+  glm::dvec2 prev = danpoint.pos - prevPos(danpoint).pos;
+  glm::dvec2 next = nextPos(danpoint).pos - danpoint.pos;
   return Utils::VecAngle(prev + next);
 }
 
@@ -212,7 +212,7 @@ double DanLine::calcTrackYaw(DanPoint danpoint, double& trackyaw)
 }
 
 
-bool DanLine::fromStart(Vec2d pos, double& fromstart)
+bool DanLine::fromStart(glm::dvec2 pos, double& fromstart)
 {
   tTrkLocPos locpos;
   RtTrackGlobal2Local(myseg, (float) pos.x, (float) pos.y, &locpos, TR_LPOS_MAIN);
@@ -222,7 +222,7 @@ bool DanLine::fromStart(Vec2d pos, double& fromstart)
 }
 
 
-bool DanLine::toMiddle(Vec2d pos, double& tomiddle)
+bool DanLine::toMiddle(glm::dvec2 pos, double& tomiddle)
 {
   tTrkLocPos locpos;
   RtTrackGlobal2Local(myseg, (float) pos.x, (float) pos.y, &locpos, TR_LPOS_MAIN);
@@ -261,12 +261,12 @@ int DanLine::getIndex(double fromstart)
 }
 
 
-Vec2d DanLine::getNearestPoint(int index, double fromstart)
+glm::dvec2 DanLine::getNearestPoint(int index, double fromstart)
 {
-  Vec2d straight = getPos(index+1).pos - mLine[index].pos;
+  glm::dvec2 straight = getPos(index+1).pos - mLine[index].pos;
   double straightlen = getDistDiff(mLine[index].fromstart, getPos(index+1).fromstart);
   double poslen = getDistDiff(mLine[index].fromstart, fromstart);
-  Vec2d pointonStraight = mLine[index].pos + straight * (poslen / straightlen);
+  glm::dvec2 pointonStraight = mLine[index].pos + straight * (poslen / straightlen);
   return pointonStraight;
 }
 
@@ -337,7 +337,7 @@ DanPoint DanPath::nextPos(DanPoint danpoint)
 
 void DanPath::getClothPath()
 {
-  Vec2d point(0, 0);
+  glm::dvec2 point(0, 0);
 
   MyTrack track;
   track.NewTrack(mTrack, mSegLen);

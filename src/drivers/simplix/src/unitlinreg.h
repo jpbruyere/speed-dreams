@@ -49,9 +49,9 @@ class TLinearRegression
 
 	void Clear();
 	void Add(double X, double Y);
-	void Add(const TVec2d& Point);
+	void Add(const glm::dvec2& Point);
 	double CalcY(double X) const;
-	void CalcLine(TVec2d& Point, TVec2d& V) const;
+	void CalcLine(glm::dvec2& Point, glm::dvec2& V) const;
 
   public:
 	int	oCount;

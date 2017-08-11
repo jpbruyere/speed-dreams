@@ -84,7 +84,7 @@ void Opponent::UpdateSit(const CarElt* myCar, const TeamInfo* pTeamInfo, double 
 	m_info.sit.spd = hypot(oCar->_speed_X, oCar->_speed_Y);
 
 	// work out track relative speed of other car.
-	Vec2d norm = m_path.GetTrack()->CalcNormal(oCar->_distFromStartLine);
+	glm::dvec2 norm = m_path.GetTrack()->CalcNormal(oCar->_distFromStartLine);
 	m_info.sit.tVX = norm.x * oCar->_speed_Y - norm.y * oCar->_speed_X;
 	m_info.sit.tVY = norm.x * oCar->_speed_X + norm.y * oCar->_speed_Y;
 

@@ -41,22 +41,6 @@
 //#include "unitcommon.h" NOT ALLOWED HERE!!!
 
 //==========================================================================*
-// Deklaration der Klasse TVec2d
-//--------------------------------------------------------------------------*
-class TVec2d : public v2t<double>
-{
-  public:
-	TVec2d() {}
-	TVec2d( const v2t<double>& v ) : v2t<double>(v) {}
-	TVec2d( double x, double y ) : v2t<double>(x, y) {};
-
-	TVec2d&	operator=( const v2t<double>& v )
-	{
-		v2t<double>::operator=(v);
-		return *this;
-	}
-};
-//==========================================================================*
 #endif // _UNITVEC2D_H_
 //--------------------------------------------------------------------------*
 // end of file unitvec2d.h

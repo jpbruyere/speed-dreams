@@ -409,7 +409,7 @@ double MyTrack::CalcForwardAngle( double trackPos ) const
 	return Utils::VecAngXY(norm) + PI / 2;
 }
 
-Vec2d MyTrack::CalcNormal( double trackPos ) const
+glm::dvec2 MyTrack::CalcNormal( double trackPos ) const
 {
 	int					idx = IndexFromPos(trackPos);
 	const tTrackSeg*	pSeg = m_pSegs[idx].pSeg;

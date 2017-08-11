@@ -184,7 +184,7 @@ bool TLane::GetLanePoint(double TrackPos, TLanePoint& LanePoint) const
   DOUBLE_NORM_PI_PI(DeltaAng);
   LanePoint.Angle = Ang0 + LanePoint.T * DeltaAng;
 
-  TVec2d Tang1, Tang2;
+  glm::dvec2 Tang1, Tang2;
   TUtils::CalcTangent(P0.GetXY(), P1.GetXY(), P2.GetXY(), Tang1);
   TUtils::CalcTangent(P1.GetXY(), P2.GetXY(), P3.GetXY(), Tang2);
   //TVec2d Dir = TUtils::VecUnit(Tang1) * (1 - Tx) + TUtils::VecUnit(Tang2) * Tx;

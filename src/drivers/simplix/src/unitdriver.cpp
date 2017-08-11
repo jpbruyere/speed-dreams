@@ -2171,7 +2171,7 @@ void TDriver::Update(tCarElt* Car, tSituation* S)
   oTrackAngle =                                  // Direction of track at the
 	 RtTrackSideTgAngleL(&CarTrackPos);          // position of the car
   oDistFromStart = oTrackDesc.CalcPos(oCar, 0.0);// Cars distance from Start
-  TVec2d Target =                                // Target to steer to
+  glm::dvec2 Target =                                // Target to steer to
 	CalcPathTarget2(oDistFromStart + 5.0, 0.0);  // while unstucking
   oSteerAngle = (float) atan2                    // Direction to steer
 	(Target.y - CarPosY, Target.x - CarPosX);    //   from here to target
@@ -3242,7 +3242,7 @@ double TDriver::CalcPathTarget(double Pos, double Offset)
 //==========================================================================*
 // Calculate path target
 //--------------------------------------------------------------------------*
-TVec2d TDriver::CalcPathTarget2(double Pos, double Offset)
+glm::dvec2 TDriver::CalcPathTarget2(double Pos, double Offset)
 {
   TLanePoint PointInfo, PointInfoL, PointInfoR;
 
@@ -3256,7 +3256,7 @@ TVec2d TDriver::CalcPathTarget2(double Pos, double Offset)
   double T = (Offset - PointInfoL.Offset) / 
 	  (PointInfoR.Offset - PointInfoL.Offset);
 
-  return TVec2d(MAX(-1, MIN(T, 1)) * 2 - 1, 1);
+  return glm::dvec2(MAX(-1, MIN(T, 1)) * 2 - 1, 1);
 }
 //==========================================================================*
 

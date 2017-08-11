@@ -110,7 +110,7 @@ class KDriver {
   double CorrectSteering(double avoidsteer, double racesteer);
   double SmoothSteering(double steercmd);
   double GetOffset();
-  vec2f  TargetPoint();
+  glm::vec2  TargetPoint();
 
   // Throttle/brake handling
   void   CalcSpeed();

@@ -21,14 +21,14 @@ int	GenericAvoidance::priority( const Info& /*ai*/, const CarElt* /*pCar*/ ) con
 	return PRI_GENERIC;
 }
 
-Vec2d GenericAvoidance::calcTarget( const Info& ai, const CarElt* pCar, const TDriver& me )
+glm::dvec2 GenericAvoidance::calcTarget( const Info& ai, const CarElt* pCar, const TDriver& me )
 {
-	Vec2d	target(0, 0);
+	glm::dvec2	target(0, 0);
 
 	if( ai.avoidToSide )
 	{
 		int	avoid = ai.avoidToSide;
-		target = (avoid & Opponent::F_LEFT) ? 1 : -1;
+        target = glm::dvec2((avoid & Opponent::F_LEFT) ? 1 : -1);
 
 		if( avoid == (Opponent::F_LEFT | Opponent::F_RIGHT) )
 		{

@@ -80,7 +80,7 @@ void PathRecord::Update()
 
 	// work out current speed and position.
 	double	spd = hypot(m_pCar->_speed_X, m_pCar->_speed_Y);
-	Vec2d	pt(m_pCar->pub.DynGCg.pos.x, m_pCar->pub.DynGCg.pos.y);
+	glm::dvec2	pt(m_pCar->pub.DynGCg.pos.x, m_pCar->pub.DynGCg.pos.y);
 
 	if( //!m_pCar->On_pit_lane &&
 		last_s >= 0 && last_s != cur_s )

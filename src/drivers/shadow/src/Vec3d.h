@@ -37,7 +37,7 @@ public:
 		return *this;
 	}
 
-	Vec2d	GetXY() const { return Vec2d(x, y); }
+	glm::dvec2	GetXY() const { return glm::dvec2(x, y); }
 };
 
 #endif

@@ -39,7 +39,7 @@ void OptimisedPath::Initialise()
 	m_offsetRadius = 05;
 	m_offsetStep = 0.25;
 	m_velocityRadius = 0.6;
-	m_velocityStep = Vec2d(0.2, 0.2);
+	m_velocityStep = glm::dvec2(0.2, 0.2);
 
 	m_traces.SetSize( m_pTrack->GetSize() );
 }
@@ -65,11 +65,11 @@ void OptimisedPath::SetupSlice( int seg, Slice* pSlice )
 	int	p = (seg + NSEG - 1) % NSEG;
 	int	n = (seg + 1) % NSEG;
 
-	Vec2d	tangent;
+	glm::dvec2	tangent;
 	Utils::CalcTangent( GetAt(p).CalcPt().GetXY(),
 						GetAt(seg).CalcPt().GetXY(),
 						GetAt(n).CalcPt().GetXY(), tangent );
-	Vec2d	v = tangent * GetAt(seg).accSpd;
+	glm::dvec2	v = tangent * GetAt(seg).accSpd;
 
 	pSlice->m_seg = seg;
 	pSlice->m_midOffset = GetAt(seg).offs;
@@ -81,8 +81,8 @@ void OptimisedPath::SetupSlice( int seg, Slice* pSlice )
 	{
 		double offs = pSlice->m_midOffset + m_offsetStep * o;
 
-		Vec2d	dir = Utils::VecUnit(pSlice->m_midVelocity);
-		double	spd = pSlice->m_midVelocity.len();
+		glm::dvec2	dir = Utils::VecUnit(pSlice->m_midVelocity);
+        double	spd = pSlice->m_midVelocity.length();
 
 		int		minVX = int(floor(-m_velocityRadius / m_velocityStep.x + 0.5));
 		int		maxVX = int(floor( m_velocityRadius / m_velocityStep.x + 0.5));
@@ -98,7 +98,7 @@ void OptimisedPath::SetupSlice( int seg, Slice* pSlice )
 
 			for( int vy = minVY; vy <= maxVY; vy++ )
 			{
-				Vec2d	vOffs(m_velocityStep.x * vx, m_velocityStep.y * vy);
+				glm::dvec2	vOffs(m_velocityStep.x * vx, m_velocityStep.y * vy);
 				if( vOffs.x * vOffs.x + vOffs.y * vOffs.y > vr2 )
 					continue;
 
@@ -107,7 +107,7 @@ void OptimisedPath::SetupSlice( int seg, Slice* pSlice )
 				node.m_from = -1;
 				node.m_offset = offs;
 				node.m_vel = pSlice->m_midVelocity + vOffs * dir;
-				node.m_spd = node.m_vel.len();
+                node.m_spd = node.m_vel.length();
 				node.m_ang = Utils::VecAngle(node.m_vel);
 
 				pSlice->m_nodes.Add( node );
@@ -130,7 +130,7 @@ void OptimisedPath::NextSlice()
 			continue;
 
 		const Seg&	seg1 = m_pTrack->GetAt(m_curSlice->m_seg);
-		Vec2d		p1 = seg1.pt.GetXY() + seg1.norm.GetXY() * node1.m_offset;
+		glm::dvec2		p1 = seg1.pt.GetXY() + seg1.norm.GetXY() * node1.m_offset;
 		double		spd1 = node1.m_spd;
 
 		double	mns, mxs, mxdy;
@@ -142,10 +142,10 @@ void OptimisedPath::NextSlice()
 			Node&		node2 = m_nextSlice->m_nodes[j];
 
 			const Seg&	seg2 = m_pTrack->GetAt(m_nextSlice->m_seg);
-			Vec2d		p2 = seg2.pt.GetXY() + seg2.norm.GetXY() * node2.m_offset;
+			glm::dvec2		p2 = seg2.pt.GetXY() + seg2.norm.GetXY() * node2.m_offset;
 			double		spd2 = node2.m_spd;
 
-			double	dist = (p2 - p1).len();
+            double	dist = (p2 - p1).length();
 			double	ang = node2.m_ang - node1.m_ang;
 			NORM_PI_PI(ang);
 			double	k1 = ang / dist;

@@ -73,7 +73,7 @@ public:
 	virtual ~Avoidance();
 
 	virtual int		priority( const Info& ai, const CarElt* pCar ) const = 0;
-	virtual Vec2d	calcTarget( const Info& ai, const CarElt* pCar,
+	virtual glm::dvec2	calcTarget( const Info& ai, const CarElt* pCar,
                                 const TDriver& me ) = 0;
 };
 

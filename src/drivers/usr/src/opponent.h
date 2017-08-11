@@ -85,7 +85,7 @@ public:
 private:
     float getDistToSegStart();
     int polyOverlap(tPosd *op, tPosd *dp);
-    int testCollision(Driver *driver, double impact, double speedincr, vec2f *targ = NULL);
+    int testCollision(Driver *driver, double impact, double speedincr, glm::vec2 *targ = NULL);
     void updateOverlapTimer(tSituation *s, tCarElt *mycar, int alone);
     float GetCloseDistance( float distn, tCarElt *mycar );
 

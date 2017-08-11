@@ -26,15 +26,6 @@
 
 #include "straight2_t.h"
 
-typedef v4t<float> vec4f;
-typedef v4t<double> vec4d;
-
-typedef v3t<float> vec3f;
-typedef v3t<double> vec3d;
-
-typedef v2t<float> vec2f;
-typedef v2t<double> vec2d;
-
 typedef straight2t<float> straight2f;
 typedef straight2t<double> straight2d;
 

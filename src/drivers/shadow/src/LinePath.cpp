@@ -100,7 +100,7 @@ bool LinePath::GetPtInfo( double trackPos, PtInfo& pi ) const
     NORM_PI_PI(DeltaAng);
     pi.oang = Ang0 + pi.t * DeltaAng;
 
-    Vec2d Tang1, Tang2;
+    glm::dvec2 Tang1, Tang2;
     Utils::CalcTangent(p0.GetXY(), p1.GetXY(), p2.GetXY(), Tang1);
     Utils::CalcTangent(p1.GetXY(), p2.GetXY(), p3.GetXY(), Tang2);
 
@@ -653,7 +653,7 @@ bool LinePath::LoadPath( const char* pDataFile )
         return false;
     }
 
-    Vec2d*	pPoints = new Vec2d[nPoints];
+    glm::dvec2*	pPoints = new glm::dvec2[nPoints];
 
     for( int i = 0; i < nPoints; i++ )
         {
@@ -674,8 +674,8 @@ bool LinePath::LoadPath( const char* pDataFile )
         //	interpolate points to make path offsets here...
         //
 
-        Vec2d	inP0 = pPoints[0];
-        Vec2d	inP1 = pPoints[1];
+        glm::dvec2	inP0 = pPoints[0];
+        glm::dvec2	inP1 = pPoints[1];
         int		inP = 1;
 
         const int	NSEG = m_pTrack->GetSize();
@@ -710,7 +710,7 @@ bool LinePath::LoadPath( const char* pDataFile )
         //
 
         const int	NSEG = m_pTrack->GetSize();
-        Vec2d	origin(0, 0);
+        glm::dvec2	origin(0, 0);
 
         {
             //
@@ -732,7 +732,7 @@ bool LinePath::LoadPath( const char* pDataFile )
 
         // work out which slice the last point is in.
         //GfOut( "nPoints %d\n", nPoints );
-        Vec2d	lastPt = pPoints[nPoints - 1] + origin;
+        glm::dvec2	lastPt = pPoints[nPoints - 1] + origin;
         //GfOut( "lastPt (%g, %g)\n", lastPt.x, lastPt.y );
         double	dist = m_pTrack->CalcPos(lastPt.x, lastPt.y);
         //GfOut( "dist %g\n", dist );
@@ -741,7 +741,7 @@ bool LinePath::LoadPath( const char* pDataFile )
         for( int i = 0; i < nPoints; i++ )
         {
             // work out position.
-            Vec2d	pt = pPoints[i] + origin;
+            glm::dvec2	pt = pPoints[i] + origin;
 
             // work out which slice this point is in.
             dist = m_pTrack->CalcPos(pt.x, pt.y, &m_pTrack->GetAt(last_s));

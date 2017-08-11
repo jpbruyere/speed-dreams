@@ -58,7 +58,7 @@ class TVec3d : public v3t<double>
 	  return *this;
 	};
 
-	TVec2d GetXY() const {return TVec2d(x, y);};
+	glm::dvec2 GetXY() const {return glm::dvec2(x, y);};
 };
 //==========================================================================*
 #endif // _UNITVEC3D_H_

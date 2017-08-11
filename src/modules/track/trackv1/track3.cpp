@@ -740,12 +740,12 @@ AddSides(tTrackSeg *curSeg, void *TrackHandle, tTrack *theTrack, int curStep, in
 		bseg = bseg->side[side];
 	}
 
-	vec2f n(
+	glm::vec2 n(
 		-(bseg->vertex[bend].y - bseg->vertex[bstart].y)*bsign,
 		 (bseg->vertex[bend].x - bseg->vertex[bstart].x)*bsign
 	);
 
-	n.normalize();
+    n = glm::normalize(n);
 	curBarrier->normal = n;
 
 	mSeg->barrier[side] = curBarrier;

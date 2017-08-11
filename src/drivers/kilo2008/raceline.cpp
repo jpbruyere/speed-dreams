@@ -815,9 +815,9 @@ bool LRaceLine::isOnLine() const {
 
 
 void LRaceLine::GetPoint(const double offset, const double lookahead,
-                          vec2f * const rt) const {
+                          glm::vec2 * const rt) const {
   double dLane = (width_ / 2.0 - offset) / width_;
-  vec2f last;
+  glm::vec2 last;
   last.x = (float) (dLane * seg_[this_].txRight + (1.0 - dLane) * seg_[this_].txLeft);
   last.y = (float) (dLane * seg_[this_].tyRight + (1.0 - dLane) * seg_[this_].tyLeft);
 
@@ -829,7 +829,7 @@ void LRaceLine::GetPoint(const double offset, const double lookahead,
   for (int count = 0; count < iLookaheadLimit && dLength < la; count++) {
     rt->x = (float) (dLane * seg_[ndiv].txRight + (1 - dLane) * seg_[ndiv].txLeft);
     rt->y = (float) (dLane * seg_[ndiv].tyRight + (1 - dLane) * seg_[ndiv].tyLeft);
-    vec2f d = (*rt) - last;
+    glm::vec2 d = (*rt) - last;
     dLength += Mag(d.x, d.y);
 
     ndiv = (ndiv + 1) % divs_;

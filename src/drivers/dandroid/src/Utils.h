@@ -35,18 +35,18 @@ class Utils
   static double	DistPtFromLine( double ptx, double pty, double px, double py, double vx, double vy );
 
   static bool	LineCrossesLine( double p0x, double p0y, double v0x, double v0y, double p1x, double p1y, double v1x, double v1y, double& t );
-  static bool	LineCrossesLine( const Vec2d& p0, const Vec2d& v0, const Vec2d& p1, const Vec2d& v1, double& t );
+  static bool	LineCrossesLine( const glm::dvec2& p0, const glm::dvec2& v0, const glm::dvec2& p1, const glm::dvec2& v1, double& t );
   static bool	LineCrossesLineXY( const Vec3d& p0, const Vec3d& v0, const Vec3d& p1, const Vec3d& v1, double& t );
 
-  static bool	LineCrossesLine( const Vec2d& p0, const Vec2d& v0, const Vec2d& p1, const Vec2d& v1, double& t0, double& t1 );
+  static bool	LineCrossesLine( const glm::dvec2& p0, const glm::dvec2& v0, const glm::dvec2& p1, const glm::dvec2& v1, double& t0, double& t1 );
 
   static double	CalcCurvature( double p1x, double p1y, double p2x, double p2y, double p3x, double p3y );
-  static double	CalcCurvature( const Vec2d& p1, const Vec2d& p2, const Vec2d& p3 );
-  static double	CalcCurvatureTan( const Vec2d& p1, const Vec2d& tangent, const Vec2d& p2 );
+  static double	CalcCurvature( const glm::dvec2& p1, const glm::dvec2& p2, const glm::dvec2& p3 );
+  static double	CalcCurvatureTan( const glm::dvec2& p1, const glm::dvec2& tangent, const glm::dvec2& p2 );
   static double	CalcCurvatureXY( const Vec3d& p1, const Vec3d& p2, const Vec3d& p3 );
   static double	CalcCurvatureZ( const Vec3d& p1, const Vec3d& p2, const Vec3d& p3 );
 
-  static bool		CalcTangent( const Vec2d& p1, const Vec2d& p2, const Vec2d& p3, Vec2d& tangent );
+  static bool		CalcTangent( const glm::dvec2& p1, const glm::dvec2& p2, const glm::dvec2& p3, glm::dvec2& tangent );
 
   static double	InterpCurvatureRad( double k0, double k1, double t );
   static double	InterpCurvatureLin( double k0, double k1, double t );
@@ -56,9 +56,9 @@ class Utils
   static double	VecLenXY( const Vec3d& v );
   static Vec3d	VecNormXY( const Vec3d& v );
 
-  static double	VecAngle( const Vec2d& v );
-  static Vec2d	VecNorm( const Vec2d& v );
-  static Vec2d	VecUnit( const Vec2d& v );
+  static double	VecAngle( const glm::dvec2& v );
+  static glm::dvec2	VecNorm( const glm::dvec2& v );
+  static glm::dvec2	VecUnit( const glm::dvec2& v );
 };
 
 #endif // _UTILS_H_

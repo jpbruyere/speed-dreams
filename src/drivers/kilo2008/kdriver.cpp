@@ -1474,7 +1474,7 @@ double KDriver::GetSteer(tSituation *s) {
                               &race_speed_, &avoid_speed_,
                               &race_offset_, &look_ahead,
                               &race_steer_);
-  vec2f target = TargetPoint();
+  glm::vec2 target = TargetPoint();
 
   double targetAngle =
     atan2(target.y - car_->_pos_Y, target.x - car_->_pos_X);
@@ -1575,7 +1575,7 @@ double KDriver::GetSteer(tSituation *s) {
  * 
  * @return 2D coords of the target
  */
-vec2f KDriver::TargetPoint() {
+glm::vec2 KDriver::TargetPoint() {
   double lookahead;
 
   if (pit_->in_pitlane()) {
@@ -1620,7 +1620,7 @@ vec2f KDriver::TargetPoint() {
     SetMode(CORRECTING);
   }
 
-  vec2f s;
+  glm::vec2 s;
   if (mode_ != PITTING) {
     raceline_->GetPoint(offset, lookahead, &s);
     return s;
@@ -1630,22 +1630,22 @@ vec2f KDriver::TargetPoint() {
   s.y = (float) ((seg->vertex[TR_SL].y + seg->vertex[TR_SR].y) / 2.0);
 
   if (seg->type == TR_STR) {
-    vec2f n((seg->vertex[TR_EL].x - seg->vertex[TR_ER].x) / seg->length,
+    glm::vec2 n((seg->vertex[TR_EL].x - seg->vertex[TR_ER].x) / seg->length,
       (seg->vertex[TR_EL].y - seg->vertex[TR_ER].y) / seg->length);
-    n.normalize();
-    vec2f d((seg->vertex[TR_EL].x - seg->vertex[TR_SL].x) / seg->length,
+    n = glm::normalize(n);
+    glm::vec2 d((seg->vertex[TR_EL].x - seg->vertex[TR_SL].x) / seg->length,
       (seg->vertex[TR_EL].y - seg->vertex[TR_SL].y) / seg->length);
     return (s + d * (float) length + static_cast<float>((float) offset) * n);
   } else {
-    vec2f c(seg->center.x, seg->center.y);
+    glm::vec2 c(seg->center.x, seg->center.y);
     double arc = length / seg->radius;
     double arcsign = (seg->type == TR_RGT) ? -1.0 : 1.0;
     arc = arc * arcsign;
-    s = s.rotate(c, (float) arc);
+    s = glm::rotate(c, (float) arc);
 
-    vec2f n, t, rt;
-    n = c - s;
-    n.normalize();
+    glm::vec2 n, t, rt;
+    n = glm::normalize(c - s);
+
     t = s + static_cast<float>(arcsign) * static_cast<float>(offset) * n;
 
     // TODO(kilo): unreachable code, mode_ != PITTING returns before

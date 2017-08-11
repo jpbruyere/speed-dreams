@@ -77,7 +77,7 @@ float Opponent::GetCloseDistance( float distn, tCarElt *mycar )
     int i;
     for (i = 0; i < 4; i++)
     {
-        vec2f corner(car->_corner_x(i), car->_corner_y(i));
+        glm::vec2 corner(car->_corner_x(i), car->_corner_y(i));
         float dist = carFrontLine.dist(corner);
         if (dist < mindist)
         {
@@ -265,7 +265,7 @@ void Opponent::update(tSituation *s, Driver *driver, int DebugMsg)
                 {
                     // hymie collision method
                     int collide = 0;
-                    vec2f targ;
+                    glm::vec2 targ;
                     double targoffset = 0.0, oltargoffset = mycar->_trkPos.toMiddle;// + driver->getSpeedAngle() * 10 * t_impact;
                     int mode = driver->GetMode();
 
@@ -551,7 +551,7 @@ int Opponent::polyOverlap( tPosd *op, tPosd *dp )
     return 0;
 }
 
-int Opponent::testCollision(Driver *driver, double impact, double sizefactor, vec2f *targ )
+int Opponent::testCollision(Driver *driver, double impact, double sizefactor, glm::vec2 *targ )
 {
     tCarElt *mycar = driver->getCarPtr();
     int /*collide = 0,*/ i/*, j*/;

@@ -87,7 +87,7 @@ void TLinearRegression::Add(double X, double Y)
 //==========================================================================*
 // Add a value P(x,y)
 //--------------------------------------------------------------------------*
-void TLinearRegression::Add(const TVec2d& Point)
+void TLinearRegression::Add(const glm::dvec2& Point)
 {
   Add(Point.x, Point.y);
 }
@@ -113,9 +113,9 @@ double TLinearRegression::CalcY(double X) const
 //==========================================================================*
 // perpendicular distance measure.
 //--------------------------------------------------------------------------*
-void TLinearRegression::CalcLine(TVec2d& Point, TVec2d& V) const
+void TLinearRegression::CalcLine(glm::dvec2& Point, glm::dvec2& V) const
 {
-  Point = TVec2d(oSumX / oCount, oSumY / oCount);
+  Point = glm::dvec2(oSumX / oCount, oSumY / oCount);
 
   // a = x - p.x, b = y - p.y
   double SumAA = oSumXX - 2 * Point.x * oSumX + oCount * Point.x * Point.x;
@@ -124,7 +124,7 @@ void TLinearRegression::CalcLine(TVec2d& Point, TVec2d& V) const
 	- Point.y * oSumX - Point.x * oSumY + oCount * Point.x * Point.y;
 
   double Angle = atan2(2 * SumAB, SumAA - SumBB) / 2;
-  V = TVec2d(cos(Angle), sin(Angle));
+  V = glm::dvec2(cos(Angle), sin(Angle));
 }
 //==========================================================================*
 // end of file unitlinreg.cpp

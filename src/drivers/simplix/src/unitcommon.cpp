@@ -165,10 +165,10 @@ bool TUtils::LineCrossesLine(
 // Utility to find crossing point (Schnittpunkt zweier Geraden)
 //--------------------------------------------------------------------------*
 bool TUtils::LineCrossesLine(
-	const TVec2d&	p0,
-	const TVec2d&	v0,
-	const TVec2d&	p1,
-	const TVec2d&	v1,
+	const glm::dvec2&	p0,
+	const glm::dvec2&	v0,
+	const glm::dvec2&	p1,
+	const glm::dvec2&	v1,
 
 	double&			t )
 {
@@ -195,10 +195,10 @@ bool TUtils::LineCrossesLineXY(
 // Utility to find crossing point (Schnittpunkt zweier Geraden)
 //--------------------------------------------------------------------------*
 bool TUtils::LineCrossesLine(
-	const TVec2d&	p0,
-	const TVec2d&	v0,
-	const TVec2d&	p1,
-	const TVec2d&	v1,
+	const glm::dvec2&	p0,
+	const glm::dvec2&	v0,
+	const glm::dvec2&	p1,
+	const glm::dvec2&	v1,
 
 	double&			t0,
 	double&			t1 )
@@ -244,9 +244,9 @@ double TUtils::CalcCurvature(
 // Utility to get curvature (Inverser Radius)
 //--------------------------------------------------------------------------*
 double TUtils::CalcCurvature(
-	const TVec2d& p1,
-	const TVec2d& p2,
-	const TVec2d& p3 )
+	const glm::dvec2& p1,
+	const glm::dvec2& p2,
+	const glm::dvec2& p3 )
 {
 	return CalcCurvature(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
 }
@@ -256,13 +256,13 @@ double TUtils::CalcCurvature(
 // Utility to get curvature (Inverser Radius)
 //--------------------------------------------------------------------------*
 double TUtils::CalcCurvatureTan(
-	const TVec2d& p1,
-	const TVec2d& tangent,
-	const TVec2d& p2 )
+	const glm::dvec2& p1,
+	const glm::dvec2& tangent,
+	const glm::dvec2& p2 )
 {
-	TVec2d	v = VecUnit(VecNorm(tangent));
-	TVec2d	u = VecNorm(p2 - p1);
-	TVec2d	q = (p1 + p2) * 0.5;
+	glm::dvec2	v = VecUnit(VecNorm(tangent));
+	glm::dvec2	u = VecNorm(p2 - p1);
+	glm::dvec2	q = (p1 + p2) * 0.5;
 	double	radius;
 	if( !LineCrossesLine(p1, v, q, u, radius) )
 		return 0;
@@ -302,16 +302,16 @@ double TUtils::CalcCurvatureZ(
 // Utility to get tangent (Tangente)
 //--------------------------------------------------------------------------*
 bool TUtils::CalcTangent(
-	const TVec2d&	p1,
-	const TVec2d&	p2,
-	const TVec2d&	p3,
+	const glm::dvec2&	p1,
+	const glm::dvec2&	p2,
+	const glm::dvec2&	p3,
 
-	TVec2d&			tangent )
+	glm::dvec2&			tangent )
 {
-	TVec2d	mid1  = (p1 + p2) * 0.5;
-	TVec2d	norm1 = VecNorm(p2 - p1);
-	TVec2d	mid2  = (p2 + p3) * 0.5;
-	TVec2d	norm2 = VecNorm(p3 - p2);
+	glm::dvec2	mid1  = (p1 + p2) * 0.5;
+	glm::dvec2	norm1 = VecNorm(p2 - p1);
+	glm::dvec2	mid2  = (p2 + p3) * 0.5;
+	glm::dvec2	norm2 = VecNorm(p3 - p2);
 
 	double	t;
 	if( !LineCrossesLine(mid1, norm1, mid2, norm2, t) )
@@ -325,11 +325,11 @@ bool TUtils::CalcTangent(
 		return false;
 	}
 
-	TVec2d	centre = mid1 + norm1 * t;
+	glm::dvec2	centre = mid1 + norm1 * t;
 //	tangent = p2 - centre;
 //	tangent = VecNorm(p2 - centre);
 	tangent = VecUnit(VecNorm(p2 - centre));
-	if( norm1 * (p3 - p1) < 0 )
+    if(glm::dot(norm1,(p3 - p1)) < 0 )
 		tangent = -tangent;
 	return true;
 }
@@ -402,7 +402,7 @@ TVec3d TUtils::VecNormXY( const TVec3d& v )
 //==========================================================================*
 // Utility to get direction angle
 //--------------------------------------------------------------------------*
-double TUtils::VecAngle( const TVec2d& v )
+double TUtils::VecAngle( const glm::dvec2& v )
 {
 	return atan2(v.y, v.x);
 }
@@ -411,22 +411,22 @@ double TUtils::VecAngle( const TVec2d& v )
 //==========================================================================*
 // Utility to normalize a 2D vector
 //--------------------------------------------------------------------------*
-TVec2d TUtils::VecNorm( const TVec2d& v )
+glm::dvec2 TUtils::VecNorm( const glm::dvec2& v )
 {
-	return TVec2d(-v.y, v.x);
+	return glm::dvec2(-v.y, v.x);
 }
 //==========================================================================*
 
 //==========================================================================*
 // Utility to normalize a 2D vector
 //--------------------------------------------------------------------------*
-TVec2d TUtils::VecUnit( const TVec2d& v )
+glm::dvec2 TUtils::VecUnit( const glm::dvec2& v )
 {
 	double	h = myhypot(v.x, v.y);
 	if( h == 0 )
-		return TVec2d(0, 0);
+		return glm::dvec2(0, 0);
 	else
-		return TVec2d(v.x / h, v.y / h);
+		return glm::dvec2(v.x / h, v.y / h);
 }
 //==========================================================================*
 // end of file unitcommon.cpp

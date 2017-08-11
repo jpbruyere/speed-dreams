@@ -80,7 +80,7 @@ bool Utils::LineCrossesLine( double p0x, double p0y, double v0x, double v0y, dou
 	return true;
 }
 
-bool Utils::LineCrossesLine( const Vec2d& p0, const Vec2d& v0, const Vec2d& p1, const Vec2d& v1, double& t )
+bool Utils::LineCrossesLine( const glm::dvec2& p0, const glm::dvec2& v0, const glm::dvec2& p1, const glm::dvec2& v1, double& t )
 {
 	return LineCrossesLine(p0.x, p0.y, v0.x, v0.y, p1.x, p1.y, v1.x, v1.y, t);
 }
@@ -90,7 +90,7 @@ bool Utils::LineCrossesLineXY(const Vec3d& p0, const Vec3d& v0, const Vec3d& p1,
 	return LineCrossesLine(p0.x, p0.y, v0.x, v0.y, p1.x, p1.y, v1.x, v1.y, t);
 }
 
-bool Utils::LineCrossesLine(const Vec2d& p0, const Vec2d& v0, const Vec2d& p1, const Vec2d& v1, double& t0,	double& t1 )
+bool Utils::LineCrossesLine(const glm::dvec2& p0, const glm::dvec2& v0, const glm::dvec2& p1, const glm::dvec2& v1, double& t0,	double& t1 )
 {
 	double	denom = v0.x * v1.y - v0.y * v1.x;
 	if( denom == 0 )
@@ -123,16 +123,16 @@ double Utils::CalcCurvature( double p1x, double p1y, double p2x, double p2y, dou
 	return K;
 }
 
-double Utils::CalcCurvature( const Vec2d& p1, const Vec2d& p2, const Vec2d& p3 )
+double Utils::CalcCurvature( const glm::dvec2& p1, const glm::dvec2& p2, const glm::dvec2& p3 )
 {
 	return CalcCurvature(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
 }
 
-double	Utils::CalcCurvatureTan( const Vec2d& p1, const Vec2d& tangent, const Vec2d& p2 )
+double	Utils::CalcCurvatureTan( const glm::dvec2& p1, const glm::dvec2& tangent, const glm::dvec2& p2 )
 {
-	Vec2d	v = VecUnit(VecNorm(tangent));
-	Vec2d	u = VecNorm(p2 - p1);
-	Vec2d	q = (p1 + p2) * 0.5;
+	glm::dvec2	v = VecUnit(VecNorm(tangent));
+	glm::dvec2	u = VecNorm(p2 - p1);
+	glm::dvec2	q = (p1 + p2) * 0.5;
 	double	radius;
 
 	if( !LineCrossesLine(p1, v, q, u, radius) )
@@ -155,12 +155,12 @@ double	Utils::CalcCurvatureZ( const Vec3d& p1, const Vec3d& p2, const Vec3d& p3 
 	return CalcCurvature(x1, p1.z, x2, p2.z, x3, p3.z);
 }
 
-bool Utils::CalcTangent( const Vec2d& p1, const Vec2d& p2, const Vec2d& p3, Vec2d& tangent )
+bool Utils::CalcTangent( const glm::dvec2& p1, const glm::dvec2& p2, const glm::dvec2& p3, glm::dvec2& tangent )
 {
-	Vec2d	mid1  = (p1 + p2) * 0.5;
-	Vec2d	norm1 = VecNorm(p2 - p1);
-	Vec2d	mid2  = (p2 + p3) * 0.5;
-	Vec2d	norm2 = VecNorm(p3 - p2);
+	glm::dvec2	mid1  = (p1 + p2) * 0.5;
+	glm::dvec2	norm1 = VecNorm(p2 - p1);
+	glm::dvec2	mid2  = (p2 + p3) * 0.5;
+	glm::dvec2	norm2 = VecNorm(p3 - p2);
 
 	double	t;
 	if( !LineCrossesLine(mid1, norm1, mid2, norm2, t) )
@@ -175,12 +175,12 @@ bool Utils::CalcTangent( const Vec2d& p1, const Vec2d& p2, const Vec2d& p3, Vec2
 		return false;
 	}
 
-	Vec2d	centre = mid1 + norm1 * t;
+	glm::dvec2	centre = mid1 + norm1 * t;
 //	tangent = p2 - centre;
 //	tangent = VecNorm(p2 - centre);
 	tangent = VecUnit(VecNorm(p2 - centre));
 
-	if( norm1 * (p3 - p1) < 0 )
+    if( glm::dot(norm1, (p3 - p1)) < 0 )
 		tangent = -tangent;
 
 	return true;
@@ -227,21 +227,21 @@ Vec3d Utils::VecNormXY( const Vec3d& v )
 	return Vec3d(-v.y, v.x, v.z);
 }
 
-double Utils::VecAngle( const Vec2d& v )
+double Utils::VecAngle( const glm::dvec2& v )
 {
 	return atan2(v.y, v.x);
 }
 
-Vec2d Utils::VecNorm( const Vec2d& v )
+glm::dvec2 Utils::VecNorm( const glm::dvec2& v )
 {
-	return Vec2d(-v.y, v.x);
+	return glm::dvec2(-v.y, v.x);
 }
 
-Vec2d Utils::VecUnit( const Vec2d& v )
+glm::dvec2 Utils::VecUnit( const glm::dvec2& v )
 {
 	double	h = hypot(v.x, v.y);
 	if( h == 0 )
-		return Vec2d(0, 0);
+		return glm::dvec2(0, 0);
 	else
-		return Vec2d(v.x / h, v.y / h);
+		return glm::dvec2(v.x / h, v.y / h);
 }

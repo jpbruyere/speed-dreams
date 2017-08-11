@@ -313,7 +313,7 @@ typedef struct trackBarrier
     float		width;          /**< Barrier width */
     float		height;         /**< Barrier height */
     tTrackSurface	*surface;   /**< Barrier surface */
-    vec2f normal;               // Normal on the vertical track inside pointing towards the track middle.
+    glm::vec2   normal;         // Normal on the vertical track inside pointing towards the track middle.
 } tTrackBarrier;
 
 

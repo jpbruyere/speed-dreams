@@ -686,7 +686,7 @@ double TTrackDescription::MeanSectionLen() const
 //==========================================================================*
 // To right
 //--------------------------------------------------------------------------*
-TVec2d TTrackDescription::Normale(double TrackPos) const
+glm::dvec2 TTrackDescription::Normale(double TrackPos) const
 {
   //int LastPos = 0;
   int Index = IndexFromPos(TrackPos); 

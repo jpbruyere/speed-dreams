@@ -82,7 +82,7 @@ void SingleCardata::updateWalls()
 		for (int i=0; i<4; i++)
 		{
 			// get minimum distance to each wall
-			vec2f corner(car->_corner_x(i), car->_corner_y(i));
+			glm::vec2 corner(car->_corner_x(i), car->_corner_y(i));
 			tolftwall = MIN(tolftwall, lftWallLine.dist( corner ));
 			torgtwall = MIN(torgtwall, rgtWallLine.dist( corner ));
 		}

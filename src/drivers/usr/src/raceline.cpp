@@ -914,8 +914,8 @@ void LRaceLine::StepInterpolate(int iMin, int iMax, int Step, int rl)
 }
 
 /*static void ClosestPointOnLineFromPoint(
-  vec2f *lp1, vec2f *lp2,
-  vec2f *p,   vec2f *r )
+  glm::vec2 *lp1, glm::vec2 *lp2,
+  glm::vec2 *p,   glm::vec2 *r )
 {
   double vx = lp2->x - lp1->x;
   double vy = lp2->y - lp1->y;
@@ -930,7 +930,7 @@ void LRaceLine::StepInterpolate(int iMin, int iMax, int Step, int rl)
   r->y = lp1->y + ratio * vy;
 }*/
 
-static double PointDist(vec2f *p1, vec2f *p2)
+static double PointDist(glm::vec2 *p1, glm::vec2 *p2)
 {
     double dx = (p1->x - p2->x);
     double dy = (p1->y - p2->y);
@@ -960,7 +960,7 @@ void LRaceLine::CalcZCurvature(int rl)
     {
         int j = ((i-1)+Divs) % Divs;
 
-        vec2f pi, pj;
+        glm::vec2 pi, pj;
         pi.x = (float)SRL[rl].tx[i]; pi.y = (float)SRL[rl].ty[i];
         pj.x = (float)SRL[rl].tx[j]; pj.y = (float)SRL[rl].ty[j];
 
@@ -1544,7 +1544,7 @@ double LRaceLine::getRLAngle(int div)
 ////////////////////////////////////////////////////////////////////////////
 // Car control
 ////////////////////////////////////////////////////////////////////////////
-void LRaceLine::GetRLSteerPoint( vec2f *rt, double *offset, double time )
+void LRaceLine::GetRLSteerPoint( glm::vec2 *rt, double *offset, double time )
 {
     int count = 0;
     tTrackSeg *seg = car->_trkPos.seg;
@@ -1590,7 +1590,7 @@ void LRaceLine::GetRLSteerPoint( vec2f *rt, double *offset, double time )
     }
 }
 
-void LRaceLine::GetSteerPoint( double lookahead, vec2f *rt, double offset, double time )
+void LRaceLine::GetSteerPoint( double lookahead, glm::vec2 *rt, double offset, double time )
 {
     int maxcount = int(lookahead / DivLength + 1);
     int count = 0;
@@ -1946,7 +1946,7 @@ void LRaceLine::GetRaceLineData(tSituation *s, LRaceLineData *pdata)
     if (!SteerMod)
     {
         // new, simpler steering method
-        vec2f target(0,0);
+        glm::vec2 target(0,0);
         double carspeed = Mag(car->_speed_X, car->_speed_Y);
         double steertime = MIN(MaxSteerTime, MinSteerTime + MAX(0.0, carspeed-20.0)/30.0);
         //double lane2left = track->width * SRL[SRLidx].tLane[Next];
@@ -2231,7 +2231,7 @@ double LRaceLine::getAvoidSteer(double offset, LRaceLineData *data)
     //offset *=AvoidOffset;
     double steer = 0.0;
 
-    vec2f target;
+    glm::vec2 target;
     double carspeed = Mag(car->_speed_X, car->_speed_Y);
     //GfLogDebug("USR Car Speed = %f\n", car->_speed_x * 3.6);
     double steertime = MIN(MaxSteerTime, MinSteerTime + MAX(0.0, carspeed-20.0)/30.0);
@@ -2303,7 +2303,7 @@ int LRaceLine::isOnLine()
     return 0;
 }
 
-void LRaceLine::GetPoint( double offset, vec2f *rt, double *mInverse )
+void LRaceLine::GetPoint( double offset, glm::vec2 *rt, double *mInverse )
 {
     // TODO - merge point with where car's headed?
     double offlane = ((track->width/2) - offset) / track->width;

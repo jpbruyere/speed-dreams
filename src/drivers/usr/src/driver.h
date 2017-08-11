@@ -84,8 +84,8 @@ public:
     int getAlone() { return alone; }
     int getCarefulBrake() { return raceline->getCarefulBrake(); }
     double speedAngleChange() { return speedangle - prevspeedangle; }
-    void GetSteerPoint( double lookahead, vec2f *rt, double offset=-100.0, double time=-1.0 );
-    void GetRLSteerPoint( vec2f *rt, double *offset, double time ) { return raceline->GetRLSteerPoint( rt, offset, time ); }
+    void GetSteerPoint( double lookahead, glm::vec2 *rt, double offset=-100.0, double time=-1.0 );
+    void GetRLSteerPoint( glm::vec2 *rt, double *offset, double time ) { return raceline->GetRLSteerPoint( rt, offset, time ); }
     int GetMode() { return mode; }
     float getWidth() { return mycardata->getWidthOnTrack(); }
     double getBrakeMargin() { return brakemargin; }
@@ -142,7 +142,7 @@ private:
     int getGear();
     float getSteer(tSituation *s);
     float getClutch();
-    vec2f getTargetPoint(bool use_lookahead, double targetoffset = -100.0);
+    glm::vec2 getTargetPoint(bool use_lookahead, double targetoffset = -100.0);
     float getOffset();
     float brakedist(float allowedspeed, float mu);
     float smoothSteering( float steercmd );

@@ -61,7 +61,7 @@ public:
 	double	CalcPos( double x, double y, const Seg* hint = 0, bool sides = false ) const;
 
 	double	CalcForwardAngle( double trackPos ) const;
-	Vec2d	CalcNormal( double trackPos ) const;
+	glm::dvec2	CalcNormal( double trackPos ) const;
 
 	double	GetFriction( int index, double offset ) const;
 

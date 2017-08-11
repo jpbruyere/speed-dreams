@@ -270,8 +270,8 @@ class TDriver {
   double mTargetAngle;
   bool mMaxSteerAngle;
   bool prev_mMaxSteerAngle;
-  Vec2d mGlobalCarPos;
-  Vec2d mGlobalTarget;
+  glm::dvec2 mGlobalCarPos;
+  glm::dvec2 mGlobalTarget;
   bool mCatchedRaceLine;
   bool prev_mCatchedRaceLine;
   double mCatchedRaceLineTime;

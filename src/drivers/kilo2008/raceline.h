@@ -99,7 +99,7 @@ class LRaceLine {
                 double *speed, double *avspeed, double *raceoffset,
                 double *lookahead, double *racesteer);
   void GetPoint(const double offset, const double lookahead,
-                  vec2f * const rt) const;
+                  glm::vec2 * const rt) const;
   bool isOnLine(void) const;
   double CorrectLimit(void) const;
 

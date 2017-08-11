@@ -37,6 +37,23 @@
 
 #include "tgf.h"
 
+namespace glm
+{
+    template <typename T, precision P>
+    GLM_FUNC_QUALIFIER tvec2<T, P> rotate(tvec2<T, P> const & t, tvec2<T, P> const & c, T arc)
+    {
+        tvec2<T, P> d = t-c;
+        T sina = sin(arc), cosa = cos(arc);
+        return c + tvec2<T, P>(d.x*cosa-d.y*sina, d.x*sina+d.y*cosa);
+    }
+//    // Rotate vector arc radians around center c.
+//    template<class T> inline v2t<T> v2t<T>::rotate(const v2t<T> &c, T arc) const
+//    {
+//        v2t d = *this-c;
+//        T sina = sin(arc), cosa = cos(arc);
+//        return c + v2t(d.x*cosa-d.y*sina, d.x*sina+d.y*cosa);
+//    }
+}
 
 //****************************************
 // New dynamically loadable modules system

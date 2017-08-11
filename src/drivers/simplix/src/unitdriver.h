@@ -142,7 +142,7 @@ class TDriver
 	  (double pos, TLanePoint& pi);
 	double CalcPathTarget                        // Get target
 	  (double pos, double offs);
-	TVec2d CalcPathTarget2                       // Get target
+	glm::dvec2 CalcPathTarget2                       // Get target
 	  (double pos, double offs);
 	void GetPathToLeftAndRight                   // Get width to sides
 	  (const PCarElt Car, double& toL, double& toR);

@@ -47,7 +47,9 @@
 
 #include <string>
 #include <vector>
+
 #include <glm/glm.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 
 /** Maximum between two values */
 #ifndef MAX

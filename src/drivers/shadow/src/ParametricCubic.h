@@ -10,10 +10,10 @@ public:
 	ParametricCubic();
 	~ParametricCubic();
 
-	void	Set( Vec2d p0, Vec2d p1, Vec2d v0, Vec2d v1 );
+	void	Set( glm::dvec2 p0, glm::dvec2 p1, glm::dvec2 v0, glm::dvec2 v1 );
 
-	Vec2d	Calc( double t ) const;
-	Vec2d	CalcGradient( double t ) const;
+	glm::dvec2	Calc( double t ) const;
+	glm::dvec2	CalcGradient( double t ) const;
 	double	CalcCurvature( double t ) const;
 
 private:

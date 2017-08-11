@@ -472,7 +472,7 @@ void TClothoidLane::OptimiseLine
 
   LogSimplix.debug("OptimiseLine Index: %4d", Index);
 
-  TVec2d P, V;
+  glm::dvec2 P, V;
   LR.CalcLine(P, V);
 
   double T;

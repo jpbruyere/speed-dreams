@@ -144,7 +144,7 @@ void TOpponent::Update(
   oInfo.State.Speed = myhypot(CarSpeedX,CarSpeedY);// Speed of car
 
   // Track relative speed of opponents car
-  TVec2d ToRight = oTrack->Normale(DistanceFromStartLine);
+  glm::dvec2 ToRight = oTrack->Normale(DistanceFromStartLine);
   oInfo.State.TrackVelLong = ToRight.x * CarSpeedY - ToRight.y * CarSpeedX;
   oInfo.State.TrackVelLat = ToRight.x * CarSpeedX + ToRight.y * CarSpeedY;
 

@@ -34,7 +34,7 @@ private:
 		double	m_offset;	// across track (m).
 		double	m_time;		// to get here (s).
 		int		m_from;		// where we came from.
-		Vec2d	m_vel;		// vector velocity (m/s).
+		glm::dvec2	m_vel;		// vector velocity (m/s).
 		double	m_spd;		// speed.
 		double	m_ang;		// velocity angle.
 	};
@@ -48,7 +48,7 @@ private:
 	public:
 		int			m_seg;			// which seg this slice represents;
 		double		m_midOffset;
-		Vec2d		m_midVelocity;
+		glm::dvec2		m_midVelocity;
 		NodeArray	m_nodes;
 	};
 
@@ -72,7 +72,7 @@ private:
 	double			m_offsetRadius;
 	double			m_offsetStep;
 	double			m_velocityRadius;
-	Vec2d			m_velocityStep;
+	glm::dvec2			m_velocityStep;
 };
 
 #endif

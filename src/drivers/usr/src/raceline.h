@@ -271,9 +271,9 @@ public:
     int findNextCorner( double *nextCRinverse );
     void NewRace(tCarElt* newcar, tSituation *s);
     void GetRaceLineData(tSituation *s, LRaceLineData *data);
-    void GetPoint( double offset, vec2f *rt, double *mInverse );
-    void GetSteerPoint( double lookahead, vec2f *rt, double offset = -100.0, double time = -1.0 );
-    void GetRLSteerPoint( vec2f *rt, double *offset, double time );
+    void GetPoint( double offset, glm::vec2 *rt, double *mInverse );
+    void GetSteerPoint( double lookahead, glm::vec2 *rt, double offset = -100.0, double time = -1.0 );
+    void GetRLSteerPoint( glm::vec2 *rt, double *offset, double time );
     int isOnLine();
     double correctLimit(double avoidsteer, double racesteer, int insideline);
     double getAvoidSpeedDiff( float distance );

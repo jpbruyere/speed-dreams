@@ -28,9 +28,9 @@ public:
 
 	void	Clear();
 	void	Sample( double X, double Y );
-	void	Sample( const Vec2d& p );
+	void	Sample( const glm::dvec2& p );
 	double	CalcY( double X ) const;
-	void	CalcLine( Vec2d& p, Vec2d& v ) const;
+	void	CalcLine( glm::dvec2& p, glm::dvec2& v ) const;
 
 public:
 	int		m_n;

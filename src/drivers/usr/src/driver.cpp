@@ -1514,7 +1514,7 @@ float Driver::getSteer(tSituation *s)
     double steer = 0.0, tmpsteer = 0.0;
     double avoidsteer = 0.0;
     double racesteer = (rldata->ksteer);
-    vec2f target;
+    glm::vec2 target;
 
 #if 0
     if (SteerLookahead > 6.0f)
@@ -2075,7 +2075,7 @@ float Driver::adjustOffset(float offset)
 }
 
 // Compute target point for steering.
-vec2f Driver::getTargetPoint(bool use_lookahead, double targetoffset)
+glm::vec2 Driver::getTargetPoint(bool use_lookahead, double targetoffset)
 {
     tTrackSeg *seg = car->_trkPos.seg;
     float length = getDistToSegEnd();
@@ -2200,7 +2200,7 @@ vec2f Driver::getTargetPoint(bool use_lookahead, double targetoffset)
     //if (mode == mode_correcting || mode == mode_avoiding)
     //  offset = adjustOffset( offset );
 
-    vec2f s;
+    glm::vec2 s;
     //if (mode != mode_pitting)
     {
         //double steertime = SteerTime * time_mod * MAX(1.0, (1.0 - (car->_accel_x/70 * MAX(0.1, MIN(1.0, collision)))));
@@ -2216,10 +2216,10 @@ vec2f Driver::getTargetPoint(bool use_lookahead, double targetoffset)
     s.x = (seg->vertex[TR_SL].x + seg->vertex[TR_SR].x)/2;
     s.y = (seg->vertex[TR_SL].y + seg->vertex[TR_SR].y)/2;
     //double dx, dy;
-    vec2f t, rt;
+    glm::vec2 t, rt;
 
     if ( seg->type == TR_STR) {
-        vec2f d, n;
+        glm::vec2 d, n;
         n.x = (seg->vertex[TR_EL].x - seg->vertex[TR_ER].x)/seg->length;
         n.y = (seg->vertex[TR_EL].y - seg->vertex[TR_ER].y)/seg->length;
         n.normalize();
@@ -2229,7 +2229,7 @@ vec2f Driver::getTargetPoint(bool use_lookahead, double targetoffset)
 
         return t;
     } else {
-        vec2f c, n;
+        glm::vec2 c, n;
         c.x = seg->center.x;
         c.y = seg->center.y;
         float arc = length/seg->radius;
@@ -3187,7 +3187,7 @@ bool Driver::isStuck()
     double stangle = angle;
     double fangle = fabs(angle);
 
-    vec2f target = getTargetPoint(false, 0.0);
+    glm::vec2 target = getTargetPoint(false, 0.0);
     double targetAngle = atan2(target.y - car->_pos_Y, target.x - car->_pos_X);
     double stuck_steer = calcSteer( targetAngle, 0 );
 
@@ -3455,7 +3455,7 @@ void Driver::initTireMu()
     TIREMU = tm;
 }
 
-void Driver::GetSteerPoint( double lookahead, vec2f *rt, double offset, double time )
+void Driver::GetSteerPoint( double lookahead, glm::vec2 *rt, double offset, double time )
 {
     if (offset < -90.0 && mode != mode_normal)
         offset = myoffset;

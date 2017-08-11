@@ -58,31 +58,31 @@ class TUtils
 	static bool	LineCrossesLine( double p0x, double p0y, double v0x, double v0y,
 								 double p1x, double p1y, double v1x, double v1y,
 								 double& t );
-	static bool	LineCrossesLine( const TVec2d& p0, const TVec2d& v0,
-								 const TVec2d& p1, const TVec2d& v1,
+	static bool	LineCrossesLine( const glm::dvec2& p0, const glm::dvec2& v0,
+								 const glm::dvec2& p1, const glm::dvec2& v1,
 								 double& t );
 	static bool	LineCrossesLineXY( const TVec3d& p0, const TVec3d& v0,
 								   const TVec3d& p1, const TVec3d& v1,
 								   double& t );
 
-	static bool	LineCrossesLine( const TVec2d& p0, const TVec2d& v0,
-								 const TVec2d& p1, const TVec2d& v1,
+	static bool	LineCrossesLine( const glm::dvec2& p0, const glm::dvec2& v0,
+								 const glm::dvec2& p1, const glm::dvec2& v1,
 								 double& t0, double& t1 );
 
 	static double CalcCurvature( double p1x, double p1y,
 								   double p2x, double p2y,
 								   double p3x, double p3y );
-	static double CalcCurvature( const TVec2d& p1, const TVec2d& p2,
-								   const TVec2d& p3 );
-	static double CalcCurvatureTan( const TVec2d& p1, const TVec2d& tangent,
-									  const TVec2d& p2 );
+	static double CalcCurvature( const glm::dvec2& p1, const glm::dvec2& p2,
+								   const glm::dvec2& p3 );
+	static double CalcCurvatureTan( const glm::dvec2& p1, const glm::dvec2& tangent,
+									  const glm::dvec2& p2 );
 	static double CalcCurvatureXY( const TVec3d& p1, const TVec3d& p2,
 									 const TVec3d& p3 );
 	static double CalcCurvatureZ( const TVec3d& p1, const TVec3d& p2,
 									const TVec3d& p3 );
 
-	static bool CalcTangent( const TVec2d& p1, const TVec2d& p2,
-								 const TVec2d& p3, TVec2d& tangent );
+	static bool CalcTangent( const glm::dvec2& p1, const glm::dvec2& p2,
+								 const glm::dvec2& p3, glm::dvec2& tangent );
 
 	static double InterpCurvatureRad( double k0, double k1, double t );
 	static double InterpCurvatureLin( double k0, double k1, double t );
@@ -92,9 +92,9 @@ class TUtils
 	static double VecLenXY( const TVec3d& v );
 	static TVec3d VecNormXY( const TVec3d& v );
 
-	static double VecAngle( const TVec2d& v );
-	static TVec2d VecNorm( const TVec2d& v );
-	static TVec2d VecUnit( const TVec2d& v );
+	static double VecAngle( const glm::dvec2& v );
+	static glm::dvec2 VecNorm( const glm::dvec2& v );
+	static glm::dvec2 VecUnit( const glm::dvec2& v );
 };
 //==========================================================================*
 #endif // _UNITCOMMON_H_

@@ -109,7 +109,7 @@ class TTrackDescription
 	void InitTrack                               // Initialize Track
 	  (tTrack* Track, TCarParam& CarParam, PitSideMod* PitSideMod = 0);
 	double MeanSectionLen() const;               // Mean length of sections
-	TVec2d Normale(double TrackPos) const;        // To right
+	glm::dvec2 Normale(double TrackPos) const;        // To right
 	double NormalizePos(double TrackPos) const;  // Keep pos in 0..Tracklength
 
 	double Length() const;                       // Length of track in m

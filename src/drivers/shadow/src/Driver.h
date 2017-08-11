@@ -155,7 +155,7 @@ public:
   void	GetPosInfo( double pos, PtInfo& pi ) const;
   double	CalcPathTarget( double pos, double offs, double s ) const;
   double	CalcPathTarget( double pos, double offs ) const;
-  Vec2d	CalcPathTarget2( double pos, double offs ) const;
+  glm::dvec2	CalcPathTarget2( double pos, double offs ) const;
   double	CalcPathOffset( double pos, double s, double t ) const;
   void	CalcBestPathUV( double pos, double offs, double& u, double& v ) const;
   double	CalcBestSpeed( double pos, double offs ) const;
@@ -449,7 +449,7 @@ private:
   //LinearAttractor	m_avoidX;
   //LinearAttractor	m_avoidY;
 
-  Vec2d		m_lastPts[HIST];
+  glm::dvec2		m_lastPts[HIST];
   double	m_lastSpd;
   double	m_lastAng;
 

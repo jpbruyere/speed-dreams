@@ -17,7 +17,7 @@ ParametricCubic::~ParametricCubic()
 {
 }
 
-void ParametricCubic::Set( Vec2d p0, Vec2d p1, Vec2d p2, Vec2d p3 )
+void ParametricCubic::Set( glm::dvec2 p0, glm::dvec2 p1, glm::dvec2 p2, glm::dvec2 p3 )
 //void	ParametricCubic::Set( Vec2d p0, Vec2d v0, Vec2d p1, Vec2d v1 )
 {
 //	double	v0Len = 1;//v0.len();
@@ -25,28 +25,28 @@ void ParametricCubic::Set( Vec2d p0, Vec2d p1, Vec2d p2, Vec2d p3 )
 //	m_x.Set( 0, p0.x, v0.x / v0Len, 1, p1.x, v1.x / v1Len );
 //	m_y.Set( 0, p0.y, v0.y / v0Len, 1, p1.y, v1.y / v1Len );
 
-	Vec2d	v1, v2;
+	glm::dvec2	v1, v2;
 	Utils::CalcTangent( p0, p1, p2, v1 );
 	Utils::CalcTangent( p1, p2, p3, v2 );
-	double	len = (p2 - p1).len();// * 1.15;
+    double	len = (p2 - p1).length();// * 1.15;
 	v1 = v1 * len;
 	v2 = v2 * len;
 	m_x.Set( 0, p1.x, v1.x, 1, p2.x, v2.x );
 	m_y.Set( 0, p1.y, v1.y, 1, p2.y, v2.y );
 }
 
-Vec2d ParametricCubic::Calc( double t ) const
+glm::dvec2 ParametricCubic::Calc( double t ) const
 {
 	double	x = m_x.CalcY(t);
 	double	y = m_y.CalcY(t);
-	return Vec2d(x, y);
+	return glm::dvec2(x, y);
 }
 
-Vec2d ParametricCubic::CalcGradient( double t ) const
+glm::dvec2 ParametricCubic::CalcGradient( double t ) const
 {
 	double	dx = m_x.CalcGradient(t);
 	double	dy = m_y.CalcGradient(t);
-	return Vec2d(dx, dy);
+	return glm::dvec2(dx, dy);
 }
 
 double ParametricCubic::CalcCurvature( double t ) const

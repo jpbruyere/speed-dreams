@@ -118,12 +118,12 @@ void Opponent::calcSpeed()
 // compute speed component parallel to angle
 double Opponent::getSpeed(double angle)
 {
-  Vec2d speed, dir;
+  glm::dvec2 speed, dir;
   speed.x = car->_speed_X;
   speed.y = car->_speed_Y;
   dir.x = cos(angle);
   dir.y = sin(angle);
-  return speed * dir;
+  return glm::dot(speed,dir);
 }
 
 
@@ -198,7 +198,7 @@ double Opponent::cornerDist()
   bool left[4];
   bool right[4];
   for (int i = 0; i < 4; i++) {
-    Vec2d corner(car->_corner_x(i), car->_corner_y(i));
+    glm::dvec2 corner(car->_corner_x(i), car->_corner_y(i));
     double frontdist = frontLine.dist(corner);
     double reardist = rearLine.dist(corner);
     double leftdist = leftLine.dist(corner);
@@ -244,7 +244,7 @@ double Opponent::cornerDist()
 
 double Opponent::distFromCenter()
 {
-  Vec2d opppos;
+  glm::dvec2 opppos;
   opppos.x = car->_pos_X;
   opppos.y = car->_pos_Y;
   straight2d mystraight(mycar->_pos_X, mycar->_pos_Y, sin(mycar->_yaw), -cos(mycar->_yaw));
@@ -254,13 +254,13 @@ double Opponent::distFromCenter()
 
 double Opponent::distToStraight()
 {
-  Vec2d opppos;
+  glm::dvec2 opppos;
   opppos.x = car->_pos_X;
   opppos.y = car->_pos_Y;
-  Vec2d mypos;
+  glm::dvec2 mypos;
   mypos.x = mycar->_pos_X;
   mypos.y = mycar->_pos_Y;
-  Vec2d mydir;
+  glm::dvec2 mydir;
   mydir.x = cos(mycar->_yaw);
   mydir.y = sin(mycar->_yaw);
   straight2d mystraight(mypos, mydir);
@@ -270,7 +270,7 @@ double Opponent::distToStraight()
 
 bool Opponent::behind()
 {
-  Vec2d opppos;
+  glm::dvec2 opppos;
   opppos.x = car->_pos_X- mycar->_pos_X;
   opppos.y = car->_pos_Y- mycar->_pos_Y;
   double alpha = mycar->_yaw - Utils::VecAngle(opppos);

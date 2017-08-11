@@ -82,7 +82,7 @@ class Driver {
 		int getGear();
 		float getSteer();
 		float getClutch();
-		vec2f getTargetPoint();
+		glm::vec2 getTargetPoint();
 		float getOffset();
 		float brakedist(float allowedspeed, float mu);
 

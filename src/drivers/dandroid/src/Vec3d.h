@@ -44,7 +44,7 @@ class Vec3d : public v3t<double>
     return *this;
   }
 
-  Vec2d	GetXY() const { return Vec2d(x, y); }
+  glm::dvec2	GetXY() const { return glm::dvec2(x, y); }
 };
 
 #endif // _VEC3D_H_

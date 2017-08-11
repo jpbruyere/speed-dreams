@@ -61,7 +61,7 @@ void LinearRegression::Sample( double X, double Y )
 	m_sumYY += Y * Y;
 }
 
-void LinearRegression::Sample( const Vec2d& p )
+void LinearRegression::Sample( const glm::dvec2& p )
 {
 	Sample( p.x, p.y );
 }
@@ -82,9 +82,9 @@ double LinearRegression::CalcY( double X ) const
 }
 
 // perpendicular distance measure.
-void LinearRegression::CalcLine( Vec2d& p, Vec2d& v ) const
+void LinearRegression::CalcLine( glm::dvec2& p, glm::dvec2& v ) const
 {
-	p = Vec2d(m_sumX / m_n, m_sumY / m_n);
+	p = glm::dvec2(m_sumX / m_n, m_sumY / m_n);
 
 	// a = x - p.x, b = y - p.y
 	double	sumAA = m_sumXX - 2 * p.x * m_sumX + m_n * p.x * p.x;
@@ -92,7 +92,7 @@ void LinearRegression::CalcLine( Vec2d& p, Vec2d& v ) const
 	double	sumAB = m_sumXY - p.y * m_sumX - p.x * m_sumY + m_n * p.x * p.y;
 
 	double	ang = atan2(2 * sumAB, sumAA - sumBB) / 2;
-	v = Vec2d(cos(ang), sin(ang));
+	v = glm::dvec2(cos(ang), sin(ang));
 
 //	GfOut( "x %g  y %g  a %g\n", p.x, p.y, ang );
 }

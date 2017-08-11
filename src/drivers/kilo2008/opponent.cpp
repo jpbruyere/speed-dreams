@@ -117,7 +117,7 @@ void Opponent::Update(tSituation *s, KDriver *driver) {
 
         double mindist = FLT_MAX;
         for (int i = 0; i < 4; ++i) {
-          vec2f corner(car_->_corner_x(i), car_->_corner_y(i));
+          glm::vec2 corner(car_->_corner_x(i), car_->_corner_y(i));
           double dist = carFrontLine.dist(corner);
           mindist = MIN(dist, mindist);
         }

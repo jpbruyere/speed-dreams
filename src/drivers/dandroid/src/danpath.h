@@ -33,7 +33,7 @@ class DanPoint {
   public:
   int line;
   int index;
-  Vec2d pos;
+  glm::dvec2 pos;
   int type;
   double fromstart;
   double tomiddle;
@@ -77,11 +77,11 @@ class DanLine {
   DanPoint getPos(int index);
   double calcYaw(DanPoint danpoint);
   double calcTrackYaw(DanPoint danpoint, double& trackyaw);
-  bool fromStart(Vec2d pos, double& fromstart);
-  bool toMiddle(Vec2d pos, double& tomiddle);
+  bool fromStart(glm::dvec2 pos, double& fromstart);
+  bool toMiddle(glm::dvec2 pos, double& tomiddle);
   void printData();
   int getIndex(double fromstart);
-  Vec2d getNearestPoint(int index, double fromstart);
+  glm::dvec2 getNearestPoint(int index, double fromstart);
   double getToMiddle(double fromstart);
   double getDistDiff(double fromstart1, double fromstart2);
 };

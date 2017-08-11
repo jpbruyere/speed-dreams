@@ -53,7 +53,7 @@ public:
 
 	Rec*		m_pData;
 	int			m_lastSeg;
-	Vec2d		m_lastPt;
+	glm::dvec2		m_lastPt;
 	double		m_lastSpd;
 };
 

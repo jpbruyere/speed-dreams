@@ -326,7 +326,7 @@ void ClothoidPath::OptimiseLine( const CarModel& cm, int idx, int step,	double h
 	l.Sample( m_pPath[i].pt.GetXY() );
 
     GfOut( "%4d  ", idx );
-	Vec2d	p, v;
+	glm::dvec2	p, v;
 	l.CalcLine( p, v );
 
 	double	t;
