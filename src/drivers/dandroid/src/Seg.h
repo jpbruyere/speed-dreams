@@ -20,7 +20,7 @@
 #define _SEG_H_
 
 #include <track.h>
-#include "Vec3d.h"
+#include <tgf.h>
 
 class Seg
 {

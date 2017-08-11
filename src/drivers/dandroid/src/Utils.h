@@ -19,8 +19,7 @@
 #ifndef _UTILS_H_
 #define _UTILS_H_
 
-#include "Vec2d.h"
-#include "Vec3d.h"
+#include <tgf.h>
 
 #define MN(x, y)	((x) < (y) ? (x) : (y))
 #define MX(x, y)	((x) > (y) ? (x) : (y))

@@ -32,7 +32,6 @@
 #include <robot.h>
 #include <portability.h>
 
-#include "Vec3d.h"
 #include "Driver.h"
 #include "Shared.h"
 

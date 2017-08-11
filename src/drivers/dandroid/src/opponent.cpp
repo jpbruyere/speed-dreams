@@ -17,7 +17,6 @@
 
 
 #include "opponent.h"
-#include "Vec2d.h"
 #include "Utils.h"
 
 

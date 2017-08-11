@@ -31,8 +31,6 @@ SET(ROBOT_SOURCES
     src/torcs_or_sd.h
     src/Utils.cpp
     src/Utils.h
-    src/Vec2d.h
-    src/Vec3d.h
 )
 
 # Official-only dandroid instances.

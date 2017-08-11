@@ -2026,7 +2026,7 @@ grCamCreateSceneCameraList(class cGrScreen *myscreen, tGrCamHead *cams,
 			      5.0,	/* fovymin */
 			      95.0,	/* fovymax */
 			      8.0,	/* dist */
-			      .50,	/* height */
+                  .50,	/* height */
 			      .50,	/* near */
 			      fixedFar ? fixedFar : 600.0 * fovFactor,	/* far */
 			      fixedFar ? fixedFar/2 : 300.0 * fovFactor,	/* fogstart */

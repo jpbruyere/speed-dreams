@@ -25,7 +25,6 @@
 #include <math.h>
 #include <vector>
 
-#include "Vec2d.h"
 #include "cubic.h"
 
 

@@ -61,9 +61,7 @@ SET(ROBOT_SOURCES src/Array.h
 				src/TeamInfo.cpp 
 				src/TeamInfo.h
 				src/Utils.cpp 
-				src/Utils.h
-				src/Vec2d.h
-				src/Vec3d.h)
+				src/Utils.h)
 
 # Official-only shadow instances.
 SET(ROBOT_CLONES shadow_36GP shadow_67GP shadow_sc shadow_srw shadow_trb1 shadow_ls1 shadow_ls2 shadow_mp5

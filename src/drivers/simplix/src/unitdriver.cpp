@@ -63,7 +63,6 @@
 // 
 //--------------------------------------------------------------------------*
 
-#include <v2_t.h>
 #include <tgf.h>
 #include <robottools.h>
 #include <timeanalysis.h>

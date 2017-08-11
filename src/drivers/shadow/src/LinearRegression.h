@@ -18,7 +18,7 @@
 #ifndef _LINEARREGRESSION_H_
 #define _LINEARREGRESSION_H_
 
-#include "Vec2d.h"
+#include <tgf.h>
 
 class LinearRegression  
 {

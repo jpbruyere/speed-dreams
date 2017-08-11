@@ -36,7 +36,6 @@
 #define _UNITLINREG_H_
 
 #include "unitglobal.h"
-#include "unitvec2d.h"
 
 //==========================================================================*
 // Class TLinearRegression

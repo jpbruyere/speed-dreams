@@ -20,8 +20,6 @@
 
 #include <track.h>
 
-#include "Vec3d.h"
-
 class Seg  
 {
 public:

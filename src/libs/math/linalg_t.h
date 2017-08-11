@@ -20,10 +20,6 @@
 #ifndef _LINALG_T_H_
 #define _LINALG_T_H_
 
-#include "v2_t.h"
-#include "v3_t.h"
-#include "v4_t.h"
-
 #include "straight2_t.h"
 
 typedef straight2t<float> straight2f;

@@ -58,7 +58,6 @@
 
 // TORCS
 #include <track.h>
-#include "unitvec3d.h"
 
 //==========================================================================*
 // Class TSection

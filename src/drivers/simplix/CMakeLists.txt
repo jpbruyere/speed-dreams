@@ -65,11 +65,7 @@ SET(ROBOT_SOURCES
     src/unittmpcarparam.cpp
     src/unittmpcarparam.h
     src/unittrack.cpp
-    src/unittrack.h
-    src/unitvec2d.cpp
-    src/unitvec2d.h
-    src/unitvec3d.cpp
-    src/unitvec3d.h
+    src/unittrack.h    
 )
 
 # Official-only simplix instances.

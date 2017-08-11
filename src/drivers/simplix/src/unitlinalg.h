@@ -35,7 +35,6 @@
 #include <track.h>
 
 #include "car.h"         // TORCS
-#include "unitvec3d.h"   // TVec3d
 
 //==========================================================================*
 // Typdefinition für die Darstellung der Koordinaten

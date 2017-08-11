@@ -29,22 +29,22 @@
 #ifndef _STRAIGHT_2T_H_
 #define _STRAIGHT_2T_H_
 
-#include "v2_t.h"
+#include <tgf.h>
 
 template<class T> class straight2t {
-	public:
-		// Constructors.
-		straight2t() {}
-		straight2t(T x, T y, T dx, T dy)
+    public:
+        // Constructors.
+        straight2t() {}
+        straight2t(T x, T y, T dx, T dy)
             { p.x = x; p.y = y; d.x = dx; d.y = dy; glm::normalize(d); }
         straight2t(const glm::tvec2<T> &anchor, const glm::tvec2<T> &dir)
             { p = anchor; d = dir; glm::normalize(d); }
 
-		// Methods.
+        // Methods.
         glm::tvec2<T> intersect(const straight2t<T> &s) const;		// Intersection of 2 straights: does not check for NaN's!
         T dist(const glm::tvec2<T> &p) const;						// Distance of p to straight this.
 
-		// Data.
+        // Data.
         glm::tvec2<T> p;	// Point on the straight.
         glm::tvec2<T> d;	// Direction of the straight.
 };
