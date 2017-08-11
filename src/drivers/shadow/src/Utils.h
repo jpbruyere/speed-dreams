@@ -18,8 +18,7 @@
 #ifndef _UTILS_H_
 #define _UTILS_H_
 
-#include "Vec2d.h"
-#include "Vec3d.h"
+#include <tgf.h>
 
 #define	SGN(x)		((x) < 0 ? -1 : (x) > 0 ? 1 : 0)
 #define MN(x, y)	((x) < (y) ? (x) : (y))
@@ -42,8 +41,8 @@ public:
 	static bool	LineCrossesLine( const glm::dvec2& p0, const glm::dvec2& v0,
 								 const glm::dvec2& p1, const glm::dvec2& v1,
 								 double& t );
-	static bool	LineCrossesLineXY( const Vec3d& p0, const Vec3d& v0,
-								   const Vec3d& p1, const Vec3d& v1,
+    static bool	LineCrossesLineXY( const glm::dvec3& p0, const glm::dvec3& v0,
+                                   const glm::dvec3& p1, const glm::dvec3& v1,
 								   double& t );
 
 	static bool	LineCrossesLine( const glm::dvec2& p0, const glm::dvec2& v0,
@@ -57,10 +56,10 @@ public:
 								   const glm::dvec2& p3 );
 	static double	CalcCurvatureTan( const glm::dvec2& p1, const glm::dvec2& tangent,
 									  const glm::dvec2& p2 );
-	static double	CalcCurvatureXY( const Vec3d& p1, const Vec3d& p2,
-									 const Vec3d& p3 );
-	static double	CalcCurvatureZ( const Vec3d& p1, const Vec3d& p2,
-									const Vec3d& p3 );
+    static double	CalcCurvatureXY( const glm::dvec3& p1, const glm::dvec3& p2,
+                                     const glm::dvec3& p3 );
+    static double	CalcCurvatureZ( const glm::dvec3& p1, const glm::dvec3& p2,
+                                    const glm::dvec3& p3 );
 
 	static bool		CalcTangent( const glm::dvec2& p1, const glm::dvec2& p2,
 								 const glm::dvec2& p3, glm::dvec2& tangent );
@@ -69,9 +68,9 @@ public:
 	static double	InterpCurvatureLin( double k0, double k1, double t );
 	static double	InterpCurvature( double k0, double k1, double t );
 
-	static double	VecAngXY( const Vec3d& v );
-	static double	VecLenXY( const Vec3d& v );
-	static Vec3d	VecNormXY( const Vec3d& v );
+    static double	VecAngXY( const glm::dvec3& v );
+    static double	VecLenXY( const glm::dvec3& v );
+    static glm::dvec3	VecNormXY( const glm::dvec3& v );
 
 	static double	VecAngle( const glm::dvec2& v );
 	static glm::dvec2	VecNorm( const glm::dvec2& v );

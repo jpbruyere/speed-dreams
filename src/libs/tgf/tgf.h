@@ -48,6 +48,7 @@
 #include <string>
 #include <vector>
 
+#define GLM_SWIZZLE
 #include <glm/glm.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 

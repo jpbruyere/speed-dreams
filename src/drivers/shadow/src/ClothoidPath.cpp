@@ -203,10 +203,10 @@ void ClothoidPath::SmoothBetween( int step )
 		if( j >= NSEG )
 			j = 0;
 
-		Vec3d	p0 = l0->pt;//CalcPt();
-		Vec3d	p1 = l1->pt;//CalcPt();
-		Vec3d	p2 = l2->pt;//CalcPt();
-		Vec3d	p3 = l3->pt;//CalcPt();
+		glm::dvec3	p0 = l0->pt;//CalcPt();
+		glm::dvec3	p1 = l1->pt;//CalcPt();
+		glm::dvec3	p2 = l2->pt;//CalcPt();
+		glm::dvec3	p3 = l3->pt;//CalcPt();
 
 		double	k1 = Utils::CalcCurvatureXY(p0, p1, p2);
 		double	k2 = Utils::CalcCurvatureXY(p1, p2, p3);
@@ -221,8 +221,8 @@ void ClothoidPath::SmoothBetween( int step )
 			Utils::LineCrossesLineXY( l.Pt(), l.Norm(), p1, p2 - p1, t );
 			l.offs = t;
 
-			double	len1 = (l.CalcPt() - p1).len();
-			double	len2 = (l.CalcPt() - p2).len();
+            double	len1 = (l.CalcPt() - p1).length();
+            double	len2 = (l.CalcPt() - p2).length();
 			double	kappa = (k1 * len2 + k2 * len1) / (len1 + len2);
 
 			if( kappa != 0 )
@@ -310,27 +310,27 @@ void ClothoidPath::OptimiseLine( const CarModel& cm, int idx, int step,	double h
 	int i = (idx + NSEG - step) % NSEG;
 	while( m_pPath[i].h > hLimit )
 	{
-		l.Sample( m_pPath[i].pt.GetXY() );
+        l.Sample( m_pPath[i].pt.xy() );
 		i = (i + NSEG - step) % NSEG;
 	}
 
-	l.Sample( m_pPath[i].pt.GetXY() );
+    l.Sample( m_pPath[i].pt.xy() );
 
 	i = idx;
 	while( m_pPath[i].h > hLimit )
 	{
-		l.Sample( m_pPath[i].pt.GetXY() );
+        l.Sample( m_pPath[i].pt.xy() );
 		i = (i + step) % NSEG;
 	}
 
-	l.Sample( m_pPath[i].pt.GetXY() );
+    l.Sample( m_pPath[i].pt.xy() );
 
     GfOut( "%4d  ", idx );
 	glm::dvec2	p, v;
 	l.CalcLine( p, v );
 
 	double	t;
-	Utils::LineCrossesLine( l3->Pt().GetXY(), l3->Norm().GetXY(), p, v, t );
+    Utils::LineCrossesLine( l3->Pt().xy(), l3->Norm().xy(), p, v, t );
 
 	SetOffset( cm, 0, t, l3, l2, l4 );
 }
@@ -354,13 +354,13 @@ void	ClothoidPath::Optimise(	const CarModel&	cm,	double factor, int idx, PathPt*
 //			factor = Map(fabs(l3->k), 1.0/30, 1.0/100, 1.003, 1.03);
 	}
 
-	Vec3d	p0 = l0->pt;//CalcPt();
-	Vec3d	p1 = l1->pt;//CalcPt();
-	Vec3d	p2 = l2->pt;//CalcPt();
-	Vec3d	p3 = l3->pt;//CalcPt();
-	Vec3d	p4 = l4->pt;//CalcPt();
-	Vec3d	p5 = l5->pt;//CalcPt();
-	Vec3d	p6 = l6->pt;//CalcPt();
+	glm::dvec3	p0 = l0->pt;//CalcPt();
+	glm::dvec3	p1 = l1->pt;//CalcPt();
+	glm::dvec3	p2 = l2->pt;//CalcPt();
+	glm::dvec3	p3 = l3->pt;//CalcPt();
+	glm::dvec3	p4 = l4->pt;//CalcPt();
+	glm::dvec3	p5 = l5->pt;//CalcPt();
+	glm::dvec3	p6 = l6->pt;//CalcPt();
 
 	double	k1 = Utils::CalcCurvatureXY(p1, p2, p3);
 	double	k2 = Utils::CalcCurvatureXY(p3, p4, p5);

@@ -94,7 +94,7 @@ void PathRecord::Update()
 			const Seg&	s0 = m_pTrack->GetAt(next_s);
 			double		t, w;
 			if( Utils::LineCrossesLine(m_lastPt, pt - m_lastPt,
-										s0.pt.GetXY(), s0.norm.GetXY(), t, w) &&
+                                        s0.pt.xy(), s0.norm.xy(), t, w) &&
 				t >= 0.0 && t <= 1.0 )
 			{
 				double	v = m_lastSpd + (spd - m_lastSpd) * t;

@@ -78,8 +78,8 @@ class TSection
 	double PitWidthToLeft;		                 // Width to left.
 	double PitWidthToRight;                      // Width to right.
 	double T;			                         // Local station in segment
-	TVec3d Center;		                         // Centre
-	TVec3d ToRight; 	                         // To right
+	glm::dvec3 Center;		                         // Centre
+	glm::dvec3 ToRight; 	                         // To right
 	int PosIndex;                                // Position to section index
 	double Friction;                             // Friction learned
 	double InitialTargetSpeed;                   // Initial target speed

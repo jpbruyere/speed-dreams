@@ -73,10 +73,10 @@ bool LinePath::GetPtInfo( double trackPos, PtInfo& pi ) const
     if( idx1 == 0 )
         dist1 = m_pTrack->GetLength();
 
-    Vec3d	p0 = m_pPath[idxp].CalcPt();
-    Vec3d	p1 = m_pPath[idx0].CalcPt();
-    Vec3d	p2 = m_pPath[idx1].CalcPt();
-    Vec3d	p3 = m_pPath[idx2].CalcPt();
+    glm::dvec3	p0 = m_pPath[idxp].CalcPt();
+    glm::dvec3	p1 = m_pPath[idx0].CalcPt();
+    glm::dvec3	p2 = m_pPath[idx1].CalcPt();
+    glm::dvec3	p3 = m_pPath[idx2].CalcPt();
 
     double	k1 = Utils::CalcCurvatureXY(p0, p1, p2);
     double	k2 = Utils::CalcCurvatureXY(p1, p2, p3);
@@ -101,8 +101,8 @@ bool LinePath::GetPtInfo( double trackPos, PtInfo& pi ) const
     pi.oang = Ang0 + pi.t * DeltaAng;
 
     glm::dvec2 Tang1, Tang2;
-    Utils::CalcTangent(p0.GetXY(), p1.GetXY(), p2.GetXY(), Tang1);
-    Utils::CalcTangent(p1.GetXY(), p2.GetXY(), p3.GetXY(), Tang2);
+    Utils::CalcTangent(p0.xy(), p1.xy(), p2.xy(), Tang1);
+    Utils::CalcTangent(p1.xy(), p2.xy(), p3.xy(), Tang2);
 
     Ang0 = Utils::VecAngle(Tang1);
     Ang1 = Utils::VecAngle(Tang2);
@@ -374,7 +374,7 @@ void LinePath::CalcMaxSpeeds( int start, int len, const CarModel& carModel, int 
         int	i = (start + count) % NSEG;
         int j = (i + 1) % NSEG;
 
-        Vec3d Delta = m_pPath[i].CalcPt() - m_pPath[j].CalcPt();
+        glm::dvec3 Delta = m_pPath[i].CalcPt() - m_pPath[j].CalcPt();
         double Dist = Utils::VecLenXY(Delta);
         double	trackRollAngle = atan2(m_pPath[i].Norm().z, 1);
         double  trackTiltAngle = 1.1 * atan2(Delta.z, Dist);
@@ -411,7 +411,7 @@ void LinePath::PropagateBreaking( int start, int len, const CarModel& cm, int st
             // see if we need to adjust spd[i] to make it possible
             //	to slow to spd[j] by the next seg.
 
-            Vec3d	delta = m_pPath[i].CalcPt() - m_pPath[j].CalcPt();
+            glm::dvec3	delta = m_pPath[i].CalcPt() - m_pPath[j].CalcPt();
             double	dist = Utils::VecLenXY(delta);
             double	k = (m_pPath[i].k + m_pPath[j].k) * 0.5;
 
@@ -447,7 +447,7 @@ void LinePath::PropagateAcceleration( int start, int len, const CarModel& cm, in
         {
             // see if we need to adjust spd[j] to make it possible
             //	to speed up to spd[i] from spd[j].
-            Vec3d delta = m_pPath[i].CalcPt() - m_pPath[j].CalcPt();
+            glm::dvec3 delta = m_pPath[i].CalcPt() - m_pPath[j].CalcPt();
             double	dist = Utils::VecLenXY(m_pPath[i].CalcPt() - m_pPath[j].CalcPt());
             double	k = (m_pPath[i].k + m_pPath[j].k) * 0.5;
 
@@ -765,7 +765,7 @@ bool LinePath::LoadPath( const char* pDataFile )
                     const Seg&	s0 = m_pTrack->GetAt(next_s);
                     double		t, w;
                     if( Utils::LineCrossesLine(lastPt, pt - lastPt,
-                                               s0.pt.GetXY(), s0.norm.GetXY(), t, w) &&
+                                               s0.pt.xy(), s0.norm.xy(), t, w) &&
                             t >= 0.0 && t <= 1.0 )
                     {
                         //						Rec&	rec = m_pData[next_s];

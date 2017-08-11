@@ -36,7 +36,7 @@ public:
   const Seg& operator[]( int index ) const;
 
 private:
-  void CalcPtAndNormal( const tTrackSeg* pSeg, double toStart, double& t, Vec3d& pt, Vec3d& norm ) const;
+  void CalcPtAndNormal( const tTrackSeg* pSeg, double toStart, double& t, glm::dvec3& pt, glm::dvec3& norm ) const;
 
 private:
   int  NSEG;

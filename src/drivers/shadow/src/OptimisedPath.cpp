@@ -66,9 +66,9 @@ void OptimisedPath::SetupSlice( int seg, Slice* pSlice )
 	int	n = (seg + 1) % NSEG;
 
 	glm::dvec2	tangent;
-	Utils::CalcTangent( GetAt(p).CalcPt().GetXY(),
-						GetAt(seg).CalcPt().GetXY(),
-						GetAt(n).CalcPt().GetXY(), tangent );
+    Utils::CalcTangent( GetAt(p).CalcPt().xy(),
+                        GetAt(seg).CalcPt().xy(),
+                        GetAt(n).CalcPt().xy(), tangent );
 	glm::dvec2	v = tangent * GetAt(seg).accSpd;
 
 	pSlice->m_seg = seg;
@@ -130,7 +130,7 @@ void OptimisedPath::NextSlice()
 			continue;
 
 		const Seg&	seg1 = m_pTrack->GetAt(m_curSlice->m_seg);
-		glm::dvec2		p1 = seg1.pt.GetXY() + seg1.norm.GetXY() * node1.m_offset;
+        glm::dvec2		p1 = seg1.pt.xy() + seg1.norm.xy() * node1.m_offset;
 		double		spd1 = node1.m_spd;
 
 		double	mns, mxs, mxdy;
@@ -142,7 +142,7 @@ void OptimisedPath::NextSlice()
 			Node&		node2 = m_nextSlice->m_nodes[j];
 
 			const Seg&	seg2 = m_pTrack->GetAt(m_nextSlice->m_seg);
-			glm::dvec2		p2 = seg2.pt.GetXY() + seg2.norm.GetXY() * node2.m_offset;
+            glm::dvec2		p2 = seg2.pt.xy() + seg2.norm.xy() * node2.m_offset;
 			double		spd2 = node2.m_spd;
 
             double	dist = (p2 - p1).length();

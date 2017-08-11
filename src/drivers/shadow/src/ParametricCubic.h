@@ -2,7 +2,7 @@
 #define _PARAMETRICCUBIC_H_
 
 #include "Cubic.h"
-#include "Vec2d.h"
+#include <tgf.h>
 
 class ParametricCubic  
 {

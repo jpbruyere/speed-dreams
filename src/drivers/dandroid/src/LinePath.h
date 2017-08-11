@@ -32,15 +32,15 @@ public:
     double k; // curvature in xy.
     double kz;	 // curvature in z direction... e.g. bumps.
     double offs; // offs from centre point.
-    Vec3d pt; // actual pt (same as CalcPt())
+    glm::dvec3 pt; // actual pt (same as CalcPt())
     double h; // predicted height of car above track (flying).
     double fwdK;
 
     double Wl() const { return pSeg->wl; }
     double Wr() const { return pSeg->wr; }
-    const Vec3d&Pt() const { return pSeg->pt; }
-    const Vec3d&Norm() const { return pSeg->norm; }
-    Vec3d CalcPt() const { return pSeg->pt + pSeg->norm * offs; }
+    const glm::dvec3&Pt() const { return pSeg->pt; }
+    const glm::dvec3&Norm() const { return pSeg->norm; }
+    glm::dvec3 CalcPt() const { return pSeg->pt + pSeg->norm * offs; }
   };
 
 public:

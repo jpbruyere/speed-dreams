@@ -61,8 +61,8 @@ class TUtils
 	static bool	LineCrossesLine( const glm::dvec2& p0, const glm::dvec2& v0,
 								 const glm::dvec2& p1, const glm::dvec2& v1,
 								 double& t );
-	static bool	LineCrossesLineXY( const TVec3d& p0, const TVec3d& v0,
-								   const TVec3d& p1, const TVec3d& v1,
+	static bool	LineCrossesLineXY( const glm::dvec3& p0, const glm::dvec3& v0,
+								   const glm::dvec3& p1, const glm::dvec3& v1,
 								   double& t );
 
 	static bool	LineCrossesLine( const glm::dvec2& p0, const glm::dvec2& v0,
@@ -76,10 +76,10 @@ class TUtils
 								   const glm::dvec2& p3 );
 	static double CalcCurvatureTan( const glm::dvec2& p1, const glm::dvec2& tangent,
 									  const glm::dvec2& p2 );
-	static double CalcCurvatureXY( const TVec3d& p1, const TVec3d& p2,
-									 const TVec3d& p3 );
-	static double CalcCurvatureZ( const TVec3d& p1, const TVec3d& p2,
-									const TVec3d& p3 );
+	static double CalcCurvatureXY( const glm::dvec3& p1, const glm::dvec3& p2,
+									 const glm::dvec3& p3 );
+	static double CalcCurvatureZ( const glm::dvec3& p1, const glm::dvec3& p2,
+									const glm::dvec3& p3 );
 
 	static bool CalcTangent( const glm::dvec2& p1, const glm::dvec2& p2,
 								 const glm::dvec2& p3, glm::dvec2& tangent );
@@ -88,9 +88,9 @@ class TUtils
 	static double InterpCurvatureLin( double k0, double k1, double t );
 	static double InterpCurvature( double k0, double k1, double t );
 
-	static double VecAngXY( const TVec3d& v );
-	static double VecLenXY( const TVec3d& v );
-	static TVec3d VecNormXY( const TVec3d& v );
+	static double VecAngXY( const glm::dvec3& v );
+	static double VecLenXY( const glm::dvec3& v );
+	static glm::dvec3 VecNormXY( const glm::dvec3& v );
 
 	static double VecAngle( const glm::dvec2& v );
 	static glm::dvec2 VecNorm( const glm::dvec2& v );

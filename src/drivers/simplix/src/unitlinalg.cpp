@@ -404,7 +404,7 @@ Tdble Dist(const TV3D &LHS, const TV2D &RHS)
 //==========================================================================*
 // Mixed: Result := Dist(LHS,RHS)
 //--------------------------------------------------------------------------*
-Tdble Dist(const TVec3d &LHS, const TVec3d &RHS)
+Tdble Dist(const glm::dvec3 &LHS, const glm::dvec3 &RHS)
 {
   return sqrt(Sqr(LHS.x - RHS.x)
     + Sqr(LHS.y - RHS.y));

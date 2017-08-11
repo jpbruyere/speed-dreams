@@ -115,7 +115,7 @@ TV3D Sub(const TV3D &LHS, const TV3D &RHS);
 Tdble Dist(const TV2D &LHS, const TV2D &RHS);
 
 // New
-Tdble Dist(const TVec3d &LHS, const TVec3d &RHS);
+Tdble Dist(const glm::dvec3 &LHS, const glm::dvec3 &RHS);
 
 //==========================================================================*
 #endif // _UNITLINALG_H_

@@ -89,10 +89,10 @@ void ClothoidPath::SmoothBetween( int step )
     if( j >= NSEG )
       j = 0;
 
-    Vec3d p0 = l0->pt;//CalcPt();
-    Vec3d p1 = l1->pt;//CalcPt();
-    Vec3d p2 = l2->pt;//CalcPt();
-    Vec3d p3 = l3->pt;//CalcPt();
+    glm::dvec3 p0 = l0->pt;//CalcPt();
+    glm::dvec3 p1 = l1->pt;//CalcPt();
+    glm::dvec3 p2 = l2->pt;//CalcPt();
+    glm::dvec3 p3 = l3->pt;//CalcPt();
 
     double k1 = Utils::CalcCurvatureXY(p0, p1, p2);
     double k2 = Utils::CalcCurvatureXY(p1, p2, p3);
@@ -107,8 +107,8 @@ void ClothoidPath::SmoothBetween( int step )
       Utils::LineCrossesLineXY( l.Pt(), l.Norm(), p1, p2 - p1, t );
       l.offs = t;
 
-      double len1 = (l.CalcPt() - p1).len();
-      double len2 = (l.CalcPt() - p2).len();
+      double len1 = (l.CalcPt() - p1).length();
+      double len2 = (l.CalcPt() - p2).length();
       double kappa = (k1 * len2 + k2 * len1) / (len1 + len2);
 
       if( kappa != 0 )
@@ -186,13 +186,13 @@ void ClothoidPath::Optimise(
   const PathPt* l6,
   int    bumpMod )
 {
-  Vec3d p0 = l0->pt;//CalcPt();
-  Vec3d p1 = l1->pt;//CalcPt();
-  Vec3d p2 = l2->pt;//CalcPt();
-  Vec3d p3 = l3->pt;//CalcPt();
-  Vec3d p4 = l4->pt;//CalcPt();
-  Vec3d p5 = l5->pt;//CalcPt();
-  Vec3d p6 = l6->pt;//CalcPt();
+  glm::dvec3 p0 = l0->pt;//CalcPt();
+  glm::dvec3 p1 = l1->pt;//CalcPt();
+  glm::dvec3 p2 = l2->pt;//CalcPt();
+  glm::dvec3 p3 = l3->pt;//CalcPt();
+  glm::dvec3 p4 = l4->pt;//CalcPt();
+  glm::dvec3 p5 = l5->pt;//CalcPt();
+  glm::dvec3 p6 = l6->pt;//CalcPt();
 
   double k1 = Utils::CalcCurvatureXY(p1, p2, p3);
   double k2 = Utils::CalcCurvatureXY(p3, p4, p5);

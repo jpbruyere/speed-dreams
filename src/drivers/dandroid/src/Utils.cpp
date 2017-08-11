@@ -115,10 +115,10 @@ bool	Utils::LineCrossesLine(
 }
 
 bool	Utils::LineCrossesLineXY(
-	const Vec3d&	p0,
-	const Vec3d&	v0,
-	const Vec3d&	p1,
-	const Vec3d&	v1,
+	const glm::dvec3&	p0,
+	const glm::dvec3&	v0,
+	const glm::dvec3&	p1,
+	const glm::dvec3&	v1,
 
 	double&			t )
 {
@@ -190,21 +190,21 @@ double	Utils::CalcCurvatureTan(
 }
 
 double	Utils::CalcCurvatureXY(
-	const Vec3d& p1,
-	const Vec3d& p2,
-	const Vec3d& p3 )
+	const glm::dvec3& p1,
+	const glm::dvec3& p2,
+	const glm::dvec3& p3 )
 {
 	return CalcCurvature(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
 }
 
 double	Utils::CalcCurvatureZ(
-	const Vec3d& p1,
-	const Vec3d& p2,
-	const Vec3d& p3 )
+	const glm::dvec3& p1,
+	const glm::dvec3& p2,
+	const glm::dvec3& p3 )
 {
 	double	x1 = 0;
-	double	x2 = (p1 - p2).len();
-	double	x3 = x2 + (p2 - p3).len();
+    double	x2 = (p1 - p2).length();
+    double	x3 = x2 + (p2 - p3).length();
 	return CalcCurvature(x1, p1.z, x2, p2.z, x3, p3.z);
 }
 
@@ -266,19 +266,19 @@ double	Utils::InterpCurvature( double k0, double k1, double t )
 	return InterpCurvatureLin(k0, k1, t);
 }
 
-double	Utils::VecAngXY( const Vec3d& v )
+double	Utils::VecAngXY( const glm::dvec3& v )
 {
 	return atan2(v.y, v.x);
 }
 
-double	Utils::VecLenXY( const Vec3d& v )
+double	Utils::VecLenXY( const glm::dvec3& v )
 {
 	return hypot(v.y, v.x);
 }
 
-Vec3d	Utils::VecNormXY( const Vec3d& v )
+glm::dvec3	Utils::VecNormXY( const glm::dvec3& v )
 {
-	return Vec3d(-v.y, v.x, v.z);
+	return glm::dvec3(-v.y, v.x, v.z);
 }
 
 double	Utils::VecAngle( const glm::dvec2& v )

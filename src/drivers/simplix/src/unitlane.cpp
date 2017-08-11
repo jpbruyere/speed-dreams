@@ -152,10 +152,10 @@ bool TLane::GetLanePoint(double TrackPos, TLanePoint& LanePoint) const
   if (Idx1 == 0)
     Dist1 = oTrack->Length();
 
-  TVec3d P0 = oPathPoints[Idxp].CalcPt();
-  TVec3d P1 = oPathPoints[Idx0].CalcPt();
-  TVec3d P2 = oPathPoints[Idx1].CalcPt();
-  TVec3d P3 = oPathPoints[Idx2].CalcPt();
+  glm::dvec3 P0 = oPathPoints[Idxp].CalcPt();
+  glm::dvec3 P1 = oPathPoints[Idx0].CalcPt();
+  glm::dvec3 P2 = oPathPoints[Idx1].CalcPt();
+  glm::dvec3 P3 = oPathPoints[Idx2].CalcPt();
 
   double Crv1 = TUtils::CalcCurvatureXY(P0, P1, P2);
   double Crv2 = TUtils::CalcCurvatureXY(P1, P2, P3);
@@ -185,8 +185,8 @@ bool TLane::GetLanePoint(double TrackPos, TLanePoint& LanePoint) const
   LanePoint.Angle = Ang0 + LanePoint.T * DeltaAng;
 
   glm::dvec2 Tang1, Tang2;
-  TUtils::CalcTangent(P0.GetXY(), P1.GetXY(), P2.GetXY(), Tang1);
-  TUtils::CalcTangent(P1.GetXY(), P2.GetXY(), P3.GetXY(), Tang2);
+  TUtils::CalcTangent(P0.xy(), P1.xy(), P2.xy(), Tang1);
+  TUtils::CalcTangent(P1.xy(), P2.xy(), P3.xy(), Tang2);
   //TVec2d Dir = TUtils::VecUnit(Tang1) * (1 - Tx) + TUtils::VecUnit(Tang2) * Tx;
 
   Ang0 = TUtils::VecAngle(Tang1);
@@ -430,7 +430,7 @@ void TLane::CalcMaxSpeeds
   {
 	int P = (Start + I) % N;
 	int Q = (P + 1) % N;
-    TVec3d Delta = oPathPoints[P].CalcPt() - oPathPoints[Q].CalcPt();
+    glm::dvec3 Delta = oPathPoints[P].CalcPt() - oPathPoints[Q].CalcPt();
     double Dist = TUtils::VecLenXY(Delta);
     double TrackRollAngle = atan2(oPathPoints[P].Norm().z, 1);
     double TrackTiltAngle = 1.1 * atan2(Delta.z, Dist);
@@ -530,7 +530,7 @@ void TLane::PropagateBreaking
 	{
 	  // see if we need to adjust spd[i] to make it possible
 	  //   to slow to spd[j] by the next seg.
-      TVec3d Delta = oPathPoints[P].CalcPt() - oPathPoints[Q].CalcPt();
+      glm::dvec3 Delta = oPathPoints[P].CalcPt() - oPathPoints[Q].CalcPt();
       double Dist = TUtils::VecLenXY(Delta);
       double K = (oPathPoints[P].Crv + oPathPoints[Q].Crv) * 0.5;
 	  if (fabs(K) > 0.0001)
@@ -584,7 +584,7 @@ void TLane::PropagatePitBreaking
 	{
 	  // see if we need to adjust spd[i] to make it possible
 	  //   to slow to spd[j] by the next seg.
-      TVec3d Delta = oPathPoints[P].CalcPt() - oPathPoints[Q].CalcPt();
+      glm::dvec3 Delta = oPathPoints[P].CalcPt() - oPathPoints[Q].CalcPt();
       double Dist = TUtils::VecLenXY(Delta);
       double K = (oPathPoints[P].Crv + oPathPoints[Q].Crv) * 0.5;
 	  if (fabs(K) > 0.0001)
@@ -655,7 +655,7 @@ void TLane::PropagateAcceleration
 	{
 	  // see if we need to adjust spd[Q] to make it possible
 	  //   to speed up to spd[P] from spd[Q].
-      TVec3d Delta = oPathPoints[P].CalcPt() - oPathPoints[Q].CalcPt();
+      glm::dvec3 Delta = oPathPoints[P].CalcPt() - oPathPoints[Q].CalcPt();
       double Dist = TUtils::VecLenXY(Delta);
 
 	  double K = (oPathPoints[P].Crv + oPathPoints[Q].Crv) * 0.5;

@@ -133,8 +133,8 @@ class TClothoidLane : public TLane
        const TPathPt* PP,
        TPathPt* P,
        const TPathPt* PN,
-       TVec3d VPP,
-       TVec3d VPN,
+       glm::dvec3 VPP,
+       glm::dvec3 VPN,
        double BumpMod);
 	void SmoothBetween
 	  (int Step,

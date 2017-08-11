@@ -325,10 +325,10 @@ void TClothoidLane::SmoothBetween(int Step, double BumpMod)
 	if (J >= Count)
 	  J = 0;
 
-	TVec3d P0 = L0->Point;
-	TVec3d P1 = L1->Point;
-	TVec3d P2 = L2->Point;
-	TVec3d P3 = L3->Point;
+	glm::dvec3 P0 = L0->Point;
+	glm::dvec3 P1 = L1->Point;
+	glm::dvec3 P2 = L2->Point;
+	glm::dvec3 P3 = L3->Point;
 
 	double Crv1 = TUtils::CalcCurvatureXY(P0, P1, P2);
 	double Crv2 = TUtils::CalcCurvatureXY(P1, P2, P3);
@@ -339,8 +339,8 @@ void TClothoidLane::SmoothBetween(int Step, double BumpMod)
 	for (int K = 1; K < Step; K++)
 	{
 	  TPathPt* P = &(oPathPoints[(I + K) % Count]);
-	  double Len1 = (P->CalcPt() - P1).len();
-	  double Len2 = (P->CalcPt() - P2).len();
+      double Len1 = (P->CalcPt() - P1).length();
+      double Len2 = (P->CalcPt() - P2).length();
       Adjust(Crv1, Len1, Crv2, Len2, L1, P, L2, P1, P2, BumpMod);
 	}
   }
@@ -455,20 +455,20 @@ void TClothoidLane::OptimiseLine
   int I = (Index + Count - Step) % Count;
   while (oPathPoints[I].FlyHeight > HLimit)
   {
-	LR.Add(oPathPoints[I].Point.GetXY());
+    LR.Add(oPathPoints[I].Point.xy());
 	I = (I + Count - Step) % Count;
   }
 
-  LR.Add(oPathPoints[I].Point.GetXY());
+  LR.Add(oPathPoints[I].Point.xy());
 
   I = Index;
   while (oPathPoints[I].FlyHeight > HLimit)
   {
- 	LR.Add(oPathPoints[I].Point.GetXY());
+    LR.Add(oPathPoints[I].Point.xy());
 	I = (I + Step) % Count;
   }
 
-  LR.Add(oPathPoints[I].Point.GetXY());
+  LR.Add(oPathPoints[I].Point.xy());
 
   LogSimplix.debug("OptimiseLine Index: %4d", Index);
 
@@ -476,7 +476,7 @@ void TClothoidLane::OptimiseLine
   LR.CalcLine(P, V);
 
   double T;
-  TUtils::LineCrossesLine(L3->Pt().GetXY(), L3->Norm().GetXY(), P, V, T);
+  TUtils::LineCrossesLine(L3->Pt().xy(), L3->Norm().xy(), P, V, T);
 
   SetOffset(0, T, L3, L2, L4);
 }
@@ -490,8 +490,8 @@ void TClothoidLane::Adjust
   const TPathPt* PP,
   TPathPt* P,
   const TPathPt* PN,
-  TVec3d VPP,
-  TVec3d VPN,
+  glm::dvec3 VPP,
+  glm::dvec3 VPN,
   double BumpMod)
 {
   double T = P->Offset;
@@ -530,13 +530,13 @@ void TClothoidLane::Optimise
   const TPathPt* L4, const TPathPt*	L5,	const TPathPt*	L6,
   double BumpMod)
 {
-  TVec3d P0 = L0->Point;
-  TVec3d P1 = L1->Point;
-  TVec3d P2 = L2->Point;
-  TVec3d P3 = L3->Point;
-  TVec3d P4 = L4->Point;
-  TVec3d P5 = L5->Point;
-  TVec3d P6 = L6->Point;
+  glm::dvec3 P0 = L0->Point;
+  glm::dvec3 P1 = L1->Point;
+  glm::dvec3 P2 = L2->Point;
+  glm::dvec3 P3 = L3->Point;
+  glm::dvec3 P4 = L4->Point;
+  glm::dvec3 P5 = L5->Point;
+  glm::dvec3 P6 = L6->Point;
 
   double Crv1 = TUtils::CalcCurvatureXY(P1, P2, P3);
   double Crv2 = TUtils::CalcCurvatureXY(P3, P4, P5);
@@ -672,8 +672,8 @@ bool TClothoidLane::SaveToFile(const char* Filename)
   for (int I = 0; I < oTrack->Count(); I++)
   {
 	TPathPt& P = oPathPoints[I];                 // Points in this lane
-	const TVec3d& C = P.Pt();
-	const TVec3d& N = P.Norm();
+	const glm::dvec3& C = P.Pt();
+	const glm::dvec3& N = P.Norm();
 	fprintf(F, "%d\t%g\t%g\t%g\t%g\t%g\t%g\t%g\t%g\t%g\t%g\t%g\t%g\n",
 	  I,C.x, C.y, C.z, N.x, N.y, N.z, P.WToL, P.Offset, P.WToR,
 	  P.Point.x, P.Point.y, P.AccSpd);

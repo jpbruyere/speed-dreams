@@ -92,18 +92,18 @@ const Seg& MyTrack::operator[]( int index ) const
  return m_pSegs[index];
 }
 
-void MyTrack::CalcPtAndNormal(const tTrackSeg* pSeg, double toStart, double& t, Vec3d& pt, Vec3d& norm ) const
+void MyTrack::CalcPtAndNormal(const tTrackSeg* pSeg, double toStart, double& t, glm::dvec3& pt, glm::dvec3& norm ) const
 {
   if( pSeg->type == TR_STR )
   {
-    Vec3d s = (Vec3d(pSeg->vertex[TR_SL]) + Vec3d(pSeg->vertex[TR_SR])) / 2;
-    Vec3d e = (Vec3d(pSeg->vertex[TR_EL]) + Vec3d(pSeg->vertex[TR_ER])) / 2;
+    glm::dvec3 s = (glm::dvec3(pSeg->vertex[TR_SL]) + glm::dvec3(pSeg->vertex[TR_SR])) / 2.0;
+    glm::dvec3 e = (glm::dvec3(pSeg->vertex[TR_EL]) + glm::dvec3(pSeg->vertex[TR_ER])) / 2.0;
     t = toStart / pSeg->length;
     pt = s + (e - s) * t;
 
     double hl = pSeg->vertex[TR_SL].z + (pSeg->vertex[TR_EL].z - pSeg->vertex[TR_SL].z) * t;
     double hr = pSeg->vertex[TR_SR].z + (pSeg->vertex[TR_ER].z - pSeg->vertex[TR_SR].z) * t;
-    norm = -Vec3d(pSeg->rgtSideNormal);
+    norm = -glm::dvec3(pSeg->rgtSideNormal);
     norm.z = (hr - hl) / pSeg->width;
   }
   else
@@ -117,7 +117,7 @@ void MyTrack::CalcPtAndNormal(const tTrackSeg* pSeg, double toStart, double& t, 
     t = toStart / pSeg->length;
     double hl = pSeg->vertex[TR_SL].z + (pSeg->vertex[TR_EL].z - pSeg->vertex[TR_SL].z) * t;
     double hr = pSeg->vertex[TR_SR].z + (pSeg->vertex[TR_ER].z - pSeg->vertex[TR_SR].z) * t;
-    pt = Vec3d(pSeg->center.x + c * r, pSeg->center.y + s * r, (hl + hr) / 2);
-    norm = Vec3d(c, s, (hr - hl) / pSeg->width);
+    pt = glm::dvec3(pSeg->center.x + c * r, pSeg->center.y + s * r, (hl + hr) / 2);
+    norm = glm::dvec3(c, s, (hr - hl) / pSeg->width);
   }
 }

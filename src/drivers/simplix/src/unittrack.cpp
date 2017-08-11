@@ -343,8 +343,8 @@ double TTrackDescription::ForwardAngle(double TrackPos) const
   const tTrackSeg* Seg = oSections[Index].Seg;
 
   double X;
-  TVec3d CenterPoint;
-  TVec3d Normale;
+  glm::dvec3 CenterPoint;
+  glm::dvec3 Normale;
   NormalizeDir(Seg, TrackPos - Seg->lgfromstart, X, CenterPoint, Normale);
 
   return TUtils::VecAngXY(Normale) + PI / 2;
@@ -693,11 +693,11 @@ glm::dvec2 TTrackDescription::Normale(double TrackPos) const
   const tTrackSeg* Seg = oSections[Index].Seg;
 
   double Tmp;
-  TVec3d CenterPoint;
-  TVec3d Normale;
+  glm::dvec3 CenterPoint;
+  glm::dvec3 Normale;
   NormalizeDir(Seg, TrackPos - Seg->lgfromstart, Tmp, CenterPoint, Normale);
 
-  return Normale.GetXY();
+  return Normale.xy();
 }
 //==========================================================================*
 
@@ -792,7 +792,7 @@ int TTrackDescription::NbrOfSections(double Len, bool PitSection)
 //--------------------------------------------------------------------------*
 void TTrackDescription::NormalizeDir(
   const tTrackSeg* Seg, double ToStart,
-  double& T, TVec3d& Point, TVec3d& Normale) const
+  double& T, glm::dvec3& Point, glm::dvec3& Normale) const
 {
   T = ToStart / Seg->length;
   double Zl = Seg->vertex[TR_SL].z +
@@ -802,10 +802,10 @@ void TTrackDescription::NormalizeDir(
 
   if(Seg->type == TR_STR)
   {
-    TVec3d Start = (TVec3d(Seg->vertex[TR_SL]) + TVec3d(Seg->vertex[TR_SR])) / 2;
-    TVec3d End = (TVec3d(Seg->vertex[TR_EL]) + TVec3d(Seg->vertex[TR_ER])) / 2;
+    glm::dvec3 Start = (glm::dvec3(Seg->vertex[TR_SL]) + glm::dvec3(Seg->vertex[TR_SR])) / 2.0;
+    glm::dvec3 End = (glm::dvec3(Seg->vertex[TR_EL]) + glm::dvec3(Seg->vertex[TR_ER])) / 2.0;
     Point = Start + (End - Start) * T;
-    Normale = -TVec3d(Seg->rgtSideNormal);
+    Normale = -glm::dvec3(Seg->rgtSideNormal);
     Normale.z = (Zr - Zl) / Seg->width;
   }
   else
@@ -817,8 +817,8 @@ void TTrackDescription::NormalizeDir(
 	double CosRad = VZ * Cos * Seg->radius;
 	double Sin = sin(Ang);
 	double SinRad = VZ * Sin * Seg->radius;
-	Point = TVec3d(Seg->center.x + CosRad, Seg->center.y + SinRad, (Zl + Zr) / 2);
-	Normale = TVec3d(Cos, Sin, (Zr - Zl) / Seg->width);
+	Point = glm::dvec3(Seg->center.x + CosRad, Seg->center.y + SinRad, (Zl + Zr) / 2);
+	Normale = glm::dvec3(Cos, Sin, (Zr - Zl) / Seg->width);
   }
 }
 //==========================================================================*

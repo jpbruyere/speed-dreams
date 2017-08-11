@@ -128,7 +128,7 @@ class TTrackDescription
 	  (double Len, bool PitSection);             // Estimate nbr of sections
 	void NormalizeDir                            // Calc Center and ToRight
 	  (const tTrackSeg* pSeg, double toStart,
-      double& T, TVec3d& Pt, TVec3d& Norm) const;
+      double& T, glm::dvec3& Pt, glm::dvec3& Norm) const;
 
   private:
 	int	oCount;                                  // Number of sections in track

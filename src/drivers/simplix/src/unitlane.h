@@ -69,8 +69,8 @@ class TLane
 	struct TPathPt
 	{
 		// Part 1: These data will be stored and reused from others as well
-		TVec3d Center;                           // Lane specific center
-		TVec3d Point;                            // Actual point (same as CalcPt())
+		glm::dvec3 Center;                           // Lane specific center
+		glm::dvec3 Point;                            // Actual point (same as CalcPt())
 		float Offset;                            // Offset from centre point
 		float Crv;	 		                     // Curvature in xy
 		float CrvZ;			                     // Curvature in z direction... e.g. bumps
@@ -94,9 +94,9 @@ class TLane
 		double Dist() const {return Sec->DistFromStart;}
 		double WtoL() const {return WToL;}
 		double WtoR() const {return WToR;}
-		const TVec3d& Pt() const {return Center;}
-		const TVec3d& Norm() const {return Sec->ToRight;}
-		TVec3d CalcPt() const {return Center + Sec->ToRight * Offset;}
+		const glm::dvec3& Pt() const {return Center;}
+		const glm::dvec3& Norm() const {return Sec->ToRight;}
+        glm::dvec3 CalcPt() const {return Center + Sec->ToRight * (double)Offset;}
 	};
 
   public:

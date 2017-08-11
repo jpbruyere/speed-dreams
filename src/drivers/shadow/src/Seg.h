@@ -35,8 +35,8 @@ public:
 	double		wr;			// width to right.
 	double		midOffs;	// offset to "mid" (nominal centre -- e.g. pitlane)
 	double		t;			// relative position of pt within trackSeg [0..1]
-	Vec3d		pt;			// centre point.
-	Vec3d		norm;		// normal left to right (unit vector in xy, slope in z).
+	glm::dvec3		pt;			// centre point.
+	glm::dvec3		norm;		// normal left to right (unit vector in xy, slope in z).
 };
 
 #endif

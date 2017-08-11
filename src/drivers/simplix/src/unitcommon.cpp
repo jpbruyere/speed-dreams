@@ -180,10 +180,10 @@ bool TUtils::LineCrossesLine(
 // Utility to find crossing point (Schnittpunkt zweier Geraden)
 //--------------------------------------------------------------------------*
 bool TUtils::LineCrossesLineXY(
-	const TVec3d&	p0,
-	const TVec3d&	v0,
-	const TVec3d&	p1,
-	const TVec3d&	v1,
+	const glm::dvec3&	p0,
+	const glm::dvec3&	v0,
+	const glm::dvec3&	p1,
+	const glm::dvec3&	v1,
 
 	double&			t )
 {
@@ -275,9 +275,9 @@ double TUtils::CalcCurvatureTan(
 // Utility to get curvature (Inverser Radius)
 //--------------------------------------------------------------------------*
 double TUtils::CalcCurvatureXY(
-	const TVec3d& p1,
-	const TVec3d& p2,
-	const TVec3d& p3 )
+	const glm::dvec3& p1,
+	const glm::dvec3& p2,
+	const glm::dvec3& p3 )
 {
 	return CalcCurvature(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
 }
@@ -287,13 +287,13 @@ double TUtils::CalcCurvatureXY(
 // Utility to get curvature in height profil (Inverser Radius i. Höhenprofil)
 //--------------------------------------------------------------------------*
 double TUtils::CalcCurvatureZ(
-	const TVec3d& p1,
-	const TVec3d& p2,
-	const TVec3d& p3 )
+	const glm::dvec3& p1,
+	const glm::dvec3& p2,
+	const glm::dvec3& p3 )
 {
 	double	x1 = 0;
-	double	x2 = (p1 - p2).len();
-	double	x3 = x2 + (p2 - p3).len();
+    double	x2 = (p1 - p2).length();
+    double	x3 = x2 + (p2 - p3).length();
 	return CalcCurvature(x1, p1.z, x2, p2.z, x3, p3.z);
 }
 //==========================================================================*
@@ -375,7 +375,7 @@ double TUtils::InterpCurvature( double k0, double k1, double t )
 //==========================================================================*
 // Utility to get direction angle
 //--------------------------------------------------------------------------*
-double TUtils::VecAngXY( const TVec3d& v )
+double TUtils::VecAngXY( const glm::dvec3& v )
 {
 	return atan2(v.y, v.x);
 }
@@ -384,7 +384,7 @@ double TUtils::VecAngXY( const TVec3d& v )
 //==========================================================================*
 // Utility to get length of 3D-Vector in 2D projection
 //--------------------------------------------------------------------------*
-double TUtils::VecLenXY( const TVec3d& v )
+double TUtils::VecLenXY( const glm::dvec3& v )
 {
 	return myhypot(v.y, v.x);
 }
@@ -393,9 +393,9 @@ double TUtils::VecLenXY( const TVec3d& v )
 //==========================================================================*
 // Utility to normalize a 3D vector in 2D projection
 //--------------------------------------------------------------------------*
-TVec3d TUtils::VecNormXY( const TVec3d& v )
+glm::dvec3 TUtils::VecNormXY( const glm::dvec3& v )
 {
-	return TVec3d(-v.y, v.x, v.z);
+	return glm::dvec3(-v.y, v.x, v.z);
 }
 //==========================================================================*
 
