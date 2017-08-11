@@ -5,7 +5,7 @@ SET(TRACK_HEADERS trackitf.h trackinc.h)
 
 ADD_INTERFACE_INCLUDEDIR()
 ADD_PLIB_INCLUDEDIR()
-ADD_SDLIB_INCLUDEDIR(math tgf portability robottools)
+ADD_SDLIB_INCLUDEDIR(tgf portability robottools)
 
 IF(WIN32)
     # DLL export stuff under Windows (to avoid .def file)

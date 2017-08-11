@@ -3,7 +3,7 @@ INCLUDE(../../../cmake/macros.cmake)
 #PROJECT(robottools)
 
 ADD_INTERFACE_INCLUDEDIR()
-ADD_SDLIB_INCLUDEDIR(portability tgf math tgfclient)
+ADD_SDLIB_INCLUDEDIR(portability tgf tgfclient)
 
 IF(OPTION_SDL2)
 	ADD_SDL2_INCLUDEDIR()

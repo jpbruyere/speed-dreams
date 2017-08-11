@@ -35,7 +35,7 @@ SET(SSGGRAPH_SOURCES grMoonpos.cpp
 SET(SSGGRAPH_OTHER_SOURCES )
 
 ADD_INTERFACE_INCLUDEDIR()
-ADD_SDLIB_INCLUDEDIR(portability math tgf tgfclient robottools)
+ADD_SDLIB_INCLUDEDIR(portability tgf tgfclient robottools)
 
 ADD_PLIB_INCLUDEDIR()
 

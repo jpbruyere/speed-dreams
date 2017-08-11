@@ -19,7 +19,7 @@ ENDIF(NOT OPTION_3RDPARTY_SOLID)
 ADD_PLIB_INCLUDEDIR()
 
 ADD_INTERFACE_INCLUDEDIR()
-ADD_SDLIB_INCLUDEDIR(math tgf robottools portability)
+ADD_SDLIB_INCLUDEDIR(tgf robottools portability)
 
 IF(WIN32)
     # DLL export stuff under Windows (to avoid .def file)

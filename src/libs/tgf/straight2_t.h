@@ -31,6 +31,8 @@
 
 #include <tgf.h>
 
+
+
 template<class T> class straight2t {
     public:
         // Constructors.
@@ -65,6 +67,9 @@ template<class T> inline T straight2t<T>::dist(const glm::tvec2<T> &s) const
     glm::tvec2<T> d3 = d1 - d*d1*d;
     return d3.length();
 }
+
+typedef straight2t<float> straight2f;
+typedef straight2t<double> straight2d;
 
 #endif //_STRAIGHT_2T_H_
 

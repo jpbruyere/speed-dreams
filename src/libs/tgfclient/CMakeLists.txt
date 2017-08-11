@@ -3,7 +3,7 @@ INCLUDE(../../../cmake/macros.cmake)
 #PROJECT(tgfclient)
 
 ADD_INTERFACE_INCLUDEDIR()
-ADD_SDLIB_INCLUDEDIR(tgf math portability)
+ADD_SDLIB_INCLUDEDIR(tgf portability)
 IF(OPTION_SDL2)
 	ADD_SDL2_INCLUDEDIR()
 ELSE(OPTION_SDL2)

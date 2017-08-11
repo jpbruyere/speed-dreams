@@ -20,7 +20,7 @@ ENDIF(NOT OPTION_USE_MACPORTS)
 SET(_OTHER_SOURCES ) 
 
 ADD_INTERFACE_INCLUDEDIR()
-ADD_SDLIB_INCLUDEDIR(portability math tgf tgfclient robottools)
+ADD_SDLIB_INCLUDEDIR(portability tgf tgfclient robottools)
 ADD_PLIB_INCLUDEDIR()
 
 IF(OPTION_SDL2)

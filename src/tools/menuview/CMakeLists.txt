@@ -8,7 +8,7 @@ SET(_SOURCES main.cpp previewmenu.cpp)
 SET(_HEADERS previewmenu.h)
 
 ADD_INTERFACE_INCLUDEDIR()
-ADD_SDLIB_INCLUDEDIR(robottools tgf tgfclient math portability)
+ADD_SDLIB_INCLUDEDIR(robottools tgf tgfclient portability)
 
 IF(OPTION_SDL2)
      ADD_SDL2_INCLUDEDIR()

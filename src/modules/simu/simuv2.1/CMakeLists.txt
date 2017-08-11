@@ -35,7 +35,7 @@ ENDIF(NOT OPTION_3RDPARTY_SOLID)
 ADD_PLIB_INCLUDEDIR()
 
 ADD_INTERFACE_INCLUDEDIR()
-ADD_SDLIB_INCLUDEDIR(math tgf robottools)
+ADD_SDLIB_INCLUDEDIR(tgf robottools)
 
 # Note: Headers needed for having them available in IDEs.
 SD_ADD_LIBRARY(simuv2.1 MODULE ${SIMU_SOURCES} ${SIMU_HEADERS})

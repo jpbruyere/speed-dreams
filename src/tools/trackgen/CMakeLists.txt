@@ -10,7 +10,7 @@ SET(_HEADERS ac3d.h easymesh.h elevation.h objects.h relief.h trackgen.h util.h)
 SET(_OTHER_SOURCES trackgen.xml)
 
 ADD_INTERFACE_INCLUDEDIR()
-ADD_SDLIB_INCLUDEDIR(robottools tgf tgfclient math portability)
+ADD_SDLIB_INCLUDEDIR(robottools tgf tgfclient portability)
 
 IF(OPTION_SDL2)
 	ADD_SDL2_INCLUDEDIR()

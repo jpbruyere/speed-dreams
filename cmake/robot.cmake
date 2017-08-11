@@ -122,7 +122,7 @@ MACRO(ROBOT_MODULE)
   PROJECT("robot_${RBM_NAME}")
 
   ADD_INTERFACE_INCLUDEDIR()
-  ADD_SDLIB_INCLUDEDIR(learning math portability robottools tgf)
+  ADD_SDLIB_INCLUDEDIR(learning portability robottools tgf)
   ADD_PLIB_INCLUDEDIR()
 
   # DLL export stuff under Windows (through a .def file or __declspec pragmas)
