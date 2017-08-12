@@ -110,17 +110,13 @@ CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/doxygenconfig.in.cmake
 
 # Fictive = no-output target, for having source files available in IDEs.
 SET(_SOURCES CHANGES.txt COPYING.txt INSTALL.txt README.txt)
-ADD_CUSTOM_TARGET(rootdoc SOURCES ${_SOURCES} data/data/credits.xml)
-
-# Install top tree data files
-SD_INSTALL_FILES(DATA "/"  FILES ${_SOURCES})
+ADD_CUSTOM_TARGET(rootdoc SOURCES ${_SOURCES})
 
 # Initialize user settings file management (before any of them is collected).
 SD_SETUP_SETTINGS_VERSION()
 
 # Sub-dirs to build ...					   
 ADD_SUBDIRECTORY(src)
-ADD_SUBDIRECTORY(data)
 ADD_SUBDIRECTORY(cmake)
 
 # After the user settings files have been collected,

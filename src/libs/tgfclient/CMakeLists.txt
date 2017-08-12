@@ -41,11 +41,6 @@ SET(_SOURCES ${_SOURCES}
             oggsoundstream.cpp oggsoundstream.h 
             openalmusicplayer.cpp openalmusicplayer.h )
 
-#disable developer warning
-IF (COMMAND CMAKE_POLICY)
-    CMAKE_POLICY(SET CMP0003 NEW)
-ENDIF(COMMAND CMAKE_POLICY)
-
 IF(WIN32)
     # DLL export stuff under Windows (to avoid .def file)
     ADD_DEFINITIONS(-DTGFCLIENT_DLL)

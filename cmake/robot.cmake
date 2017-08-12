@@ -142,11 +142,6 @@ MACRO(ROBOT_MODULE)
     ENDIF()
   ENDIF(WIN32)
 
-  # Disable developer warning
-  IF (COMMAND cmake_policy)
-    CMAKE_POLICY(SET CMP0003 NEW)
-  ENDIF(COMMAND cmake_policy)
-
   # Ignore some run-time libs to avoid MSVC link-time warnings and sometimes even crashes.
   IF(MSVC)
       SET(CMAKE_MODULE_LINKER_FLAGS_DEBUG "${CMAKE_MODULE_LINKER_FLAGS_DEBUG} /NODEFAULTLIB:msvcrt.lib")

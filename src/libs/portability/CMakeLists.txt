@@ -5,11 +5,6 @@ INCLUDE(../../../cmake/macros.cmake)
 SET(PORTABILITY_HEADERS portability.h)
 SET(PORTABILITY_SOURCES portability.cpp ${PORTABILITY_HEADERS})
 
-# Disable developer warning
-IF(COMMAND CMAKE_POLICY)
-	CMAKE_POLICY(SET CMP0003 NEW)
-ENDIF(COMMAND CMAKE_POLICY)
-
 IF(WIN32)
 	# DLL export stuff under Windows (to avoid .def file)
 	ADD_DEFINITIONS(-DPORTABILITY_DLL)

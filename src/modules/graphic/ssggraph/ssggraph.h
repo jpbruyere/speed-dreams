@@ -54,8 +54,8 @@ class SSGGRAPH_API SsgGraph : public GfModule, public IGraphicsEngine
  public:
 
 	// Implementation of IGraphicsEngine.
-	virtual bool loadTrack(struct Track* pTrack);
-	virtual bool loadCars(struct Situation *pSituation);
+    virtual bool loadTrack(struct Track* pTrack);
+    virtual bool loadCars(struct Situation *pSituation);
 	virtual bool setupView(int x, int y, int width, int height, void* pMenuScreen);
 	virtual void redrawView(struct Situation *pSituation);
 	//virtual void bendCar(int index, sgVec3 poc, sgVec3 force, int count = 0);

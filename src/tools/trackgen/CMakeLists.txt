@@ -20,11 +20,6 @@ ENDIF(OPTION_SDL2)
 
 ADD_PLIB_INCLUDEDIR()
 
-#disable developer warning
-IF (COMMAND CMAKE_POLICY)
-    CMAKE_POLICY(SET CMP0003 NEW)
-ENDIF(COMMAND CMAKE_POLICY)
-
 IF(MSVC)
     # Ignore some run-time libs to avoid link time warnings and sometimes even crashes.
     SET(CMAKE_EXE_LINKER_FLAGS_DEBUG 

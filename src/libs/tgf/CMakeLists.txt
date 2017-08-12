@@ -25,11 +25,6 @@ ELSE(WIN32)
     SET(TGF_SOURCES ${TGF_SOURCES} linuxspec.cpp)
 ENDIF(WIN32)
 
-# Disable developer warning
-IF(COMMAND CMAKE_POLICY)
-    CMAKE_POLICY(SET CMP0003 NEW)
-ENDIF(COMMAND CMAKE_POLICY)
-
 IF(WIN32)
     # DLL export stuff under Windows (to avoid .def file)
     ADD_DEFINITIONS(-DTGF_DLL)

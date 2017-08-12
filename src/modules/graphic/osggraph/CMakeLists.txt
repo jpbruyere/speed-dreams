@@ -86,7 +86,7 @@ ENDIF(OPTION_SDL2)
 INCLUDE_DIRECTORIES(Utils Sky Loader Scenery Render Viewer Car .)
 
 ADD_INTERFACE_INCLUDEDIR()
-ADD_SDLIB_INCLUDEDIR(portability math tgf tgfclient robottools)
+ADD_SDLIB_INCLUDEDIR(portability tgf tgfclient robottools)
 
 IF(OPTION_SDL2)
 	ADD_SDL2_INCLUDEDIR()

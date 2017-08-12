@@ -5,11 +5,6 @@ INCLUDE(../../../cmake/macros.cmake)
 SET(SD_NETWORK_SOURCES network.cpp server.cpp client.cpp robotxml.cpp pack.cpp)
 SET(SD_NETWORK_HEADERS network.h robotxml.h pack.h)
 
-#disable developer warning
-if (COMMAND cmake_policy)
-	cmake_policy(SET CMP0003 NEW)
-endif(COMMAND cmake_policy)
-
 # Note: Headers needed for having them available in IDEs.
 #TODO: Maje this a real (dynamically loadable) module, or move it to standard src/libs !
 SD_ADD_LIBRARY(networking SHARED ${SD_NETWORK_SOURCES} ${SD_NETWORK_HEADERS})
